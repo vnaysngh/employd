@@ -1,5 +1,81 @@
 [
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "experienceId",
+        "type": "uint256"
+      }
+    ],
+    "name": "AttestationApproved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "experienceId",
+        "type": "uint256"
+      }
+    ],
+    "name": "AttestationRejected",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "experienceId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "attester",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "attestationId",
+        "type": "uint64"
+      }
+    ],
+    "name": "AttestationSigned",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "experienceId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "employer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "employerEns",
+        "type": "string"
+      }
+    ],
+    "name": "EmployerChosen",
+    "type": "event"
+  },
+  {
     "inputs": [
       {
         "internalType": "string",
@@ -37,9 +113,14 @@
         "type": "string"
       },
       {
-        "internalType": "string",
-        "name": "_description",
-        "type": "string"
+        "internalType": "string[]",
+        "name": "_responsibilities",
+        "type": "string[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_skills",
+        "type": "string[]"
       }
     ],
     "name": "addExperience",
@@ -50,6 +131,37 @@
         "type": "uint256"
       }
     ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "experienceId",
+        "type": "uint256"
+      }
+    ],
+    "name": "approveAttestation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "experienceId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "employer",
+        "type": "address"
+      }
+    ],
+    "name": "chooseEmployerForAttestation",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -109,8 +221,18 @@
         "type": "string"
       },
       {
+        "internalType": "enum AttestationStatus",
+        "name": "attestationStatus",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
+        "name": "attestationFromAddress",
+        "type": "address"
+      },
+      {
         "internalType": "string",
-        "name": "description",
+        "name": "attestationFromEns",
         "type": "string"
       }
     ],
@@ -188,8 +310,28 @@
             "type": "string"
           },
           {
+            "internalType": "string[]",
+            "name": "responsibilities",
+            "type": "string[]"
+          },
+          {
+            "internalType": "string[]",
+            "name": "skills",
+            "type": "string[]"
+          },
+          {
+            "internalType": "enum AttestationStatus",
+            "name": "attestationStatus",
+            "type": "uint8"
+          },
+          {
+            "internalType": "address",
+            "name": "attestationFromAddress",
+            "type": "address"
+          },
+          {
             "internalType": "string",
-            "name": "description",
+            "name": "attestationFromEns",
             "type": "string"
           }
         ],
@@ -259,14 +401,112 @@
             "type": "string"
           },
           {
+            "internalType": "string[]",
+            "name": "responsibilities",
+            "type": "string[]"
+          },
+          {
+            "internalType": "string[]",
+            "name": "skills",
+            "type": "string[]"
+          },
+          {
+            "internalType": "enum AttestationStatus",
+            "name": "attestationStatus",
+            "type": "uint8"
+          },
+          {
+            "internalType": "address",
+            "name": "attestationFromAddress",
+            "type": "address"
+          },
+          {
             "internalType": "string",
-            "name": "description",
+            "name": "attestationFromEns",
             "type": "string"
           }
         ],
         "internalType": "struct Schilled.Experience[]",
         "name": "",
         "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "experienceId",
+        "type": "uint256"
+      }
+    ],
+    "name": "rejectAttestation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "schemaId",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "instance",
+        "type": "address"
+      }
+    ],
+    "name": "setSPInstance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "schemaId_",
+        "type": "uint64"
+      }
+    ],
+    "name": "setSchemaID",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "experienceId",
+        "type": "uint256"
+      }
+    ],
+    "name": "signAttestation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "spInstance",
+    "outputs": [
+      {
+        "internalType": "contract ISP",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",

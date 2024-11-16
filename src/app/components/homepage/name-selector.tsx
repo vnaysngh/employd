@@ -4,6 +4,23 @@ import { useDebounce } from "@/hooks/useDebouce";
 // import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
+import NameStone, {
+  AuthenticationError,
+  NetworkError,
+  TextRecords,
+  CoinTypes
+} from "namestone-sdk";
+
+// Initialize the NameStone instance
+const ns = new NameStone(process.env.NEXT_PUBLIC_NAMESTONE_APIKEY);
+
+// Define the coin types
+const coinTypes: CoinTypes = {
+  "2147483785": "0x534631Bcf33BDb069fB20A93d2fdb9e4D4dD42CF",
+  "2147492101": "0x534631Bcf33BDb069fB20A93d2fdb9e4D4dD42CF",
+  "2147525809": "0x534631Bcf33BDb069fB20A93d2fdb9e4D4dD42CF",
+  "2147483658": "0x534631Bcf33BDb069fB20A93d2fdb9e4D4dD42CF"
+};
 
 interface WorkerRequest {
   signature: {
@@ -57,10 +74,25 @@ const NameSelector = () => {
 
   useEffect(() => {
     const setSubnameOffchain = async () => {
-      const response = await createUser(subname);
-      console.log(response, "create user response");
-      if (response) {
-        // router.push("/dashboard/candidate-dashboard/resume");
+      if (!address || !subname) return;
+
+      try {
+        const response = await ns.setName({
+          name: subname,
+          domain: "vinaysingh.eth",
+          address,
+          coin_types: coinTypes
+        });
+
+        console.log("Name set successfully:", response);
+      } catch (error) {
+        if (error instanceof AuthenticationError) {
+          console.error("Authentication failed:", error.message);
+        } else if (error instanceof NetworkError) {
+          console.error("Network error:", error.message);
+        } else {
+          console.error("An unexpected error occurred:", error);
+        }
       }
     };
 

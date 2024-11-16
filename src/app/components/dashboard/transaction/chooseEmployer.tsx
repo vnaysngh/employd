@@ -12,41 +12,33 @@ import {
 import type { LifecycleStatus } from "@coinbase/onchainkit/transaction";
 import abi from "@/abis/experience.json";
 import { FormData } from "../candidate/dashboard-resume";
+import { useStateContext } from "@/context";
 
-export default function TransactionComponent(formData: FormData) {
-  const {
-    role,
-    company,
-    startMonth,
-    startYear,
-    endMonth,
-    endYear,
-    employmentType,
-    skills,
-    responsibilities
-  } = formData;
+export default function TransactionComponent({
+  employerAddress,
+  experienceId,
+  attestationStatus,
+  setShowSuccess
+}: {
+  employerAddress: string;
+  experienceId: number;
+  attestationStatus: number;
+  setShowSuccess: (item: boolean) => void;
+}) {
+  const { initializePushAPI } = useStateContext();
   const handleOnStatus = useCallback((status: LifecycleStatus) => {
-    console.log("LifecycleStatus", status);
+    if (status.statusName === "success") {
+      setShowSuccess(true);
+    }
   }, []);
 
   const clickContractAddress = "0xc91405FDC892BF969ac63A189E1DdC8dF811D80F";
-
   const contracts = [
     {
       address: clickContractAddress as any,
       abi: abi as any,
-      functionName: "addExperience",
-      args: [
-        role,
-        company,
-        startMonth.value,
-        startYear.value,
-        endMonth.value,
-        endYear.value,
-        employmentType.value,
-        responsibilities,
-        skills
-      ]
+      functionName: "chooseEmployerForAttestation",
+      args: [experienceId, employerAddress]
     }
   ];
 
@@ -57,7 +49,14 @@ export default function TransactionComponent(formData: FormData) {
       onStatus={handleOnStatus}
       className="cb-tx-button"
     >
-      <TransactionButton text="Save" />
+      <TransactionButton
+        text={
+          attestationStatus === 1
+            ? "Sent for Attestation. Awaiting Approval"
+            : "Request Attestation"
+        }
+        // disabled={attestationStatus === 1}
+      />
       <TransactionSponsor />
       <TransactionStatus>
         <TransactionStatusLabel />

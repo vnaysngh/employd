@@ -1,4 +1,4 @@
-import NiceSelect from "@/app/ui/nice-select";
+import NiceSelect from "@/ui/nice-select";
 import React from "react";
 
 const SelectEmploymentType = ({

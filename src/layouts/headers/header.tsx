@@ -5,6 +5,7 @@ import Link from "next/link";
 import useSticky from "@/hooks/use-sticky";
 import { useAccount } from "wagmi";
 import { WalletComponents } from "./component/wallet";
+import { nav_data } from "@/app/components/dashboard/candidate/aside";
 import { usePathname } from "next/navigation";
 import { Chango } from "next/font/google";
 const chango = Chango({ weight: "400", subsets: ["latin"] });
@@ -32,6 +33,26 @@ const Header = () => {
               {address && (
                 <div className="right-widget ms-auto order-lg-3">
                   <ul className="d-flex align-items-center style-none header-list ul-header-list">
+                    {nav_data.map((m) => {
+                      const isActive = pathname === m.link;
+                      return (
+                        <li key={m.id}>
+                          <Link
+                            href={m.link}
+                            className={`d-flex w-100 align-items-center ${
+                              isActive ? "active" : ""
+                            }`}
+                          >
+                            {/*  <Image
+                        src={isActive ? m.icon_active : m.icon}
+                        alt="icon"
+                        className="lazy-img"
+                      /> */}
+                            <span>{m.title}</span>
+                          </Link>
+                        </li>
+                      );
+                    })}
                     <li>
                       <WalletComponents />
                     </li>

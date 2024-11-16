@@ -1,16 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import video_bg from "@/assets/dashboard/images/video_post.jpg";
+import DashboardHeader from "./dashboard-header";
+import DashboardPortfolio from "./dashboard-portfolio";
 import SelectYear from "./select-year";
 import SelectEmploymentType from "./select-employment-type";
 import SelectMonth from "./select-month";
 import { useStateContext } from "@/context";
 import TransactionComponent from "../transaction";
-import { Dela_Gothic_One } from "next/font/google";
+import { Dela_Gothic_One, Lexend } from "next/font/google";
 export const DelaGothic = Dela_Gothic_One({
   weight: "400",
   subsets: ["latin"]
 });
-//My time at Mudrex as a Frontend Developer allowed me to spearhead the development and maintenance of iOS and Android applications tailored for crypto mutual funds, utilizing technologies such as React.js and React Native to create intuitive and user-friendly interfaces.
+const lexend = Lexend({ weight: "400", subsets: ["latin"] });
 
 type SelectInput = {
   value: string;
@@ -25,9 +28,9 @@ export type FormData = {
   endMonth: SelectInput;
   endYear: SelectInput;
   employmentType: SelectInput;
-  description: string;
+  responsibilities: string[];
+  skills: string[]; // New field to store selected skills
 };
-
 // props type
 type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,32 +46,63 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     endMonth: { value: "04", label: "April" },
     endYear: { value: "2024", label: "2024" },
     employmentType: { value: "full-time", label: "Full Time" },
-    description: ""
+    responsibilities: ["", ""], // Initialize as an empty array
+    skills: [] // Initialize the skills as an empty array
   });
+  const addResponsibility = (newResponsibility: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      responsibilities: [...prev.responsibilities, newResponsibility]
+    }));
+  };
 
-  const handleChange = (field: keyof FormData, value: string) => {
+  const removeResponsibility = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      responsibilities: prev.responsibilities.filter((_, i) => i !== index)
+    }));
+  };
+
+  const updateResponsibility = (index: number, updatedText: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      responsibilities: prev.responsibilities.map((resp, i) =>
+        i === index ? updatedText : resp
+      )
+    }));
+  };
+
+  const handleChange = (field: keyof FormData, value: string[] | string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const {
-    role,
-    company,
-    startMonth,
-    startYear,
-    endMonth,
-    endYear,
-    employmentType,
-    description
-  } = formData;
+  const handleSkillChange = (selectedSkills: string[]) => {
+    setFormData((prev) => ({
+      ...prev,
+      skills: selectedSkills
+    }));
+  };
+
+  const { role, company } = formData;
+  //0x4be3dDbE6EFF04a3a8202c02DFbb568a186306aE
+
+  console.log(formData);
 
   return (
     <>
-      <div className={`dashboard-body ${DelaGothic.className}`}>
+      <div className={`dashboard-body ${lexend.className}`}>
         <div className="position-relative">
+          {/* header start */}
+          {/* <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} /> */}
+          {/* header end */}
           <div className="d-flex justify-content-between align-items-center mb-20">
             <div>
-              <h2 className="main-title">My Resume</h2>
-              <label htmlFor="">Add Work Experience</label>
+              <h2 className={`main-title ${DelaGothic.className}`}>
+                My Resume
+              </h2>
+              <label className={`${DelaGothic.className}`} htmlFor="">
+                Add Work Experience
+              </label>
             </div>
             <TransactionComponent {...formData} />
           </div>
@@ -189,19 +223,46 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                     <div className="row">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Description*</label>
+                          <label htmlFor="">Skills</label>
                         </div>
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
-                          <textarea
-                            className="size-lg"
-                            placeholder="Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam et pulvinar tortor luctus."
-                            value={description}
-                            onChange={(e) =>
-                              handleChange("description", e.target.value)
-                            }
-                          ></textarea>
+                          <SkillSelection
+                            selectedSkills={formData.skills}
+                            onSkillChange={handleSkillChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-lg-2">
+                        <div className="dash-input-wrapper mb-30 md-mb-10">
+                          <label htmlFor="">
+                            Responsibilities and Achievements
+                          </label>
+                        </div>
+                      </div>
+                      <div className="col-lg-10">
+                        <div className="dash-input-wrapper mb-30">
+                          {formData.responsibilities.map(
+                            (responsibility, index) => (
+                              <div
+                                key={index}
+                                className="responsibility-item mb-10"
+                              >
+                                <input
+                                  type="text"
+                                  className="mb-10"
+                                  value={responsibility}
+                                  onChange={(e) =>
+                                    updateResponsibility(index, e.target.value)
+                                  }
+                                  placeholder={`Responsibility ${index + 1}`}
+                                />
+                              </div>
+                            )
+                          )}
                         </div>
                       </div>
                     </div>
@@ -213,6 +274,64 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
         </div>
       </div>
     </>
+  );
+};
+
+const SkillSelection = ({ selectedSkills, onSkillChange }: any) => {
+  const skillsOptions = [
+    "React",
+    "Node.js",
+    "JavaScript",
+    "TypeScript",
+    "CSS",
+    "HTML",
+    "Python",
+    "Django",
+    "Ruby"
+  ];
+
+  // Function to handle skill selection
+  const handleSkillSelect = (skill: any) => {
+    if (!selectedSkills.includes(skill)) {
+      onSkillChange([...selectedSkills, skill]);
+    }
+  };
+
+  // Function to handle skill removal
+  const handleSkillRemove = (skill: any) => {
+    onSkillChange(selectedSkills.filter((s: any) => s !== skill));
+  };
+
+  return (
+    <div>
+      <div className="skills-options">
+        {skillsOptions.map((skill) => (
+          <button
+            key={skill}
+            className={`skill-btn ${
+              selectedSkills.includes(skill) ? "selected" : ""
+            }`}
+            onClick={() => handleSkillSelect(skill)}
+          >
+            {skill}
+          </button>
+        ))}
+      </div>
+
+      <div className="selected-skills">
+        {selectedSkills.map((skill: any) => (
+          <span key={skill} className="skill-chip">
+            {skill}
+            <button
+              className="remove-skill"
+              onClick={() => handleSkillRemove(skill)}
+            >
+              &times;
+            </button>
+          </span>
+        ))}
+      </div>
+    </div>
   );
 };
 
