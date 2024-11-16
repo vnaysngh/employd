@@ -1764,3 +1764,63 @@
     align-self: flex-start;
   }
 }
+
+.skills-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.skill-btn {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.skill-btn.selected {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #0056b3;
+}
+
+.skill-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.selected-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-chip {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.remove-skill {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.remove-skill:hover {
+  color: #ff0000;
+}
+
+.react-search-autocomplete {
+  .wrapper {
+    border-radius: 0 !important;
+  }
+}
