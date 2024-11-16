@@ -1,8 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import Header from "@/layouts/headers/header";
+import React from "react";
+import Homepage from "./components/homepage";
 
 const Home: React.FC = () => {
-  return <></>;
+  return (
+    <>
+      <Header />
+      <Homepage />
+    </>
+  );
 };
 
 export default Home;

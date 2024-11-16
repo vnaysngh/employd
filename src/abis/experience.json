@@ -1,0 +1,288 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_role",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_company",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_startMonth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_startYear",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_endMonth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_endYear",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_employmentType",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_description",
+        "type": "string"
+      }
+    ],
+    "name": "addExperience",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "experiences",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "role",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "company",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "startMonth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "startYear",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "endMonth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "endYear",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "employmentType",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "experiencesIds",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getExperiences",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "role",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "company",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "startMonth",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "startYear",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "endMonth",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "endYear",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employmentType",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct Schilled.Experience[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
+    ],
+    "name": "getUserExperience",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "role",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "company",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "startMonth",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "startYear",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "endMonth",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "endYear",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employmentType",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct Schilled.Experience[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalExperieceCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
