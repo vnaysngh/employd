@@ -11,12 +11,11 @@ import abi from "@/abis/experience.json";
 
 const CandidateDashboardResumePage = () => {
   const params = useParams();
-  const { address } = useAccount();
 
   const experience: any = useReadContract({
     abi,
-    address: "0xc91405FDC892BF969ac63A189E1DdC8dF811D80F",
-    functionName: "experiences",
+    address: "0xC47B4f2A6C2788c05B559078a8e30a5697377a58",
+    functionName: "getExperienceById",
     args: [params?.id!],
     blockTag: "pending"
   });

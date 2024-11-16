@@ -29,7 +29,7 @@ export default function TransactionComponent(formData: FormData) {
     console.log("LifecycleStatus", status);
   }, []);
 
-  const clickContractAddress = "0xc91405FDC892BF969ac63A189E1DdC8dF811D80F";
+  const clickContractAddress = "0xC47B4f2A6C2788c05B559078a8e30a5697377a58";
 
   const contracts = [
     {
@@ -50,6 +50,13 @@ export default function TransactionComponent(formData: FormData) {
     }
   ];
 
+  const openTxOnBlockscout = (data: any) => {
+    window.open(
+      `https://base-sepolia.blockscout.com/tx/${data.transactionHash}`,
+      "_blank"
+    );
+  };
+
   return (
     <Transaction
       chainId={84532}
@@ -57,7 +64,13 @@ export default function TransactionComponent(formData: FormData) {
       onStatus={handleOnStatus}
       className="cb-tx-button"
     >
-      <TransactionButton text="Save" />
+      <TransactionButton
+        text="Save"
+        successOverride={{
+          text: "View Transaction",
+          onClick: openTxOnBlockscout
+        }}
+      />
       <TransactionSponsor />
       <TransactionStatus>
         <TransactionStatusLabel />

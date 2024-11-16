@@ -32,7 +32,7 @@ export default function TransactionComponent({
     }
   }, []);
 
-  const clickContractAddress = "0xc91405FDC892BF969ac63A189E1DdC8dF811D80F";
+  const clickContractAddress = "0xC47B4f2A6C2788c05B559078a8e30a5697377a58";
   const contracts = [
     {
       address: clickContractAddress as any,
@@ -41,6 +41,13 @@ export default function TransactionComponent({
       args: [experienceId, employerAddress]
     }
   ];
+
+  const openTxOnBlockscout = (data: any) => {
+    window.open(
+      `https://base-sepolia.blockscout.com/tx/${data.transactionHash}`,
+      "_blank"
+    );
+  };
 
   return (
     <Transaction
@@ -55,6 +62,10 @@ export default function TransactionComponent({
             ? "Sent for Attestation. Awaiting Approval"
             : "Request Attestation"
         }
+        successOverride={{
+          text: "View Transaction",
+          onClick: openTxOnBlockscout
+        }}
         // disabled={attestationStatus === 1}
       />
       <TransactionSponsor />

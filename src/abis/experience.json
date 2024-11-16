@@ -259,6 +259,97 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "experienceId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getExperienceById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "role",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "company",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "startMonth",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "startYear",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "endMonth",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "endYear",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employmentType",
+            "type": "string"
+          },
+          {
+            "internalType": "string[]",
+            "name": "responsibilities",
+            "type": "string[]"
+          },
+          {
+            "internalType": "string[]",
+            "name": "skills",
+            "type": "string[]"
+          },
+          {
+            "internalType": "enum AttestationStatus",
+            "name": "attestationStatus",
+            "type": "uint8"
+          },
+          {
+            "internalType": "address",
+            "name": "attestationFromAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "attestationFromEns",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct Schilled.Experience",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "getExperiences",
     "outputs": [

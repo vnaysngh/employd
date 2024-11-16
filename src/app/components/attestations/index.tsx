@@ -6,6 +6,7 @@ import { Dela_Gothic_One, Lexend } from "next/font/google";
 import SelectMonth from "../dashboard/candidate/select-month";
 import SelectEmploymentType from "../dashboard/candidate/select-employment-type";
 import SelectYear from "../dashboard/candidate/select-year";
+import TransactionComponent from "../dashboard/transaction/attest";
 export const DelaGothic = Dela_Gothic_One({
   weight: "400",
   subsets: ["latin"]
@@ -13,25 +14,20 @@ export const DelaGothic = Dela_Gothic_One({
 const lexend = Lexend({ weight: "400", subsets: ["latin"] });
 
 const Attestations = ({ experience }: { experience: any }) => {
-  const { initialize, signer, pushUser } = useStateContext();
-  console.log(experience);
   return (
     <>
       <div className={`dashboard-body ${lexend.className}`}>
         <div className="position-relative">
-          {/* header start */}
-          {/* <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} /> */}
-          {/* header end */}
-          <div className="d-flex justify-content-between align-items-center mb-20">
+          <div className="d-flex justify-content-between align-items-center mb-20 mt-30">
             <div>
               <h2 className={`main-title ${DelaGothic.className}`}>
                 Attestation Request
               </h2>
               <label className={`${DelaGothic.className}`} htmlFor="">
-                By {experience[1]}
+                By {experience.owner}
               </label>
             </div>
-            {/* <TransactionComponent {...formData} /> */}
+            <TransactionComponent experienceId={experience.id} />
           </div>
 
           <div className="card-box border-20">
@@ -55,7 +51,7 @@ const Attestations = ({ experience }: { experience: any }) => {
                           <input
                             type="text"
                             placeholder="Lead Product Designer"
-                            value={experience[2]}
+                            value={experience.role}
                           />
                         </div>
                       </div>
@@ -71,7 +67,7 @@ const Attestations = ({ experience }: { experience: any }) => {
                           <input
                             type="text"
                             placeholder="Amazon Inc"
-                            value={experience[3]}
+                            value={experience.company}
                           />
                         </div>
                       </div>
@@ -84,9 +80,9 @@ const Attestations = ({ experience }: { experience: any }) => {
                       </div>
                       <div className="col-lg-10">
                         <div className="row">
-                          <div className="row">
-                            {experience[4]}/{experience[5]} -{experience[6]}/
-                            {experience[7]}
+                          <div className="dash-input-wrapper mb-30 md-mb-10">
+                            {experience.startMonth}/{experience.startYear} -
+                            {experience.endMonth}/{experience.endYear}
                           </div>
                         </div>
                       </div>
@@ -99,7 +95,11 @@ const Attestations = ({ experience }: { experience: any }) => {
                       </div>
                       <div className="col-lg-10">
                         <div className="row">
-                          <div className="col-sm-6">{experience[8]}</div>
+                          <div className="col-sm-6">
+                            {experience.employmentType === "full-time"
+                              ? "Full Time"
+                              : "Part Time"}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -111,7 +111,7 @@ const Attestations = ({ experience }: { experience: any }) => {
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
-                          {experience[9]}
+                          {experience.skills.join(" , ")}
                         </div>
                       </div>
                     </div>
@@ -125,7 +125,7 @@ const Attestations = ({ experience }: { experience: any }) => {
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
-                          {experience[10]}
+                          {experience.responsibilities.join(" , ")}
                         </div>
                       </div>
                     </div>
