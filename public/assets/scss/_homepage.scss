@@ -1,0 +1,176 @@
+.wallet-connect-wrapper {
+  height: 100vh;
+  position: relative;
+  background-color: floralwhite;
+
+  .wallet-connect-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // min-width: 80%;
+
+    .connect-wallet-text {
+      font-size: 24px;
+      font-family: "Dela Gothic One";
+    }
+  }
+}
+
+.header-list {
+  button {
+    background: transparent;
+  }
+}
+
+.theme-main-menu {
+  padding: 15px 50px !important;
+  border-bottom: 5px solid #333;
+}
+
+.logo-name {
+  font-size: 36px;
+  color: #fff;
+  background: #3f5ee6;
+  padding: 0 10px;
+}
+
+/* Modal styling */
+.name-selector-wrapper {
+  padding: 20px 30px;
+  text-align: center;
+  font-family: "Varela Round";
+
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .subdomain-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c6dbff;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 24px;
+    color: #283360;
+  }
+
+  .subname-error {
+    color: rgb(255 126 126);
+    font-size: 16px;
+  }
+
+  .input-field {
+    background: none;
+    // border: 0;
+    border-bottom: 1px solid #3a3a3d;
+    color: #283360;
+    font-size: 24px;
+    outline: none;
+    text-align: center;
+    // width: 150px;
+    padding: 4px 8px;
+    transition: all 0.2s ease;
+  }
+
+  .input-field::placeholder {
+    color: #666;
+  }
+
+  .error-border {
+    border-color: rgb(255 126 126);
+  }
+
+  .input-field:focus {
+    background-color: rgba(0, 230, 167, 0.03);
+  }
+
+  .suffix {
+    margin-left: 4px;
+    font-weight: bold;
+  }
+
+  .refresh-icon {
+    margin-left: 8px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s ease;
+  }
+
+  .refresh-icon:hover {
+    color: #00e6a7;
+  }
+
+  .confirm-button {
+    background-color: #e6c840;
+    color: #1c1c1f;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+  }
+
+  .confirm-button:hover {
+    background-color: #e6c840;
+  }
+}
+
+.ock-font-family {
+  font-family: "Dela Gothic One" !important;
+}
+
+.cb-wallet-connect {
+  background-color: #fff;
+  border: 1px solid #333;
+  //   font-size: 24px;
+  box-shadow: 4px 4px 0px 0px #333;
+  border-radius: 0;
+
+  :hover {
+    color: #fff;
+  }
+}
+
+.ul-header-list {
+  li {
+    margin-right: 20px;
+    font-family: "Dela Gothic One";
+    color: $heading;
+  }
+}
+
+.cb-wallet-disconnect {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+
+  svg {
+    display: none;
+  }
+
+  .ock-font-family {
+    color: #df2b3e;
+    background: transparent;
+  }
+
+  .pl-6 {
+    padding-left: 0 !important;
+  }
+
+  .ock-font-family:hover {
+    background-color: transparent !important;
+  }
+}
