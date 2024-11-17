@@ -17,6 +17,30 @@
   }
 }
 
+.skills-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 60%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.skill-btn {
+  background-color: #fff;
+  border: 2px solid $heading;
+  box-shadow: 4px 4px 0px 0px $heading;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 0px !important;
+  transition: background-color 0.3s;
+}
+
+.skill-btn.selected {
+  background-color: #7180c5;
+  color: white;
+}
+
 .header-list {
   button {
     background: transparent;
@@ -172,5 +196,25 @@
 
   .ock-font-family:hover {
     background-color: transparent !important;
+  }
+}
+
+.low-balance-error {
+  background: coral;
+  padding: 10px;
+  color: antiquewhite;
+  font-family: "Lexend";
+  margin-bottom: 10px;
+
+  .fund-button {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    text-decoration: underline;
+    color: royalblue;
+
+    svg {
+      display: none;
+    }
   }
 }

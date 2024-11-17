@@ -1,15 +1,17 @@
 "use client";
 import { useStateContext } from "@/context";
 import { useDebounce } from "@/hooks/useDebouce";
+import { FundButton } from "@coinbase/onchainkit/fund";
 // import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useAccount, useSignMessage } from "wagmi";
+import { useAccount, useBalance, useSignMessage } from "wagmi";
 import NameStone, {
   AuthenticationError,
   NetworkError,
   TextRecords,
   CoinTypes
 } from "namestone-sdk";
+import SelectUserType from "./user-type";
 
 // Initialize the NameStone instance
 const ns = new NameStone(process.env.NEXT_PUBLIC_NAMESTONE_APIKEY);
@@ -44,12 +46,19 @@ type UserType = {
 };
 
 const NameSelector = () => {
-  const [subname, setSubname] = useState("lime-vulture");
+  const [subname, setSubname] = useState("poookie-popeye");
   const [userSubnames, setUserSubnames] = useState<string[]>([]);
   const { users, createUser } = useStateContext();
   const { data, signMessage } = useSignMessage();
   const { address } = useAccount();
+  const [userType, setUserType] = useState("");
   // const router = useRouter();
+
+  const ethBalance = useBalance({
+    address
+  });
+
+  console.log(ethBalance);
 
   const debouncedName = useDebounce(subname, 500);
 
@@ -108,6 +117,8 @@ const NameSelector = () => {
   };
 
   const isNameTaken = userSubnames.includes(debouncedName);
+  const isLowBalance =
+    Number(ethBalance.data?.formatted) < 0.01 && userType === "employer";
 
   return (
     <div className="name-selector-wrapper">
@@ -129,6 +140,36 @@ const NameSelector = () => {
           ↻
         </span>
       </div>
+      <div className="row mt-20">
+        <div className="skills-options d-flex justify-content-between">
+          <button
+            key={"user"}
+            className={`skill-btn ${userType === "user" ? "selected" : ""}`}
+            onClick={() => setUserType("user")}
+          >
+            User
+          </button>
+          <button
+            key={"employer"}
+            className={`skill-btn ${userType === "employer" ? "selected" : ""}`}
+            onClick={() => setUserType("employer")}
+          >
+            Employer
+          </button>
+        </div>
+      </div>
+      {isLowBalance && (
+        <>
+          <div className="low-balance-error mt-10">
+            A minimum wallet balance of 0.01 ETH is required to create an
+            employer account. This ensures fair use of our Web3 platform and
+            prevents potential exploitation, without charging any fees for
+            onboarding. You can buy crypto from here.
+            <FundButton className="fund-button" text="Fund Using Coinbase" />
+          </div>
+        </>
+      )}
+
       {isNameTaken && (
         <div className="subname-error mt-10">The ENS is not available</div>
       )}
@@ -136,7 +177,7 @@ const NameSelector = () => {
       <div className="d-flex justify-center">
         <button
           className="confirm-button"
-          disabled={isNameTaken}
+          disabled={isNameTaken || isLowBalance}
           onClick={(e) => {
             e.preventDefault();
             signMessage({ message: JSON.stringify(nameData) });
