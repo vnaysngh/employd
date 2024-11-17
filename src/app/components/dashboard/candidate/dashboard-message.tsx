@@ -4,37 +4,20 @@ import icon_5 from "@/assets/dashboard/images/icon/icon_26.svg";
 import icon_6 from "@/assets/dashboard/images/icon/icon_27.svg";
 import icon_8 from "@/assets/dashboard/images/icon/icon_29.svg";
 import icon_9 from "@/assets/dashboard/images/icon/icon_30.svg";
-import logo from "@/assets/dashboard/images/logo_02.png";
 import EmailReadPanel from "./email-read-panel";
 import { Dela_Gothic_One, Lexend } from "next/font/google";
 import { useStateContext } from "@/context";
-import { useAccount } from "wagmi";
 import formatTimestamp from "@/utils/formatTimeStamp";
 
 const lexend = Lexend({ weight: "400", subsets: ["latin"] });
 const lexend_700 = Lexend({ weight: "700", subsets: ["latin"] });
 const dela = Dela_Gothic_One({ weight: "400", subsets: ["latin"] });
 
-// props type
-type IProps = {
-  setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
-};
-const DashboardMessage = ({ setIsOpenSidebar }: IProps) => {
+const DashboardMessage = () => {
   const { signer, initializePushAPI, pushUser } = useStateContext();
-  const { address } = useAccount();
   const [chats, setChats] = useState<any[]>([]);
   const [messageRequests, setMessageRequests] = useState<any[]>([]);
   const [selectedChat, setSelectedChat] = useState<any>();
-  // useEffect(() => {
-  //   const acceptMsgRequests = async () => {
-  //     const bobAcceptAliceRequest = await pushUser.chat.accept();
-
-  //   };
-
-  //   if (selected.name && selected.address) {
-  //     acceptMsgRequests();
-  //   }
-  // }, [pushUser]);
 
   useEffect(() => {
     if (signer) {

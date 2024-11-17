@@ -9,7 +9,6 @@ const CandidateProfilePage = () => {
     <Wrapper>
       <div className="main-page-wrapper">
         <Header />
-
         <DashboardProfileArea />
       </div>
     </Wrapper>

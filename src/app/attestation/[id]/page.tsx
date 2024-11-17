@@ -1,12 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Wrapper from "@/layouts/wrapper";
-import CandidateAside from "@/app/components/dashboard/candidate/aside";
-import DashboardResume from "@/app/components/dashboard/candidate/dashboard-resume";
 import Header from "@/layouts/headers/header";
 import Attestations from "@/app/components/attestations";
-import { useParams, usePathname } from "next/navigation";
-import { useAccount, useReadContract } from "wagmi";
+import { useParams } from "next/navigation";
+import { useReadContract } from "wagmi";
 import abi from "@/abis/experience.json";
 
 const CandidateDashboardResumePage = () => {
@@ -16,7 +14,7 @@ const CandidateDashboardResumePage = () => {
     abi,
     address: "0x354305dc55B9351a6A99dAD46C278c6150026ed0",
     functionName: "getExperienceById",
-    args: [params?.id!],
+    args: [params.id!],
     blockTag: "pending"
   });
 

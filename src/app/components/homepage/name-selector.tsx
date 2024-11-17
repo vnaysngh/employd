@@ -2,16 +2,9 @@
 import { useStateContext } from "@/context";
 import { useDebounce } from "@/hooks/useDebouce";
 import { FundButton } from "@coinbase/onchainkit/fund";
-// import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useAccount, useBalance, useSignMessage } from "wagmi";
-import NameStone, {
-  AuthenticationError,
-  NetworkError,
-  TextRecords,
-  CoinTypes
-} from "namestone-sdk";
-import SelectUserType from "./user-type";
+import NameStone, { CoinTypes } from "namestone-sdk";
 
 // Initialize the NameStone instance
 const ns = new NameStone(process.env.NEXT_PUBLIC_NAMESTONE_APIKEY);

@@ -17,9 +17,6 @@ import { JsonRpcProvider } from "ethers";
 import Web3 from "web3";
 import { PushAPI } from "@pushprotocol/restapi";
 import { ENV } from "@pushprotocol/restapi/src/lib/constants";
-
-const windowObj: any = window;
-
 const StateContext = createContext<any>({});
 
 export const StateContextProvider = ({ children }: { children: any }) => {
@@ -31,9 +28,13 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   console.log(address, "address");
   useEffect(() => {
     const connectWallet = async () => {
-      if (typeof windowObj.ethereum !== undefined && address) {
+      if (
+        typeof window !== "undefined" &&
+        typeof window.ethereum !== undefined &&
+        address
+      ) {
         try {
-          const provider = new BrowserProvider(windowObj.ethereum);
+          const provider = new BrowserProvider(window.ethereum);
           const signer = new JsonRpcSigner(provider, address);
           // setProvider(provider);
           setSigner(signer);
