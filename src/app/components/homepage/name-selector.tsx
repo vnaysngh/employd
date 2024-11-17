@@ -83,25 +83,10 @@ const NameSelector = () => {
 
   useEffect(() => {
     const setSubnameOffchain = async () => {
-      if (!address || !subname) return;
-
-      try {
-        const response = await ns.setName({
-          name: subname,
-          domain: "vinaysingh.eth",
-          address,
-          coin_types: coinTypes
-        });
-
-        console.log("Name set successfully:", response);
-      } catch (error) {
-        if (error instanceof AuthenticationError) {
-          console.error("Authentication failed:", error.message);
-        } else if (error instanceof NetworkError) {
-          console.error("Network error:", error.message);
-        } else {
-          console.error("An unexpected error occurred:", error);
-        }
+      const response = await createUser(subname);
+      console.log(response, "create user response");
+      if (response) {
+        // router.push("/dashboard/candidate-dashboard/resume");
       }
     };
 
