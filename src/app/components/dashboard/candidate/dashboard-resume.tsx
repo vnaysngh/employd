@@ -36,8 +36,7 @@ type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
-  const { initialize, signer, pushUser } = useStateContext();
+const DashboardResume = () => {
   const [formData, setFormData] = useState<FormData>({
     role: "",
     company: "",
@@ -49,20 +48,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     responsibilities: ["", ""], // Initialize as an empty array
     skills: [] // Initialize the skills as an empty array
   });
-  const addResponsibility = (newResponsibility: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      responsibilities: [...prev.responsibilities, newResponsibility]
-    }));
-  };
-
-  const removeResponsibility = (index: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      responsibilities: prev.responsibilities.filter((_, i) => i !== index)
-    }));
-  };
-
   const updateResponsibility = (index: number, updatedText: string) => {
     setFormData((prev) => ({
       ...prev,

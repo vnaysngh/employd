@@ -14,7 +14,7 @@ const CandidateDashboardResumePage = () => {
 
   const experience: any = useReadContract({
     abi,
-    address: "0xC47B4f2A6C2788c05B559078a8e30a5697377a58",
+    address: "0x354305dc55B9351a6A99dAD46C278c6150026ed0",
     functionName: "getExperienceById",
     args: [params?.id!],
     blockTag: "pending"

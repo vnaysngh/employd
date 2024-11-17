@@ -14,7 +14,7 @@ export default function TransactionComponent({
 }: {
   experienceId: any;
 }) {
-  const clickContractAddress = "0xC47B4f2A6C2788c05B559078a8e30a5697377a58";
+  const clickContractAddress = "0x354305dc55B9351a6A99dAD46C278c6150026ed0";
   const contracts = [
     {
       address: clickContractAddress as any,
