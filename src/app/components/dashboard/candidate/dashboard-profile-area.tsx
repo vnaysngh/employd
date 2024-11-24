@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Dela_Gothic_One, Lexend } from "next/font/google";
 import abi from "@/abis/experience.json";
-import { useAccount, useReadContract } from "wagmi";
+import { useReadContract } from "wagmi";
 import { useStateContext } from "@/context";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import TransactionComponent from "../transaction/chooseEmployer";
+import { useActiveAccount } from "thirdweb/react";
 
 const lexend = Lexend({ weight: "400", subsets: ["latin"] });
 const dela = Dela_Gothic_One({ weight: "400", subsets: ["latin"] });
@@ -25,13 +26,13 @@ const ExperienceCard = () => {
     address: user.address
   }));
 
-  const { address } = useAccount();
+  const account = useActiveAccount();
 
   const userExperiences: any = useReadContract({
     abi,
     address: "0x354305dc55B9351a6A99dAD46C278c6150026ed0",
     functionName: "getUserExperience",
-    args: [address!],
+    args: [account?.address!],
     blockTag: "pending"
   });
 
@@ -172,12 +173,12 @@ const ExperienceCard = () => {
                   ✓ Attestation request sent successfully!
                 </div>
               )} */}
-              <TransactionComponent
+              {/* <TransactionComponent
                 employerAddress={selectedEmployer.address}
                 experienceId={experience.id}
                 attestationStatus={experience.attestationStatus}
                 setShowSuccess={setShowSuccess}
-              />
+              /> */}
             </div>
           ) : experience.attestationStatus === 3 ? (
             <div>Attestation Rejected</div>

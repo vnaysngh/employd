@@ -27,7 +27,7 @@ const Attestations = ({ experience }: { experience: any }) => {
                 By {experience.owner}
               </label>
             </div>
-            <TransactionComponent experienceId={experience.id} />
+            {/* <TransactionComponent experienceId={experience.id} /> */}
           </div>
 
           <div className="card-box border-20">

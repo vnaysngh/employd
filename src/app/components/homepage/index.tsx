@@ -1,19 +1,19 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { WalletComponents } from "@/layouts/headers/component/wallet";
-import { useAccount } from "wagmi";
 import NameSelector from "./name-selector";
+import { useActiveAccount } from "thirdweb/react";
 
 const Homepage = () => {
-  const { address } = useAccount();
+  const account = useActiveAccount();
 
   return (
     <div className="main-page-wrapper">
       <div className="wallet-connect-wrapper">
         <div className="wallet-connect-container">
-          {!address ? (
+          {!account?.address ? (
             <>
-              <div className="d-flex justify-center">
+              <div className="d-flex justify-center wallet-connect-button">
                 <WalletComponents />
               </div>
               <div className="mt-5 text-center connect-wallet-text">

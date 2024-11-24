@@ -10,9 +10,14 @@
     transform: translate(-50%, -50%);
     // min-width: 80%;
 
+    .wallet-connect-button {
+      button {
+        margin: 0 auto;
+      }
+    }
+
     .connect-wallet-text {
       font-size: 24px;
-      font-family: "Dela Gothic One";
     }
   }
 }
@@ -63,7 +68,6 @@
 .name-selector-wrapper {
   padding: 20px 30px;
   text-align: center;
-  font-family: "Varela Round";
 
   .title {
     font-size: 30px;
@@ -142,6 +146,7 @@
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
+    margin: auto;
     margin-top: 20px;
     transition: background-color 0.2s ease;
   }
@@ -149,10 +154,6 @@
   .confirm-button:hover {
     background-color: #e6c840;
   }
-}
-
-.ock-font-family {
-  font-family: "Dela Gothic One" !important;
 }
 
 .cb-wallet-connect {
@@ -170,7 +171,6 @@
 .ul-header-list {
   li {
     margin-right: 20px;
-    font-family: "Dela Gothic One";
     color: $heading;
   }
 }
@@ -215,4 +215,8 @@
       display: none;
     }
   }
+}
+
+.tw-connected-wallet__address {
+  color: $heading !important;
 }

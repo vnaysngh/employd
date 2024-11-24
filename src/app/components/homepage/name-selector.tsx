@@ -1,10 +1,9 @@
 "use client";
 import { useStateContext } from "@/context";
 import { useDebounce } from "@/hooks/useDebouce";
-import { FundButton } from "@coinbase/onchainkit/fund";
 import React, { useEffect, useState } from "react";
-import { useAccount, useBalance, useSignMessage } from "wagmi";
 import NameStone, { CoinTypes } from "namestone-sdk";
+import { useActiveAccount } from "thirdweb/react";
 
 // Initialize the NameStone instance
 const ns = new NameStone(process.env.NEXT_PUBLIC_NAMESTONE_APIKEY);
@@ -42,24 +41,18 @@ const NameSelector = () => {
   const [subname, setSubname] = useState("poookie-popeye");
   const [userSubnames, setUserSubnames] = useState<string[]>([]);
   const { users, createUser } = useStateContext();
-  const { data, signMessage } = useSignMessage();
-  const { address } = useAccount();
+  // const { address } = useAccount();
+  const account = useActiveAccount();
   const [userType, setUserType] = useState("");
   // const router = useRouter();
-
-  const ethBalance = useBalance({
-    address
-  });
-
-  console.log(ethBalance);
 
   const debouncedName = useDebounce(subname, 500);
 
   const nameData: WorkerRequest["signature"]["message"] = {
     name: `${debouncedName}.employd.eth`,
-    owner: address!,
+    owner: account?.address!,
     addresses: {
-      "2147492101": address
+      "2147492101": account?.address!
     }
   };
 
@@ -83,10 +76,11 @@ const NameSelector = () => {
       }
     };
 
-    if (data) {
+    /* if (data) {
       setSubnameOffchain();
-    }
-  }, [data]);
+    } */
+    // }, [data]);
+  }, []);
 
   const handleRandomize = () => {
     // Replace this with your random name generation logic
@@ -95,8 +89,6 @@ const NameSelector = () => {
   };
 
   const isNameTaken = userSubnames.includes(debouncedName);
-  const isLowBalance =
-    Number(ethBalance.data?.formatted) < 0.01 && userType === "employer";
 
   return (
     <div className="name-selector-wrapper">
@@ -118,7 +110,7 @@ const NameSelector = () => {
           ↻
         </span>
       </div>
-      <div className="row mt-20">
+      {/*  <div className="row mt-20">
         <div className="skills-options d-flex justify-content-between">
           <button
             key={"user"}
@@ -135,8 +127,8 @@ const NameSelector = () => {
             Employer
           </button>
         </div>
-      </div>
-      {isLowBalance && (
+      </div> */}
+      {/* {isLowBalance && (
         <>
           <div className="low-balance-error mt-10">
             A minimum wallet balance of 0.01 ETH is required to create an
@@ -146,7 +138,7 @@ const NameSelector = () => {
             <FundButton className="fund-button" text="Fund Using Coinbase" />
           </div>
         </>
-      )}
+      )} */}
 
       {isNameTaken && (
         <div className="subname-error mt-10">The ENS is not available</div>
@@ -155,10 +147,10 @@ const NameSelector = () => {
       <div className="d-flex justify-center">
         <button
           className="confirm-button"
-          disabled={isNameTaken || isLowBalance}
+          disabled={isNameTaken}
           onClick={(e) => {
             e.preventDefault();
-            signMessage({ message: JSON.stringify(nameData) });
+            // signMessage({ message: JSON.stringify(nameData) });
           }}
         >
           Confirm name →

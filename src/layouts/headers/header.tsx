@@ -1,18 +1,17 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-// import LoginModal from "@/app/components/common/popup/login-modal";
 import useSticky from "@/hooks/use-sticky";
-import { useAccount } from "wagmi";
 import { WalletComponents } from "./component/wallet";
 import { nav_data } from "@/app/components/dashboard/candidate/aside";
 import { usePathname } from "next/navigation";
 import { Chango } from "next/font/google";
+import { useActiveAccount } from "thirdweb/react";
 const chango = Chango({ weight: "400", subsets: ["latin"] });
 
 const Header = () => {
   const { sticky } = useSticky();
-  const { address } = useAccount();
+  const account = useActiveAccount();
   const pathname = usePathname();
 
   return (
@@ -30,7 +29,7 @@ const Header = () => {
                   <div className={`logo-name ${chango.className}`}>EMPLOYD</div>
                 </Link>
               </div>
-              {address && (
+              {account?.address && (
                 <div className="right-widget ms-auto order-lg-3">
                   <ul className="d-flex align-items-center style-none header-list ul-header-list">
                     {nav_data.map((m) => {

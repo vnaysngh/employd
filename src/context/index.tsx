@@ -1,32 +1,22 @@
 "use client";
 import { BrowserProvider, JsonRpcSigner } from "ethers";
-import type { Account, Chain, Client, Transport } from "viem";
-import { useContext, createContext, useMemo, useEffect, useState } from "react";
-import {
-  Config,
-  useAccount,
-  useConnectorClient,
-  useWriteContract
-} from "wagmi";
+import { useContext, createContext, useEffect, useState } from "react";
+import { Config, useConnectorClient, useWriteContract } from "wagmi";
 import abi from "@/abis/experience.json";
-import { getConfig } from "@/wallet/wagmi";
-import { baseSepolia } from "wagmi/chains";
 import supabase from "@/supabase";
 import { Signer } from "ethers";
-import { JsonRpcProvider } from "ethers";
-import Web3 from "web3";
 import { PushAPI } from "@pushprotocol/restapi";
 import { ENV } from "@pushprotocol/restapi/src/lib/constants";
+import { useActiveAccount } from "thirdweb/react";
 const StateContext = createContext<any>({});
 
 export const StateContextProvider = ({ children }: { children: any }) => {
-  const { writeContractAsync } = useWriteContract();
-  const { address, chainId } = useAccount();
+  // const { writeContractAsync } = useWriteContract();
+  const account = useActiveAccount();
   const [users, setUsers] = useState<any>([]);
   const [signer, setSigner] = useState<Signer>();
   const [pushUser, setPushUser] = useState<PushAPI>();
-  console.log(address, "address");
-  useEffect(() => {
+  /*   useEffect(() => {
     const connectWallet = async () => {
       if (
         typeof window !== "undefined" &&
@@ -47,11 +37,11 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     };
 
     if (address) connectWallet();
-  }, [address, chainId]);
+  }, [address, chainId]); */
 
   // useEffect(() => {
   const initializePushAPI = async () => {
-    if (!pushUser || !address) {
+    /* if (!pushUser || !address) {
       const user = await PushAPI.initialize(signer, {
         env: ENV.STAGING
       });
@@ -62,10 +52,10 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       } else {
         setPushUser(user);
       }
-    }
+    } */
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     const getUsers = async () => {
       const { data, error } = await supabase.from("employd-users").select("*");
       if (error) alert("error fetching users");
@@ -76,9 +66,9 @@ export const StateContextProvider = ({ children }: { children: any }) => {
 
     getUsers();
   }, []);
-
+ */
   const createUser = async (subname: string) => {
-    const { data, error } = await supabase
+    /*  const { data, error } = await supabase
       .from("employd-users")
       .insert([
         {
@@ -90,7 +80,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       .select();
 
     if (error) console.log(error);
-    else console.log(data);
+    else console.log(data); */
   };
 
   const addUserExperienceToResume = (data: any) => {};

@@ -1,13 +1,10 @@
-import "@coinbase/onchainkit/styles.css";
 import "./globals.scss";
-import { Providers } from "@/wallet/provider";
 import type { Metadata } from "next";
-// import { EB_Garamond } from "next/font/google";
-// import localFont from "next/font/local";
-import { Chango, Josefin_Sans, Varela_Round } from "next/font/google";
+import { ThirdwebProvider } from "thirdweb/react";
+import { Lexend, Varela_Round } from "next/font/google";
 import { StateContextProvider } from "@/context";
 
-const varelaRound = Varela_Round({ weight: "400", subsets: ["latin"] });
+const lexend = Lexend({ weight: "300", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "employd",
@@ -22,13 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        suppressHydrationWarning={true}
-        className={`${varelaRound.className}`}
-      >
-        <Providers>
+      <body suppressHydrationWarning={true} className={`${lexend.className}`}>
+        <ThirdwebProvider>
           <StateContextProvider>{children}</StateContextProvider>
-        </Providers>
+        </ThirdwebProvider>
       </body>
     </html>
   );

@@ -89,7 +89,7 @@ const DashboardResume = () => {
                 Add Work Experience
               </label>
             </div>
-            <TransactionComponent {...formData} />
+            {/* <TransactionComponent {...formData} /> */}
           </div>
 
           <div className="card-box border-20">
