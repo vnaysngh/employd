@@ -16,7 +16,7 @@ const Homepage = () => {
               <div className="d-flex justify-center wallet-connect-button">
                 <WalletComponents />
               </div>
-              <div className="mt-5 text-center connect-wallet-text">
+              <div className="mt-10 text-center connect-wallet-text">
                 Start by connecting your wallet
               </div>
             </>

@@ -5,10 +5,9 @@ export function WalletComponents() {
   return (
     <ConnectButton
       client={client}
-      signInButton={{
-        style: {
-          fontFamily: "Lexend"
-        }
+      detailsButton={{
+        className: "tw-connected-details",
+        style: { fontSize: "16px" }
       }}
     />
   );

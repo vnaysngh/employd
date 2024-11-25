@@ -153,7 +153,7 @@ const NameSelector = () => {
             // signMessage({ message: JSON.stringify(nameData) });
           }}
         >
-          Confirm name →
+          Confirm name
         </button>
       </div>
     </div>

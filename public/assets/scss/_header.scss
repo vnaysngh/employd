@@ -10,7 +10,7 @@
     top: 0;
     right: 0;
     left: 0;
-    background: transparent;
+    background: #121217 !important;
   }
   &.fixed {
     position: fixed;
@@ -141,7 +141,7 @@
   font-weight: 500;
   font-size: 1em;
   line-height: initial;
-  color: $text-dark;
+  color: $text-white;
   padding: 20px 0;
   margin: 0 18px;
   position: relative;
@@ -154,7 +154,7 @@
   text-transform: capitalize;
   line-height: 38px;
   padding: 0 15px;
-  color: $text-dark;
+  color: $text-white;
   font-size: 0.88em;
   background: transparent;
   position: relative;
