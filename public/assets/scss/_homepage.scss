@@ -27,18 +27,19 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  max-width: 60%;
+  // max-width: 60%;
   margin: auto;
   margin-bottom: 20px;
 }
 
 .skill-btn {
-  background-color: #fff;
+  background-color: #2a2c37;
   border: 2px solid $heading;
-  box-shadow: 4px 4px 0px 0px $heading;
+  box-shadow: 2px 2px 0px 0px #2a2c37;
   padding: 10px 20px;
   cursor: pointer;
-  border-radius: 0px !important;
+  color: $text-white;
+  border-radius: 8px;
   transition: background-color 0.3s;
 }
 
@@ -63,6 +64,7 @@
   font-size: 36px;
   color: #fff;
   padding: 0 10px;
+  background-color: $btn-color;
 }
 
 /* Modal styling */
@@ -141,7 +143,7 @@
   }
 
   .confirm-button {
-    background-color: #8570e4;
+    background-color: $btn-color;
     color: $text-white;
     border: none;
     padding: 10px 20px;

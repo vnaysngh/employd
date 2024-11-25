@@ -85,7 +85,11 @@ const DashboardResume = () => {
               <h2 className={`main-title ${DelaGothic.className}`}>
                 My Resume
               </h2>
-              <label className={`${DelaGothic.className}`} htmlFor="">
+              <label
+                className={`${DelaGothic.className}`}
+                htmlFor=""
+                style={{ color: "#ffffff80" }}
+              >
                 Add Work Experience
               </label>
             </div>
