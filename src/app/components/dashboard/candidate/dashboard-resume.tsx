@@ -13,7 +13,7 @@ export const DelaGothic = Dela_Gothic_One({
   weight: "400",
   subsets: ["latin"]
 });
-const lexend = Lexend({ weight: "400", subsets: ["latin"] });
+const lexend_500 = Lexend({ weight: "500", subsets: ["latin"] });
 
 type SelectInput = {
   value: string;
@@ -82,7 +82,7 @@ const DashboardResume = () => {
           {/* header end */}
           <div className="d-flex justify-content-between align-items-center mb-20">
             <div>
-              <h2 className={`main-title ${DelaGothic.className}`}>
+              <h2 className={`main-title ${lexend_500.className}`}>
                 My Resume
               </h2>
               <label htmlFor="" style={{ color: "#ffffff80" }}>

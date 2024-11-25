@@ -14,7 +14,7 @@ const Header = () => {
   const { sticky } = useSticky();
   const account = useActiveAccount();
   const pathname = usePathname();
-
+  console.log(account, "account");
   return (
     <>
       <header
@@ -30,32 +30,34 @@ const Header = () => {
                   <div className={`logo-name ${chango.className}`}>EMPLOYD</div>
                 </Link>
               </div>
-              {account?.address && (
-                <div className="right-widget ms-auto order-lg-3">
-                  <ul className="d-flex align-items-center style-none header-list ul-header-list">
-                    {/* {nav_data.map((m) => {
-                      const isActive = pathname === m.link;
-                      return (
-                        <li key={m.id}>
-                          <Link
-                            href={m.link}
-                            className={`${
-                              dela.className
-                            } d-flex w-100 align-items-center ${
-                              isActive ? "active" : ""
-                            }`}
-                          >
-                            <span>{m.title}</span>
-                          </Link>
-                        </li>
-                      );
-                    })} */}
-                    <li>
-                      <WalletComponents />
-                    </li>
-                  </ul>
-                </div>
-              )}
+              <div className="right-widget ms-auto order-lg-3">
+                <ul className="d-flex align-items-center style-none header-list ul-header-list">
+                  {account?.address && (
+                    <>
+                      {nav_data.map((m) => {
+                        const isActive = pathname === m.link;
+                        return (
+                          <li key={m.id}>
+                            <Link
+                              href={m.link}
+                              className={`${
+                                dela.className
+                              } d-flex w-100 align-items-center ${
+                                isActive ? "active" : ""
+                              }`}
+                            >
+                              <span>{m.title}</span>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </>
+                  )}
+                  <li>
+                    <WalletComponents />
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

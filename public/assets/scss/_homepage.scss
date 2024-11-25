@@ -35,7 +35,8 @@
 .skill-btn {
   background-color: #2a2c37;
   border: 2px solid $heading;
-  box-shadow: 2px 2px 0px 0px #2a2c37;
+  font-weight: 300;
+  // box-shadow: 2px 2px 0px 0px #2a2c37;
   padding: 5px 10px;
   cursor: pointer;
   color: $text-white;
@@ -57,11 +58,11 @@
 
 .theme-main-menu {
   padding: 15px 50px !important;
-  // border-bottom: 5px solid #333;
+  border-bottom: 2px solid #1d1e26;
 }
 
 .logo-name {
-  font-size: 36px;
+  font-size: 24px;
   color: #fff;
   padding: 0 10px;
   background-color: $btn-color;
@@ -176,7 +177,7 @@
 .ul-header-list {
   li {
     margin-right: 20px;
-    color: $heading;
+    color: $text-white;
   }
 }
 

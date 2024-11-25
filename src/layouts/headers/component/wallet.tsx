@@ -1,4 +1,4 @@
-import { client } from "@/config/thirdwebClients";
+import { client } from "@/config/thirdwebClient";
 import { ConnectButton } from "thirdweb/react";
 
 export function WalletComponents() {
@@ -9,6 +9,7 @@ export function WalletComponents() {
         className: "tw-connected-details",
         style: { fontSize: "16px" }
       }}
+      autoConnect
     />
   );
 }
