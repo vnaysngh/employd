@@ -75,7 +75,7 @@ const DashboardResume = () => {
 
   return (
     <>
-      <div className={`dashboard-body ${lexend.className}`}>
+      <div className={`dashboard-body`}>
         <div className="position-relative">
           {/* header start */}
           {/* <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} /> */}
@@ -85,11 +85,7 @@ const DashboardResume = () => {
               <h2 className={`main-title ${DelaGothic.className}`}>
                 My Resume
               </h2>
-              <label
-                className={`${DelaGothic.className}`}
-                htmlFor=""
-                style={{ color: "#ffffff80" }}
-              >
+              <label htmlFor="" style={{ color: "#ffffff80" }}>
                 Add Work Experience
               </label>
             </div>

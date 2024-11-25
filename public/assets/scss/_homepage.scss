@@ -36,7 +36,7 @@
   background-color: #2a2c37;
   border: 2px solid $heading;
   box-shadow: 2px 2px 0px 0px #2a2c37;
-  padding: 10px 20px;
+  padding: 5px 10px;
   cursor: pointer;
   color: $text-white;
   border-radius: 8px;
@@ -44,8 +44,8 @@
 }
 
 .skill-btn.selected {
-  background-color: #7180c5;
   color: white;
+  border: 1px solid $text-white;
 }
 
 .header-list {
