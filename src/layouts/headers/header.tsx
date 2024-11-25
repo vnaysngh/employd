@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 import { Chango, Dela_Gothic_One } from "next/font/google";
 import { useActiveAccount } from "thirdweb/react";
 const chango = Chango({ weight: "400", subsets: ["latin"] });
-const dela = Dela_Gothic_One({ weight: "400", subsets: ["latin"] });
 
 const Header = () => {
   const { sticky } = useSticky();
@@ -40,9 +39,7 @@ const Header = () => {
                           <li key={m.id}>
                             <Link
                               href={m.link}
-                              className={`${
-                                dela.className
-                              } d-flex w-100 align-items-center ${
+                              className={`d-flex w-100 align-items-center ${
                                 isActive ? "active" : ""
                               }`}
                             >
