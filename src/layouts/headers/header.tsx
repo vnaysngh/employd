@@ -31,7 +31,7 @@ const Header = () => {
               </div>
               <div className="right-widget ms-auto order-lg-3">
                 <ul className="d-flex align-items-center style-none header-list ul-header-list">
-                  {account?.address && (
+                  {/*    {account?.address && (
                     <>
                       {nav_data.map((m) => {
                         const isActive = pathname === m.link;
@@ -49,7 +49,7 @@ const Header = () => {
                         );
                       })}
                     </>
-                  )}
+                  )} */}
                   <li>
                     <WalletComponents />
                   </li>

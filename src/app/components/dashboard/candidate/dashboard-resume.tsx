@@ -7,7 +7,7 @@ import SelectYear from "./select-year";
 import SelectEmploymentType from "./select-employment-type";
 import SelectMonth from "./select-month";
 import { useStateContext } from "@/context";
-import TransactionComponent from "../transaction";
+// import TransactionComponent from "../transaction";
 import { Dela_Gothic_One, Lexend } from "next/font/google";
 export const DelaGothic = Dela_Gothic_One({
   weight: "400",
@@ -36,7 +36,7 @@ type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const DashboardResume = () => {
+const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [formData, setFormData] = useState<FormData>({
     role: "",
     company: "",
@@ -69,16 +69,13 @@ const DashboardResume = () => {
   };
 
   const { role, company } = formData;
-  //0x4be3dDbE6EFF04a3a8202c02DFbb568a186306aE
-
-  console.log(formData);
 
   return (
     <>
       <div className={`dashboard-body`}>
         <div className="position-relative">
           {/* header start */}
-          {/* <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} /> */}
+          <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
           {/* header end */}
           <div className="d-flex justify-content-between align-items-center mb-20">
             <div>

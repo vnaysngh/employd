@@ -4,10 +4,25 @@ import React from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
-import logo from "@/assets/images/logo/logo.png";
-import avatar from "@/assets/dashboard/images/avatar_01.jpg";
+import nav_1 from "@/assets/dashboard/images/icon/icon_1.svg";
+import nav_1_active from "@/assets/dashboard/images/icon/icon_1_active.svg";
+import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
+import nav_2_active from "@/assets/dashboard/images/icon/icon_2_active.svg";
+import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
+import nav_3_active from "@/assets/dashboard/images/icon/icon_3_active.svg";
 import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
 import nav_4_active from "@/assets/dashboard/images/icon/icon_4_active.svg";
+import nav_5 from "@/assets/dashboard/images/icon/icon_5.svg";
+import nav_5_active from "@/assets/dashboard/images/icon/icon_5_active.svg";
+import nav_6 from "@/assets/dashboard/images/icon/icon_6.svg";
+import nav_6_active from "@/assets/dashboard/images/icon/icon_6_active.svg";
+import nav_7 from "@/assets/dashboard/images/icon/icon_7.svg";
+import nav_7_active from "@/assets/dashboard/images/icon/icon_7_active.svg";
+import nav_8 from "@/assets/dashboard/images/icon/icon_8.svg";
+import { Chango } from "next/font/google";
+
+const chango = Chango({ weight: "400", subsets: ["latin"] });
+
 // nav data
 export const nav_data: {
   id: number;
@@ -18,15 +33,29 @@ export const nav_data: {
 }[] = [
   {
     id: 1,
-    icon: nav_4,
-    icon_active: nav_4_active,
+    icon: nav_1,
+    icon_active: nav_1,
+    link: "/dashboard/candidate-dashboard",
+    title: "Dashboard"
+  },
+  {
+    id: 2,
+    icon: nav_2,
+    icon_active: nav_2,
     link: "/dashboard/candidate-dashboard/profile",
-    title: "Profile"
+    title: "My Profile"
   },
   {
     id: 3,
+    icon: nav_3,
+    icon_active: nav_3,
+    link: "/dashboard/candidate-dashboard/resume",
+    title: "Resume"
+  },
+  {
+    id: 4,
     icon: nav_4,
-    icon_active: nav_4_active,
+    icon_active: nav_4,
     link: "/dashboard/candidate-dashboard/messages",
     title: "Inbox"
   }
@@ -44,8 +73,10 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
       <aside className={`dash-aside-navbar ${isOpenSidebar ? "show" : ""}`}>
         <div className="position-relative">
           <div className="logo text-md-center d-md-block d-flex align-items-center justify-content-between">
-            <Link href="/dashboard/candidate-dashboard">
-              <Image className="h-auto" src={logo} alt="logo" priority />
+            <Link href="/" className="d-flex align-items-center">
+              <div className={`logo-name ${chango.className} m-auto`}>
+                EMPLOYD
+              </div>
             </Link>
             <button
               onClick={() => setIsOpenSidebar(false)}
@@ -55,25 +86,16 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             </button>
           </div>
           <div className="user-data">
-            <div className="user-avatar online position-relative rounded-circle">
+            {/*             <div className="user-avatar online position-relative rounded-circle">
               <Image
                 src={avatar}
                 alt="avatar"
                 className="lazy-img"
                 style={{ height: "auto" }}
               />
-            </div>
+            </div> */}
             <div className="user-name-data">
-              <button
-                className="user-name dropdown-toggle"
-                type="button"
-                id="profile-dropdown"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="outside"
-                aria-expanded="false"
-              >
-                James Brower
-              </button>
+              <button className="user-name">vinaysingh.employd.eth</button>
             </div>
           </div>
           <nav className="dasboard-main-nav">
@@ -88,11 +110,13 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                         isActive ? "active" : ""
                       }`}
                     >
-                      {/*  <Image
+                      <Image
                         src={isActive ? m.icon_active : m.icon}
                         alt="icon"
+                        height={20}
+                        width={20}
                         className="lazy-img"
-                      /> */}
+                      />
                       <span>{m.title}</span>
                     </Link>
                   </li>
