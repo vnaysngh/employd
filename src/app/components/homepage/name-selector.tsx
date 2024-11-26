@@ -1,20 +1,19 @@
 "use client";
 import { useStateContext } from "@/context";
 import { useDebounce } from "@/hooks/useDebouce";
-import React, { useEffect, useState } from "react";
-import NameStone, { CoinTypes } from "namestone-sdk";
+import React, { useEffect, useMemo, useState } from "react";
+import NameStone, {
+  AuthenticationError,
+  NetworkError,
+  TextRecords,
+  CoinTypes
+} from "namestone-sdk";
 import { useActiveAccount } from "thirdweb/react";
+import { redirect, useRouter } from "next/navigation";
+import Loader from "@/app/loader";
 
 // Initialize the NameStone instance
 const ns = new NameStone(process.env.NEXT_PUBLIC_NAMESTONE_APIKEY);
-
-// Define the coin types
-const coinTypes: CoinTypes = {
-  "2147483785": "0x534631Bcf33BDb069fB20A93d2fdb9e4D4dD42CF",
-  "2147492101": "0x534631Bcf33BDb069fB20A93d2fdb9e4D4dD42CF",
-  "2147525809": "0x534631Bcf33BDb069fB20A93d2fdb9e4D4dD42CF",
-  "2147483658": "0x534631Bcf33BDb069fB20A93d2fdb9e4D4dD42CF"
-};
 
 interface WorkerRequest {
   signature: {
@@ -30,21 +29,30 @@ interface WorkerRequest {
 }
 
 type UserType = {
-  id: number;
-  created_at: string;
   address: string;
-  subname: string;
-  ens_name: string;
+  coin_types: object;
+  contenthash: any;
+  created_at: string;
+  domain: string;
+  name: string;
+  text_records: object;
 };
 
 const NameSelector = () => {
   const [subname, setSubname] = useState("poookie-popeye");
   const [userSubnames, setUserSubnames] = useState<string[]>([]);
-  const { users, createUser } = useStateContext();
-  // const { address } = useAccount();
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const { names } = useStateContext();
+  const router = useRouter();
   const account = useActiveAccount();
-  const [userType, setUserType] = useState("");
-  // const router = useRouter();
+  useEffect(() => {
+    if (names) {
+      const userSubnames = names.map((user: UserType) => user.name);
+      setUserSubnames(userSubnames);
+    }
+  }, [names]);
 
   const debouncedName = useDebounce(subname, 500);
 
@@ -56,31 +64,66 @@ const NameSelector = () => {
     }
   };
 
-  useEffect(() => {
-    if (users) {
-      const userSubnames = users.map((user: UserType) => user.subname);
-      setUserSubnames(userSubnames);
+  const handleSignMessage = async (e: any) => {
+    e.preventDefault();
+    if (!account) return;
+    try {
+      const response = await account.signMessage({
+        message: JSON.stringify(nameData)
+      });
+
+      if (response) setSubnameOffchain();
+
+      console.log(response, "response");
+    } catch (e) {
+      console.log(e);
     }
-  }, [users]);
+  };
 
   const handleInputChange = (e: any) => {
     setSubname(e.target.value);
   };
 
-  useEffect(() => {
-    const setSubnameOffchain = async () => {
-      const response = await createUser(subname);
-      console.log(response, "create user response");
-      if (response) {
-        // router.push("/dashboard/candidate-dashboard/resume");
-      }
+  const setSubnameOffchain = async () => {
+    // Define the coin types
+    const coinTypes: CoinTypes = {
+      "2147492101": account?.address!
     };
 
-    /* if (data) {
-      setSubnameOffchain();
-    } */
-    // }, [data]);
-  }, []);
+    const payload = {
+      name: debouncedName,
+      domain: "vinaysingh.eth",
+      address: account?.address,
+      coin_types: coinTypes
+    };
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/subnames", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        console.error("Error setting subname:", data.error);
+        setError(data.error);
+      } else {
+        console.log("Name set successfully:", data);
+        setSuccess(true);
+        setError(false);
+        setTimeout(() => {
+          router.push("/dashboard/candidate-dashboard/resume");
+        }, 3000);
+      }
+    } catch (error) {
+      console.error("Failed to call API:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleRandomize = () => {
     // Replace this with your random name generation logic
@@ -89,6 +132,8 @@ const NameSelector = () => {
   };
 
   const isNameTaken = userSubnames.includes(debouncedName);
+
+  console.log(isNameTaken, loading);
 
   return (
     <div className="name-selector-wrapper">
@@ -110,48 +155,29 @@ const NameSelector = () => {
           ↻
         </span>
       </div>
-      {/*  <div className="row mt-20">
-        <div className="skills-options d-flex justify-content-between">
-          <button
-            key={"user"}
-            className={`skill-btn ${userType === "user" ? "selected" : ""}`}
-            onClick={() => setUserType("user")}
-          >
-            User
-          </button>
-          <button
-            key={"employer"}
-            className={`skill-btn ${userType === "employer" ? "selected" : ""}`}
-            onClick={() => setUserType("employer")}
-          >
-            Employer
-          </button>
-        </div>
-      </div> */}
-      {/* {isLowBalance && (
-        <>
-          <div className="low-balance-error mt-10">
-            A minimum wallet balance of 0.01 ETH is required to create an
-            employer account. This ensures fair use of our Web3 platform and
-            prevents potential exploitation, without charging any fees for
-            onboarding. You can buy crypto from here.
-            <FundButton className="fund-button" text="Fund Using Coinbase" />
-          </div>
-        </>
-      )} */}
 
-      {isNameTaken && (
-        <div className="subname-error mt-10">The ENS is not available</div>
+      {(isNameTaken || error) && (
+        <div className="subname-error mt-10">
+          {" "}
+          {error ? error : "The username is not available"}
+        </div>
+      )}
+
+      {success && (
+        <div className="success-text mt-10">Username created successfully.</div>
+      )}
+
+      {loading && (
+        <div className="loading-text mt-10">
+          Creating unique name for you. Please wait...
+        </div>
       )}
 
       <div className="d-flex justify-center">
         <button
           className="confirm-button"
-          disabled={isNameTaken}
-          onClick={(e) => {
-            e.preventDefault();
-            // signMessage({ message: JSON.stringify(nameData) });
-          }}
+          disabled={isNameTaken || loading || success}
+          onClick={handleSignMessage}
         >
           Confirm name
         </button>

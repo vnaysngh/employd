@@ -13,7 +13,7 @@ const StateContext = createContext<any>({});
 export const StateContextProvider = ({ children }: { children: any }) => {
   // const { writeContractAsync } = useWriteContract();
   const account = useActiveAccount();
-  const [users, setUsers] = useState<any>([]);
+  const [names, setNames] = useState<any>([]);
   const [signer, setSigner] = useState<Signer>();
   const [pushUser, setPushUser] = useState<PushAPI>();
   /*   useEffect(() => {
@@ -55,21 +55,38 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     } */
   };
 
-  /*   useEffect(() => {
+  useEffect(() => {
     const getUsers = async () => {
-      const { data, error } = await supabase.from("employd-users").select("*");
-      if (error) alert("error fetching users");
-      setUsers(data);
-      // if (error) console.log(error);
-      // console.log(data);
+      const domain = "vinaysingh.eth";
+      const address = "0x0B95ec21579aee6Ef7b712976bD86689D68b5A08";
+
+      try {
+        const response = await fetch(
+          `/api/subnames?domain=${encodeURIComponent(
+            domain
+          )}&address=${encodeURIComponent(address)}`,
+          { method: "GET" }
+        );
+
+        const data = await response.json();
+        console.log(data);
+        if (!response.ok) {
+          console.error("Error fetching names:", data.error);
+        } else {
+          console.log("Fetched names:", data.names);
+          setNames(data.names);
+        }
+      } catch (error) {
+        console.error("Failed to fetch names:", error);
+      }
     };
 
     getUsers();
   }, []);
- */
+
   const createUser = async (subname: string) => {
     /*  const { data, error } = await supabase
-      .from("employd-users")
+      .from("employd-names")
       .insert([
         {
           subname,
@@ -88,7 +105,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   return (
     <StateContext.Provider
       value={{
-        users,
+        names,
         signer,
         pushUser,
         initializePushAPI,

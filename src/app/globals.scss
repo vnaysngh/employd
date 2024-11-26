@@ -2,3 +2,50 @@
 @import "react-toastify/dist/ReactToastify.css";
 @import "~slick-carousel/slick/slick.css";
 @import "/public/assets/scss/style.scss";
+
+/* Style for the container */
+// .progress-container {
+//   width: 300px; /* Adjust the width as needed */
+//   height: 20px;
+//   background-color: #f3f3f3; /* Light gray background */
+//   border-radius: 10px;
+//   overflow: hidden;
+//   border: 1px solid #ccc; /* Optional border */
+//   margin: 20px auto; /* Center horizontally */
+//   position: relative;
+// }
+
+// /* Style for the progress bar */
+// .progress-bar {
+//   height: 100%;
+//   width: 0%; /* Start at 0% */
+//   background: linear-gradient(
+//     90deg,
+//     #7a81ff,
+//     #ffd700,
+//     #ff4500
+//   ); /* Gradient color */
+//   animation: progress-animation 3s infinite; /* Animation effect */
+//   border-radius: 10px; /* Rounded corners */
+// }
+
+// /* Loading text */
+// .loading-text {
+//   text-align: center;
+//   font-size: 18px;
+//   font-weight: bold;
+//   margin-top: 10px;
+// }
+
+// /* Keyframe for progress animation */
+// @keyframes progress-animation {
+//   0% {
+//     width: 0%;
+//   }
+//   50% {
+//     width: 70%; /* Peak progress */
+//   }
+//   100% {
+//     width: 100%;
+//   }
+// }
