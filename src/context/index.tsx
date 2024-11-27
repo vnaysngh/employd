@@ -1,7 +1,7 @@
 "use client";
 import { BrowserProvider, JsonRpcSigner } from "ethers";
 import { useContext, createContext, useEffect, useState } from "react";
-import { Config, useConnectorClient, useWriteContract } from "wagmi";
+// import { Config, useConnectorClient, useWriteContract } from "wagmi";
 import abi from "@/abis/experience.json";
 import supabase from "@/supabase";
 import { Signer } from "ethers";

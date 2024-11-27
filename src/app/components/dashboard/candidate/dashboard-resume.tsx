@@ -8,11 +8,8 @@ import SelectEmploymentType from "./select-employment-type";
 import SelectMonth from "./select-month";
 import { useStateContext } from "@/context";
 // import TransactionComponent from "../transaction";
-import { Dela_Gothic_One, Lexend } from "next/font/google";
-export const DelaGothic = Dela_Gothic_One({
-  weight: "400",
-  subsets: ["latin"]
-});
+import { Lexend } from "next/font/google";
+
 const lexend_500 = Lexend({ weight: "500", subsets: ["latin"] });
 
 type SelectInput = {

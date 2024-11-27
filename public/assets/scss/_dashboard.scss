@@ -103,6 +103,7 @@
     }
     img {
       max-width: 20px;
+      max-height: 20px;
     }
   }
   .profile-complete-status {
@@ -193,6 +194,13 @@
   .card-box {
     // padding: 45px 60px 50px;
   }
+
+  .card-box-employer {
+    padding: 30px 25px 30px;
+    background-color: #181920;
+    border: 0;
+  }
+
   .main-title {
     font-size: 30px;
     color: $text-white;
@@ -207,7 +215,7 @@
   }
   .dash-title-three {
     font-size: 24px;
-    color: $color-five;
+    // color: $color-five;
     margin: 0 0 30px;
   }
   .dash-btn-one {
@@ -242,17 +250,19 @@
     }
   }
   .dash-btn-two {
-    font-weight: 500;
-    // color: #fff;
-    min-width: 125px;
-    text-align: center;
-    padding: 0 15px;
-    line-height: 45px;
-    border-radius: 50px;
-    // background: $color-one;
+    background-color: $btn-color;
+    color: $text-white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: auto;
+    transition: background-color 0.2s ease;
+
     &:hover {
-      background: $color-two;
-      color: $color-one;
+      background-color: #644adb;
     }
   }
   .dash-cancel-btn {
@@ -624,7 +634,7 @@
   .dash-input-wrapper {
     label {
       display: block;
-      font-size: 15px;
+      font-size: 14px;
       color: $text-white;
       margin-bottom: 10px;
     }
@@ -635,6 +645,7 @@
     }
     input {
       width: 100%;
+      font-size: 14px;
       height: 50px;
       letter-spacing: -0.16px;
       border: 1px solid hsla(0, 0%, 100%, 0.1);
@@ -650,6 +661,8 @@
       max-width: 100%;
       width: 100%;
       resize: none;
+      color: rgba(255, 255, 255, 0.8509803922);
+      background-color: #1d1e26;
       &.size-lg {
         height: 230px;
         max-height: 200px;
@@ -657,6 +670,7 @@
     }
     .nice-select {
       height: 50px;
+      font-size: 14px;
       line-height: 55px;
       letter-spacing: -0.16px;
       border: 1px solid hsla(0, 0%, 100%, 0.1);
@@ -828,7 +842,7 @@
     // background-color: #e6c73f;
     // border-radius: 15px;
     .accordion-item {
-      border: 1px solid $btn-color;
+      border: 0;
       background: #181920;
       // margin-bottom: 20px;
       // background-color: #e6c73f;
@@ -1782,6 +1796,7 @@
 .skill-chip {
   background-color: $btn-color;
   color: white;
+  font-size: 14px;
   padding: 5px 15px;
   border-radius: 20px;
   display: flex;

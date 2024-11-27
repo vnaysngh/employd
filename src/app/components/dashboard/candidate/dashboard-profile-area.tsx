@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Dela_Gothic_One, Lexend } from "next/font/google";
 import abi from "@/abis/experience.json";
-import { useReadContract } from "wagmi";
+// import { useReadContract } from "wagmi";
 import { useStateContext } from "@/context";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import TransactionComponent from "../transaction/chooseEmployer";
-import { useActiveAccount } from "thirdweb/react";
+// import TransactionComponent from "../transaction/chooseEmployer";
+import { baseSepolia } from "thirdweb/chains";
+import { useActiveAccount, useReadContract } from "thirdweb/react";
+import { getContract } from "thirdweb";
+import { client } from "@/config/thirdwebClient";
 
 const lexend = Lexend({ weight: "400", subsets: ["latin"] });
 const dela = Dela_Gothic_One({ weight: "400", subsets: ["latin"] });
@@ -14,27 +17,42 @@ const ExperienceCard = () => {
   const [isRequesting, setIsRequesting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [experience, setExperience] = useState<any>();
-  const { initializePushAPI, users, pushUser } = useStateContext();
+  const { initializePushAPI, names, pushUser } = useStateContext();
   const [selectedEmployer, setSelectedEmployer] = useState({
     name: "",
     id: "",
     address: ""
   });
-  const filteredUsers = users.map((user: any) => ({
+  /*  const filteredUsers = users.map((user: any) => ({
     id: user.id,
     name: `${user.subname}.${user.ens_name}`,
     address: user.address
-  }));
+  })); */
 
   const account = useActiveAccount();
-
+  /* 
   const userExperiences: any = useReadContract({
     abi,
     address: "0x354305dc55B9351a6A99dAD46C278c6150026ed0",
     functionName: "getUserExperience",
     args: [account?.address!],
     blockTag: "pending"
+  }); */
+
+  const contract = getContract({
+    client,
+    address: "0x354305dc55B9351a6A99dAD46C278c6150026ed0",
+    chain: baseSepolia
   });
+
+  const { data, isPending } = useReadContract({
+    contract,
+    method:
+      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string company, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string[] responsibilities, string[] skills, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
+    params: [account?.address!]
+  });
+
+  console.log(data, isPending);
 
   useEffect(() => {
     const handleAttestation = async () => {
@@ -82,111 +100,110 @@ const ExperienceCard = () => {
     );
   };
 
-  if (!userExperiences || !userExperiences?.data)
-    return <div>No Experiences Found</div>;
+  if (!data || !data) return <div>No Experiences Found</div>;
 
-  return userExperiences?.data.map((experience: any, index: number) => {
-    return (
-      <div className="experience-card" key={index}>
-        <div className="experience-header">
-          <div className="experience-title">
-            <h3>
-              {experience.company} - {experience.role}
-            </h3>
-            <span
-              className={`status-badge ${
-                experience.attested ? "attested" : "pending"
-              }`}
-            >
-              {!experience.attestationStatus
-                ? "Not Initiated"
-                : experience.attestationStatus === 1
-                ? "Pending Attestation"
-                : experience.attestationStatus === 2
-                ? "Attested ✓"
-                : "Rejected"}
-            </span>
-          </div>
-          <div className="employment-details">
-            <span className="employment-type">{experience.employmentType}</span>
-            <span className="date-duration">
-              <span className="duration">
-                {experience.startMonth}/{experience.startYear} -{" "}
-                {experience.endMonth}/{experience.endYear}
-              </span>
-            </span>
-            <span className="location">{experience.location}</span>
-          </div>
-        </div>
+  // return data?.map((experience: any, index: number) => {
+  //   return (
+  //     <div className="experience-card" key={index}>
+  //       <div className="experience-header">
+  //         <div className="experience-title">
+  //           <h3>
+  //             {experience.company} - {experience.role}
+  //           </h3>
+  //           <span
+  //             className={`status-badge ${
+  //               experience.attested ? "attested" : "pending"
+  //             }`}
+  //           >
+  //             {!experience.attestationStatus
+  //               ? "Not Initiated"
+  //               : experience.attestationStatus === 1
+  //               ? "Pending Attestation"
+  //               : experience.attestationStatus === 2
+  //               ? "Attested ✓"
+  //               : "Rejected"}
+  //           </span>
+  //         </div>
+  //         <div className="employment-details">
+  //           <span className="employment-type">{experience.employmentType}</span>
+  //           <span className="date-duration">
+  //             <span className="duration">
+  //               {experience.startMonth}/{experience.startYear} -{" "}
+  //               {experience.endMonth}/{experience.endYear}
+  //             </span>
+  //           </span>
+  //           <span className="location">{experience.location}</span>
+  //         </div>
+  //       </div>
 
-        <div className="experience-content">
-          <div className="skills-section">
-            <h4>Skills</h4>
-            <div className="skills-list">
-              {experience?.skills?.map((skill: any, index: number) => (
-                <span key={index} className="skill-tag">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
+  //       <div className="experience-content">
+  //         <div className="skills-section">
+  //           <h4>Skills</h4>
+  //           <div className="skills-list">
+  //             {experience?.skills?.map((skill: any, index: number) => (
+  //               <span key={index} className="skill-tag">
+  //                 {skill}
+  //               </span>
+  //             ))}
+  //           </div>
+  //         </div>
 
-          <div className="description-section">
-            <h4>Responsibilities & Achievements</h4>
-            <ul className="achievements-list">
-              {experience?.responsibilities?.map(
-                (achievement: any, index: number) => (
-                  <li key={index}>{achievement}</li>
-                )
-              )}
-            </ul>
-          </div>
+  //         <div className="description-section">
+  //           <h4>Responsibilities & Achievements</h4>
+  //           <ul className="achievements-list">
+  //             {experience?.responsibilities?.map(
+  //               (achievement: any, index: number) => (
+  //                 <li key={index}>{achievement}</li>
+  //               )
+  //             )}
+  //           </ul>
+  //         </div>
 
-          {experience.attestationStatus === 0 ||
-          experience.attestationStatus === 1 ? (
-            <div className="attestation-section">
-              <div className="select-wrapper">
-                <label htmlFor={`employer-${experience.id}`}>
-                  Select Employer for Attestation:
-                </label>
-                <ReactSearchAutocomplete
-                  items={filteredUsers}
-                  onSelect={(item) => handleOnSelect(item, experience)}
-                  autoFocus
-                  formatResult={formatResult}
-                  className="react-search-autocomplete"
-                />
-              </div>
+  //         {experience.attestationStatus === 0 ||
+  //         experience.attestationStatus === 1 ? (
+  //           <div className="attestation-section">
+  //             <div className="select-wrapper">
+  //               <label htmlFor={`employer-${experience.id}`}>
+  //                 Select Employer for Attestation:
+  //               </label>
+  //               <ReactSearchAutocomplete
+  //                 items={filteredUsers}
+  //                 onSelect={(item) => handleOnSelect(item, experience)}
+  //                 autoFocus
+  //                 formatResult={formatResult}
+  //                 className="react-search-autocomplete"
+  //               />
+  //             </div>
 
-              {/* <button
-                className={`request-button ${
-                  isRequesting ? "requesting" : ""
-                } ${!selectedEmployer ? "disabled" : ""}`}
-                onClick={handleAttestation}
-                disabled={!selectedEmployer.address || isRequesting}
-              >
-                {isRequesting ? "Sending Request..." : "Request Attestation"}
-              </button>
+  //             {/* <button
+  //               className={`request-button ${
+  //                 isRequesting ? "requesting" : ""
+  //               } ${!selectedEmployer ? "disabled" : ""}`}
+  //               onClick={handleAttestation}
+  //               disabled={!selectedEmployer.address || isRequesting}
+  //             >
+  //               {isRequesting ? "Sending Request..." : "Request Attestation"}
+  //             </button>
 
-              {showSuccess && (
-                <div className="success-message">
-                  ✓ Attestation request sent successfully!
-                </div>
-              )} */}
-              {/* <TransactionComponent
-                employerAddress={selectedEmployer.address}
-                experienceId={experience.id}
-                attestationStatus={experience.attestationStatus}
-                setShowSuccess={setShowSuccess}
-              /> */}
-            </div>
-          ) : experience.attestationStatus === 3 ? (
-            <div>Attestation Rejected</div>
-          ) : null}
-        </div>
-      </div>
-    );
-  });
+  //             {showSuccess && (
+  //               <div className="success-message">
+  //                 ✓ Attestation request sent successfully!
+  //               </div>
+  //             )} */}
+  //             {/* <TransactionComponent
+  //               employerAddress={selectedEmployer.address}
+  //               experienceId={experience.id}
+  //               attestationStatus={experience.attestationStatus}
+  //               setShowSuccess={setShowSuccess}
+  //             /> */}
+  //           </div>
+  //         ) : experience.attestationStatus === 3 ? (
+  //           <div>Attestation Rejected</div>
+  //         ) : null}
+  //       </div>
+  //     </div>
+  //   );
+  // });
 };
 
 const AttestationDashboard = () => {
