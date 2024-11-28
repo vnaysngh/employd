@@ -1,13 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { WalletComponents } from "@/layouts/headers/component/wallet";
 import NameSelector from "./name-selector";
 import { useActiveAccount } from "thirdweb/react";
 import Wrapper from "@/layouts/wrapper";
+import { useStateContext } from "@/context";
 
 const Homepage = () => {
   const account = useActiveAccount();
   const [loginType, setLoginType] = useState<string | null>(null);
+  const { createUser } = useStateContext();
+
+  useEffect(() => {
+    const onConnect = async () => {
+      setLoginType(loginType);
+      try {
+        const response = await createUser(loginType, account?.address!);
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (loginType && account?.address) onConnect();
+  }, [loginType, account]);
 
   return (
     <Wrapper>
@@ -35,15 +51,15 @@ const Homepage = () => {
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                   <WalletComponents
                     text="Talent"
-                    userType="talent-signup"
-                    connectModalText="Talent Sign up"
+                    userType="talent"
                     setLoginType={setLoginType}
+                    connectModalText="Talent Sign up"
                   />
                   <WalletComponents
                     text="Employer"
-                    userType="employer-signup"
-                    connectModalText="Employer Sign up"
+                    userType="employer"
                     setLoginType={setLoginType}
+                    connectModalText="Employer Sign up"
                   />
                 </ul>
               </div>

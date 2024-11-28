@@ -15,6 +15,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   // const { writeContractAsync } = useWriteContract();
   const account = useActiveAccount();
   const [names, setNames] = useState<UserType[]>([]);
+  const [users, setUsers] = useState<UserType[]>([]);
   const [signer, setSigner] = useState<Signer>();
   const [pushUser, setPushUser] = useState<PushAPI>();
   /*   useEffect(() => {
@@ -58,6 +59,29 @@ export const StateContextProvider = ({ children }: { children: any }) => {
 
   useEffect(() => {
     const getUsers = async () => {
+      try {
+        let { data, error } = await supabase
+          .from("employd-employers")
+          .select("*");
+
+        /*   let { data: employd } = await supabase
+          .from("employd-employers")
+          .select("*")
+          .eq("address", "0x0B95ec21579aee6Ef7b712976bD86689D68b5A08");
+
+        console.log(employd, "employd"); */
+
+        console.log(data, error);
+      } catch (error) {
+        console.error("Failed to fetch names:", error);
+      }
+    };
+
+    getUsers();
+  }, [account]);
+
+  useEffect(() => {
+    const getNames = async () => {
       const domain = "vinaysingh.eth";
       const address = "0x0B95ec21579aee6Ef7b712976bD86689D68b5A08";
 
@@ -82,23 +106,22 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       }
     };
 
-    getUsers();
+    getNames();
   }, [account]);
 
-  const createUser = async (subname: string) => {
-    /*  const { data, error } = await supabase
-      .from("employd-names")
+  const createUser = async (user_type: string, address: string) => {
+    const { data, error } = await supabase
+      .from("employd-employers")
       .insert([
         {
-          subname,
-          ens_name: "employd.eth",
+          user_type,
           address
         }
       ])
       .select();
 
     if (error) console.log(error);
-    else console.log(data); */
+    else return data;
   };
 
   const addUserExperienceToResume = (data: any) => {};

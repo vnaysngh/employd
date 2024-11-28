@@ -1,3 +1,4 @@
+"use client";
 import { client } from "@/config/thirdwebClient";
 import { ConnectButton } from "thirdweb/react";
 
