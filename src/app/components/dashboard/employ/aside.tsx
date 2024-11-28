@@ -12,15 +12,7 @@ import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
 import nav_3_active from "@/assets/dashboard/images/icon/icon_3_active.svg";
 import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
 import nav_4_active from "@/assets/dashboard/images/icon/icon_4_active.svg";
-import nav_5 from "@/assets/dashboard/images/icon/icon_39.svg";
-import nav_5_active from "@/assets/dashboard/images/icon/icon_39_active.svg";
-import nav_6 from "@/assets/dashboard/images/icon/icon_6.svg";
-import nav_6_active from "@/assets/dashboard/images/icon/icon_6_active.svg";
-import nav_7 from "@/assets/dashboard/images/icon/icon_7.svg";
-import nav_7_active from "@/assets/dashboard/images/icon/icon_7_active.svg";
-import nav_9 from "@/assets/dashboard/images/icon/icon_40.svg";
-import nav_9_active from "@/assets/dashboard/images/icon/icon_40_active.svg";
-import nav_8 from "@/assets/dashboard/images/icon/icon_8.svg";
+import nav_5 from "@/assets/dashboard/images/icon/icon_41.svg";
 import { Chango } from "next/font/google";
 
 const chango = Chango({ weight: "400", subsets: ["latin"] });
@@ -36,30 +28,37 @@ const nav_data: {
   {
     id: 1,
     icon: nav_1,
-    icon_active: nav_1_active,
+    icon_active: nav_1,
     link: "/dashboard/employ-dashboard",
     title: "Dashboard"
   },
   {
     id: 2,
     icon: nav_2,
-    icon_active: nav_2_active,
+    icon_active: nav_2,
     link: "/dashboard/employ-dashboard/profile",
     title: "My Profile"
   },
   {
     id: 3,
     icon: nav_3,
-    icon_active: nav_3_active,
+    icon_active: nav_3,
     link: "/dashboard/employ-dashboard/jobs",
     title: "My Jobs"
   },
   {
     id: 4,
     icon: nav_4,
-    icon_active: nav_4_active,
+    icon_active: nav_4,
     link: "/dashboard/employ-dashboard/messages",
     title: "Messages"
+  },
+  {
+    id: 5,
+    icon: nav_5,
+    icon_active: nav_5,
+    link: "/dashboard/employ-dashboard/invite",
+    title: "Invite"
   }
 ];
 // props type

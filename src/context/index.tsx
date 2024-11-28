@@ -8,12 +8,13 @@ import { Signer } from "ethers";
 import { PushAPI } from "@pushprotocol/restapi";
 import { ENV } from "@pushprotocol/restapi/src/lib/constants";
 import { useActiveAccount } from "thirdweb/react";
+import { UserType } from "@/app/components/homepage/name-selector";
 const StateContext = createContext<any>({});
 
 export const StateContextProvider = ({ children }: { children: any }) => {
   // const { writeContractAsync } = useWriteContract();
   const account = useActiveAccount();
-  const [names, setNames] = useState<any>([]);
+  const [names, setNames] = useState<UserType[]>([]);
   const [signer, setSigner] = useState<Signer>();
   const [pushUser, setPushUser] = useState<PushAPI>();
   /*   useEffect(() => {

@@ -12,20 +12,18 @@ const Homepage = () => {
     <Wrapper>
       <div className="main-page-wrapper">
         <div className="wallet-connect-wrapper">
-          <div className="wallet-connect-container">
-            {!account?.address ? (
-              <>
-                <div className="d-flex justify-center wallet-connect-button">
-                  <WalletComponents />
-                </div>
-                <div className="mt-10 text-center connect-wallet-text">
-                  Start by connecting your wallet
-                </div>
-              </>
-            ) : (
-              <NameSelector />
-            )}
-          </div>
+          {!account?.address ? (
+            <div className="wallet-connect-container">
+              <div className="d-flex justify-center wallet-connect-button">
+                <WalletComponents />
+              </div>
+              <div className="mt-10 text-center connect-wallet-text">
+                Start by connecting your wallet
+              </div>
+            </div>
+          ) : (
+            <NameSelector />
+          )}
         </div>
       </div>
     </Wrapper>

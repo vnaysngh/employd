@@ -28,7 +28,7 @@ interface WorkerRequest {
   };
 }
 
-type UserType = {
+export type UserType = {
   address: string;
   coin_types: object;
   contenthash: any;
@@ -41,6 +41,7 @@ type UserType = {
 const NameSelector = () => {
   const [subname, setSubname] = useState("poookie-popeye");
   const [userSubnames, setUserSubnames] = useState<string[]>([]);
+  const [isUserRegistered, setIsUserRegistered] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -53,6 +54,16 @@ const NameSelector = () => {
       setUserSubnames(userSubnames);
     }
   }, [names]);
+
+  useEffect(() => {
+    if (account?.address && names.length) {
+      const isPlatformUser = names.findIndex(
+        (name: UserType) =>
+          name.address.toLowerCase() === account.address.toLowerCase()
+      );
+      if (isPlatformUser > -1) setIsUserRegistered(true);
+    }
+  }, [account, names]);
 
   const debouncedName = useDebounce(subname, 500);
 
@@ -79,6 +90,8 @@ const NameSelector = () => {
       console.log(e);
     }
   };
+
+  console.log(names, account?.address, isUserRegistered);
 
   const handleInputChange = (e: any) => {
     setSubname(e.target.value);
@@ -133,55 +146,199 @@ const NameSelector = () => {
 
   const isNameTaken = userSubnames.includes(debouncedName);
 
-  console.log(isNameTaken, loading);
-
   return (
-    <div className="name-selector-wrapper">
-      {/* <ChatComponent /> */}
-      <h2 className="title">Choose a unique name</h2>
-      <p className="subtitle">
-        This is the identifier linked to your addresses.
-      </p>
-      <div className="subdomain-wrapper">
+    <div
+      className={`wallet-connect-container ${isUserRegistered ? "w-50" : ""}`}
+    >
+      {isUserRegistered ? (
+        <Stepper />
+      ) : (
+        <div className="name-selector-wrapper">
+          {/* <ChatComponent /> */}
+          <h2 className="title">Choose a unique name</h2>
+          <p className="subtitle">
+            This is the identifier linked to your addresses.
+          </p>
+          <div className="subdomain-wrapper">
+            <input
+              type="text"
+              className={`input-field text-center ${
+                isNameTaken && "error-border"
+              }`}
+              value={subname}
+              onChange={handleInputChange}
+              placeholder="Enter subname"
+            />
+            <span className="suffix">.employd.eth</span>
+            <span className="refresh-icon" onClick={handleRandomize}>
+              ↻
+            </span>
+          </div>
+
+          {(isNameTaken || error) && (
+            <div className="subname-error mt-10">
+              {" "}
+              {error ? error : "The username is not available"}
+            </div>
+          )}
+
+          {success && (
+            <div className="success-text mt-10">
+              Username created successfully.
+            </div>
+          )}
+
+          {loading && (
+            <div className="loading-text mt-10">
+              Creating unique name for you. Please wait...
+            </div>
+          )}
+
+          <div className="d-flex justify-center mt-20">
+            <button
+              className="confirm-button"
+              disabled={isNameTaken || loading || success}
+              onClick={handleSignMessage}
+            >
+              Confirm name
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Stepper = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState({
+    organizationName: "",
+    yourName: "",
+    aboutCompany: "",
+    invitePeople: ""
+  });
+
+  const handleNext = () => {
+    if (currentStep < 4) setCurrentStep(currentStep + 1);
+  };
+
+  const handleBack = () => {
+    if (currentStep > 1) setCurrentStep(currentStep - 1);
+  };
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log("Form Data Submitted:", formData);
+  };
+
+  const handleKeyDown = (e: any) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent default form submission
+      handleNext(); // Trigger the "Next" function
+    }
+  };
+
+  // This will be the name of your Slack workspace.
+  // Help your teammates to recognise and connect with you more easily.
+  // Work email should match company domain
+
+  const steps = [
+    {
+      label: "What’s the name of your company or team?",
+      description:
+        "This will be the identity that helps others recognize your organization.",
+      content: (
         <input
           type="text"
-          className={`input-field ${isNameTaken && "error-border"}`}
-          value={subname}
-          onChange={handleInputChange}
-          placeholder="Enter subname"
+          name="organizationName"
+          className="input-field"
+          value={formData.organizationName}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="What’s the name of your company or team?"
         />
-        <span className="suffix">.employd.eth</span>
-        <span className="refresh-icon" onClick={handleRandomize}>
-          ↻
-        </span>
+      )
+    },
+    {
+      label: "What’s your name?",
+      description:
+        "Help your teammates to recognise and connect with you more easily.",
+      content: (
+        <input
+          type="text"
+          name="yourName"
+          className="input-field"
+          value={formData.yourName}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Enter your name"
+        />
+      )
+    },
+    {
+      label: "One-line pitch",
+      description: "Describe what your company does in just a few words",
+      content: (
+        <input
+          name="aboutCompany"
+          className="input-field"
+          value={formData.aboutCompany}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Write about the company"
+        />
+      )
+    },
+    {
+      label: `Who else is on the ${formData.organizationName} team?`,
+      description: "Add colleagues by email",
+      content: (
+        <input
+          type="text"
+          className="input-field"
+          name="invitePeople"
+          value={formData.invitePeople}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Enter email addresses to invite"
+        />
+      )
+    }
+  ];
+
+  return (
+    <div className="stepper-container name-selector-wrapper">
+      <div className="stepper">
+        Step {currentStep} of {steps.length}
       </div>
-
-      {(isNameTaken || error) && (
-        <div className="subname-error mt-10">
-          {" "}
-          {error ? error : "The username is not available"}
+      <form onSubmit={handleSubmit} className="step-content">
+        <h2 className="title text-start">{steps[currentStep - 1].label}</h2>
+        <p className="subtitle text-start">
+          {steps[currentStep - 1].description}
+        </p>
+        <p className="subtitle">{steps[currentStep - 1].content}</p>
+        <div className="buttons">
+          {currentStep > 1 && (
+            <button type="button" onClick={handleBack} className="back-btn">
+              Back
+            </button>
+          )}
+          {currentStep < 4 ? (
+            <button type="button" className="next-btn" onClick={handleNext}>
+              Next
+            </button>
+          ) : (
+            <button type="submit" className="submit-btn">
+              Submit
+            </button>
+          )}
         </div>
-      )}
-
-      {success && (
-        <div className="success-text mt-10">Username created successfully.</div>
-      )}
-
-      {loading && (
-        <div className="loading-text mt-10">
-          Creating unique name for you. Please wait...
-        </div>
-      )}
-
-      <div className="d-flex justify-center">
-        <button
-          className="confirm-button"
-          disabled={isNameTaken || loading || success}
-          onClick={handleSignMessage}
-        >
-          Confirm name
-        </button>
-      </div>
+      </form>
     </div>
   );
 };

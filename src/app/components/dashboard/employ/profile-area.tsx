@@ -64,12 +64,12 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <input type="text" placeholder="700" />
               </div>
             </div>
-            <div className="col-md-6">
+            {/*  <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="">Phone Number*</label>
                 <input type="tel" placeholder="+880 01723801729" />
               </div>
-            </div>
+            </div> */}
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="">Category*</label>
