@@ -48,8 +48,7 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const response = await ns.getNames({
-      domain: "vinaysingh.eth",
-      address: "0x0B95ec21579aee6Ef7b712976bD86689D68b5A08"
+      domain: "vinaysingh.eth"
     });
 
     if (response.length > 0) {

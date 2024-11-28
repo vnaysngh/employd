@@ -318,3 +318,29 @@
     color: white;
   }
 }
+
+.dropdown {
+  .dropdown-toggle {
+    background: #2a2c37;
+    border: 0;
+    color: #fff;
+    font-size: 16px;
+    height: 50px;
+    width: 100%;
+    border-radius: 8px;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  ul {
+    background-color: #eeeef0;
+
+    button {
+      &:hover {
+        background-color: #eaeaea;
+      }
+    }
+  }
+}

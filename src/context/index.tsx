@@ -83,7 +83,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     };
 
     getUsers();
-  }, []);
+  }, [account]);
 
   const createUser = async (subname: string) => {
     /*  const { data, error } = await supabase

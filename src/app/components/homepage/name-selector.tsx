@@ -38,7 +38,7 @@ export type UserType = {
   text_records: object;
 };
 
-const NameSelector = () => {
+const NameSelector = ({ loginType }: { loginType: string | null }) => {
   const [subname, setSubname] = useState("poookie-popeye");
   const [userSubnames, setUserSubnames] = useState<string[]>([]);
   const [isUserRegistered, setIsUserRegistered] = useState(false);
@@ -91,8 +91,6 @@ const NameSelector = () => {
     }
   };
 
-  console.log(names, account?.address, isUserRegistered);
-
   const handleInputChange = (e: any) => {
     setSubname(e.target.value);
   };
@@ -127,9 +125,10 @@ const NameSelector = () => {
         console.log("Name set successfully:", data);
         setSuccess(true);
         setError(false);
-        setTimeout(() => {
+        setIsUserRegistered(true);
+        /*    setTimeout(() => {
           router.push("/dashboard/candidate-dashboard/resume");
-        }, 3000);
+        }, 3000); */
       }
     } catch (error) {
       console.error("Failed to call API:", error);
@@ -150,8 +149,8 @@ const NameSelector = () => {
     <div
       className={`wallet-connect-container ${isUserRegistered ? "w-50" : ""}`}
     >
-      {isUserRegistered ? (
-        <Stepper />
+      {isUserRegistered && loginType ? (
+        <Stepper loginType={loginType} />
       ) : (
         <div className="name-selector-wrapper">
           {/* <ChatComponent /> */}
@@ -177,7 +176,6 @@ const NameSelector = () => {
 
           {(isNameTaken || error) && (
             <div className="subname-error mt-10">
-              {" "}
               {error ? error : "The username is not available"}
             </div>
           )}
@@ -209,13 +207,17 @@ const NameSelector = () => {
   );
 };
 
-const Stepper = () => {
+const Stepper = ({ loginType }: { loginType: string }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     organizationName: "",
     yourName: "",
     aboutCompany: "",
     invitePeople: ""
+  });
+  const [formDataTalent, setFormDataTalent] = useState({
+    yourName: "",
+    role: ""
   });
 
   const handleNext = () => {
@@ -247,69 +249,105 @@ const Stepper = () => {
   // Help your teammates to recognise and connect with you more easily.
   // Work email should match company domain
 
-  const steps = [
-    {
-      label: "What’s the name of your company or team?",
-      description:
-        "This will be the identity that helps others recognize your organization.",
-      content: (
-        <input
-          type="text"
-          name="organizationName"
-          className="input-field"
-          value={formData.organizationName}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder="What’s the name of your company or team?"
-        />
-      )
-    },
-    {
-      label: "What’s your name?",
-      description:
-        "Help your teammates to recognise and connect with you more easily.",
-      content: (
-        <input
-          type="text"
-          name="yourName"
-          className="input-field"
-          value={formData.yourName}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Enter your name"
-        />
-      )
-    },
-    {
-      label: "One-line pitch",
-      description: "Describe what your company does in just a few words",
-      content: (
-        <input
-          name="aboutCompany"
-          className="input-field"
-          value={formData.aboutCompany}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Write about the company"
-        />
-      )
-    },
-    {
-      label: `Who else is on the ${formData.organizationName} team?`,
-      description: "Add colleagues by email",
-      content: (
-        <input
-          type="text"
-          className="input-field"
-          name="invitePeople"
-          value={formData.invitePeople}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Enter email addresses to invite"
-        />
-      )
-    }
-  ];
+  const steps =
+    loginType === "talent-signup"
+      ? [
+          {
+            label: "What’s your name?",
+            description:
+              "Help your teammates to recognise and connect with you more easily.",
+            content: (
+              <input
+                type="text"
+                name="yourName"
+                className="input-field"
+                value={formDataTalent.yourName}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Enter your name"
+              />
+            )
+          },
+          {
+            label: "Select your primary role",
+            description:
+              "Help your teammates to recognise and connect with you more easily.",
+            content: (
+              <input
+                type="text"
+                name="yourName"
+                className="input-field"
+                value={formDataTalent.role}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Enter your name"
+              />
+            )
+          }
+        ]
+      : [
+          {
+            label: "What’s the name of your company or team?",
+            description:
+              "This will be the identity that helps others recognize your organization.",
+            content: (
+              <input
+                type="text"
+                name="organizationName"
+                className="input-field"
+                value={formData.organizationName}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder="What’s the name of your company or team?"
+              />
+            )
+          },
+          {
+            label: "What’s your name?",
+            description:
+              "Help your teammates to recognise and connect with you more easily.",
+            content: (
+              <input
+                type="text"
+                name="yourName"
+                className="input-field"
+                value={formData.yourName}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Enter your name"
+              />
+            )
+          },
+          {
+            label: "One-line pitch",
+            description: "Describe what your company does in just a few words",
+            content: (
+              <input
+                name="aboutCompany"
+                className="input-field"
+                value={formData.aboutCompany}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Write about the company"
+              />
+            )
+          },
+          {
+            label: `Who else is on the ${formData.organizationName} team?`,
+            description: "Add colleagues by email",
+            content: (
+              <input
+                type="text"
+                className="input-field"
+                name="invitePeople"
+                value={formData.invitePeople}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Enter email addresses to invite"
+              />
+            )
+          }
+        ];
 
   return (
     <div className="stepper-container name-selector-wrapper">
