@@ -62,7 +62,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     const isUserRegistered = async () => {
       try {
         let { data, error } = await supabase
-          .from("employd-employers")
+          .from("users")
           .select("*")
           .eq("address", account?.address);
 
@@ -80,9 +80,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        let { data, error } = await supabase
-          .from("employd-employers")
-          .select("*");
+        let { data, error } = await supabase.from("users").select("*");
 
         if (data) setUsers(data);
         else console.log(error);
@@ -108,7 +106,6 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         );
 
         const data = await response.json();
-        console.log(data);
         if (!response.ok) {
           console.error("Error fetching names:", data.error);
         } else {
@@ -125,13 +122,44 @@ export const StateContextProvider = ({ children }: { children: any }) => {
 
   const createUser = async (user_type: string, address: string) => {
     const { data, error } = await supabase
-      .from("employd-employers")
+      .from("users")
       .insert([
         {
           user_type,
           address
         }
       ])
+      .select();
+
+    if (error) console.log(error);
+    else return data;
+  };
+
+  const updateUserDetails = async ({
+    body,
+    address
+  }: {
+    body: any;
+    address: string;
+  }) => {
+    const { data, error } = await supabase
+      .from("users")
+      .update({
+        ...body,
+        isOnboarded: true
+      })
+      .eq("address", address)
+      .select();
+
+    if (error) console.error(error);
+    else return data;
+  };
+
+  const createUserEns = async (ens_name: string, address: string) => {
+    const { data, error } = await supabase
+      .from("users")
+      .update({ ens_name })
+      .eq("address", address)
       .select();
 
     if (error) console.log(error);
@@ -149,6 +177,8 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         pushUser,
         initializePushAPI,
         createUser,
+        createUserEns,
+        updateUserDetails,
         addUserExperienceToResume
       }}
     >

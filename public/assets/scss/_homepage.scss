@@ -13,6 +13,9 @@
     .wallet-connect-button {
       button {
         margin: 0 auto;
+        background: transparent;
+        border: 1px solid $text-white;
+        color: $text-white;
       }
     }
 

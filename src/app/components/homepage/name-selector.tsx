@@ -39,21 +39,14 @@ export type UserType = {
   text_records: object;
 };
 
-const NameSelector = ({
-  loginType,
-  user
-}: {
-  loginType: string | null;
-  user: any;
-}) => {
+const NameSelector = ({ user }: { user: any }) => {
   const [subname, setSubname] = useState("poookie-popeye");
   const [userSubnames, setUserSubnames] = useState<string[]>([]);
-  const [isUserRegistered, setIsUserRegistered] = useState(false);
+  const [isUserEnsRegistered, setIsUserEnsRegistered] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const { names } = useStateContext();
-  const router = useRouter();
+  const { names, createUserEns } = useStateContext();
   const account = useActiveAccount();
   useEffect(() => {
     if (names) {
@@ -63,12 +56,8 @@ const NameSelector = ({
   }, [names]);
 
   useEffect(() => {
-    if (account?.address && names.length) {
-      const isEnsUser = names.findIndex(
-        (name: UserType) =>
-          name.address.toLowerCase() === account.address.toLowerCase()
-      );
-      if (isEnsUser > -1) setIsUserRegistered(true);
+    if (account?.address && user) {
+      setIsUserEnsRegistered(user.ens_name);
     }
   }, [account, names]);
 
@@ -90,7 +79,7 @@ const NameSelector = ({
         message: JSON.stringify(nameData)
       });
 
-      if (response) setSubnameOffchain();
+      if (response) setEnsName();
 
       console.log(response, "response");
     } catch (e) {
@@ -98,13 +87,11 @@ const NameSelector = ({
     }
   };
 
-  console.log(user, "registered user");
-
   const handleInputChange = (e: any) => {
     setSubname(e.target.value);
   };
 
-  const setSubnameOffchain = async () => {
+  const setEnsName = async () => {
     // Define the coin types
     const coinTypes: CoinTypes = {
       "2147492101": account?.address!
@@ -132,12 +119,13 @@ const NameSelector = ({
         setError(data.error);
       } else {
         console.log("Name set successfully:", data);
-        setSuccess(true);
-        setError(false);
-        setIsUserRegistered(true);
-        /*    setTimeout(() => {
-          router.push("/dashboard/candidate-dashboard/resume");
-        }, 3000); */
+        const response = await createUserEns(debouncedName, account?.address);
+        console.log(response);
+        if (response && response.length) {
+          setSuccess(true);
+          setError(false);
+          setIsUserEnsRegistered(true);
+        }
       }
     } catch (error) {
       console.error("Failed to call API:", error);
@@ -156,10 +144,12 @@ const NameSelector = ({
 
   return (
     <div
-      className={`wallet-connect-container ${isUserRegistered ? "w-50" : ""}`}
+      className={`wallet-connect-container ${
+        isUserEnsRegistered ? "w-50" : ""
+      }`}
     >
-      {isUserRegistered && loginType ? (
-        <Stepper loginType={loginType} />
+      {isUserEnsRegistered && user ? (
+        <Stepper userType={user.user_type} />
       ) : (
         <div className="name-selector-wrapper">
           {/* <ChatComponent /> */}
@@ -216,18 +206,22 @@ const NameSelector = ({
   );
 };
 
-const Stepper = ({ loginType }: { loginType: string }) => {
+const Stepper = ({ userType }: { userType: string }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [userUpdate, setUserUpdate] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    organizationName: "",
-    yourName: "",
-    aboutCompany: "",
-    invitePeople: ""
+    company_name: "",
+    name: "",
+    company_description: ""
   });
   const [formDataTalent, setFormDataTalent] = useState({
-    yourName: "",
+    name: "",
     role: ""
   });
+  const router = useRouter();
+  const account = useActiveAccount();
+  const { updateUserDetails } = useStateContext();
 
   const handleNext = () => {
     if (currentStep < 4) setCurrentStep(currentStep + 1);
@@ -239,27 +233,49 @@ const Stepper = ({ loginType }: { loginType: string }) => {
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (userType === "talent") {
+      setFormDataTalent({ ...formDataTalent, [name]: value });
+    } else setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
+
+    const body = userType === "talent" ? formDataTalent : formData;
+    const isEmpty = Object.values(body).every(
+      (value) => value !== "" && value !== null && value !== undefined
+    );
+    if (!isEmpty) {
+      console.error("fields are empty");
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await updateUserDetails({
+        body,
+        address: account?.address
+      });
+      if (response && response.length) {
+        userType === "talent"
+          ? router.push("/dashboard/candidate-dashboard/resume")
+          : router.push("/dashboard/employer-dashboard/profile");
+      }
+    } catch (error) {
+      console.error("Failed to call API:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleKeyDown = (e: any) => {
     if (e.key === "Enter") {
-      e.preventDefault(); // Prevent default form submission
-      handleNext(); // Trigger the "Next" function
+      e.preventDefault();
+      handleNext();
     }
   };
 
-  // This will be the name of your Slack workspace.
-  // Help your teammates to recognise and connect with you more easily.
-  // Work email should match company domain
-
   const steps =
-    loginType === "talent-signup"
+    userType === "talent"
       ? [
           {
             label: "What’s your name?",
@@ -268,9 +284,9 @@ const Stepper = ({ loginType }: { loginType: string }) => {
             content: (
               <input
                 type="text"
-                name="yourName"
+                name="name"
                 className="input-field"
-                value={formDataTalent.yourName}
+                value={formDataTalent.name}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder="Enter your name"
@@ -284,7 +300,7 @@ const Stepper = ({ loginType }: { loginType: string }) => {
             content: (
               <input
                 type="text"
-                name="yourName"
+                name="role"
                 className="input-field"
                 value={formDataTalent.role}
                 onChange={handleChange}
@@ -302,9 +318,9 @@ const Stepper = ({ loginType }: { loginType: string }) => {
             content: (
               <input
                 type="text"
-                name="organizationName"
+                name="company_name"
                 className="input-field"
-                value={formData.organizationName}
+                value={formData.company_name}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder="What’s the name of your company or team?"
@@ -318,9 +334,9 @@ const Stepper = ({ loginType }: { loginType: string }) => {
             content: (
               <input
                 type="text"
-                name="yourName"
+                name="name"
                 className="input-field"
-                value={formData.yourName}
+                value={formData.name}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder="Enter your name"
@@ -332,17 +348,17 @@ const Stepper = ({ loginType }: { loginType: string }) => {
             description: "Describe what your company does in just a few words",
             content: (
               <input
-                name="aboutCompany"
+                name="company_description"
                 className="input-field"
-                value={formData.aboutCompany}
+                value={formData.company_description}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder="Write about the company"
               />
             )
-          },
-          {
-            label: `Who else is on the ${formData.organizationName} team?`,
+          }
+          /*           {
+            label: `Who else is on the ${formData.company_name} team?`,
             description: "Add colleagues by email",
             content: (
               <input
@@ -355,7 +371,7 @@ const Stepper = ({ loginType }: { loginType: string }) => {
                 placeholder="Enter email addresses to invite"
               />
             )
-          }
+          } */
         ];
 
   return (
@@ -375,7 +391,7 @@ const Stepper = ({ loginType }: { loginType: string }) => {
               Back
             </button>
           )}
-          {currentStep < 4 ? (
+          {currentStep < steps.length ? (
             <button type="button" className="next-btn" onClick={handleNext}>
               Next
             </button>
@@ -386,6 +402,14 @@ const Stepper = ({ loginType }: { loginType: string }) => {
           )}
         </div>
       </form>
+      {loading && (
+        <div className="loading-text mt-10">
+          Updating details. Please wait...
+        </div>
+      )}
+      {userUpdate && (
+        <div className="success-text mt-10">User details updated.</div>
+      )}
     </div>
   );
 };

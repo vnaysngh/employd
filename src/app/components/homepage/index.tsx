@@ -5,9 +5,12 @@ import NameSelector from "./name-selector";
 import { useActiveAccount } from "thirdweb/react";
 import Wrapper from "@/layouts/wrapper";
 import { useStateContext } from "@/context";
+import { useRouter } from "next/navigation";
 
 const Homepage = () => {
   const account = useActiveAccount();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [loginType, setLoginType] = useState<string | null>(null);
   const [user, setUser] = useState<any[] | null>(null);
   const { createUser, isUserRegistered } = useStateContext();
@@ -31,12 +34,24 @@ const Homepage = () => {
     if (loginType && account?.address) onConnect();
   }, [loginType, account, isUserRegistered]);
 
+  console.log(isUserRegistered, "registed");
+
   useEffect(() => {
     const getUser = () => {
       setUser(isUserRegistered);
     };
 
-    if (account?.address) getUser();
+    if (account?.address && isUserRegistered) {
+      setLoading(true);
+      if (isUserRegistered.isOnboarded) {
+        isUserRegistered.user_type === "talent"
+          ? router.push("/dashboard/candidate-dashboard/resume")
+          : router.push("/dashboard/employer-dashboard/profile");
+      } else {
+        getUser();
+      }
+      setLoading(false);
+    }
   }, [account, isUserRegistered]);
 
   return (
@@ -79,7 +94,7 @@ const Homepage = () => {
               </div>
             </div>
           ) : account.address && user ? (
-            <NameSelector loginType={loginType} user={user} />
+            <NameSelector user={user} />
           ) : (
             "Something went wrong"
           )}
