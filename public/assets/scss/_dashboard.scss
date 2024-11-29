@@ -474,7 +474,7 @@
       border-radius: 7px;
       font-size: 15px;
       &:after {
-        right: 12px;
+        right: 15px;
       }
       .option {
         line-height: 40px;
@@ -678,6 +678,19 @@
       padding: 0 25px 0 20px;
       background: $bg-secondary;
       color: $text-white;
+      display: flex;
+      align-items: center;
+
+      ul {
+        padding-top: 0;
+        border: 1px solid hsla(0, 0%, 100%, 0.1);
+      }
+
+      .select-search-input {
+        border: 0;
+        border-bottom: 1px solid $text-white;
+        border-radius: 0;
+      }
 
       .option {
         line-height: 38px;

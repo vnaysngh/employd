@@ -1,0 +1,224 @@
+[
+  {
+    "label": "Software Engineer",
+    "value": "software-engineer"
+  },
+  {
+    "label": "Mobile Developer",
+    "value": "mobile-developer"
+  },
+  {
+    "label": "Android Developer",
+    "value": "android-developer"
+  },
+  {
+    "label": "iOS Developer",
+    "value": "ios-developer"
+  },
+  {
+    "label": "Frontend Engineer",
+    "value": "frontend-engineer"
+  },
+  {
+    "label": "Backend Engineer",
+    "value": "backend-engineer"
+  },
+  {
+    "label": "Full-Stack Engineer",
+    "value": "full-stack-engineer"
+  },
+  {
+    "label": "Software Architect",
+    "value": "software-architect"
+  },
+  {
+    "label": "Machine Learning Engineer",
+    "value": "machine-learning-engineer"
+  },
+  {
+    "label": "Embedded Engineer",
+    "value": "embedded-engineer"
+  },
+  {
+    "label": "Data Engineer",
+    "value": "data-engineer"
+  },
+  {
+    "label": "DevOps",
+    "value": "devops"
+  },
+  {
+    "label": "Engineering Manager",
+    "value": "engineering-manager"
+  },
+  {
+    "label": "QA Engineer",
+    "value": "qa-engineer"
+  },
+  {
+    "label": "Data Scientist",
+    "value": "data-scientist"
+  },
+  {
+    "label": "UI/UX Designer",
+    "value": "ui-ux-designer"
+  },
+  {
+    "label": "User Researcher",
+    "value": "user-researcher"
+  },
+  {
+    "label": "Visual Designer",
+    "value": "visual-designer"
+  },
+  {
+    "label": "Creative Director",
+    "value": "creative-director"
+  },
+  {
+    "label": "Graphic Designer",
+    "value": "graphic-designer"
+  },
+  {
+    "label": "Product Designer",
+    "value": "product-designer"
+  },
+  {
+    "label": "Product Manager",
+    "value": "product-manager"
+  },
+  {
+    "label": "Project Manager",
+    "value": "project-manager"
+  },
+  {
+    "label": "Finance/Accounting",
+    "value": "finance-accounting"
+  },
+  {
+    "label": "H.R.",
+    "value": "hr"
+  },
+  {
+    "label": "Office Manager",
+    "value": "office-manager"
+  },
+  {
+    "label": "Recruiter",
+    "value": "recruiter"
+  },
+  {
+    "label": "Customer Service",
+    "value": "customer-service"
+  },
+  {
+    "label": "Operations Manager",
+    "value": "operations-manager"
+  },
+
+  {
+    "label": "Business Development",
+    "value": "business-development"
+  },
+  {
+    "label": "Sales Development Representative",
+    "value": "sales-development-representative"
+  },
+  {
+    "label": "Account Executive",
+    "value": "account-executive"
+  },
+  {
+    "label": "BD Manager",
+    "value": "bd-manager"
+  },
+  {
+    "label": "Account Manager",
+    "value": "account-manager"
+  },
+  {
+    "label": "Sales Manager",
+    "value": "sales-manager"
+  },
+  {
+    "label": "Customer Success Manager",
+    "value": "customer-success-manager"
+  },
+  {
+    "label": "Growth Hacker",
+    "value": "growth-hacker"
+  },
+  {
+    "label": "Marketing Manager",
+    "value": "marketing-manager"
+  },
+  {
+    "label": "Content Creator",
+    "value": "content-creator"
+  },
+  {
+    "label": "Copywriter",
+    "value": "copywriter"
+  },
+  {
+    "label": "Social Media Manager",
+    "value": "social-media-manager"
+  },
+  {
+    "label": "CEO",
+    "value": "ceo"
+  },
+  {
+    "label": "CFO",
+    "value": "cfo"
+  },
+  {
+    "label": "CMO",
+    "value": "cmo"
+  },
+  {
+    "label": "COO",
+    "value": "coo"
+  },
+  {
+    "label": "CTO",
+    "value": "cto"
+  },
+  {
+    "label": "Hardware Engineer",
+    "value": "hardware-engineer"
+  },
+  {
+    "label": "Mechanical Engineer",
+    "value": "mechanical-engineer"
+  },
+  {
+    "label": "Systems Engineer",
+    "value": "systems-engineer"
+  },
+  {
+    "label": "Business Analyst",
+    "value": "business-analyst"
+  },
+
+  {
+    "label": "Operations",
+    "value": "operations"
+  },
+  {
+    "label": "Attorney",
+    "value": "attorney"
+  },
+  {
+    "label": "Data Analyst",
+    "value": "data-analyst"
+  },
+  {
+    "label": "Investor",
+    "value": "investor"
+  },
+  {
+    "label": "Founder",
+    "value": "founder"
+  }
+]
