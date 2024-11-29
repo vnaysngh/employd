@@ -9,21 +9,35 @@ import { useStateContext } from "@/context";
 const Homepage = () => {
   const account = useActiveAccount();
   const [loginType, setLoginType] = useState<string | null>(null);
-  const { createUser } = useStateContext();
+  const [user, setUser] = useState<any[] | null>(null);
+  const { createUser, isUserRegistered } = useStateContext();
 
   useEffect(() => {
     const onConnect = async () => {
-      setLoginType(loginType);
-      try {
-        const response = await createUser(loginType, account?.address!);
-        console.log(response);
-      } catch (err) {
-        console.log(err);
+      if (isUserRegistered) {
+        setLoginType("login");
+        setUser(isUserRegistered);
+      } else {
+        setLoginType(loginType);
+        try {
+          const response = await createUser(loginType, account?.address!);
+          if (response && response.length) setUser(response[0]);
+        } catch (err) {
+          console.log(err);
+        }
       }
     };
 
     if (loginType && account?.address) onConnect();
-  }, [loginType, account]);
+  }, [loginType, account, isUserRegistered]);
+
+  useEffect(() => {
+    const getUser = () => {
+      setUser(isUserRegistered);
+    };
+
+    if (account?.address) getUser();
+  }, [account, isUserRegistered]);
 
   return (
     <Wrapper>
@@ -64,8 +78,10 @@ const Homepage = () => {
                 </ul>
               </div>
             </div>
+          ) : account.address && user ? (
+            <NameSelector loginType={loginType} user={user} />
           ) : (
-            <NameSelector loginType={loginType} />
+            "Something went wrong"
           )}
         </div>
       </div>

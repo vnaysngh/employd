@@ -8,9 +8,10 @@ import NameStone, {
   TextRecords,
   CoinTypes
 } from "namestone-sdk";
-import { useActiveAccount } from "thirdweb/react";
+import { useActiveAccount, useLinkProfile, useProfiles } from "thirdweb/react";
 import { redirect, useRouter } from "next/navigation";
 import Loader from "@/app/loader";
+import { client } from "@/config/thirdwebClient";
 
 // Initialize the NameStone instance
 const ns = new NameStone(process.env.NEXT_PUBLIC_NAMESTONE_APIKEY);
@@ -38,7 +39,13 @@ export type UserType = {
   text_records: object;
 };
 
-const NameSelector = ({ loginType }: { loginType: string | null }) => {
+const NameSelector = ({
+  loginType,
+  user
+}: {
+  loginType: string | null;
+  user: any;
+}) => {
   const [subname, setSubname] = useState("poookie-popeye");
   const [userSubnames, setUserSubnames] = useState<string[]>([]);
   const [isUserRegistered, setIsUserRegistered] = useState(false);
@@ -57,11 +64,11 @@ const NameSelector = ({ loginType }: { loginType: string | null }) => {
 
   useEffect(() => {
     if (account?.address && names.length) {
-      const isPlatformUser = names.findIndex(
+      const isEnsUser = names.findIndex(
         (name: UserType) =>
           name.address.toLowerCase() === account.address.toLowerCase()
       );
-      if (isPlatformUser > -1) setIsUserRegistered(true);
+      if (isEnsUser > -1) setIsUserRegistered(true);
     }
   }, [account, names]);
 
@@ -90,6 +97,8 @@ const NameSelector = ({ loginType }: { loginType: string | null }) => {
       console.log(e);
     }
   };
+
+  console.log(user, "registered user");
 
   const handleInputChange = (e: any) => {
     setSubname(e.target.value);

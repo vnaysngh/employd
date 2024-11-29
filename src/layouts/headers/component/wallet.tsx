@@ -1,6 +1,15 @@
 "use client";
+import { inAppWallet } from "thirdweb/wallets";
 import { client } from "@/config/thirdwebClient";
 import { ConnectButton } from "thirdweb/react";
+
+/* const wallets = [
+  inAppWallet({
+    auth: {
+      options: ["google", "discord", "facebook", "email"]
+    }
+  })
+]; */
 
 export function WalletComponents({
   text,
@@ -15,12 +24,14 @@ export function WalletComponents({
 }) {
   return (
     <ConnectButton
+      // wallets={wallets}
       client={client}
       connectButton={{
         label: text
       }}
       connectModal={{
-        title: connectModalText
+        title: connectModalText,
+        showThirdwebBranding: false
       }}
       detailsButton={{
         className: "tw-connected-details",

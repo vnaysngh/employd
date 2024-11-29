@@ -18,6 +18,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const [users, setUsers] = useState<UserType[]>([]);
   const [signer, setSigner] = useState<Signer>();
   const [pushUser, setPushUser] = useState<PushAPI>();
+  const [isUserRegistered, setIsUserRegistered] = useState<any[] | null>(null);
   /*   useEffect(() => {
     const connectWallet = async () => {
       if (
@@ -58,18 +59,14 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   };
 
   useEffect(() => {
-    const getUsers = async () => {
+    const isUserRegistered = async () => {
       try {
         let { data, error } = await supabase
           .from("employd-employers")
-          .select("*");
-
-        /*   let { data: employd } = await supabase
-          .from("employd-employers")
           .select("*")
-          .eq("address", "0x0B95ec21579aee6Ef7b712976bD86689D68b5A08");
+          .eq("address", account?.address);
 
-        console.log(employd, "employd"); */
+        if (data && data.length) setIsUserRegistered(data[0]);
 
         console.log(data, error);
       } catch (error) {
@@ -77,8 +74,25 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       }
     };
 
-    getUsers();
+    if (account?.address) isUserRegistered();
   }, [account]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        let { data, error } = await supabase
+          .from("employd-employers")
+          .select("*");
+
+        if (data) setUsers(data);
+        else console.log(error);
+      } catch (error) {
+        console.error("Failed to fetch names:", error);
+      }
+    };
+
+    getUsers();
+  }, []);
 
   useEffect(() => {
     const getNames = async () => {
@@ -130,6 +144,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     <StateContext.Provider
       value={{
         names,
+        isUserRegistered,
         signer,
         pushUser,
         initializePushAPI,
