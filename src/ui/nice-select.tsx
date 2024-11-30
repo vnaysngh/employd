@@ -96,7 +96,7 @@ const NiceSelect = ({
               </li>
             ))
           ) : (
-            <li className="no-results" role="menuitem">
+            <li className="option" role="menuitem">
               No results found
             </li>
           )}

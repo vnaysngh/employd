@@ -9,6 +9,7 @@ import SelectMonth from "./select-month";
 import { useStateContext } from "@/context";
 // import TransactionComponent from "../transaction";
 import { Lexend } from "next/font/google";
+import SelectRole from "./select-role";
 
 const lexend_500 = Lexend({ weight: "500", subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ type SelectInput = {
 };
 
 export type FormData = {
-  role: string;
+  role: SelectInput;
   company: string;
   startMonth: SelectInput;
   startYear: SelectInput;
@@ -35,7 +36,7 @@ type IProps = {
 
 const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [formData, setFormData] = useState<FormData>({
-    role: "",
+    role: { value: "", label: "" },
     company: "",
     startMonth: { value: "04", label: "April" },
     startYear: { value: "2022", label: "2022" },
@@ -96,26 +97,30 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                   data-bs-parent="#accordionTwo"
                 >
                   <div className="accordion-body">
-                    <div className="row">
+                    <div className="row align-items-center">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Title*</label>
+                          <label htmlFor="">Role*</label>
                         </div>
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
-                          <input
+                          {/* <input
                             type="text"
                             placeholder="Lead Product Designer"
                             value={role}
                             onChange={(e) =>
                               handleChange("role", e.target.value)
                             }
+                          /> */}
+
+                          <SelectRole
+                            onChange={(value) => handleChange("role", value)}
                           />
                         </div>
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row align-items-center">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
                           <label htmlFor="">Company*</label>
@@ -134,7 +139,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                         </div>
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row align-items-center">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
                           <label htmlFor="">Duration*</label>
@@ -181,7 +186,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                         </div>
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row align-items-center">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
                           <label htmlFor="">Employment Type*</label>
@@ -199,7 +204,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                         </div>
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row align-items-center">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
                           <label htmlFor="">Skills</label>
@@ -214,7 +219,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                         </div>
                       </div>
                     </div>
-                    <div className="row">
+                    {/* <div className="row align-items-center">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
                           <label htmlFor="">
@@ -244,7 +249,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                           )}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

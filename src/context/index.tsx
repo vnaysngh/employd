@@ -3,7 +3,7 @@ import { BrowserProvider, JsonRpcSigner } from "ethers";
 import { useContext, createContext, useEffect, useState } from "react";
 // import { Config, useConnectorClient, useWriteContract } from "wagmi";
 import abi from "@/abis/experience.json";
-import supabase from "@/supabase";
+import supabase from "@/supabase/index";
 import { Signer } from "ethers";
 import { PushAPI } from "@pushprotocol/restapi";
 import { ENV } from "@pushprotocol/restapi/src/lib/constants";

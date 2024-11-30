@@ -684,12 +684,16 @@
       ul {
         padding-top: 0;
         border: 1px solid hsla(0, 0%, 100%, 0.1);
+        max-height: 300px;
+        overflow-y: scroll;
       }
 
       .select-search-input {
         border: 0;
         border-bottom: 1px solid $text-white;
         border-radius: 0;
+        position: sticky;
+        top: 0;
       }
 
       .option {

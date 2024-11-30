@@ -47,7 +47,7 @@ export const nav_data: {
     icon: nav_4,
     icon_active: nav_4,
     link: "/dashboard/candidate-dashboard/messages",
-    title: "Inbox"
+    title: "Messages"
   }
 ];
 // props type
