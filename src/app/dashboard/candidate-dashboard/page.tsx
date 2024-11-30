@@ -3,11 +3,7 @@ import Wrapper from "@/layouts/wrapper";
 import CandidateDashboardMain from "@/app/components/dashboard/candidate";
 
 const CandidateDashboardPage = () => {
-  return (
-    <Wrapper>
-      <CandidateDashboardMain />
-    </Wrapper>
-  );
+  return <>{/* <CandidateDashboardMain /> */}</>;
 };
 
 export default CandidateDashboardPage;

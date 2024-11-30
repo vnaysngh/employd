@@ -1,9 +1,22 @@
 "use client";
 import React, { useState } from "react";
 import Wrapper from "@/layouts/wrapper";
-import DashboardResume from "@/app/components/dashboard/candidate/dashboard-resume";
-import Header from "@/layouts/headers/header";
-import CandidateAside from "@/app/components/dashboard/candidate/aside";
+import dynamic from "next/dynamic";
+// Dynamically import the component with SSR disabled
+const DashboardResume = dynamic(
+  () => import("@/app/components/dashboard/candidate/dashboard-resume"),
+  {
+    ssr: false
+  }
+);
+
+// Dynamically import the component with SSR disabled
+const CandidateAside = dynamic(
+  () => import("@/app/components/dashboard/candidate/aside"),
+  {
+    ssr: false
+  }
+);
 
 const CandidateDashboardResumePage = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);

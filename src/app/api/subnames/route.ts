@@ -73,11 +73,6 @@ export async function GET(request: Request) {
         { error: "Network error", message: error.message },
         { status: 503 }
       );
-    } else {
-      return NextResponse.json(
-        { error: "An unexpected error occurred", message: error.message },
-        { status: 500 }
-      );
     }
   }
 }

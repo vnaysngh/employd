@@ -8,6 +8,8 @@ import notify_icon_2 from "@/assets/dashboard/images/icon/icon_37.svg";
 import notify_icon_3 from "@/assets/dashboard/images/icon/icon_38.svg";
 import search from "@/assets/dashboard/images/icon/icon_10.svg";
 import { WalletComponents } from "@/layouts/headers/component/wallet";
+import { ConnectButton } from "thirdweb/react";
+import { client } from "@/config/thirdwebClient";
 // notification item
 function NotificationItem({
   icon,
@@ -53,7 +55,13 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
         </button>
 
         <div>
-          <WalletComponents />
+          <ConnectButton
+            client={client}
+            detailsButton={{
+              className: "tw-connected-details",
+              style: { fontSize: "16px" }
+            }}
+          />
         </div>
       </div>
     </header>

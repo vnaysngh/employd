@@ -15,11 +15,13 @@ export function WalletComponents({
   text,
   userType,
   setLoginType,
-  connectModalText
+  connectModalText,
+  isMargin
 }: {
   text: string;
   userType: string;
   setLoginType: (type: string) => void;
+  isMargin?: boolean;
   connectModalText?: string;
 }) {
   return (
@@ -27,16 +29,19 @@ export function WalletComponents({
       // wallets={wallets}
       client={client}
       connectButton={{
-        label: text
+        label: text,
+        style: {
+          marginRight: isMargin ? 10 : "auto"
+        }
       }}
       connectModal={{
         title: connectModalText,
         showThirdwebBranding: false
       }}
-      detailsButton={{
-        className: "tw-connected-details",
-        style: { fontSize: "16px" }
-      }}
+      // detailsButton={{
+      //   className: "tw-connected-details",
+      //   style: { fontSize: "16px" }
+      // }}
       onConnect={() => setLoginType(userType)}
       autoConnect
     />

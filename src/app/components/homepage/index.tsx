@@ -34,8 +34,6 @@ const Homepage = () => {
     if (loginType && account?.address) onConnect();
   }, [loginType, account, isUserRegistered]);
 
-  console.log(isUserRegistered, "registed");
-
   useEffect(() => {
     const getUser = () => {
       setUser(isUserRegistered);
@@ -43,6 +41,7 @@ const Homepage = () => {
 
     if (account?.address && isUserRegistered) {
       setLoading(true);
+      setLoginType(null);
       if (isUserRegistered.isOnboarded) {
         isUserRegistered.user_type === "talent"
           ? router.push("/dashboard/candidate-dashboard/resume")
@@ -68,7 +67,20 @@ const Homepage = () => {
                 />
               </div>
               <div className="dropdown mt-10">
-                <button
+                <WalletComponents
+                  text="Sign up as Talent"
+                  userType="talent"
+                  setLoginType={setLoginType}
+                  isMargin
+                  connectModalText="Talent Sign up"
+                />
+                <WalletComponents
+                  text="Sign up as Employer"
+                  userType="employer"
+                  setLoginType={setLoginType}
+                  connectModalText="Employer Sign up"
+                />
+                {/* <button
                   className="btn btn-secondary dropdown-toggle"
                   type="button"
                   id="dropdownMenu2"
@@ -90,7 +102,7 @@ const Homepage = () => {
                     setLoginType={setLoginType}
                     connectModalText="Employer Sign up"
                   />
-                </ul>
+                </ul> */}
               </div>
             </div>
           ) : account.address && user ? (

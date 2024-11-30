@@ -1,15 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import video_bg from "@/assets/dashboard/images/video_post.jpg";
 import DashboardHeader from "./dashboard-header";
-import DashboardPortfolio from "./dashboard-portfolio";
-import SelectYear from "./select-year";
-import SelectEmploymentType from "./select-employment-type";
-import SelectMonth from "./select-month";
-import { useStateContext } from "@/context";
 // import TransactionComponent from "../transaction";
 import { Lexend } from "next/font/google";
-import SelectRole from "./select-role";
+import dynamic from "next/dynamic";
+
+// Dynamically import client-side only components
+const SelectRole = dynamic(() => import("./select-role"), { ssr: false });
+const SelectMonth = dynamic(() => import("./select-month"), { ssr: false });
+const SelectYear = dynamic(() => import("./select-year"), { ssr: false });
+const SelectEmploymentType = dynamic(() => import("./select-employment-type"), {
+  ssr: false
+});
 
 const lexend_500 = Lexend({ weight: "500", subsets: ["latin"] });
 

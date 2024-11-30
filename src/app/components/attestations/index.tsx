@@ -6,7 +6,7 @@ import { Dela_Gothic_One, Lexend } from "next/font/google";
 import SelectMonth from "../dashboard/candidate/select-month";
 import SelectEmploymentType from "../dashboard/candidate/select-employment-type";
 import SelectYear from "../dashboard/candidate/select-year";
-import TransactionComponent from "../dashboard/transaction/attest";
+// import TransactionComponent from "../dashboard/transaction/attest";
 export const DelaGothic = Dela_Gothic_One({
   weight: "400",
   subsets: ["latin"]
