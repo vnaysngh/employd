@@ -71,7 +71,6 @@ const Homepage = () => {
                   text="Sign up as Talent"
                   userType="talent"
                   setLoginType={setLoginType}
-                  isMargin
                   connectModalText="Talent Sign up"
                 />
                 <WalletComponents
