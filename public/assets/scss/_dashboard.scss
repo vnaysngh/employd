@@ -1838,3 +1838,44 @@
     border-radius: 0 !important;
   }
 }
+
+.invite-section {
+  .subtitle {
+    font-size: 14px;
+    color: $text-secondary;
+  }
+
+  .copy-btn {
+    color: $btn-color;
+  }
+
+  input {
+    font-size: 18px;
+    height: 50px;
+    letter-spacing: -0.16px;
+    border: 1px solid hsla(0, 0%, 100%, 0.1);
+    border-radius: 7px;
+    padding: 0 20px;
+    color: rgba(255, 255, 255, 0.8509803922);
+    background-color: #1d1e26;
+    width: 100%;
+  }
+
+  .invite-link-container {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 4px;
+    padding: 10px 0;
+    font-size: 16px;
+    color: $text-secondary;
+
+    .invite-link {
+      background: none;
+      border: 0;
+      border-bottom: 1px solid #3a3a3d;
+      color: $text-white;
+      font-size: 18px;
+      outline: none;
+    }
+  }
+}

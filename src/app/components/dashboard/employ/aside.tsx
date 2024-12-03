@@ -3,17 +3,13 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import logout from "@/assets/dashboard/images/icon/icon_9.svg";
 import nav_1 from "@/assets/dashboard/images/icon/icon_1.svg";
-import nav_1_active from "@/assets/dashboard/images/icon/icon_1_active.svg";
 import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
-import nav_2_active from "@/assets/dashboard/images/icon/icon_2_active.svg";
 import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
-import nav_3_active from "@/assets/dashboard/images/icon/icon_3_active.svg";
 import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
-import nav_4_active from "@/assets/dashboard/images/icon/icon_4_active.svg";
 import nav_5 from "@/assets/dashboard/images/icon/icon_41.svg";
 import { Chango } from "next/font/google";
+import { useStateContext } from "@/context";
 
 const chango = Chango({ weight: "400", subsets: ["latin"] });
 
@@ -39,13 +35,13 @@ const nav_data: {
     link: "/dashboard/employ-dashboard/profile",
     title: "My Profile"
   },
-  {
-    id: 3,
-    icon: nav_3,
-    icon_active: nav_3,
-    link: "/dashboard/employ-dashboard/jobs",
-    title: "My Jobs"
-  },
+  // {
+  //   id: 3,
+  //   icon: nav_3,
+  //   icon_active: nav_3,
+  //   link: "/dashboard/employ-dashboard/jobs",
+  //   title: "My Jobs"
+  // },
   {
     id: 4,
     icon: nav_4,
@@ -68,6 +64,9 @@ type IProps = {
 };
 const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
   const pathname = usePathname();
+  const { isUserRegistered } = useStateContext();
+
+  if (!isUserRegistered) return "loading...";
   return (
     <>
       <aside className={`dash-aside-navbar ${isOpenSidebar ? "show" : ""}`}>
@@ -95,7 +94,9 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
               />
             </div> */}
             <div className="user-name-data">
-              <button className="user-name">mudrex.employd.eth</button>
+              <button className="user-name">
+                {isUserRegistered.ens_name}.employd.eth
+              </button>
             </div>
           </div>
           <nav className="dasboard-main-nav">

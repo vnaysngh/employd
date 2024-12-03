@@ -10,6 +10,7 @@ import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
 import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
 
 import { Chango } from "next/font/google";
+import { useStateContext } from "@/context";
 
 const chango = Chango({ weight: "400", subsets: ["latin"] });
 
@@ -58,6 +59,9 @@ type IProps = {
 
 const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
   const pathname = usePathname();
+  const { isUserRegistered } = useStateContext();
+
+  if (!isUserRegistered) return "loading...";
   return (
     <>
       <aside className={`dash-aside-navbar ${isOpenSidebar ? "show" : ""}`}>
@@ -76,16 +80,10 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             </button>
           </div>
           <div className="user-data">
-            {/*             <div className="user-avatar online position-relative rounded-circle">
-              <Image
-                src={avatar}
-                alt="avatar"
-                className="lazy-img"
-                style={{ height: "auto" }}
-              />
-            </div> */}
             <div className="user-name-data">
-              <button className="user-name">vinaysingh.employd.eth</button>
+              <button className="user-name">
+                {isUserRegistered.ens_name}.employd.eth
+              </button>
             </div>
           </div>
           <nav className="dasboard-main-nav">

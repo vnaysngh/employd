@@ -258,7 +258,7 @@ const Stepper = ({ userType }: { userType: string }) => {
       if (response && response.length) {
         userType === "talent"
           ? router.push("/dashboard/candidate-dashboard/resume")
-          : router.push("/dashboard/employer-dashboard/profile");
+          : router.push("/dashboard/employ-dashboard/profile");
       }
     } catch (error) {
       console.error("Failed to call API:", error);

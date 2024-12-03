@@ -1,8 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
-import avatar from "@/assets/dashboard/images/avatar_04.jpg";
-import icon from "@/assets/dashboard/images/icon/icon_16.svg";
 import DashboardHeader from "../candidate/dashboard-header";
 import { Lexend } from "next/font/google";
 const lexend_500 = Lexend({ weight: "500", subsets: ["latin"] });

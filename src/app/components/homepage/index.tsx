@@ -45,7 +45,7 @@ const Homepage = () => {
       if (isUserRegistered.isOnboarded) {
         isUserRegistered.user_type === "talent"
           ? router.push("/dashboard/candidate-dashboard/resume")
-          : router.push("/dashboard/employer-dashboard/profile");
+          : router.push("/dashboard/employ-dashboard/profile");
       } else {
         getUser();
       }

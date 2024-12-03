@@ -36,7 +36,6 @@ h4,
 h5,
 .h6,
 h6 {
-  font-family: var(--eb_garamond-font);
   font-weight: 500;
   color: $text-white;
 }
@@ -93,7 +92,6 @@ hr {
     user-select: none;
     margin-top: 30px;
     .letters-loading {
-      font-family: var(--eb_garamond-font);
       font-weight: 700;
       letter-spacing: 8px;
       display: inline-block;
