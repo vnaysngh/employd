@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Dela_Gothic_One, Lexend } from "next/font/google";
 import abi from "@/abis/experience.json";
 // import { useReadContract } from "wagmi";
-import { useStateContext } from "@/context";
+import { contract, useStateContext } from "@/context";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 // import TransactionComponent from "../transaction/chooseEmployer";
 import { baseSepolia } from "thirdweb/chains";
@@ -38,12 +38,6 @@ const ExperienceCard = () => {
     args: [account?.address!],
     blockTag: "pending"
   }); */
-
-  const contract = getContract({
-    client,
-    address: "0x354305dc55B9351a6A99dAD46C278c6150026ed0",
-    chain: baseSepolia
-  });
 
   const { data, isPending } = useReadContract({
     contract,

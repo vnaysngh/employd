@@ -83,17 +83,20 @@ const NiceSelect = ({
           />
           {filteredOptions.length > 0 ? (
             filteredOptions.map((item, i) => (
-              <li
-                key={i}
-                data-value={item.value}
-                className={`option ${
-                  item.value === current?.value && "selected focus"
-                }`}
-                role="menuitem"
-                onClick={() => currentHandler(item)}
-              >
-                {item.label}
-              </li>
+              <>
+                <li
+                  key={i}
+                  data-value={item.value}
+                  className={`option ${
+                    item.value === current?.value && "selected focus"
+                  }`}
+                  role="menuitem"
+                  onClick={() => currentHandler(item)}
+                >
+                  {item.label}
+                  {/* <div>mudrex.employd.eth</div> */}
+                </li>
+              </>
             ))
           ) : (
             <li className="option" role="menuitem">

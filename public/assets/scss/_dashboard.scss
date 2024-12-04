@@ -1879,3 +1879,11 @@
     }
   }
 }
+
+.tx-btn {
+  @extend .dash-btn-two;
+  width: fit-content;
+  margin: unset !important;
+  padding: 5px 15px !important;
+  margin-bottom: 30px !important;
+}

@@ -9,16 +9,31 @@ import { PushAPI } from "@pushprotocol/restapi";
 import { ENV } from "@pushprotocol/restapi/src/lib/constants";
 import { useActiveAccount } from "thirdweb/react";
 import { UserType } from "@/app/components/homepage/name-selector";
+import { getContract, prepareContractCall } from "thirdweb";
+import { useSendTransaction } from "thirdweb/react";
+import { client } from "@/config/thirdwebClient";
+import { baseSepolia } from "thirdweb/chains";
+import { FormData } from "@/app/components/dashboard/candidate/dashboard-resume";
+
 const StateContext = createContext<any>({});
 
+export const contract = getContract({
+  client,
+  address: "0x57A9156f9b3fFa1b603F188f0f64FF93f51C62F8",
+  chain: baseSepolia,
+  abi: abi as any
+});
+
 export const StateContextProvider = ({ children }: { children: any }) => {
-  // const { writeContractAsync } = useWriteContract();
+  const { mutateAsync: sendTransaction } = useSendTransaction();
   const account = useActiveAccount();
   const [names, setNames] = useState<UserType[]>([]);
   const [users, setUsers] = useState<UserType[]>([]);
   const [signer, setSigner] = useState<Signer>();
   const [pushUser, setPushUser] = useState<PushAPI>();
   const [isUserRegistered, setIsUserRegistered] = useState<any[] | null>(null);
+  const [employers, setEmployers] = useState<any>([]);
+
   /*   useEffect(() => {
     const connectWallet = async () => {
       if (
@@ -59,16 +74,41 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   };
 
   useEffect(() => {
+    const getEmployers = async () => {
+      try {
+        let { data: employers, error } = await supabase
+          .from("users")
+          .select("*")
+          .eq("user_type", "employer");
+
+        if (error) {
+          console.error(error);
+        } else {
+          if (employers && employers.length) {
+            setEmployers(employers);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch employers:", error);
+      }
+    };
+
+    if (account?.address) {
+      getEmployers();
+    }
+  }, [account]);
+
+  useEffect(() => {
     const isUserRegistered = async () => {
       try {
         let { data, error } = await supabase
           .from("users")
           .select("*")
           .eq("address", account?.address);
-
-        if (data && data.length) setIsUserRegistered(data[0]);
-
-        console.log(data, error);
+        if (error) console.error(error);
+        else {
+          if (data && data.length) setIsUserRegistered(data[0]);
+        }
       } catch (error) {
         console.error("Failed to fetch names:", error);
       }
@@ -166,12 +206,54 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     else return data;
   };
 
-  const addUserExperienceToResume = (data: any) => {};
+  const addUserExperienceToResume = async (formData: FormData) => {
+    // const params = Object.keys(formData).map((label) => {
+    //   const key = label as keyof FormData; // Explicitly tell TypeScript this is a key of FormData
+    //   if (key === "skills") {
+    //     return formData[key]; // No `.value` because skills is a string[]
+    //   } else {
+    //     return formData[key]?.value; // Safely access `.value` for SelectInput types
+    //   }
+    // });
+
+    const params: [
+      string, // role
+      string, // company
+      string, // startMonth
+      string, // startYear
+      string, // endMonth
+      string, // endYear
+      string, // employmentType
+      readonly string[] // skills
+    ] = [
+      formData.role.value,
+      formData.company.value,
+      formData.startMonth.value,
+      formData.startYear.value,
+      formData.endMonth.value,
+      formData.endYear.value,
+      formData.employmentType.value,
+      formData.skills // This is already a string[]
+    ];
+    const transaction = prepareContractCall({
+      contract,
+      method:
+        "function addExperience(string _role, string _company, string _startMonth, string _startYear, string _endMonth, string _endYear, string _employmentType, string[] _skills) returns (uint256)",
+      params
+    });
+    return sendTransaction(transaction)
+      .then((res) => res)
+      .catch((e) => {
+        console.error(e);
+        return e;
+      });
+  };
 
   return (
     <StateContext.Provider
       value={{
         names,
+        employers,
         isUserRegistered,
         signer,
         pushUser,

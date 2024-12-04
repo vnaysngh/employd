@@ -4,6 +4,10 @@ import DashboardHeader from "./dashboard-header";
 // import TransactionComponent from "../transaction";
 import { Lexend } from "next/font/google";
 import dynamic from "next/dynamic";
+import { useStateContext } from "@/context";
+import SelectEmployer from "./select-employer";
+import { TransactionReceipt } from "ethers";
+import { UseMutationResult } from "@tanstack/react-query";
 
 // Dynamically import client-side only components
 const SelectRole = dynamic(() => import("./select-role"), { ssr: false });
@@ -22,14 +26,13 @@ type SelectInput = {
 
 export type FormData = {
   role: SelectInput;
-  company: string;
+  company: SelectInput;
   startMonth: SelectInput;
   startYear: SelectInput;
   endMonth: SelectInput;
   endYear: SelectInput;
   employmentType: SelectInput;
-  responsibilities: string[];
-  skills: string[]; // New field to store selected skills
+  skills: string[];
 };
 // props type
 type IProps = {
@@ -39,25 +42,31 @@ type IProps = {
 const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [formData, setFormData] = useState<FormData>({
     role: { value: "", label: "" },
-    company: "",
-    startMonth: { value: "04", label: "April" },
-    startYear: { value: "2022", label: "2022" },
-    endMonth: { value: "04", label: "April" },
+    company: { value: "", label: "" },
+    startMonth: { value: "01", label: "January" },
+    startYear: { value: "2024", label: "2024" },
+    endMonth: { value: "01", label: "January" },
     endYear: { value: "2024", label: "2024" },
     employmentType: { value: "full-time", label: "Full Time" },
-    responsibilities: ["", ""], // Initialize as an empty array
+    // responsibilities: ["", ""], // Initialize as an empty array
     skills: [] // Initialize the skills as an empty array
   });
-  const updateResponsibility = (index: number, updatedText: string) => {
+  const [loading, setLoading] = useState(false);
+  const [txHash, setTxHash] = useState<any>(null);
+  const [error, setError] = useState<any>(null);
+  const { employers, addUserExperienceToResume } = useStateContext();
+
+  /*  const updateResponsibility = (index: number, updatedText: string) => {
     setFormData((prev) => ({
       ...prev,
       responsibilities: prev.responsibilities.map((resp, i) =>
         i === index ? updatedText : resp
       )
     }));
-  };
+  }; */
 
-  const handleChange = (field: keyof FormData, value: string[] | string) => {
+  const handleChange = (field: keyof FormData, value: SelectInput) => {
+    console.log(value, "value");
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -68,7 +77,28 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     }));
   };
 
-  const { role, company } = formData;
+  // const { company } = formData;
+  const employerOptions = !employers.length
+    ? employers
+    : employers.map((employer: any) => ({
+        label: employer.company_name,
+        value: employer.ens_name
+      }));
+
+  const handleAddExperience = async () => {
+    if (txHash) {
+      setTxHash(null);
+    } else {
+      setLoading(true);
+      const response = await addUserExperienceToResume(formData);
+      if (response.transactionHash) {
+        setTxHash(response);
+      } else {
+        setError(response.message);
+      }
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -130,13 +160,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
-                          <input
-                            type="text"
-                            placeholder="Amazon Inc"
-                            value={company}
-                            onChange={(e) =>
-                              handleChange("company", e.target.value)
-                            }
+                          <SelectEmployer
+                            onChange={(value) => handleChange("company", value)}
+                            options={employerOptions}
                           />
                         </div>
                       </div>
@@ -221,37 +247,30 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                         </div>
                       </div>
                     </div>
-                    {/* <div className="row align-items-center">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">
-                            Responsibilities and Achievements
-                          </label>
-                        </div>
+                    {error && (
+                      <div className="subname-error mb-10">{error}</div>
+                    )}
+
+                    {txHash && (
+                      <div className="success-text mb-10">
+                        Experience added successfully.
                       </div>
-                      <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          {formData.responsibilities.map(
-                            (responsibility, index) => (
-                              <div
-                                key={index}
-                                className="responsibility-item mb-10"
-                              >
-                                <input
-                                  type="text"
-                                  className="mb-10"
-                                  value={responsibility}
-                                  onChange={(e) =>
-                                    updateResponsibility(index, e.target.value)
-                                  }
-                                  placeholder={`Responsibility ${index + 1}`}
-                                />
-                              </div>
-                            )
-                          )}
-                        </div>
+                    )}
+
+                    {loading && (
+                      <div className="loading-text mb-10">
+                        Processing your transaction...
                       </div>
-                    </div> */}
+                    )}
+                    <div className="d-flex">
+                      <button
+                        className="tx-btn"
+                        onClick={handleAddExperience}
+                        disabled={loading}
+                      >
+                        {!txHash ? "Save" : "Add another experience"}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

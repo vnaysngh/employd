@@ -114,11 +114,6 @@
       },
       {
         "internalType": "string[]",
-        "name": "_responsibilities",
-        "type": "string[]"
-      },
-      {
-        "internalType": "string[]",
         "name": "_skills",
         "type": "string[]"
       }
@@ -317,11 +312,6 @@
           },
           {
             "internalType": "string[]",
-            "name": "responsibilities",
-            "type": "string[]"
-          },
-          {
-            "internalType": "string[]",
             "name": "skills",
             "type": "string[]"
           },
@@ -341,7 +331,7 @@
             "type": "string"
           }
         ],
-        "internalType": "struct Schilled.Experience",
+        "internalType": "struct Employd.Experience",
         "name": "",
         "type": "tuple"
       }
@@ -402,11 +392,6 @@
           },
           {
             "internalType": "string[]",
-            "name": "responsibilities",
-            "type": "string[]"
-          },
-          {
-            "internalType": "string[]",
             "name": "skills",
             "type": "string[]"
           },
@@ -426,7 +411,7 @@
             "type": "string"
           }
         ],
-        "internalType": "struct Schilled.Experience[]",
+        "internalType": "struct Employd.Experience[]",
         "name": "",
         "type": "tuple[]"
       }
@@ -493,11 +478,6 @@
           },
           {
             "internalType": "string[]",
-            "name": "responsibilities",
-            "type": "string[]"
-          },
-          {
-            "internalType": "string[]",
             "name": "skills",
             "type": "string[]"
           },
@@ -517,7 +497,7 @@
             "type": "string"
           }
         ],
-        "internalType": "struct Schilled.Experience[]",
+        "internalType": "struct Employd.Experience[]",
         "name": "",
         "type": "tuple[]"
       }
