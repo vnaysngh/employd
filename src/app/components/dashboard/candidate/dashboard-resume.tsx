@@ -66,7 +66,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   }; */
 
   const handleChange = (field: keyof FormData, value: SelectInput) => {
-    console.log(value, "value");
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 

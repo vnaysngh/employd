@@ -99,7 +99,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   }, [account]);
 
   useEffect(() => {
-    const isUserRegistered = async () => {
+    const checkIfRegisteredUser = async () => {
       try {
         let { data, error } = await supabase
           .from("users")
@@ -114,7 +114,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       }
     };
 
-    if (account?.address) isUserRegistered();
+    if (account?.address) checkIfRegisteredUser();
   }, [account]);
 
   useEffect(() => {
