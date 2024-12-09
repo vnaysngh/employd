@@ -1,5 +1,5 @@
 "use client";
-import "bootstrap/js/dist/collapse";
+// import "bootstrap/js/dist/collapse";
 import React from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
@@ -22,13 +22,13 @@ export const nav_data: {
   link: string;
   title: string;
 }[] = [
-  {
+  /*   {
     id: 1,
     icon: nav_1,
     icon_active: nav_1,
     link: "/dashboard/candidate-dashboard",
     title: "Dashboard"
-  },
+  }, */
   {
     id: 2,
     icon: nav_2,

@@ -1555,11 +1555,12 @@
 }
 
 .experience-card {
-  background: white;
-  border: 2px solid $heading;
-  box-shadow: 4px 4px 0px 0px $heading;
+  background: #181920;
+  border: 0;
+  // box-shadow: 4px 4px 0px 0px $heading;
   overflow: hidden;
   transition: transform 0.2s ease;
+  border-radius: 0.375rem;
 }
 
 .experience-card:hover {
@@ -1568,8 +1569,8 @@
 
 .experience-header {
   padding: 1.5rem;
-  background: #4d80e6;
-  border-bottom: 1px solid #eee;
+  // background: #4d80e6;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
 }
 
 .experience-title {
@@ -1582,7 +1583,7 @@
 .experience-title h3 {
   margin: 0;
   font-size: 1.25rem;
-  color: #1a1a1a;
+  color: $text-white;
   font-weight: 600;
 }
 
@@ -1616,7 +1617,7 @@
 }
 
 .duration {
-  color: #fff;
+  color: $text-secondary;
 }
 
 .location {

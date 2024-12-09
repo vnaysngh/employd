@@ -1,10 +1,23 @@
 "use client";
 import React, { useState } from "react";
 import Wrapper from "@/layouts/wrapper";
-import DashboardProfileArea from "@/app/components/dashboard/candidate/dashboard-profile-area";
-import Header from "@/layouts/headers/header";
-import EmployProfileArea from "@/app/components/dashboard/employ/profile-area";
-import EmployAside from "@/app/components/dashboard/employ/aside";
+import dynamic from "next/dynamic";
+
+// Dynamically import the component with SSR disabled
+const DashboardProfileArea = dynamic(
+  () => import("@/app/components/dashboard/candidate/dashboard-profile-area"),
+  {
+    ssr: false
+  }
+);
+
+// Dynamically import the component with SSR disabled
+const CandidateAside = dynamic(
+  () => import("@/app/components/dashboard/candidate/aside"),
+  {
+    ssr: false
+  }
+);
 
 const CandidateProfilePage = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
@@ -12,12 +25,12 @@ const CandidateProfilePage = () => {
   return (
     <Wrapper>
       <div className="main-page-wrapper">
-        <EmployAside
+        <CandidateAside
           isOpenSidebar={isOpenSidebar}
           setIsOpenSidebar={setIsOpenSidebar}
         />
 
-        <EmployProfileArea setIsOpenSidebar={setIsOpenSidebar} />
+        <DashboardProfileArea setIsOpenSidebar={setIsOpenSidebar} />
       </div>
     </Wrapper>
   );

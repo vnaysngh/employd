@@ -34,29 +34,6 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const [isUserRegistered, setIsUserRegistered] = useState<any[] | null>(null);
   const [employers, setEmployers] = useState<any>([]);
 
-  /*   useEffect(() => {
-    const connectWallet = async () => {
-      if (
-        typeof window !== "undefined" &&
-        typeof window.ethereum !== undefined &&
-        address
-      ) {
-        try {
-          const provider = new BrowserProvider(window.ethereum);
-          const signer = new JsonRpcSigner(provider, address);
-          // setProvider(provider);
-          setSigner(signer);
-        } catch (error) {
-          console.error("User rejected request", error);
-        }
-      } else {
-        console.error("Metamask not found");
-      }
-    };
-
-    if (address) connectWallet();
-  }, [address, chainId]); */
-
   // useEffect(() => {
   const initializePushAPI = async () => {
     /* if (!pushUser || !address) {
@@ -175,6 +152,26 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     else return data;
   };
 
+  const getUserDetails = async (address: string) => {
+    if (!address) return null;
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("address", address);
+
+      if (error) {
+        console.error("Error fetching user details:", error);
+        return null;
+      }
+
+      return data?.length ? data[0] : null;
+    } catch (error) {
+      console.error("Unexpected error fetching user details:", error);
+      return null;
+    }
+  };
+
   const updateUserDetails = async ({
     body,
     address
@@ -254,6 +251,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       value={{
         names,
         employers,
+        getUserDetails,
         isUserRegistered,
         signer,
         pushUser,

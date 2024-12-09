@@ -344,7 +344,7 @@ const Stepper = ({ userType }: { userType: string }) => {
             )
           },
           {
-            label: "One-line pitch",
+            label: "One sentence summary of your product",
             description: "Describe what your company does in just a few words",
             content: (
               <input

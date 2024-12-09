@@ -61,6 +61,7 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
               className: "tw-connected-details",
               style: { fontSize: "16px" }
             }}
+            autoConnect
           />
         </div>
       </div>

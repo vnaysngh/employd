@@ -1,7 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashboardHeader from "../candidate/dashboard-header";
 import { Lexend } from "next/font/google";
+import { useStateContext } from "@/context";
+import { useActiveAccount } from "thirdweb/react";
 const lexend_500 = Lexend({ weight: "500", subsets: ["latin"] });
 
 // props type
@@ -9,6 +11,37 @@ type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
+  const { getUserDetails } = useStateContext();
+  const [employer, setEmployer] = useState<any>({});
+  const [loading, setLoading] = useState(false);
+  const account = useActiveAccount();
+  console.log(account);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      if (!account?.address) return;
+
+      setLoading(true);
+      try {
+        const userDetails = await getUserDetails(account.address);
+        console.log(userDetails, "user details");
+        if (userDetails) {
+          setEmployer(userDetails);
+        }
+      } catch (err) {
+        console.error("Failed to fetch user details:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserDetails();
+  }, [account]);
+
+  // if (loading) return <h2>Loading...</h2>;
+
+  // if (employer?.user_type !== "employer") return;
+
   return (
     <div className="dashboard-body">
       <div className="position-relative">
@@ -33,14 +66,24 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
             <button className="delete-btn tran3s">Delete</button>
           </div> */}
           <div className="dash-input-wrapper mb-30">
-            <label htmlFor="">Employer Name*</label>
-            <input type="text" placeholder="John Doe" />
+            <label htmlFor="">Company Name*</label>
+            <input
+              type="text"
+              placeholder="John Doe"
+              defaultValue={employer?.company_name}
+              disabled
+            />
           </div>
           <div className="row">
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="">Email*</label>
-                <input type="email" placeholder="companyinc@gmail.com" />
+                <input
+                  type="email"
+                  placeholder="companyinc@gmail.com"
+                  value={employer?.email}
+                  disabled
+                />
               </div>
             </div>
             <div className="col-md-6">
