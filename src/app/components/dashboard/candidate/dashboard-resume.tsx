@@ -6,8 +6,6 @@ import { Lexend } from "next/font/google";
 import dynamic from "next/dynamic";
 import { useStateContext } from "@/context";
 import SelectEmployer from "./select-employer";
-import { TransactionReceipt } from "ethers";
-import { UseMutationResult } from "@tanstack/react-query";
 
 // Dynamically import client-side only components
 const SelectRole = dynamic(() => import("./select-role"), { ssr: false });
@@ -136,15 +134,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
-                          {/* <input
-                            type="text"
-                            placeholder="Lead Product Designer"
-                            value={role}
-                            onChange={(e) =>
-                              handleChange("role", e.target.value)
-                            }
-                          /> */}
-
                           <SelectRole
                             onChange={(value) => handleChange("role", value)}
                           />

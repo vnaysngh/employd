@@ -15,6 +15,7 @@ import {
 import { getContract } from "thirdweb";
 import { client } from "@/config/thirdwebClient";
 import DashboardHeader from "./dashboard-header";
+import roles from "@/data/roles";
 
 // props type
 type IProps = {
@@ -126,12 +127,13 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
   }; */
 
   return experiences?.map((experience: any, index: number) => {
+    const role: string = experience?.role;
     return (
       <div className="experience-card" key={index}>
         <div className="experience-header">
           <div className="experience-title">
             <h3>
-              {experience.company} - {experience.role}
+              {experience?.company} - {roles[role as keyof typeof roles]}
             </h3>
             <span
               className={`status-badge ${
@@ -139,7 +141,7 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
               }`}
             >
               {!experience.attestationStatus
-                ? "Not Initiated"
+                ? "Attestation Not Initiated"
                 : experience.attestationStatus === 1
                 ? "Pending Attestation"
                 : experience.attestationStatus === 2

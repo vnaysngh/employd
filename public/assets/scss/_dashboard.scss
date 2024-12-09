@@ -1570,7 +1570,7 @@
 .experience-header {
   padding: 1.5rem;
   // background: #4d80e6;
-  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  // border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
 }
 
 .experience-title {
@@ -1585,6 +1585,7 @@
   font-size: 1.25rem;
   color: $text-white;
   font-weight: 600;
+  text-transform: capitalize;
 }
 
 .company-name {
