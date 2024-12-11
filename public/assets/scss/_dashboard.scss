@@ -638,6 +638,11 @@
       color: $text-white;
       margin-bottom: 10px;
     }
+
+    .attestation-item {
+      color: $text-white;
+    }
+
     .alert-text {
       font-size: 14px;
       letter-spacing: -0.14px;
@@ -1888,4 +1893,13 @@
   margin: unset !important;
   padding: 5px 15px !important;
   margin-bottom: 30px !important;
+}
+
+.attestation-container.dashboard-body {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.text-secondary {
+  color: $text-secondary;
 }

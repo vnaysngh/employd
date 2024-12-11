@@ -34,12 +34,14 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   const { data: experiences, isPending } = useReadContract({
     contract,
     method:
-      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string company, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string[] skills, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
+      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string[] skills, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
     params: [account?.address!]
   });
 
   // if (!experiences || !experiences?.length)
   //   return <div>No Experiences Found</div>;
+
+  console.log(experiences, "experiences");
 
   return (
     <div className={`dashboard-body`}>
@@ -48,7 +50,9 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
 
         <div className="row gx-0 align-items-center">
           <div className="d-flex align-items-center justify-content-between">
-            <h2 className={`main-title m0`}>Experience Attestations</h2>
+            <h2 className={`main-title m0`}>
+              {isPending ? "Loading..." : "Experience Attestations"}
+            </h2>
           </div>
         </div>
         {experiences && experiences.length && (
@@ -125,10 +129,11 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
     if (txHash) {
       setTxHash(null);
     } else {
-      setExperienceId(id);
       setLoading(true);
+      setExperienceId(id);
       try {
         const employer = await getEmployerDetails(ens_name);
+        console.log(employer, id);
         if (employer) {
           const response = await requestAttestation(id, employer.address);
           if (response.transactionHash) {
@@ -158,7 +163,7 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
                   {roles[role as keyof typeof roles]}
                 </h3>
                 <div className="company-name d-flex align-items-center gap-2 text-capitalize">
-                  <Link href={""}>{experience?.company}</Link>
+                  <Link href={""}>{experience?.employer}</Link>
                   <span>&#x2022;</span>
                   <span className="employment-type d-flex justify-content-between align-items-center">
                     {experience.employmentType}
@@ -187,7 +192,7 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
             {!experience.attestationStatus ? (
               <button
                 onClick={() =>
-                  handleRequestAttestation(experience.id, experience.company)
+                  handleRequestAttestation(experience.id, experience.employer)
                 }
                 className="status-badge not-initiated"
               >

@@ -19,7 +19,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0xA78FAa476Ee5aC877ddF77F7969e3410965B8376",
+  address: "0xA2c21f6897531385B74f860B57085d99D6DAdc36",
   chain: baseSepolia,
   abi: abi as any
 });
@@ -31,7 +31,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const [users, setUsers] = useState<UserType[]>([]);
   const [signer, setSigner] = useState<Signer>();
   const [pushUser, setPushUser] = useState<PushAPI>();
-  const [isUserRegistered, setIsUserRegistered] = useState<any[] | null>(null);
+  const [isUserRegistered, setIsUserRegistered] = useState<any>(null);
   const [employers, setEmployers] = useState<any>([]);
 
   // useEffect(() => {
@@ -225,8 +225,10 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   };
 
   const addUserExperienceToResume = async (formData: FormData) => {
+    if (!isUserRegistered || !isUserRegistered.address) return;
     const params: [
       string, // role
+      string, //seeker
       string, // company
       string, // startMonth
       string, // startYear
@@ -236,6 +238,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       readonly string[] // skills
     ] = [
       formData.role.value,
+      isUserRegistered.ens_name,
       formData.company.value,
       formData.startMonth.value,
       formData.startYear.value,
@@ -247,7 +250,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     const transaction = prepareContractCall({
       contract,
       method:
-        "function addExperience(string _role, string _company, string _startMonth, string _startYear, string _endMonth, string _endYear, string _employmentType, string[] _skills) returns (uint256)",
+        "function addExperience(string _role, string _seeker, string _employer, string _startMonth, string _startYear, string _endMonth, string _endYear, string _employmentType, string[] _skills) returns (uint256)",
       params
     });
     return sendTransaction(transaction)

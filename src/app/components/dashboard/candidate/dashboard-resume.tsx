@@ -49,7 +49,10 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
-  const { employers, addUserExperienceToResume } = useStateContext();
+  const { employers, addUserExperienceToResume, isUserRegistered } =
+    useStateContext();
+
+  console.log(isUserRegistered, "isUserRegistered");
 
   /*  const updateResponsibility = (index: number, updatedText: string) => {
     setFormData((prev) => ({

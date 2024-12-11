@@ -6,17 +6,26 @@ import { Dela_Gothic_One, Lexend } from "next/font/google";
 import SelectMonth from "../dashboard/candidate/select-month";
 import SelectEmploymentType from "../dashboard/candidate/select-employment-type";
 import SelectYear from "../dashboard/candidate/select-year";
+import roles from "@/data/roles";
+import Link from "next/link";
 // import TransactionComponent from "../dashboard/transaction/attest";
 
 const Attestations = ({ experience }: { experience: any }) => {
   return (
     <>
-      <div className={`dashboard-body`}>
+      <div className={`attestation-container dashboard-body`}>
         <div className="position-relative">
           <div className="d-flex justify-content-between align-items-center mb-20 mt-30">
             <div>
               <h2 className={`main-title`}>Attestation Request</h2>
-              <label htmlFor="">By {experience.owner}</label>
+              <label htmlFor="" className="text-secondary">
+                By{" "}
+                <Link href={`/${experience.seeker}`}>
+                  <span className="text-decoration-underline">
+                    {experience.seeker}
+                  </span>
+                </Link>
+              </label>
             </div>
             {/* <TransactionComponent experienceId={experience.id} /> */}
           </div>
@@ -39,11 +48,9 @@ const Attestations = ({ experience }: { experience: any }) => {
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
-                          <input
-                            type="text"
-                            placeholder="Lead Product Designer"
-                            value={experience.role}
-                          />
+                          <div className="attestation-item">
+                            {roles[experience?.role as keyof typeof roles]}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -55,11 +62,9 @@ const Attestations = ({ experience }: { experience: any }) => {
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
-                          <input
-                            type="text"
-                            placeholder="Amazon Inc"
-                            value={experience.company}
-                          />
+                          <div className="attestation-item text-capitalize">
+                            {experience?.employer}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -72,8 +77,10 @@ const Attestations = ({ experience }: { experience: any }) => {
                       <div className="col-lg-10">
                         <div className="row">
                           <div className="dash-input-wrapper mb-30 md-mb-10">
-                            {experience.startMonth}/{experience.startYear} -
-                            {experience.endMonth}/{experience.endYear}
+                            <div className="attestation-item">
+                              {experience?.startMonth}/{experience?.startYear} -
+                              {experience?.endMonth}/{experience?.endYear}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -87,9 +94,13 @@ const Attestations = ({ experience }: { experience: any }) => {
                       <div className="col-lg-10">
                         <div className="row">
                           <div className="col-sm-6">
-                            {experience.employmentType === "full-time"
-                              ? "Full Time"
-                              : "Part Time"}
+                            <div className="dash-input-wrapper mb-30 md-mb-10">
+                              <div className="attestation-item">
+                                {experience?.employmentType === "full-time"
+                                  ? "Full-Time"
+                                  : "Part-Time"}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -102,11 +113,13 @@ const Attestations = ({ experience }: { experience: any }) => {
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
-                          {experience.skills.join(" , ")}
+                          <div className="attestation-item">
+                            {experience?.skills?.join(" , ")}
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="row">
+                    {/*   <div className="row">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
                           <label htmlFor="">
@@ -119,7 +132,7 @@ const Attestations = ({ experience }: { experience: any }) => {
                           {experience.responsibilities.join(" , ")}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

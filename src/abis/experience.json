@@ -84,7 +84,12 @@
       },
       {
         "internalType": "string",
-        "name": "_company",
+        "name": "_seeker",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_employer",
         "type": "string"
       },
       {
@@ -187,7 +192,12 @@
       },
       {
         "internalType": "string",
-        "name": "company",
+        "name": "seeker",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "employer",
         "type": "string"
       },
       {
@@ -282,7 +292,12 @@
           },
           {
             "internalType": "string",
-            "name": "company",
+            "name": "seeker",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employer",
             "type": "string"
           },
           {
@@ -362,7 +377,12 @@
           },
           {
             "internalType": "string",
-            "name": "company",
+            "name": "seeker",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employer",
             "type": "string"
           },
           {
@@ -448,7 +468,12 @@
           },
           {
             "internalType": "string",
-            "name": "company",
+            "name": "seeker",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employer",
             "type": "string"
           },
           {
