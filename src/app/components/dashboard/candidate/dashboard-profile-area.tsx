@@ -5,6 +5,9 @@ import abi from "@/abis/experience.json";
 // import { useReadContract } from "wagmi";
 import { contract, useStateContext } from "@/context";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import clock from "@/assets/dashboard/images/icon/icon_42.svg";
+import calendar from "@/assets/dashboard/images/icon/icon_43.svg";
+import logo from "@/assets/dashboard/images/mudrex-logo.png";
 // import TransactionComponent from "../transaction/chooseEmployer";
 import { baseSepolia } from "thirdweb/chains";
 import {
@@ -16,6 +19,10 @@ import { getContract } from "thirdweb";
 import { client } from "@/config/thirdwebClient";
 import DashboardHeader from "./dashboard-header";
 import roles from "@/data/roles";
+import Image from "next/image";
+import Link from "next/link";
+
+const lexend400 = Lexend({ weight: "400", subsets: ["latin"] });
 
 // props type
 type IProps = {
@@ -34,14 +41,6 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   // if (!experiences || !experiences?.length)
   //   return <div>No Experiences Found</div>;
 
-  const handleRequestAttestation = async (
-    experienceId: any,
-    employerId: any
-  ) => {
-    // Simulate API call
-    return new Promise((resolve) => setTimeout(resolve, 1000));
-  };
-
   return (
     <div className={`dashboard-body`}>
       <div className="position-relative">
@@ -49,7 +48,7 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
 
         <div className="row gx-0 align-items-center">
           <div className="d-flex align-items-center justify-content-between">
-            <h2 className={` main-title m0`}>Experience Attestations</h2>
+            <h2 className={`main-title m0`}>Experience Attestations</h2>
           </div>
         </div>
         {experiences && experiences.length && (
@@ -65,22 +64,18 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
 };
 
 const ExperienceCard = ({ experiences }: { experiences: any }) => {
-  const [isRequesting, setIsRequesting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [experience, setExperience] = useState<any>();
-  const { initializePushAPI, names, pushUser } = useStateContext();
-  const [selectedEmployer, setSelectedEmployer] = useState({
-    name: "",
-    id: "",
-    address: ""
-  });
+  const { requestAttestation, getEmployerDetails } = useStateContext();
+  const [loading, setLoading] = useState(false);
+  const [txHash, setTxHash] = useState<any>(null);
+  const [error, setError] = useState<any>(null);
+  const [experienceId, setExperienceId] = useState(null);
   /*  const filteredUsers = users.map((user: any) => ({
     id: user.id,
     name: `${user.subname}.${user.ens_name}`,
     address: user.address
   })); */
 
-  useEffect(() => {
+  /*   useEffect(() => {
     const handleAttestation = async () => {
       if (!selectedEmployer.name || !selectedEmployer.address) return;
       initializePushAPI();
@@ -93,7 +88,7 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
     setSelectedEmployer(item);
     setExperience(experience);
   };
-
+ */
   /*  useEffect(() => {
     const sendMessageToEmployer = async () => {
       setIsRequesting(true);
@@ -126,39 +121,104 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
     );
   }; */
 
+  const handleRequestAttestation = async (id: any, ens_name: string) => {
+    if (txHash) {
+      setTxHash(null);
+    } else {
+      setExperienceId(id);
+      setLoading(true);
+      try {
+        const employer = await getEmployerDetails(ens_name);
+        if (employer) {
+          const response = await requestAttestation(id, employer.address);
+          if (response.transactionHash) {
+            setTxHash(response);
+          } else {
+            setError(response.message);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
   return experiences?.map((experience: any, index: number) => {
     const role: string = experience?.role;
     return (
-      <div className="experience-card" key={index}>
+      <div className="experience-card" key={experience.id}>
         <div className="experience-header">
           <div className="experience-title">
-            <h3>
-              {experience?.company} - {roles[role as keyof typeof roles]}
-            </h3>
-            <span
-              className={`status-badge ${
-                experience.attested ? "attested" : "pending"
-              }`}
-            >
-              {!experience.attestationStatus
-                ? "Attestation Not Initiated"
-                : experience.attestationStatus === 1
-                ? "Pending Attestation"
-                : experience.attestationStatus === 2
-                ? "Attested ✓"
-                : "Rejected"}
-            </span>
+            <div className="d-flex gap-3">
+              <Image src={logo} width={54} height={54} alt="" />
+              <div>
+                <h3 className={`${lexend400.className} mb-1`}>
+                  {roles[role as keyof typeof roles]}
+                </h3>
+                <div className="company-name d-flex align-items-center gap-2 text-capitalize">
+                  <Link href={""}>{experience?.company}</Link>
+                  <span>&#x2022;</span>
+                  <span className="employment-type d-flex justify-content-between align-items-center">
+                    {experience.employmentType}
+                  </span>
+                  <span>&#x2022;</span>
+                  <div className="employment-details">
+                    <span className="date-duration">
+                      <span className="duration">
+                        {experience.startMonth}/{experience.startYear} -{" "}
+                        {experience.endMonth}/{experience.endYear}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div className="skills-section pt-2">
+                  <div className="skills-list">
+                    {experience?.skills?.map((skill: any, index: number) => (
+                      <span key={index} className="skill-tag">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {!experience.attestationStatus ? (
+              <button
+                onClick={() =>
+                  handleRequestAttestation(experience.id, experience.company)
+                }
+                className="status-badge not-initiated"
+              >
+                Request Attestation
+              </button>
+            ) : experience.attestationStatus === 1 ? (
+              <span className="status-badge pending">Pending Attestation</span>
+            ) : experience.attestationStatus === 2 ? (
+              <span className="status-badge attested"> Attested ✓ </span>
+            ) : (
+              "Rejected"
+            )}
           </div>
-          <div className="employment-details">
-            <span className="employment-type">{experience.employmentType}</span>
-            <span className="date-duration">
-              <span className="duration">
-                {experience.startMonth}/{experience.startYear} -{" "}
-                {experience.endMonth}/{experience.endYear}
-              </span>
-            </span>
-            <span className="location">{experience.location}</span>
-          </div>
+
+          {experience && experience.id === experienceId ? (
+            <>
+              {error && <div className="subname-error mt-10">{error}</div>}
+
+              {txHash && (
+                <div className="success-text mt-10">
+                  Experience submitted for attestation.
+                </div>
+              )}
+
+              {loading && (
+                <div className="loading-text mt-10">
+                  Processing your transaction...
+                </div>
+              )}
+            </>
+          ) : null}
         </div>
 
         {/* <div className="experience-content"> */}

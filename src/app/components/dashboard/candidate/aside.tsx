@@ -30,18 +30,25 @@ export const nav_data: {
     title: "Dashboard"
   }, */
   {
-    id: 2,
+    id: 1,
     icon: nav_2,
     icon_active: nav_2,
     link: "/dashboard/candidate-dashboard/profile",
-    title: "My Profile"
+    title: "My Resume"
   },
+  /*   {
+    id: 2,
+    icon: nav_2,
+    icon_active: nav_2,
+    link: "/dashboard/candidate-dashboard/resume",
+    title: "Resume"
+  }, */
   {
     id: 3,
     icon: nav_3,
     icon_active: nav_3,
     link: "/dashboard/candidate-dashboard/resume",
-    title: "Resume"
+    title: "Add Experience"
   },
   {
     id: 4,

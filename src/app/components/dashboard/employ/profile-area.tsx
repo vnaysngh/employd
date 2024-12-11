@@ -1,10 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import DashboardHeader from "../candidate/dashboard-header";
-import { Lexend } from "next/font/google";
 import { useStateContext } from "@/context";
 import { useActiveAccount } from "thirdweb/react";
-const lexend_500 = Lexend({ weight: "500", subsets: ["latin"] });
 
 // props type
 type IProps = {
@@ -49,7 +47,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
         <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
         {/* header end */}
 
-        <h2 className={`main-title mb-20 ${lexend_500.className}`}>Profile</h2>
+        <h2 className={`main-title mb-20 `}>Profile</h2>
 
         <div className="card-box card-box-employer border-20">
           {/* <div className="user-avatar-setting d-flex align-items-center mb-30">

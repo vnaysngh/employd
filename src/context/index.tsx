@@ -19,7 +19,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0x57A9156f9b3fFa1b603F188f0f64FF93f51C62F8",
+  address: "0xA78FAa476Ee5aC877ddF77F7969e3410965B8376",
   chain: baseSepolia,
   abi: abi as any
 });
@@ -172,6 +172,27 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     }
   };
 
+  const getEmployerDetails = async (ens_name: string) => {
+    console.log(ens_name);
+    if (!ens_name) return null;
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("ens_name", ens_name);
+
+      if (error) {
+        console.error("Error fetching user details:", error);
+        return null;
+      }
+
+      return data?.length ? data[0] : null;
+    } catch (error) {
+      console.error("Unexpected error fetching user details:", error);
+      return null;
+    }
+  };
+
   const updateUserDetails = async ({
     body,
     address
@@ -204,15 +225,6 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   };
 
   const addUserExperienceToResume = async (formData: FormData) => {
-    // const params = Object.keys(formData).map((label) => {
-    //   const key = label as keyof FormData; // Explicitly tell TypeScript this is a key of FormData
-    //   if (key === "skills") {
-    //     return formData[key]; // No `.value` because skills is a string[]
-    //   } else {
-    //     return formData[key]?.value; // Safely access `.value` for SelectInput types
-    //   }
-    // });
-
     const params: [
       string, // role
       string, // company
@@ -246,6 +258,21 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       });
   };
 
+  const requestAttestation = async (experienceId: any, employer: string) => {
+    const transaction = prepareContractCall({
+      contract,
+      method:
+        "function chooseEmployerForAttestation(uint256 experienceId, address employer)",
+      params: [experienceId, employer]
+    });
+    return sendTransaction(transaction)
+      .then((res) => res)
+      .catch((e) => {
+        console.error(e);
+        return e;
+      });
+  };
+
   return (
     <StateContext.Provider
       value={{
@@ -259,7 +286,9 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         createUser,
         createUserEns,
         updateUserDetails,
-        addUserExperienceToResume
+        getEmployerDetails,
+        addUserExperienceToResume,
+        requestAttestation
       }}
     >
       {children}

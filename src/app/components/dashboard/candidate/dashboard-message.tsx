@@ -9,10 +9,6 @@ import { Dela_Gothic_One, Lexend } from "next/font/google";
 import { useStateContext } from "@/context";
 import formatTimestamp from "@/utils/formatTimeStamp";
 
-const lexend = Lexend({ weight: "400", subsets: ["latin"] });
-const lexend_700 = Lexend({ weight: "700", subsets: ["latin"] });
-const dela = Dela_Gothic_One({ weight: "400", subsets: ["latin"] });
-
 const DashboardMessage = () => {
   const { signer, initializePushAPI, pushUser } = useStateContext();
   const [chats, setChats] = useState<any[]>([]);
@@ -53,12 +49,12 @@ const DashboardMessage = () => {
   if (!chats.length && !messageRequests.length) return <div>No Messages</div>;
 
   return (
-    <div className={`dashboard-body ${lexend.className} `}>
+    <div className={`dashboard-body`}>
       <div className="position-relative">
         <div className="row gx-0 align-items-center">
           <div className="col-lg-4">
             <div className="d-flex align-items-center justify-content-between">
-              <h2 className={` main-title m0 ${dela.className}`}>Messages</h2>
+              <h2 className={` main-title m0`}>Messages</h2>
             </div>
           </div>
         </div>
@@ -135,7 +131,7 @@ const DashboardMessage = () => {
                         <p>
                           <a
                             href={selectedChat?.msg.messageContent}
-                            className={`${lexend_700.className} text-decoration-underline`}
+                            className={`text-decoration-underline`}
                             target="_blank"
                           >
                             Click here to attest

@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import DashboardHeader from "./dashboard-header";
 // import TransactionComponent from "../transaction";
-import { Lexend } from "next/font/google";
 import dynamic from "next/dynamic";
 import { useStateContext } from "@/context";
 import SelectEmployer from "./select-employer";
@@ -14,8 +13,6 @@ const SelectYear = dynamic(() => import("./select-year"), { ssr: false });
 const SelectEmploymentType = dynamic(() => import("./select-employment-type"), {
   ssr: false
 });
-
-const lexend_500 = Lexend({ weight: "500", subsets: ["latin"] });
 
 type SelectInput = {
   value: string;
@@ -46,8 +43,8 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     endMonth: { value: "01", label: "January" },
     endYear: { value: "2024", label: "2024" },
     employmentType: { value: "full-time", label: "Full Time" },
-    // responsibilities: ["", ""], // Initialize as an empty array
-    skills: [] // Initialize the skills as an empty array
+    // responsibilities: ["", ""],
+    skills: []
   });
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState<any>(null);
@@ -106,9 +103,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
           {/* header end */}
           <div className="d-flex justify-content-between align-items-center mb-20">
             <div>
-              <h2 className={`main-title ${lexend_500.className}`}>
-                My Resume
-              </h2>
+              <h2 className={`main-title`}>My Resume</h2>
               <label htmlFor="" style={{ color: "#ffffff80" }}>
                 Add Work Experience
               </label>

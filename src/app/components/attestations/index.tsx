@@ -7,25 +7,16 @@ import SelectMonth from "../dashboard/candidate/select-month";
 import SelectEmploymentType from "../dashboard/candidate/select-employment-type";
 import SelectYear from "../dashboard/candidate/select-year";
 // import TransactionComponent from "../dashboard/transaction/attest";
-export const DelaGothic = Dela_Gothic_One({
-  weight: "400",
-  subsets: ["latin"]
-});
-const lexend = Lexend({ weight: "400", subsets: ["latin"] });
 
 const Attestations = ({ experience }: { experience: any }) => {
   return (
     <>
-      <div className={`dashboard-body ${lexend.className}`}>
+      <div className={`dashboard-body`}>
         <div className="position-relative">
           <div className="d-flex justify-content-between align-items-center mb-20 mt-30">
             <div>
-              <h2 className={`main-title ${DelaGothic.className}`}>
-                Attestation Request
-              </h2>
-              <label className={`${DelaGothic.className}`} htmlFor="">
-                By {experience.owner}
-              </label>
+              <h2 className={`main-title`}>Attestation Request</h2>
+              <label htmlFor="">By {experience.owner}</label>
             </div>
             {/* <TransactionComponent experienceId={experience.id} /> */}
           </div>
