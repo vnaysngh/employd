@@ -19,7 +19,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0xA2c21f6897531385B74f860B57085d99D6DAdc36",
+  address: "0x7644A982bAe3f87d8D4D8d1951c41694170b7681",
   chain: baseSepolia,
   abi: abi as any
 });
@@ -173,7 +173,6 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   };
 
   const getEmployerDetails = async (ens_name: string) => {
-    console.log(ens_name);
     if (!ens_name) return null;
     try {
       const { data, error } = await supabase
@@ -276,10 +275,25 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       });
   };
 
+  const attestExperience = async (experienceId: any) => {
+    const transaction = prepareContractCall({
+      contract,
+      method: "function signAttestation(uint256 experienceId)",
+      params: [experienceId]
+    });
+    return sendTransaction(transaction)
+      .then((res) => res)
+      .catch((e) => {
+        console.error(e);
+        return e;
+      });
+  };
+
   return (
     <StateContext.Provider
       value={{
         names,
+        attestExperience,
         employers,
         getUserDetails,
         isUserRegistered,

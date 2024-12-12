@@ -1,16 +1,22 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import video_bg from "@/assets/dashboard/images/video_post.jpg";
-import { useStateContext } from "@/context";
-import { Dela_Gothic_One, Lexend } from "next/font/google";
-import SelectMonth from "../dashboard/candidate/select-month";
-import SelectEmploymentType from "../dashboard/candidate/select-employment-type";
-import SelectYear from "../dashboard/candidate/select-year";
 import roles from "@/data/roles";
 import Link from "next/link";
 // import TransactionComponent from "../dashboard/transaction/attest";
 
-const Attestations = ({ experience }: { experience: any }) => {
+const Attestations = ({
+  experience,
+  loading,
+  txHash,
+  error,
+  signExperience
+}: {
+  experience: any;
+  loading: boolean;
+  txHash: any;
+  error: any;
+  signExperience: (id: bigint) => void;
+}) => {
   return (
     <>
       <div className={`attestation-container dashboard-body`}>
@@ -20,12 +26,28 @@ const Attestations = ({ experience }: { experience: any }) => {
               <h2 className={`main-title`}>Attestation Request</h2>
               <label htmlFor="" className="text-secondary">
                 By{" "}
-                <Link href={`/${experience.seeker}`}>
+                <Link
+                  target="_blank"
+                  href={`/${experience.seeker}.employd.eth`}
+                >
                   <span className="text-decoration-underline">
-                    {experience.seeker}
+                    {experience.seeker}.employd.eth
                   </span>
                 </Link>
               </label>
+              <div>
+                <label htmlFor="" className="text-secondary">
+                  To{" "}
+                  <Link
+                    target="_blank"
+                    href={`/${experience.employer}.employd.eth`}
+                  >
+                    <span className="text-decoration-underline">
+                      {experience.employer}.employd.eth
+                    </span>
+                  </Link>
+                </label>
+              </div>
             </div>
             {/* <TransactionComponent experienceId={experience.id} /> */}
           </div>
@@ -119,20 +141,34 @@ const Attestations = ({ experience }: { experience: any }) => {
                         </div>
                       </div>
                     </div>
-                    {/*   <div className="row">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">
-                            Responsibilities and Achievements
-                          </label>
-                        </div>
+
+                    {!txHash && (
+                      <div className="d-flex">
+                        <button
+                          className="tx-btn mb-0"
+                          onClick={() => signExperience(experience.id)}
+                          disabled={loading}
+                        >
+                          Sign
+                        </button>
                       </div>
-                      <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          {experience.responsibilities.join(" , ")}
-                        </div>
+                    )}
+
+                    {error && (
+                      <div className="subname-error mb-10">{error}</div>
+                    )}
+
+                    {txHash && (
+                      <div className="success-text mb-20">
+                        Transaction submitted.
                       </div>
-                    </div> */}
+                    )}
+
+                    {loading && (
+                      <div className="loading-text mb-10">
+                        Processing your transaction...
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -141,64 +177,6 @@ const Attestations = ({ experience }: { experience: any }) => {
         </div>
       </div>
     </>
-  );
-};
-
-const SkillSelection = ({ selectedSkills, onSkillChange }: any) => {
-  const skillsOptions = [
-    "React",
-    "Node.js",
-    "JavaScript",
-    "TypeScript",
-    "CSS",
-    "HTML",
-    "Python",
-    "Django",
-    "Ruby"
-  ];
-
-  // Function to handle skill selection
-  const handleSkillSelect = (skill: any) => {
-    if (!selectedSkills.includes(skill)) {
-      onSkillChange([...selectedSkills, skill]);
-    }
-  };
-
-  // Function to handle skill removal
-  const handleSkillRemove = (skill: any) => {
-    onSkillChange(selectedSkills.filter((s: any) => s !== skill));
-  };
-
-  return (
-    <div>
-      <div className="skills-options">
-        {skillsOptions.map((skill) => (
-          <button
-            key={skill}
-            className={`skill-btn ${
-              selectedSkills.includes(skill) ? "selected" : ""
-            }`}
-            onClick={() => handleSkillSelect(skill)}
-          >
-            {skill}
-          </button>
-        ))}
-      </div>
-
-      <div className="selected-skills">
-        {selectedSkills.map((skill: any) => (
-          <span key={skill} className="skill-chip">
-            {skill}
-            <button
-              className="remove-skill"
-              onClick={() => handleSkillRemove(skill)}
-            >
-              &times;
-            </button>
-          </span>
-        ))}
-      </div>
-    </div>
   );
 };
 
