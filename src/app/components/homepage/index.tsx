@@ -12,19 +12,18 @@ const Homepage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [loginType, setLoginType] = useState<string | null>(null);
-  const [user, setUser] = useState<any[] | null>(null);
+  const [user, setUser] = useState<any>(null);
   const { createUser, isUserRegistered } = useStateContext();
 
   useEffect(() => {
     const onConnect = async () => {
-      if (isUserRegistered) {
-        setLoginType("login");
-        setUser(isUserRegistered);
-      } else {
-        setLoginType(loginType);
+      if (loginType !== "login") {
         try {
           const response = await createUser(loginType, account?.address!);
-          if (response && response.length) setUser(response[0]);
+          if (response && response.length) {
+            setLoginType(null);
+            setUser(response[0]);
+          }
         } catch (err) {
           console.log(err);
         }
@@ -32,26 +31,24 @@ const Homepage = () => {
     };
 
     if (loginType && account?.address) onConnect();
-  }, [loginType, account, isUserRegistered]);
+  }, [loginType, account]);
 
   useEffect(() => {
-    const getUser = () => {
-      setUser(isUserRegistered);
-    };
-
     if (account?.address && isUserRegistered) {
       setLoading(true);
-      setLoginType(null);
+      setLoginType("login");
       if (isUserRegistered.isOnboarded) {
         isUserRegistered.user_type === "talent"
           ? router.push("/dashboard/candidate-dashboard/resume")
           : router.push("/dashboard/employ-dashboard/profile");
       } else {
-        getUser();
+        setUser(isUserRegistered);
       }
       setLoading(false);
     }
   }, [account, isUserRegistered]);
+
+  console.log(loginType, "logintosks");
 
   return (
     <Wrapper>

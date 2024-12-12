@@ -20,7 +20,7 @@ export function WalletComponents({
 }: {
   text: string;
   userType: string;
-  setLoginType: (type: string) => void;
+  setLoginType: (type: string | null) => void;
   connectModalText?: string;
 }) {
   return (
@@ -34,14 +34,6 @@ export function WalletComponents({
         title: connectModalText,
         showThirdwebBranding: false
       }}
-      // accountAbstraction={{
-      //   chain: baseSepolia, // the chain where your smart accounts will be or is deployed
-      //   sponsorGas: true // enable or disable sponsored transactions
-      // }}
-      // detailsButton={{
-      //   className: "tw-connected-details",
-      //   style: { fontSize: "16px" }
-      // }}
       onConnect={() => setLoginType(userType)}
       autoConnect
     />

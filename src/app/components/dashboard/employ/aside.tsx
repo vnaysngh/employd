@@ -64,9 +64,7 @@ type IProps = {
 };
 const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
   const pathname = usePathname();
-  const { isUserRegistered } = useStateContext();
 
-  if (!isUserRegistered) return "loading...";
   return (
     <>
       <aside className={`dash-aside-navbar ${isOpenSidebar ? "show" : ""}`}>
@@ -95,7 +93,7 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             </div> */}
             <div className="user-name-data">
               <button className="user-name">
-                {isUserRegistered.ens_name}.employd.eth
+                {/* {isUserRegistered.ens_name}.employd.eth */}
               </button>
             </div>
           </div>
