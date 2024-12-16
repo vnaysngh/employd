@@ -52,8 +52,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const { employers, addUserExperienceToResume, isUserRegistered } =
     useStateContext();
 
-  console.log(isUserRegistered, "isUserRegistered");
-
   /*  const updateResponsibility = (index: number, updatedText: string) => {
     setFormData((prev) => ({
       ...prev,

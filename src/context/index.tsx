@@ -212,6 +212,19 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     else return data;
   };
 
+  const updateEmployerDetails = async (body: any) => {
+    const { data, error } = await supabase
+      .from("users")
+      .update({
+        ...body
+      })
+      .eq("address", account?.address!)
+      .select();
+
+    if (error) console.error(error);
+    else return data;
+  };
+
   const createUserEns = async (ens_name: string, address: string) => {
     const { data, error } = await supabase
       .from("users")
@@ -303,6 +316,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         createUser,
         createUserEns,
         updateUserDetails,
+        updateEmployerDetails,
         getEmployerDetails,
         addUserExperienceToResume,
         requestAttestation

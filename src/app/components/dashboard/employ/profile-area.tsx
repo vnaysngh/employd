@@ -8,12 +8,53 @@ import { useActiveAccount } from "thirdweb/react";
 type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+const categories = [
+  "Account",
+  "Finance",
+  "Marketing",
+  "Technology",
+  "Education",
+  "Healthcare",
+  "Retail",
+  "Hospitality",
+  "Manufacturing",
+  "Real Estate",
+  "Transportation",
+  "Other"
+];
+
 const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
-  const { getUserDetails } = useStateContext();
+  const { getUserDetails, updateEmployerDetails } = useStateContext();
   const [employer, setEmployer] = useState<any>({});
   const [loading, setLoading] = useState(false);
+  const [txHash, setTxHash] = useState<any>(null);
+  const [error, setError] = useState<any>(null);
   const account = useActiveAccount();
-  console.log(account);
+
+  // Form states
+  const [companyName, setCompanyName] = useState("");
+  const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
+  const [foundedDate, setFoundedDate] = useState("");
+  const [companySize, setCompanySize] = useState("");
+  const [category, setCategory] = useState("");
+  const [about, setAbout] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+
+  const convertUnixToDate = (unixTimestamp: number) => {
+    // Create a Date object using the Unix timestamp (in milliseconds)
+    const date = new Date(unixTimestamp * 1000);
+
+    // Extract year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, "0");
+
+    // Format as YYYY-MM-DD
+    return `${year}-${month}-${day}`;
+  };
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -22,9 +63,22 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
       setLoading(true);
       try {
         const userDetails = await getUserDetails(account.address);
-        console.log(userDetails, "user details");
         if (userDetails) {
           setEmployer(userDetails);
+          const { company_details } = userDetails;
+          const formattedDate = convertUnixToDate(
+            company_details?.founded_date
+          );
+          // Populate form fields with user data
+          setCompanyName(userDetails?.company_name || "");
+          setEmail(company_details?.email || "");
+          setWebsite(company_details?.website || "");
+          setFoundedDate(formattedDate || "");
+          setCompanySize(company_details?.company_size || "");
+          setCategory(company_details?.category || "");
+          setAbout(company_details?.about || "");
+          setTwitter(company_details?.twitter || "");
+          setLinkedin(company_details?.linkedin || "");
         }
       } catch (err) {
         console.error("Failed to fetch user details:", err);
@@ -36,33 +90,87 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
     fetchUserDetails();
   }, [account]);
 
-  // if (loading) return <h2>Loading...</h2>;
+  const saveDateAsUnix = (dateString: string) => {
+    // Parse the date string into a Date object
+    const date = new Date(dateString);
 
-  // if (employer?.user_type !== "employer") return;
+    // Convert the date to Unix format (seconds since epoch)
+    const unixTimestamp = Math.floor(date.getTime() / 1000);
+
+    return unixTimestamp;
+  };
+
+  const handleSave = async () => {
+    // Validation
+    if (!companyName.trim()) {
+      alert("Company Name is required.");
+      return;
+    }
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert("A valid email is required.");
+      return;
+    }
+    if (!website.trim() || !/^https?:\/\/.+/.test(website)) {
+      alert("A valid website URL is required.");
+      return;
+    }
+    if (!foundedDate.trim()) {
+      alert("Founded Date is required.");
+      return;
+    }
+    if (
+      !companySize.trim() ||
+      isNaN(Number(companySize)) ||
+      Number(companySize) <= 0
+    ) {
+      alert("Company Size is required.");
+      return;
+    }
+    if (!category.trim()) {
+      alert("Industry is required.");
+      return;
+    }
+
+    const foundedUnixDate = saveDateAsUnix(foundedDate);
+
+    const body = {
+      company_details: {
+        name: companyName,
+        email,
+        website,
+        founded_date: foundedUnixDate,
+        company_size: companySize,
+        category,
+        about,
+        twitter,
+        linkedin
+      }
+    };
+
+    try {
+      setLoading(true);
+      const response = await updateEmployerDetails(body);
+      if (response) {
+        setTxHash(response);
+      } else {
+        setError(response.message);
+      }
+    } catch (err) {
+      console.error(err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="dashboard-body">
       <div className="position-relative">
-        {/* header start */}
         <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
-        {/* header end */}
 
-        <h2 className={`main-title mb-20 `}>Profile</h2>
+        <h2 className="main-title mb-20">Profile</h2>
 
         <div className="card-box card-box-employer border-20">
-          {/* <div className="user-avatar-setting d-flex align-items-center mb-30">
-            <Image src={avatar} alt="avatar" className="lazy-img user-img" />
-            <div className="upload-btn position-relative tran3s ms-4 me-3">
-              Upload new photo
-              <input
-                type="file"
-                id="uploadImg"
-                name="uploadImg"
-                placeholder=""
-              />
-            </div>
-            <button className="delete-btn tran3s">Delete</button>
-          </div> */}
           <div className="dash-input-wrapper mb-30">
             <label htmlFor="">Company Name*</label>
             <input
@@ -75,52 +183,85 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
           <div className="row">
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Email*</label>
+                <label htmlFor="">Work Email*</label>
                 <input
                   type="email"
                   placeholder="companyinc@gmail.com"
-                  value={employer?.email}
-                  disabled
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="">Website*</label>
-                <input type="text" placeholder="http://somename.come" />
+                <input
+                  type="text"
+                  placeholder="http://somename.com"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
               </div>
             </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="">Founded Date*</label>
-                <input type="date" />
+                <input
+                  type="date"
+                  value={foundedDate}
+                  onChange={(e) => setFoundedDate(e.target.value)}
+                />
               </div>
             </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="">Company Size*</label>
-                <input type="text" placeholder="700" />
+                <input
+                  type="text"
+                  placeholder="700"
+                  value={companySize}
+                  onChange={(e) => setCompanySize(e.target.value)}
+                />
               </div>
             </div>
-            {/*  <div className="col-md-6">
-              <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Phone Number*</label>
-                <input type="tel" placeholder="+880 01723801729" />
-              </div>
-            </div> */}
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Category*</label>
-                <input type="text" placeholder="Account, Finance, Marketing" />
+                <label htmlFor="">Industry*</label>
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="form-select"
+                >
+                  <option value="">Select Industry</option>
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="dash-input-wrapper mb-30">
+                <label htmlFor="">One sentence summary of your product</label>
+                <input
+                  type="text"
+                  placeholder="700"
+                  defaultValue={employer?.company_description}
+                  disabled
+                  // onChange={(e) => setCompanySize(e.target.value)}
+                />
               </div>
             </div>
           </div>
           <div className="dash-input-wrapper">
-            <label htmlFor="">About Company*</label>
-            <textarea className="size-lg" placeholder=""></textarea>
-            {/*  <div className="alert-text">
-              Brief description for your company. URLs are hyperlinked.
-            </div> */}
+            <label htmlFor="">About Company</label>
+            <textarea
+              className="size-lg"
+              placeholder="Brief description of your company."
+              value={about}
+              onChange={(e) => setAbout(e.target.value)}
+            ></textarea>
           </div>
         </div>
 
@@ -128,20 +269,36 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
           <h4 className="dash-title-three">Social Media</h4>
           <div className="dash-input-wrapper mb-20">
             <label htmlFor="">Twitter</label>
-            <input type="text" placeholder="https://twitter.com/" />
+            <input
+              type="text"
+              placeholder="https://twitter.com/"
+              value={twitter}
+              onChange={(e) => setTwitter(e.target.value)}
+            />
           </div>
           <div className="dash-input-wrapper mb-20">
             <label htmlFor="">LinkedIn</label>
-            <input type="text" placeholder="https://linkedin.com/" />
+            <input
+              type="text"
+              placeholder="https://linkedin.com/"
+              value={linkedin}
+              onChange={(e) => setLinkedin(e.target.value)}
+            />
           </div>
-          {/*  <a href="#" className="dash-btn-one">
-            <i className="bi bi-plus"></i> Add more link
-          </a> */}
         </div>
-        <div className="button-group d-inline-flex align-items-center mt-30">
-          <a href="#" className="dash-btn-two tran3s me-3">
+        {error && <div className="subname-error mt-20">{error}</div>}
+
+        {txHash && <div className="success-text mt-20">Details Updated.</div>}
+
+        {loading && (
+          <div className="loading-text mt-20">
+            Processing your transaction...
+          </div>
+        )}
+        <div className="button-group d-inline-flex align-items-center mt-20">
+          <button className="dash-btn-two tran3s me-3" onClick={handleSave}>
             Save
-          </a>
+          </button>
         </div>
       </div>
     </div>
