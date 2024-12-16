@@ -33,7 +33,7 @@ export const nav_data: {
     id: 1,
     icon: nav_2,
     icon_active: nav_2,
-    link: "/dashboard/candidate-dashboard/profile",
+    link: "/dashboard/candidate-dashboard/resume",
     title: "My Resume"
   },
   /*   {
@@ -47,7 +47,7 @@ export const nav_data: {
     id: 3,
     icon: nav_3,
     icon_active: nav_3,
-    link: "/dashboard/candidate-dashboard/resume",
+    link: "/dashboard/candidate-dashboard/experience",
     title: "Add Experience"
   },
   {

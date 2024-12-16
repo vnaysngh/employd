@@ -1,24 +1,44 @@
-import NiceSelect from "@/ui/nice-select";
 import React from "react";
+import Select from "react-select";
 
-const SelectYear = ({ onChange }: { onChange: (item: any) => void }) => {
+const styles = {
+  control: (styles: any) => ({
+    ...styles,
+    minHeight: 50,
+    backgroundColor: "#1d1e26",
+    border: "1px solid hsla(0, 0%, 100%, 0.1)",
+    padding: "6px 0",
+    borderRadius: "7px"
+  }),
+  input: (styles: any) => ({ ...styles, color: "#ffffffd9" }),
+  singleValue: (styles: any) => ({ ...styles, color: "#ffffffd9" })
+};
+
+const SelectYear = ({
+  placeHolder,
+  onChange
+}: {
+  placeHolder: string;
+  onChange: (item: any) => void;
+}) => {
+  const generateYearOptions = (startYear: number, endYear: number) => {
+    return Array.from({ length: startYear - endYear + 1 }, (_, index) => {
+      const year = startYear - index;
+      return { value: year.toString(), label: year.toString() };
+    });
+  };
+
+  const options = generateYearOptions(2024, 2001);
   return (
-    <div className="dash-input-wrapper mb-30">
-      <NiceSelect
-        options={[
-          { value: "2024", label: "2024" },
-          { value: "2023", label: "2023" },
-          { value: "2022", label: "2022" },
-          { value: "2021", label: "2021" },
-          { value: "2020", label: "2020" },
-          { value: "2019", label: "2019" },
-          { value: "2018", label: "2018" }
-        ]}
-        defaultCurrent={0}
-        onChange={onChange}
-        name="Year"
-      />
-    </div>
+    <Select
+      placeholder={placeHolder}
+      name="colors"
+      onChange={onChange}
+      options={options}
+      className="basic-multi-select"
+      classNamePrefix="select"
+      styles={styles}
+    />
   );
 };
 

@@ -5,6 +5,7 @@ import DashboardHeader from "./dashboard-header";
 import dynamic from "next/dynamic";
 import { useStateContext } from "@/context";
 import SelectEmployer from "./select-employer";
+import SelectSkills from "./select-skills";
 
 // Dynamically import client-side only components
 const SelectRole = dynamic(() => import("./select-role"), { ssr: false });
@@ -27,6 +28,7 @@ export type FormData = {
   endMonth: SelectInput;
   endYear: SelectInput;
   employmentType: SelectInput;
+  description: string;
   skills: string[];
 };
 // props type
@@ -43,7 +45,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     endMonth: { value: "01", label: "January" },
     endYear: { value: "2024", label: "2024" },
     employmentType: { value: "full-time", label: "Full Time" },
-    // responsibilities: ["", ""],
+    description: "",
     skills: []
   });
   const [loading, setLoading] = useState(false);
@@ -52,14 +54,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const { employers, addUserExperienceToResume, isUserRegistered } =
     useStateContext();
 
-  /*  const updateResponsibility = (index: number, updatedText: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      responsibilities: prev.responsibilities.map((resp, i) =>
-        i === index ? updatedText : resp
-      )
-    }));
-  }; */
+  const updateResponsibility = (index: number, updatedText: string) => {};
 
   const handleChange = (field: keyof FormData, value: SelectInput) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -94,6 +89,8 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       setLoading(false);
     }
   };
+
+  console.log(formData, formData.description);
 
   return (
     <>
@@ -219,15 +216,36 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                     <div className="row align-items-center">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
+                          <label htmlFor="">Description</label>
+                        </div>
+                      </div>
+                      <div className="col-lg-10">
+                        <div className="dash-input-wrapper mb-30">
+                          <input
+                            type="text"
+                            placeholder="Description"
+                            value={formData.description}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                description: e.target.value
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row align-items-center">
+                      <div className="col-lg-2">
+                        <div className="dash-input-wrapper mb-30 md-mb-10">
                           <label htmlFor="">Skills</label>
                         </div>
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
-                          <SkillSelection
-                            selectedSkills={formData.skills}
-                            onSkillChange={handleSkillChange}
-                          />
+                          {/* <SelectSkills
+                          // onChange={(value) => handleChange("role", value)}
+                          /> */}
                         </div>
                       </div>
                     </div>
