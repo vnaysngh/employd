@@ -118,6 +118,11 @@
         "type": "string"
       },
       {
+        "internalType": "string",
+        "name": "_description",
+        "type": "string"
+      },
+      {
         "internalType": "string[]",
         "name": "_skills",
         "type": "string[]"
@@ -226,6 +231,11 @@
         "type": "string"
       },
       {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
         "internalType": "enum AttestationStatus",
         "name": "attestationStatus",
         "type": "uint8"
@@ -326,6 +336,11 @@
             "type": "string"
           },
           {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
             "internalType": "string[]",
             "name": "skills",
             "type": "string[]"
@@ -408,6 +423,11 @@
           {
             "internalType": "string",
             "name": "employmentType",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
             "type": "string"
           },
           {
@@ -499,6 +519,11 @@
           {
             "internalType": "string",
             "name": "employmentType",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
             "type": "string"
           },
           {

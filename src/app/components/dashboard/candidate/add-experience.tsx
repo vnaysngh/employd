@@ -52,8 +52,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
-  const { employers, addUserExperienceToResume, isUserRegistered } =
-    useStateContext();
+  const { employers, addUserExperienceToResume } = useStateContext();
 
   const handleChange = (
     field: keyof FormData,
@@ -84,7 +83,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     }
   };
 
-  console.log(formData);
+  console.log(formData, "dfkdfndknfndk");
 
   return (
     <>
@@ -243,7 +242,12 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
                           <SelectSkills
-                            onChange={(value) => handleChange("skills", value)}
+                            onChange={(value: any[]) => {
+                              setFormData({
+                                ...formData,
+                                skills: value.map((item) => item.label)
+                              });
+                            }}
                           />
                         </div>
                       </div>

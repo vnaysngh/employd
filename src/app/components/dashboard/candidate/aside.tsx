@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
-import nav_1 from "@/assets/dashboard/images/icon/icon_1.svg";
 import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
 import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
 import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
@@ -33,7 +32,7 @@ export const nav_data: {
     id: 1,
     icon: nav_2,
     icon_active: nav_2,
-    link: "/dashboard/candidate-dashboard/resume",
+    link: "/dashboard/candidate-dashboard/profile",
     title: "My Resume"
   },
   /*   {

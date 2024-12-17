@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Dela_Gothic_One, Lexend } from "next/font/google";
+import { Changa_One, Chango, Dela_Gothic_One, Lexend } from "next/font/google";
 import abi from "@/abis/experience.json";
 // import { useReadContract } from "wagmi";
 import { contract, useStateContext } from "@/context";
@@ -21,7 +21,7 @@ import DashboardHeader from "./dashboard-header";
 import roles from "@/data/roles";
 import Image from "next/image";
 import Link from "next/link";
-
+const chango = Chango({ weight: "400", subsets: ["latin"] });
 const lexend400 = Lexend({ weight: "400", subsets: ["latin"] });
 
 // props type
@@ -34,7 +34,7 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   const { data: experiences, isPending } = useReadContract({
     contract,
     method:
-      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string[] skills, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
+      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, string[] skills, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
     params: [account?.address!]
   });
 
@@ -133,7 +133,6 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
       setExperienceId(id);
       try {
         const employer = await getEmployerDetails(ens_name);
-        console.log(employer, id);
         if (employer) {
           const response = await requestAttestation(id, employer.address);
           if (response.transactionHash) {
@@ -152,12 +151,16 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
 
   return experiences?.map((experience: any, index: number) => {
     const role: string = experience?.role;
+    const nameParts = experience?.employer.trim().split(" "); // Split the name by space (for full names)
+    const firstName = nameParts[0]; // Get the first part (first name)
     return (
       <div className="experience-card" key={experience.id}>
         <div className="experience-header">
           <div className="experience-title">
             <div className="d-flex gap-3">
-              <Image src={logo} width={54} height={54} alt="" />
+              <div className={`${chango.className} company-logo-placeholder`}>
+                {firstName.charAt(0).toUpperCase()}
+              </div>
               <div>
                 <h3 className={`${lexend400.className} mb-1`}>
                   {roles[role as keyof typeof roles]}
@@ -205,6 +208,10 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
             ) : (
               "Rejected"
             )}
+          </div>
+          <div className="company-name mt-30">Description</div>
+          <div className="description-section mt-5">
+            {experience?.description}
           </div>
 
           {experience && experience.id === experienceId ? (
