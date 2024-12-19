@@ -172,6 +172,26 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     }
   };
 
+  const getUserDetailsByEns = async (ens: string) => {
+    if (!ens) return null;
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("ens_name", ens);
+
+      if (error) {
+        console.error("Error fetching user details:", error);
+        return null;
+      }
+
+      return data?.length ? data[0] : null;
+    } catch (error) {
+      console.error("Unexpected error fetching user details:", error);
+      return null;
+    }
+  };
+
   const getEmployerDetails = async (ens_name: string) => {
     if (!ens_name) return null;
     try {
@@ -311,6 +331,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         attestExperience,
         employers,
         getUserDetails,
+        getUserDetailsByEns,
         isUserRegistered,
         signer,
         pushUser,

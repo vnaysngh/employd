@@ -39,7 +39,7 @@ export const nav_data: {
     id: 2,
     icon: nav_2,
     icon_active: nav_2,
-    link: "/dashboard/candidate-dashboard/resume",
+    link: "/dashboard/candidate-dashboard/experience",
     title: "Resume"
   }, */
   {

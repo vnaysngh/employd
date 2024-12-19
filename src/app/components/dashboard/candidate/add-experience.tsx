@@ -83,8 +83,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     }
   };
 
-  console.log(formData, "dfkdfndknfndk");
-
   return (
     <>
       <div className={`dashboard-body`}>
@@ -92,10 +90,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
           <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
           <div className="d-flex justify-content-between align-items-center mb-20">
             <div>
-              <h2 className={`main-title`}>My Resume</h2>
-              <label htmlFor="" style={{ color: "#ffffff80" }}>
-                Add Work Experience
-              </label>
+              <h2 className={`main-title`}>Add Experience</h2>
             </div>
           </div>
 

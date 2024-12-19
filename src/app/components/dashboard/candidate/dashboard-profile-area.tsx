@@ -38,11 +38,6 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
     params: [account?.address!]
   });
 
-  // if (!experiences || !experiences?.length)
-  //   return <div>No Experiences Found</div>;
-
-  console.log(experiences, "experiences");
-
   return (
     <div className={`dashboard-body`}>
       <div className="position-relative">
@@ -51,7 +46,7 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
         <div className="row gx-0 align-items-center">
           <div className="d-flex align-items-center justify-content-between">
             <h2 className={`main-title m0`}>
-              {isPending ? "Loading..." : "Experience Attestations"}
+              {isPending ? "Loading..." : "My Resume"}
             </h2>
           </div>
         </div>
@@ -181,15 +176,17 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
                     </span>
                   </div>
                 </div>
-                <div className="skills-section pt-2">
-                  <div className="skills-list">
-                    {experience?.skills?.map((skill: any, index: number) => (
-                      <span key={index} className="skill-tag">
-                        {skill}
-                      </span>
-                    ))}
+                {experience?.skills && experience?.skills.length && (
+                  <div className="skills-section pt-2">
+                    <div className="skills-list">
+                      {experience?.skills?.map((skill: any, index: number) => (
+                        <span key={index} className="skill-tag">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
             {!experience.attestationStatus ? (
@@ -209,10 +206,14 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
               "Rejected"
             )}
           </div>
-          <div className="company-name mt-30">Description</div>
-          <div className="description-section mt-5">
-            {experience?.description}
-          </div>
+          {experience?.description && (
+            <>
+              <div className="company-name mt-30">Description</div>
+              <div className="description-section mt-5">
+                {experience?.description}
+              </div>
+            </>
+          )}
 
           {experience && experience.id === experienceId ? (
             <>

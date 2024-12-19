@@ -257,7 +257,7 @@ const Stepper = ({ userType }: { userType: string }) => {
       });
       if (response && response.length) {
         userType === "talent"
-          ? router.push("/dashboard/candidate-dashboard/resume")
+          ? router.push("/dashboard/candidate-dashboard/experience")
           : router.push("/dashboard/employ-dashboard/profile");
       }
     } catch (error) {

@@ -39,7 +39,7 @@ const Homepage = () => {
       setLoginType("login");
       if (isUserRegistered.isOnboarded) {
         isUserRegistered.user_type === "talent"
-          ? router.push("/dashboard/candidate-dashboard/resume")
+          ? router.push("/dashboard/candidate-dashboard/experience")
           : router.push("/dashboard/employ-dashboard/profile");
       } else {
         setUser(isUserRegistered);
