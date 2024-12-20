@@ -215,7 +215,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
                           <textarea
-                            rows={2}
+                            rows={4}
                             placeholder="Description"
                             value={formData.description}
                             onChange={(e) =>
@@ -228,7 +228,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                         </div>
                       </div>
                     </div>
-                    <div className="row align-items-center">
+                    {/*  <div className="row align-items-center">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
                           <label htmlFor="">Skills</label>
@@ -246,7 +246,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                           />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     {error && (
                       <div className="subname-error mb-10">{error}</div>
                     )}

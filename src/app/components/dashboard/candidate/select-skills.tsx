@@ -14,10 +14,17 @@ const colourStyles = {
   input: (styles: any) => ({ ...styles, color: "#ffffffd9" })
 };
 
-const SelectSkills = ({ onChange }: { onChange: (item: any) => void }) => {
+const SelectSkills = ({
+  defaultValue,
+  onChange
+}: {
+  defaultValue: any[];
+  onChange: (item: any) => void;
+}) => {
+  console.log(defaultValue);
   return (
     <Select
-      //   defaultValue={[skills[2], skills[3]]}
+      value={defaultValue}
       isMulti
       placeholder="Select Skills"
       name="colors"

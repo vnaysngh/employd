@@ -232,6 +232,25 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     else return data;
   };
 
+  const updateCandidateSkills = async ({
+    body,
+    address
+  }: {
+    body: any;
+    address: string;
+  }) => {
+    const { data, error } = await supabase
+      .from("users")
+      .update({
+        ...body
+      })
+      .eq("address", address)
+      .select();
+
+    if (error) console.error(error);
+    else return data;
+  };
+
   const updateEmployerDetails = async (body: any) => {
     const { data, error } = await supabase
       .from("users")
@@ -339,6 +358,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         createUser,
         createUserEns,
         updateUserDetails,
+        updateCandidateSkills,
         updateEmployerDetails,
         getEmployerDetails,
         addUserExperienceToResume,

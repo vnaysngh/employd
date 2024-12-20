@@ -80,12 +80,12 @@ const CandidateDetailsArea = () => {
                     {/* CandidateBio */}
                     <CandidateBio />
                     {/* CandidateBio */}
-                    <a
+                    {/*                     <a
                       href="#"
                       className="btn-ten fw-500 text-white w-100 text-center tran3s mt-15"
                     >
                       Download CV
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
