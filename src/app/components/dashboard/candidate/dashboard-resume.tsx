@@ -159,36 +159,36 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                           <div className="col-sm-6">
                             <div className="row">
                               <div className="col-sm-5">
-                                <SelectMonth
+                                {/* <SelectMonth
                                   onChange={(value) =>
                                     handleChange("startMonth", value)
                                   }
-                                />
+                                /> */}
                               </div>
                               <div className="col-sm-5">
-                                <SelectYear
+                                {/*  <SelectYear
                                   onChange={(value) =>
                                     handleChange("startYear", value)
                                   }
-                                />
+                                /> */}
                               </div>
                             </div>
                           </div>
                           <div className="col-sm-6">
                             <div className="row">
                               <div className="col-sm-5">
-                                <SelectMonth
+                                {/* <SelectMonth
                                   onChange={(value) =>
                                     handleChange("endMonth", value)
                                   }
-                                />
+                                /> */}
                               </div>
                               <div className="col-sm-5">
-                                <SelectYear
+                                {/*  <SelectYear
                                   onChange={(value) =>
                                     handleChange("endYear", value)
                                   }
-                                />
+                                /> */}
                               </div>
                             </div>
                           </div>
