@@ -54,7 +54,7 @@ const CandidateDetailsArea = () => {
   return (
     <>
       {user?.user_type === "talent" ? (
-        <section className="candidates-profile pt-150 lg-pt-70 pb-150 lg-pb-80">
+        <section className="candidates-profile pt-150 pb-150 lg-pb-80">
           <div className="container">
             <div className="row">
               <WorkExperience user={user} />
@@ -71,7 +71,7 @@ const CandidateDetailsArea = () => {
                         />
                       </div>
                     </div>
-                    <h3 className="cadidate-name text-center">James Brower</h3>
+                    <h3 className="cadidate-name text-center">{user?.name}</h3>
                     {/*  <div className="text-center pb-25">
                     <a href="#" className="invite-btn fw-500">
                       Invite

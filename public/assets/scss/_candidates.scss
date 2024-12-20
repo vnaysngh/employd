@@ -167,7 +167,7 @@
       border: 1px solid hsla(0, 0%, 100%, 0.1);
       position: relative;
       border-radius: 15px;
-      padding: 35px 35px 20px;
+      padding: 20px 35px 20px;
       .title {
         position: absolute;
         background: $bg-color;
@@ -223,15 +223,15 @@
     .numb {
       width: 45px;
       height: 45px;
-      color: $color-five;
-      border: 1px solid $color-five;
+      color: $text-secondary;
+      border: 1px solid $text-secondary;
       position: absolute;
       left: 0;
       top: 3px;
     }
     .text_1 {
       font-size: 14px;
-      color: $color-five;
+      color: $text-secondary;
     }
     h4 {
       font-size: 18px;

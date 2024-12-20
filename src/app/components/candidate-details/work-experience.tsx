@@ -15,8 +15,6 @@ const WorkExperience = ({ user }: { user: any }) => {
     params: [user?.address!]
   });
 
-  console.log(experiences, "experiences");
-
   if (isPending) return <h5>Loading...</h5>;
 
   if (!isPending && !experiences) return <h3>Profile Incomplete</h3>;
@@ -29,7 +27,10 @@ const WorkExperience = ({ user }: { user: any }) => {
           {experiences?.map((experience: any, index: number) => {
             const role: string = experience?.role;
             return (
-              <div className="time-line-data position-relative pt-15">
+              <div
+                className="time-line-data position-relative pt-15"
+                key={experience?.id}
+              >
                 <div className="info position-relative">
                   <div className="numb fw-500 rounded-circle d-flex align-items-center justify-content-center">
                     {index + 1}
@@ -49,7 +50,7 @@ const WorkExperience = ({ user }: { user: any }) => {
         </div>
         <div className="inner-card border-style mb-75 lg-mb-50">
           <h3 className="title">Skills</h3>
-          <Skills skills={experiences[0].skills} />
+          <Skills skills={user?.skills} />
         </div>
       </div>
     </div>

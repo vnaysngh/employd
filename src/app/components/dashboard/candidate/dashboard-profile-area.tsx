@@ -55,10 +55,11 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
       if (response && response.length) {
         setSuccess(true);
       } else {
-        alert("Failed to add skills");
+        setError(true);
       }
     } catch (error) {
       console.error("Failed to call API:", error);
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -69,17 +70,6 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
       "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, string[] skills, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
     params: [account?.address!]
   });
-
-  console.log([
-    {
-      label: "React.js",
-      value: "reactJs"
-    },
-    {
-      label: "JavaScript",
-      value: "javaScript"
-    }
-  ]);
 
   return (
     <div className={`dashboard-body`}>
@@ -318,72 +308,6 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
             )}
           </>
         ) : null}
-
-        {/* <div className="experience-content"> */}
-        {/* <div className="skills-section">
-            <h4>Skills</h4>
-            <div className="skills-list">
-              {experience?.skills?.map((skill: any, index: number) => (
-                <span key={index} className="skill-tag">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div> */}
-
-        {/*  <div className="description-section">
-            <h4>Responsibilities & Achievements</h4>
-            <ul className="achievements-list">
-              {experience?.responsibilities?.map(
-                (achievement: any, index: number) => (
-                  <li key={index}>{achievement}</li>
-                )
-              )}
-            </ul>
-          </div> */}
-
-        {/* {experience.attestationStatus === 0 ||
-          experience.attestationStatus === 1 ? (
-            <div className="attestation-section"> */}
-        {/* <div className="select-wrapper">
-                <label htmlFor={`employer-${experience.id}`}>
-                  Select Employer for Attestation:
-                </label>
-                <ReactSearchAutocomplete
-                  items={filteredUsers}
-                  onSelect={(item) => handleOnSelect(item, experience)}
-                  autoFocus
-                  formatResult={formatResult}
-                  className="react-search-autocomplete"
-                />
-              </div> */}
-
-        {/* <button
-                className={`request-button ${
-                  isRequesting ? "requesting" : ""
-                } ${!selectedEmployer ? "disabled" : ""}`}
-                onClick={handleAttestation}
-                disabled={!selectedEmployer.address || isRequesting}
-              >
-                {isRequesting ? "Sending Request..." : "Request Attestation"}
-              </button>
-
-              {showSuccess && (
-                <div className="success-message">
-                  ✓ Attestation request sent successfully!
-                </div>
-              )} */}
-        {/* <TransactionComponent
-                employerAddress={selectedEmployer.address}
-                experienceId={experience.id}
-                attestationStatus={experience.attestationStatus}
-                setShowSuccess={setShowSuccess}
-              /> */}
-        {/* </div>
-          ) : experience.attestationStatus === 3 ? (
-            <div>Attestation Rejected</div>
-          ) : null} */}
-        {/* </div> */}
       </div>
     );
   });
