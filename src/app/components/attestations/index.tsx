@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import roles from "@/data/roles";
 import Link from "next/link";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 // import TransactionComponent from "../dashboard/transaction/attest";
 
 const Attestations = ({
@@ -17,13 +18,41 @@ const Attestations = ({
   error: any;
   signExperience: (id: bigint) => void;
 }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = () => {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
+
   return (
     <>
       <div className={`attestation-container dashboard-body`}>
         <div className="position-relative">
           <div className="d-flex justify-content-between align-items-center mb-20 mt-30">
             <div>
-              <h2 className={`main-title`}>Attestation Request</h2>
+              <div className="d-flex justify-content-center align-items-center gap-2">
+                <h2 className={`main-title  mb-0`}>
+                  <div className="d-flex gap-2">
+                    Experience Attestation
+                    <CopyToClipboard
+                      text={experience?.id}
+                      onCopy={handleCopyLink}
+                    >
+                      <span className="on-hover-underline attestation-id">
+                        {`#${experience?.id
+                          ?.toString()
+                          .slice(0, 4)}...${experience?.id
+                          ?.toString()
+                          .slice(-4)}`}
+                      </span>
+                    </CopyToClipboard>
+                    {copied && <i className="bi bi-check"></i>}
+                  </div>
+                </h2>
+              </div>
               <label htmlFor="" className="text-secondary">
                 By{" "}
                 <Link
@@ -130,13 +159,13 @@ const Attestations = ({
                     <div className="row">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Skills</label>
+                          <label htmlFor="">Description</label>
                         </div>
                       </div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
                           <div className="attestation-item">
-                            {experience?.skills?.join(" , ")}
+                            {experience?.description || "-"}
                           </div>
                         </div>
                       </div>

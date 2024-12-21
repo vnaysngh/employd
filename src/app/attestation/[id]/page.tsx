@@ -36,11 +36,10 @@ const CandidateDashboardResumePage = () => {
   const { data, isPending } = useReadContract({
     contract,
     method:
-      "function getExperienceById(uint256 experienceId) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string[] skills, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns))",
+      "function getExperienceById(uint256 experienceId) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, string[] skills, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns))",
     params: [BigInt(params?.id!)]
   });
 
-  console.log(data);
   if (isPending) return <h3>Loading</h3>;
   if (!data) return <h3>Something Went Wrong</h3>;
   return (

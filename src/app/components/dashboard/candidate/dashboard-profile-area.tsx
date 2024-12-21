@@ -145,57 +145,6 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
   const [experienceId, setExperienceId] = useState(null);
-  /*  const filteredUsers = users.map((user: any) => ({
-    id: user.id,
-    name: `${user.subname}.${user.ens_name}`,
-    address: user.address
-  })); */
-
-  /*   useEffect(() => {
-    const handleAttestation = async () => {
-      if (!selectedEmployer.name || !selectedEmployer.address) return;
-      initializePushAPI();
-    };
-    if (showSuccess) handleAttestation();
-  }, [showSuccess]);
-
-  const handleOnSelect = (item: any, experience: any) => {
-    // the item selectedEmployer
-    setSelectedEmployer(item);
-    setExperience(experience);
-  };
- */
-  /*  useEffect(() => {
-    const sendMessageToEmployer = async () => {
-      setIsRequesting(true);
-      try {
-        const message = await pushUser.chat.send(selectedEmployer.address, {
-          type: "MediaEmbed",
-          content: `https://employd.xyz/attestation/${experience.id}`
-        });
-        console.log(message);
-        setShowSuccess(true);
-        setTimeout(() => setShowSuccess(false), 3000);
-      } catch (error) {
-        console.error("Failed to request attestation:", error);
-      } finally {
-        setIsRequesting(false);
-        setSelectedEmployer({ name: "", id: "", address: "" });
-      }
-    };
-
-    if (pushUser && showSuccess) {
-      sendMessageToEmployer();
-    }
-  }, [pushUser]); */
-
-  /* const formatResult = (item: any) => {
-    return (
-      <>
-        <span style={{ display: "block", textAlign: "left" }}>{item.name}</span>
-      </>
-    );
-  }; */
 
   const handleRequestAttestation = async (id: any, ens_name: string) => {
     if (txHash) {
@@ -237,7 +186,13 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
                 {roles[role as keyof typeof roles]}
               </h3>
               <div className="company-name d-flex align-items-center gap-2 text-capitalize">
-                <Link href={""}>{experience?.employer}</Link>
+                <Link
+                  href={`/${experience?.employer}.employd.eth`}
+                  target="_blank"
+                  className="on-hover-underline"
+                >
+                  {experience?.employer}
+                </Link>
                 <span>&#x2022;</span>
                 <span className="employment-type d-flex justify-content-between align-items-center">
                   {experience.employmentType}
@@ -252,7 +207,7 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
                   </span>
                 </div>
               </div>
-              {experience?.skills && experience?.skills.length && (
+              {/*  {experience?.skills && experience?.skills.length && (
                 <div className="skills-section pt-2">
                   <div className="skills-list">
                     {experience?.skills?.map((skill: any, index: number) => (
@@ -262,7 +217,7 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
                     ))}
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
           {!experience.attestationStatus ? (
@@ -275,7 +230,13 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
               Request Attestation
             </button>
           ) : experience.attestationStatus === 1 ? (
-            <span className="status-badge pending">Pending Attestation</span>
+            <Link
+              href={`/attestation/${experience.id}`}
+              target="_blank"
+              className="on-hover-underline status-badge pending"
+            >
+              Pending Attestation
+            </Link>
           ) : experience.attestationStatus === 2 ? (
             <span className="status-badge attested"> Attested ✓ </span>
           ) : (

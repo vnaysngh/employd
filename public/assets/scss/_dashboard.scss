@@ -1613,6 +1613,12 @@
   color: $text-secondary;
 }
 
+.on-hover-underline {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .employment-details {
   display: flex;
   align-items: center;
@@ -1915,6 +1921,17 @@
 .attestation-container.dashboard-body {
   max-width: 80%;
   margin: 0 auto;
+}
+
+.attestation-id {
+  background-color: #2a2c37;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.bi-check {
+  color: dimgray;
+  font-size: 28px;
 }
 
 .text-secondary {
