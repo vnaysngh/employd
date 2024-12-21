@@ -19,7 +19,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0x505931FF406c5116662064d4DdE97EEE932Fd897",
+  address: "0x5BC0625b4136FAAd8338f83f63870e765454d623",
   chain: baseSepolia,
   abi: abi as any
 });
@@ -286,8 +286,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       string, // endMonth
       string, // endYear
       string, // employmentType
-      string,
-      readonly string[] // skills
+      string
     ] = [
       formData.role.value,
       isUserRegistered.ens_name,
@@ -297,13 +296,12 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       formData.endMonth.value,
       formData.endYear.value,
       formData.employmentType.value,
-      formData.description,
-      formData.skills // This is already a string[]
+      formData.description
     ];
     const transaction = prepareContractCall({
       contract,
       method:
-        "function addExperience(string _role, string _seeker, string _employer, string _startMonth, string _startYear, string _endMonth, string _endYear, string _employmentType, string _description, string[] _skills) returns (uint256)",
+        "function addExperience(string _role, string _seeker, string _employer, string _startMonth, string _startYear, string _endMonth, string _endYear, string _employmentType, string _description) returns (uint256)",
       params
     });
     return sendTransaction(transaction)

@@ -67,7 +67,7 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   const { data: experiences, isPending } = useReadContract({
     contract,
     method:
-      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, string[] skills, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
+      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
     params: [account?.address!]
   });
 
@@ -238,7 +238,13 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
               Pending Attestation
             </Link>
           ) : experience.attestationStatus === 2 ? (
-            <span className="status-badge attested"> Attested ✓ </span>
+            <Link
+              href={`/attestation/${experience.id}`}
+              target="_blank"
+              className="on-hover-underline status-badge attested"
+            >
+              Attested ✓
+            </Link>
           ) : (
             "Rejected"
           )}

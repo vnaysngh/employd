@@ -3,6 +3,11 @@ import React, { useEffect, useState } from "react";
 import roles from "@/data/roles";
 import Link from "next/link";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import Image from "next/image";
+import Attested from "@/assets/dashboard/images/icon/checked.png";
+import AttestedPending from "@/assets/dashboard/images/icon/pending.png";
+import Rejected from "@/assets/dashboard/images/icon/rejected-new.png";
+
 // import TransactionComponent from "../dashboard/transaction/attest";
 
 const Attestations = ({
@@ -32,50 +37,78 @@ const Attestations = ({
       <div className={`attestation-container dashboard-body`}>
         <div className="position-relative">
           <div className="d-flex justify-content-between align-items-center mb-20 mt-30">
-            <div>
-              <div className="d-flex justify-content-center align-items-center gap-2">
-                <h2 className={`main-title  mb-0`}>
-                  <div className="d-flex gap-2">
-                    Experience Attestation
-                    <CopyToClipboard
-                      text={experience?.id}
-                      onCopy={handleCopyLink}
-                    >
-                      <span className="on-hover-underline attestation-id">
-                        {`#${experience?.id
-                          ?.toString()
-                          .slice(0, 4)}...${experience?.id
-                          ?.toString()
-                          .slice(-4)}`}
-                      </span>
-                    </CopyToClipboard>
-                    {copied && <i className="bi bi-check"></i>}
+            <div className="w-100">
+              <div className="d-flex gap-2">
+                <div>
+                  {!experience.attestationStatus ? (
+                    "Not Initiated"
+                  ) : experience.attestationStatus === 1 ? (
+                    <Image
+                      src={AttestedPending}
+                      alt="attestation-icon"
+                      height={48}
+                      width={48}
+                    />
+                  ) : experience.attestationStatus === 2 ? (
+                    <Image
+                      src={Attested}
+                      alt="attestation-icon"
+                      height={48}
+                      width={48}
+                    />
+                  ) : (
+                    <Image
+                      src={Rejected}
+                      alt="attestation-icon"
+                      height={48}
+                      width={48}
+                    />
+                  )}
+                </div>
+                {/*  <CopyToClipboard
+                        text={experience?.id}
+                        onCopy={handleCopyLink}
+                      >
+                        <span className="on-hover-underline attestation-id">
+                          {`#${experience?.id
+                            ?.toString()
+                            .slice(0, 4)}...${experience?.id
+                            ?.toString()
+                            .slice(-4)}`}
+                        </span>
+                      </CopyToClipboard>
+                      {copied && <i className="bi bi-check"></i>} */}
+                <div>
+                  <h2 className={`main-title`}>
+                    <div className="d-flex gap-2">Experience Attestation</div>
+                  </h2>
+                  <div>
+                    <label htmlFor="" className="text-secondary">
+                      By{" "}
+                      <Link
+                        target="_blank"
+                        href={`/${experience.seeker}.employd.eth`}
+                      >
+                        <span className="text-decoration-underline">
+                          {experience.seeker}.employd.eth
+                        </span>
+                      </Link>
+                    </label>
                   </div>
-                </h2>
-              </div>
-              <label htmlFor="" className="text-secondary">
-                By{" "}
-                <Link
-                  target="_blank"
-                  href={`/${experience.seeker}.employd.eth`}
-                >
-                  <span className="text-decoration-underline">
-                    {experience.seeker}.employd.eth
-                  </span>
-                </Link>
-              </label>
-              <div>
-                <label htmlFor="" className="text-secondary">
-                  To{" "}
-                  <Link
-                    target="_blank"
-                    href={`/${experience.employer}.employd.eth`}
-                  >
-                    <span className="text-decoration-underline">
-                      {experience.employer}.employd.eth
-                    </span>
-                  </Link>
-                </label>
+                  <div>
+                    <label htmlFor="" className="text-secondary">
+                      From{" "}
+                      <Link
+                        target="_blank"
+                        href={`/${experience.employer}.employd.eth`}
+                      >
+                        <span className="text-decoration-underline">
+                          {experience.employer}.employd.eth
+                        </span>
+                      </Link>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
             {/* <TransactionComponent experienceId={experience.id} /> */}
@@ -83,7 +116,7 @@ const Attestations = ({
 
           <div className="card-box border-20">
             <div className="accordion dash-accordion-one" id="accordionTwo">
-              <div className="accordion-item pt-30">
+              <div className="accordion-item pt-30 pb-30">
                 <div
                   id="collapseOneA"
                   className="accordion-collapse collapse show"
@@ -171,7 +204,11 @@ const Attestations = ({
                       </div>
                     </div>
 
-                    {!txHash && (
+                    {experience.attestationStatus === 2 ? (
+                      <div className="success-text">Attested</div>
+                    ) : null}
+
+                    {!txHash && experience.attestationStatus !== 2 && (
                       <div className="d-flex">
                         <button
                           className="tx-btn mb-0"
@@ -183,18 +220,14 @@ const Attestations = ({
                       </div>
                     )}
 
-                    {error && (
-                      <div className="subname-error mb-10">{error}</div>
-                    )}
+                    {error && <div className="subname-error">{error}</div>}
 
                     {txHash && (
-                      <div className="success-text mb-20">
-                        Transaction submitted.
-                      </div>
+                      <div className="success-text">Transaction submitted.</div>
                     )}
 
                     {loading && (
-                      <div className="loading-text mb-10">
+                      <div className="loading-text">
                         Processing your transaction...
                       </div>
                     )}

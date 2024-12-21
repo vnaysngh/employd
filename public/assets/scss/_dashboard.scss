@@ -1925,8 +1925,10 @@
 
 .attestation-id {
   background-color: #2a2c37;
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
+  border-radius: 0.375rem;
+  padding: 0px 5px;
 }
 
 .bi-check {

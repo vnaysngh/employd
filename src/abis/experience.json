@@ -121,11 +121,6 @@
         "internalType": "string",
         "name": "_description",
         "type": "string"
-      },
-      {
-        "internalType": "string[]",
-        "name": "_skills",
-        "type": "string[]"
       }
     ],
     "name": "addExperience",
@@ -341,11 +336,6 @@
             "type": "string"
           },
           {
-            "internalType": "string[]",
-            "name": "skills",
-            "type": "string[]"
-          },
-          {
             "internalType": "enum AttestationStatus",
             "name": "attestationStatus",
             "type": "uint8"
@@ -429,11 +419,6 @@
             "internalType": "string",
             "name": "description",
             "type": "string"
-          },
-          {
-            "internalType": "string[]",
-            "name": "skills",
-            "type": "string[]"
           },
           {
             "internalType": "enum AttestationStatus",
@@ -525,11 +510,6 @@
             "internalType": "string",
             "name": "description",
             "type": "string"
-          },
-          {
-            "internalType": "string[]",
-            "name": "skills",
-            "type": "string[]"
           },
           {
             "internalType": "enum AttestationStatus",
