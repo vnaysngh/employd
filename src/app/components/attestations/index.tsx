@@ -1,14 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import roles from "@/data/roles";
 import Link from "next/link";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import Image from "next/image";
 import Attested from "@/assets/dashboard/images/icon/checked.png";
 import AttestedPending from "@/assets/dashboard/images/icon/pending.png";
 import Rejected from "@/assets/dashboard/images/icon/rejected-new.png";
-
-// import TransactionComponent from "../dashboard/transaction/attest";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const Attestations = ({
   experience,
@@ -25,6 +23,24 @@ const Attestations = ({
 }) => {
   const [copied, setCopied] = useState(false);
 
+  const getStatusBadge = () => {
+    if (!experience.attestationStatus) return null;
+    const statusConfig = {
+      1: { icon: AttestedPending, text: "Pending", class: "pending" },
+      2: { icon: Attested, text: "Attested", class: "success" },
+      3: { icon: Rejected, text: "Rejected", class: "rejected" }
+    };
+
+    const status =
+      statusConfig[experience.attestationStatus as keyof typeof statusConfig];
+    return status ? (
+      <div className={`status-badge ${status.class}`}>
+        <Image src={status.icon} alt={status.text} height={16} width={16} />
+        <span>{status.text}</span>
+      </div>
+    ) : null;
+  };
+
   const handleCopyLink = () => {
     setCopied(true);
     setTimeout(() => {
@@ -33,212 +49,125 @@ const Attestations = ({
   };
 
   return (
-    <>
-      <div className={`attestation-container dashboard-body`}>
-        <div className="position-relative">
-          <div className="d-flex justify-content-between align-items-center mb-20 mt-30">
-            <div className="w-100">
-              <div className="d-flex gap-2">
-                <div>
-                  {!experience.attestationStatus ? (
-                    "Not Initiated"
-                  ) : experience.attestationStatus === 1 ? (
-                    <Image
-                      src={AttestedPending}
-                      alt="attestation-icon"
-                      height={48}
-                      width={48}
-                    />
-                  ) : experience.attestationStatus === 2 ? (
-                    <Image
-                      src={Attested}
-                      alt="attestation-icon"
-                      height={48}
-                      width={48}
-                    />
-                  ) : (
-                    <Image
-                      src={Rejected}
-                      alt="attestation-icon"
-                      height={48}
-                      width={48}
-                    />
-                  )}
-                </div>
-                {/*  <CopyToClipboard
-                        text={experience?.id}
-                        onCopy={handleCopyLink}
-                      >
-                        <span className="on-hover-underline attestation-id">
-                          {`#${experience?.id
-                            ?.toString()
-                            .slice(0, 4)}...${experience?.id
-                            ?.toString()
-                            .slice(-4)}`}
-                        </span>
-                      </CopyToClipboard>
-                      {copied && <i className="bi bi-check"></i>} */}
-                <div>
-                  <h2 className={`main-title`}>
-                    <div className="d-flex gap-2">Experience Attestation</div>
-                  </h2>
-                  <div>
-                    <label htmlFor="" className="text-secondary">
-                      By{" "}
-                      <Link
-                        target="_blank"
-                        href={`/${experience.seeker}.employd.eth`}
-                      >
-                        <span className="text-decoration-underline">
-                          {experience.seeker}.employd.eth
-                        </span>
-                      </Link>
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="" className="text-secondary">
-                      From{" "}
-                      <Link
-                        target="_blank"
-                        href={`/${experience.employer}.employd.eth`}
-                      >
-                        <span className="text-decoration-underline">
-                          {experience.employer}.employd.eth
-                        </span>
-                      </Link>
-                    </label>
-                  </div>
-                </div>
+    <div className={`attestation-container dashboard-body`}>
+      <div className="position-relative">
+        <div className="glass-card">
+          <div className="header">
+            <div className="attestation-id-container">
+              {getStatusBadge()}
+              <div>
+                <CopyToClipboard
+                  text={experience?.id?.toString()}
+                  onCopy={handleCopyLink}
+                >
+                  <button className="copy-button">
+                    <span className="id-label">ID:</span>
+                    <span className="id-number">
+                      #
+                      {`${experience?.id
+                        ?.toString()
+                        .slice(0, 4)}...${experience?.id
+                        ?.toString()
+                        .slice(-4)}`}
+                    </span>
+                    {copied && <i className="bi bi-check-lg"></i>}
+                  </button>
+                </CopyToClipboard>
               </div>
             </div>
-            {/* <TransactionComponent experienceId={experience.id} /> */}
+
+            <h1>Experience Attestation</h1>
+            <div className="users">
+              <Link
+                href={`/${experience.seeker}.employd.eth`}
+                target="_blank"
+                className="user"
+              >
+                <div className="avatar">
+                  {experience.seeker[0].toUpperCase()}
+                </div>
+                <span>{experience.seeker}.employd.eth</span>
+              </Link>
+              <div className="connection-line" />
+              <Link
+                href={`/${experience.employer}.employd.eth`}
+                target="_blank"
+                className="user"
+              >
+                <div className="avatar employer">
+                  {experience.employer[0].toUpperCase()}
+                </div>
+                <span>{experience.employer}.employd.eth</span>
+              </Link>
+            </div>
           </div>
 
-          <div className="card-box border-20">
-            <div className="accordion dash-accordion-one" id="accordionTwo">
-              <div className="accordion-item pt-30 pb-30">
-                <div
-                  id="collapseOneA"
-                  className="accordion-collapse collapse show"
-                  aria-labelledby="headingOneA"
-                  data-bs-parent="#accordionTwo"
-                >
-                  <div className="accordion-body">
-                    <div className="row">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Title*</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          <div className="attestation-item">
-                            {roles[experience?.role as keyof typeof roles]}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Company*</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          <div className="attestation-item text-capitalize">
-                            {experience?.employer}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Duration*</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="row">
-                          <div className="dash-input-wrapper mb-30 md-mb-10">
-                            <div className="attestation-item">
-                              {experience?.startMonth}/{experience?.startYear} -
-                              {experience?.endMonth}/{experience?.endYear}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Employment Type*</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="row">
-                          <div className="col-sm-6">
-                            <div className="dash-input-wrapper mb-30 md-mb-10">
-                              <div className="attestation-item">
-                                {experience?.employmentType === "full-time"
-                                  ? "Full-Time"
-                                  : "Part-Time"}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Description</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          <div className="attestation-item">
-                            {experience?.description || "-"}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {experience.attestationStatus === 2 ? (
-                      <div className="success-text">Attested</div>
-                    ) : null}
-
-                    {!txHash && experience.attestationStatus !== 2 && (
-                      <div className="d-flex">
-                        <button
-                          className="tx-btn mb-0"
-                          onClick={() => signExperience(experience.id)}
-                          disabled={loading}
-                        >
-                          Sign
-                        </button>
-                      </div>
-                    )}
-
-                    {error && <div className="subname-error">{error}</div>}
-
-                    {txHash && (
-                      <div className="success-text">Transaction submitted.</div>
-                    )}
-
-                    {loading && (
-                      <div className="loading-text">
-                        Processing your transaction...
-                      </div>
-                    )}
-                  </div>
-                </div>
+          <div className="content">
+            <div className="info-grid">
+              <div className="info-item">
+                <label>Title</label>
+                <h3>{roles[experience?.role as keyof typeof roles]}</h3>
+              </div>
+              <div className="info-item">
+                <label>Company</label>
+                <h3 className="text-capitalize">{experience?.employer}</h3>
+              </div>
+              <div className="info-item">
+                <label>Duration</label>
+                <h3>
+                  {experience?.startMonth}/{experience?.startYear} -{" "}
+                  {experience?.endMonth}/{experience?.endYear}
+                </h3>
+              </div>
+              <div className="info-item">
+                <label>Employment Type</label>
+                <h3>
+                  {experience?.employmentType === "full-time"
+                    ? "Full-Time"
+                    : "Part-Time"}
+                </h3>
               </div>
             </div>
+
+            <div className="description">
+              <label>Description</label>
+              <p>{experience?.description || "-"}</p>
+            </div>
+          </div>
+
+          <div className="actions">
+            {experience.attestationStatus === 2 ? (
+              <div className="success-badge">
+                <Image src={Attested} alt="Attested" height={20} width={20} />
+                Attested Successfully
+              </div>
+            ) : (
+              !txHash && (
+                <button
+                  className={`sign-button ${loading ? "loading" : ""}`}
+                  onClick={() => signExperience(experience.id)}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <div className="spinner" />
+                      Signing...
+                    </>
+                  ) : (
+                    "Sign Attestation"
+                  )}
+                </button>
+              )
+            )}
+
+            {error && !txHash && <div className="error-message">{error}</div>}
+            {txHash && experience.attestationStatus !== 2 && (
+              <div className="success-message">Transaction submitted</div>
+            )}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
