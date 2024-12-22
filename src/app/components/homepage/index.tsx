@@ -6,6 +6,7 @@ import { useActiveAccount } from "thirdweb/react";
 import Wrapper from "@/layouts/wrapper";
 import { useStateContext } from "@/context";
 import { useRouter } from "next/navigation";
+import Loader from "@/app/loading";
 
 const Homepage = () => {
   const account = useActiveAccount();
@@ -18,6 +19,7 @@ const Homepage = () => {
   useEffect(() => {
     const onConnect = async () => {
       if (loginType !== "login") {
+        setLoading(true);
         try {
           const response = await createUser(loginType, account?.address!);
           if (response && response.length) {
@@ -26,6 +28,8 @@ const Homepage = () => {
           }
         } catch (err) {
           console.log(err);
+        } finally {
+          setLoading(false);
         }
       }
     };
@@ -48,13 +52,13 @@ const Homepage = () => {
     }
   }, [account, isUserRegistered]);
 
-  console.log(loginType, "logintosks");
-
   return (
     <Wrapper>
       <div className="main-page-wrapper">
         <div className="wallet-connect-wrapper">
-          {!account?.address ? (
+          {loading ? (
+            <Loader />
+          ) : !account?.address ? (
             <div className="wallet-connect-container">
               <div className="d-flex justify-center wallet-connect-button">
                 <WalletComponents
@@ -76,29 +80,6 @@ const Homepage = () => {
                   setLoginType={setLoginType}
                   connectModalText="Employer Sign up"
                 />
-                {/* <button
-                  className="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenu2"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Sign up
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <WalletComponents
-                    text="Talent"
-                    userType="talent"
-                    setLoginType={setLoginType}
-                    connectModalText="Talent Sign up"
-                  />
-                  <WalletComponents
-                    text="Employer"
-                    userType="employer"
-                    setLoginType={setLoginType}
-                    connectModalText="Employer Sign up"
-                  />
-                </ul> */}
               </div>
             </div>
           ) : account.address && user ? (

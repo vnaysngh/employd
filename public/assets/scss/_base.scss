@@ -20,6 +20,7 @@ body {
   position: relative;
   color: $text-color;
   background-color: $bg-color;
+  min-height: 100vh;
 }
 .main-page-wrapper {
   overflow-x: hidden;

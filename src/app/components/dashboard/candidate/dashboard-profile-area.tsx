@@ -1,15 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Changa_One, Chango, Dela_Gothic_One, Lexend } from "next/font/google";
-import abi from "@/abis/experience.json";
+import { Chango, Lexend } from "next/font/google";
 // import { useReadContract } from "wagmi";
 import { contract, useStateContext } from "@/context";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import clock from "@/assets/dashboard/images/icon/icon_42.svg";
-import calendar from "@/assets/dashboard/images/icon/icon_43.svg";
-import logo from "@/assets/dashboard/images/mudrex-logo.png";
-// import TransactionComponent from "../transaction/chooseEmployer";
-import { baseSepolia } from "thirdweb/chains";
 import {
   useActiveAccount,
   useReadContract,
@@ -22,6 +15,7 @@ import roles from "@/data/roles";
 import Image from "next/image";
 import Link from "next/link";
 import SelectSkills from "./select-skills";
+import Loader from "@/app/loading";
 const chango = Chango({ weight: "400", subsets: ["latin"] });
 const lexend400 = Lexend({ weight: "400", subsets: ["latin"] });
 
@@ -72,69 +66,76 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   });
 
   return (
-    <div className={`dashboard-body`}>
-      <div className="position-relative">
-        <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
+    <div className={`dashboard-body position-relative`}>
+      {isPending ? (
+        <Loader />
+      ) : (
+        <>
+          <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
 
-        <div className="row gx-0 align-items-center">
-          <div className="d-flex align-items-center justify-content-between">
-            <h2 className={`main-title m0`}>
-              {isPending ? "Loading..." : "My Resume"}
-            </h2>
+          <div className="row gx-0 align-items-center">
+            <div className="d-flex align-items-center justify-content-between">
+              <h2 className={`main-title m0`}>
+                {isPending ? "Loading..." : "My Resume"}
+              </h2>
+            </div>
           </div>
-        </div>
-        {experiences && experiences.length && (
-          <div className="experiences-grid mt-30">
-            {/* {experiences.map((experience) => ( */}
-            <ExperienceCard experiences={experiences} />
-            {/* ))} */}
-          </div>
-        )}
+          {experiences && experiences.length ? (
+            <div className="experience-card card-box border-20 mt-40">
+              <h4 className="dash-title-three">Work Experience</h4>
+              <div className="experiences-grid mt-30">
+                {/* {experiences.map((experience) => ( */}
+                <ExperienceCard experiences={experiences} />
+                {/* ))} */}
+              </div>
+            </div>
+          ) : null}
 
-        <div className="experience-card card-box border-20 mt-40">
-          <h4 className="dash-title-three">Skills & Experience</h4>
-          <div className="dash-input-wrapper">
-            <label htmlFor="">Add Skills*</label>
+          <div className="experience-card card-box border-20 mt-40">
+            <h4 className="dash-title-three">Skills</h4>
+            <div className="dash-input-wrapper">
+              <label htmlFor="">Add Skills*</label>
 
-            <div className="row align-items-center">
-              <div className="col-lg-10">
-                <div className="dash-input-wrapper mb-30">
-                  <SelectSkills
-                    defaultValue={skills}
-                    onChange={(value: any[]) => {
-                      setSkills(value);
-                    }}
-                  />
+              <div className="row align-items-center">
+                <div className="col-lg-10">
+                  <div className="dash-input-wrapper mb-30">
+                    <SelectSkills
+                      defaultValue={skills}
+                      onChange={(value: any[]) => {
+                        setSkills(value);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {error && <div className="subname-error mb-10">{error}</div>}
+              {error && <div className="subname-error mb-10">{error}</div>}
 
-            {success && (
-              <div className="success-text mb-10">
-                Experience added successfully.
+              {success && (
+                <div className="success-text mb-10">
+                  Experience added successfully.
+                </div>
+              )}
+
+              {loading && (
+                <div className="loading-text mb-10">
+                  Processing your transaction...
+                </div>
+              )}
+
+              <div className="d-flex">
+                <button
+                  className="tx-btn"
+                  onClick={handleAddSkills}
+                  disabled={loading}
+                >
+                  Save
+                </button>
               </div>
-            )}
-
-            {loading && (
-              <div className="loading-text mb-10">
-                Processing your transaction...
-              </div>
-            )}
-
-            <div className="d-flex">
-              <button
-                className="tx-btn"
-                onClick={handleAddSkills}
-                disabled={loading}
-              >
-                Save
-              </button>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };
@@ -175,7 +176,10 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
     const nameParts = experience?.employer.trim().split(" "); // Split the name by space (for full names)
     const firstName = nameParts[0]; // Get the first part (first name)
     return (
-      <div className="experience-card" key={experience.id}>
+      <div
+        key={experience.id}
+        className={index === experiences.length - 1 ? "" : "mb-30"}
+      >
         <div className="experience-title">
           <div className="d-flex gap-3">
             <div className={`${chango.className} company-logo-placeholder`}>
@@ -251,7 +255,7 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
         </div>
         {experience?.description && (
           <>
-            <div className="company-name mt-30">Description</div>
+            <div className="company-name mt-20">Description</div>
             <div className="description-section mt-5">
               {experience?.description}
             </div>

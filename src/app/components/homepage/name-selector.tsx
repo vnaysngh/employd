@@ -10,7 +10,7 @@ import NameStone, {
 } from "namestone-sdk";
 import { useActiveAccount, useLinkProfile, useProfiles } from "thirdweb/react";
 import { redirect, useRouter } from "next/navigation";
-import Loader from "@/app/loader";
+import Loader from "@/app/loading";
 import { client } from "@/config/thirdwebClient";
 
 // Initialize the NameStone instance
