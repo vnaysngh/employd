@@ -4,13 +4,13 @@ import { client } from "@/config/thirdwebClient";
 import { ConnectButton } from "thirdweb/react";
 import { baseSepolia } from "thirdweb/chains";
 
-/* const wallets = [
+const wallets = [
   inAppWallet({
     auth: {
-      options: ["google", "discord", "facebook", "email"]
+      options: ["google", "email"]
     }
   })
-]; */
+];
 
 export function WalletComponents({
   text,
@@ -18,17 +18,23 @@ export function WalletComponents({
   setLoginType,
   connectModalText
 }: {
-  text: string;
+  text: string | React.ReactNode;
   userType: string;
   setLoginType: (type: string | null) => void;
   connectModalText?: string;
 }) {
   return (
     <ConnectButton
-      // wallets={wallets}
+      wallets={wallets}
       client={client}
       connectButton={{
-        label: text
+        label: text,
+        style: {
+          background: "rgba(255, 255, 255, 0.1)",
+          color: "#ffffffd9",
+          height: "auto",
+          minWidth: "165px"
+        }
       }}
       connectModal={{
         title: connectModalText,

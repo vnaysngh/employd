@@ -92,7 +92,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     };
 
     if (account?.address) checkIfRegisteredUser();
-  }, [account]);
+  }, [account?.address]);
 
   useEffect(() => {
     const getUsers = async () => {
