@@ -2,15 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { WalletComponents } from "@/layouts/headers/component/wallet";
 import NameSelector from "./name-selector";
-import { useActiveAccount } from "thirdweb/react";
+import { useActiveAccount, useProfiles } from "thirdweb/react";
 import Wrapper from "@/layouts/wrapper";
 import { useStateContext } from "@/context";
 import { useRouter } from "next/navigation";
 import Loader from "@/app/loading";
-import { inAppWallet } from "thirdweb/wallets";
-// import { client } from "@/config/thirdwebClient";
-
-// const wallet = inAppWallet();
+import { client } from "@/config/thirdwebClient";
 
 const Homepage = () => {
   const account = useActiveAccount();
@@ -22,25 +19,20 @@ const Homepage = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [userType, setUserType] = useState(null);
 
-  /* const connectWallet = async () => {
-    const account = await wallet.connect({
-      client,
-      strategy: "google"
-    });
-
-    console.log(account);
-  };
-
-  useEffect(() => {
-    connectWallet();
-  }, []); */
+  const { data: profiles } = useProfiles({
+    client
+  });
 
   useEffect(() => {
     const onConnect = async () => {
       if (loginType !== "login") {
         setLoading(true);
         try {
-          const response = await createUser(loginType, account?.address!);
+          const response = await createUser(
+            loginType,
+            profiles?.[0]?.details?.email || "",
+            account?.address!
+          );
           if (response && response.length) {
             setLoginType(null);
             setUser(response[0]);
@@ -53,8 +45,8 @@ const Homepage = () => {
       }
     };
 
-    if (loginType && account?.address) onConnect();
-  }, [loginType, account]);
+    if (loginType && account?.address && profiles) onConnect();
+  }, [loginType, account, profiles]);
 
   useEffect(() => {
     if (account?.address && isUserRegistered) {

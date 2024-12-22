@@ -5,8 +5,6 @@ import DashboardHeader from "./dashboard-header";
 import dynamic from "next/dynamic";
 import { useStateContext } from "@/context";
 import SelectEmployer from "./select-employer";
-import SelectSkills from "./select-skills";
-import supabase from "@/supabase";
 
 // Dynamically import client-side only components
 const SelectRole = dynamic(() => import("./select-role"), { ssr: false });
@@ -53,7 +51,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
   const { employers, addUserExperienceToResume } = useStateContext();
-
   const handleChange = (
     field: keyof FormData,
     value: SelectInput[] | SelectInput

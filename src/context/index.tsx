@@ -137,12 +137,17 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     getNames();
   }, [account]);
 
-  const createUser = async (user_type: string, address: string) => {
+  const createUser = async (
+    user_type: string,
+    email: string,
+    address: string
+  ) => {
     const { data, error } = await supabase
       .from("users")
       .insert([
         {
           user_type,
+          email,
           address
         }
       ])
