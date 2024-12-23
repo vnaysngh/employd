@@ -1,287 +1,235 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Chango, Lexend } from "next/font/google";
-// import { useReadContract } from "wagmi";
-import { contract, useStateContext } from "@/context";
-import {
-  useActiveAccount,
-  useReadContract,
-  useWalletInfo
-} from "thirdweb/react";
-import { getContract } from "thirdweb";
-import { client } from "@/config/thirdwebClient";
-import DashboardHeader from "./dashboard-header";
-import roles from "@/data/roles";
 import Image from "next/image";
-import Link from "next/link";
-import SelectSkills from "./select-skills";
-import Loader from "@/app/loading";
-const chango = Chango({ weight: "400", subsets: ["latin"] });
-const lexend400 = Lexend({ weight: "400", subsets: ["latin"] });
+import avatar from "@/assets/dashboard/images/avatar_02.jpg";
+import search from "@/assets/dashboard/images/icon/icon_16.svg";
+import DashboardHeader from "./dashboard-header";
+import supabase, { supabase_storage } from "@/supabase";
+import { useActiveAccount } from "thirdweb/react";
+import { useStateContext } from "@/context";
 
 // props type
 type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 };
-
-const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
-  const account = useActiveAccount();
-  const { updateCandidateSkills, isUserRegistered } = useStateContext();
+const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<any>(null);
+  const { isUserRegistered, updateUserDetails } = useStateContext();
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [linkedIn, setLinkedIin] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [skills, setSkills] = useState<any[]>([]);
 
   useEffect(() => {
-    if (isUserRegistered) setSkills(isUserRegistered.skills);
+    if (isUserRegistered) {
+      const { name, bio, socials } = isUserRegistered;
+      setName(name);
+      setBio(bio);
+      setLinkedIin(socials?.linkedIn);
+      setTwitter(socials?.twitter);
+    }
   }, [isUserRegistered]);
 
-  const handleAddSkills = async () => {
-    const body = {
-      skills
-    };
+  const account = useActiveAccount();
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file)); // Show a preview of the image
+    }
+  };
+
+  const handleUpdateUserDetails = async () => {
+    if (name.trim() === "") {
+      alert("name is required");
+      return;
+    }
     setLoading(true);
+    const body = {
+      name,
+      bio,
+      socials: {
+        linkedIn,
+        twitter
+      }
+    };
     try {
-      const response = await updateCandidateSkills({
+      const response = await updateUserDetails({
         body,
         address: account?.address
       });
-      if (response && response.length) {
-        setSuccess(true);
-      } else {
-        setError(true);
-      }
+      if (response) alert("Profile Updated");
     } catch (error) {
       console.error("Failed to call API:", error);
-      setError(true);
     } finally {
       setLoading(false);
     }
   };
-  const { data: experiences, isPending } = useReadContract({
-    contract,
-    method:
-      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
-    params: [account?.address!]
-  });
+
+  const handleDeleteImage = () => {
+    setPreview(null);
+    setSelectedFile(null);
+  };
+
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      alert("Please select a file to upload.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+    const fileName = `${isUserRegistered.ens_name}`;
+
+    try {
+      const { data, error } = await supabase.storage
+        .from("employd-images")
+        .upload(`public/${fileName}`, selectedFile);
+
+      if (data) {
+        const fileUrl = `https://umryooifjtwokxeybbxc.supabase.co/storage/v1/object/public/employd-images/public/${fileName}`;
+        const { data, error } = await supabase
+          .from("users")
+          .update({
+            image: fileUrl
+          })
+          .eq("address", account?.address)
+          .select();
+
+        if (data) {
+          alert("Image uploaded successfully!");
+        }
+      } else {
+        alert("Failed to upload image.");
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      alert("An error occurred while uploading the image.");
+    }
+  };
 
   return (
-    <div className={`dashboard-body position-relative`}>
-      {isPending ? (
-        <Loader />
-      ) : (
-        <>
-          <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
+    <div className="dashboard-body">
+      <div className="position-relative">
+        {/* header start */}
+        <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
+        {/* header end */}
 
-          <div className="row gx-0 align-items-center">
-            <div className="d-flex align-items-center justify-content-between">
-              <h2 className={`main-title m0`}>
-                {isPending ? "Loading..." : "My Resume"}
-              </h2>
-            </div>
-          </div>
-          {experiences && experiences.length ? (
-            <div className="experience-card card-box border-20 mt-40">
-              <h4 className="dash-title-three">Work Experience</h4>
-              <div className="experiences-grid mt-30">
-                {/* {experiences.map((experience) => ( */}
-                <ExperienceCard experiences={experiences} />
-                {/* ))} */}
+        <h2 className="main-title mb-20">My Profile</h2>
+
+        <div className="experience-card card-box border-20">
+          <div className="user-avatar-setting d-flex align-items-center mb-30">
+            {preview && (
+              <Image
+                src={preview}
+                alt="avatar"
+                className="lazy-img user-img"
+                width={100}
+                height={100}
+              />
+            )}
+            {!selectedFile ? (
+              <div className="upload-btn position-relative tran3s me-3">
+                <label htmlFor="uploadImg" className="upload-label">
+                  Upload new photo
+                </label>
+                <input
+                  type="file"
+                  id="uploadImg"
+                  name="uploadImg"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
               </div>
-            </div>
-          ) : null}
-
-          <div className="experience-card card-box border-20 mt-40">
-            <h4 className="dash-title-three">Skills</h4>
-            <div className="dash-input-wrapper">
-              <label htmlFor="">Add Skills*</label>
-
-              <div className="row align-items-center">
-                <div className="col-lg-10">
-                  <div className="dash-input-wrapper mb-30">
-                    <SelectSkills
-                      defaultValue={skills}
-                      onChange={(value: any[]) => {
-                        setSkills(value);
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {error && <div className="subname-error mb-10">{error}</div>}
-
-              {success && (
-                <div className="success-text mb-10">
-                  Experience added successfully.
-                </div>
-              )}
-
-              {loading && (
-                <div className="loading-text mb-10">
-                  Processing your transaction...
-                </div>
-              )}
-
-              <div className="d-flex">
+            ) : (
+              <div className="position-relative tran3s ms-4 me-3">
                 <button
-                  className="tx-btn"
-                  onClick={handleAddSkills}
-                  disabled={loading}
+                  className="dash-btn-two upload-image-btn tran3s"
+                  onClick={handleUpload}
+                  disabled={!selectedFile}
                 >
-                  Save
+                  Upload
                 </button>
               </div>
-            </div>
+            )}
+            {selectedFile && (
+              <button
+                className="delete-btn tran3s"
+                style={{
+                  color: "#e96e6e"
+                }}
+                onClick={handleDeleteImage}
+              >
+                Delete
+              </button>
+            )}
           </div>
-        </>
-      )}
+          <div className="dash-input-wrapper mb-30">
+            <label htmlFor="">Full Name*</label>
+            <input
+              type="text"
+              placeholder="Md James Brower"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="dash-input-wrapper">
+            <label htmlFor="">Bio</label>
+            <textarea
+              className="size-lg"
+              placeholder="Write something interesting about you...."
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+            ></textarea>
+          </div>
+        </div>
+
+        <div className="experience-card card-box border-20 mt-40">
+          <h4 className="dash-title-three">Social Media</h4>
+
+          <div className="dash-input-wrapper mb-20">
+            <label htmlFor="">LinkedIn</label>
+            <input
+              type="text"
+              placeholder="#"
+              value={linkedIn}
+              onChange={(e) => setLinkedIin(e.target.value)}
+            />
+          </div>
+          <div className="dash-input-wrapper mb-20">
+            <label htmlFor="">Twitter</label>
+            <input
+              type="text"
+              placeholder="#"
+              value={twitter}
+              onChange={(e) => setTwitter(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="button-group d-inline-flex align-items-center mt-30">
+          <button
+            className="dash-btn-two tran3s d-flex align-items-center gap-2"
+            onClick={handleUpdateUserDetails}
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <div className="spinner" />
+                Saving...
+              </>
+            ) : (
+              "Save"
+            )}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
 
-const ExperienceCard = ({ experiences }: { experiences: any }) => {
-  const { requestAttestation, getEmployerDetails } = useStateContext();
-  const [loading, setLoading] = useState(false);
-  const [txHash, setTxHash] = useState<any>(null);
-  const [error, setError] = useState<any>(null);
-  const [experienceId, setExperienceId] = useState(null);
-
-  const handleRequestAttestation = async (id: any, ens_name: string) => {
-    if (txHash) {
-      setTxHash(null);
-    } else {
-      setLoading(true);
-      setExperienceId(id);
-      try {
-        const employer = await getEmployerDetails(ens_name);
-        if (employer) {
-          const response = await requestAttestation(id, employer.address);
-          if (response.transactionHash) {
-            setTxHash(response);
-          } else {
-            setError(response.message);
-          }
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
-
-  return experiences?.map((experience: any, index: number) => {
-    const role: string = experience?.role;
-    const nameParts = experience?.employer.trim().split(" "); // Split the name by space (for full names)
-    const firstName = nameParts[0]; // Get the first part (first name)
-    return (
-      <div
-        key={experience.id}
-        className={index === experiences.length - 1 ? "" : "mb-30"}
-      >
-        <div className="experience-title">
-          <div className="d-flex gap-3">
-            <div className={`${chango.className} company-logo-placeholder`}>
-              {firstName.charAt(0).toUpperCase()}
-            </div>
-            <div>
-              <h3 className={`${lexend400.className} mb-1`}>
-                {roles[role as keyof typeof roles]}
-              </h3>
-              <div className="company-name d-flex align-items-center gap-2 text-capitalize">
-                <Link
-                  href={`/${experience?.employer}.employd.eth`}
-                  target="_blank"
-                  className="on-hover-underline"
-                >
-                  {experience?.employer}
-                </Link>
-                <span>&#x2022;</span>
-                <span className="employment-type d-flex justify-content-between align-items-center">
-                  {experience.employmentType}
-                </span>
-                <span>&#x2022;</span>
-                <div className="employment-details">
-                  <span className="date-duration">
-                    <span className="duration">
-                      {experience.startMonth}/{experience.startYear} -{" "}
-                      {experience.endMonth}/{experience.endYear}
-                    </span>
-                  </span>
-                </div>
-              </div>
-              {/*  {experience?.skills && experience?.skills.length && (
-                <div className="skills-section pt-2">
-                  <div className="skills-list">
-                    {experience?.skills?.map((skill: any, index: number) => (
-                      <span key={index} className="skill-tag">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )} */}
-            </div>
-          </div>
-          {!experience.attestationStatus ? (
-            <button
-              onClick={() =>
-                handleRequestAttestation(experience.id, experience.employer)
-              }
-              className="status-badge not-initiated"
-            >
-              Request Attestation
-            </button>
-          ) : experience.attestationStatus === 1 ? (
-            <Link
-              href={`/attestation/${experience.id}`}
-              target="_blank"
-              className="on-hover-underline status-badge pending"
-            >
-              Pending Attestation
-            </Link>
-          ) : experience.attestationStatus === 2 ? (
-            <Link
-              href={`/attestation/${experience.id}`}
-              target="_blank"
-              className="on-hover-underline status-badge attested"
-            >
-              Attested ✓
-            </Link>
-          ) : (
-            "Rejected"
-          )}
-        </div>
-        {experience?.description && (
-          <>
-            <div className="company-name mt-20">Description</div>
-            <div className="description-section mt-5">
-              {experience?.description}
-            </div>
-          </>
-        )}
-
-        {experience && experience.id === experienceId ? (
-          <>
-            {error && <div className="subname-error mt-10">{error}</div>}
-
-            {txHash && (
-              <div className="success-text mt-10">
-                Experience submitted for attestation.
-              </div>
-            )}
-
-            {loading && (
-              <div className="loading-text mt-10">
-                Processing your transaction...
-              </div>
-            )}
-          </>
-        ) : null}
-      </div>
-    );
-  });
-};
-
-export default AttestationDashboard;
+export default DashboardProfileArea;

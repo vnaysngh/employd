@@ -9,6 +9,42 @@ import CandidateBio from "./bio";
 import { useParams } from "next/navigation";
 import { useStateContext } from "@/context";
 
+/* const candidate = {
+  name: "Vinay Singh",
+  title: "Frontend Engineer",
+  bio: "Passionate frontend engineer with expertise in building modern web applications and blockchain solutions.",
+  wallet: "0x758D...5CB2",
+  email: "schilled.xyz@gmail.com",
+  experience: [
+    {
+      company: "Mudrexx",
+      role: "Frontend Engineer",
+      period: "Dec 2019 - Sep 2024",
+      description:
+        "Built algos and coinsets. Led frontend development initiatives and implemented blockchain solutions."
+    }
+  ],
+  skills: [
+    "React",
+    "JavaScript",
+    "TypeScript",
+    "Web3",
+    "Smart Contracts",
+    "CSS3",
+    "HTML5"
+  ],
+  portfolio: [
+    {
+      title: "DeFi Dashboard",
+      description: "A comprehensive dashboard for DeFi portfolio management"
+    },
+    {
+      title: "NFT Marketplace",
+      description: "Digital marketplace for crypto collectibles and NFTs"
+    }
+  ]
+}; */
+
 const CandidateDetailsArea = () => {
   const params: { ens_name: string } = useParams();
   const { getUserDetailsByEns } = useStateContext();
@@ -55,42 +91,7 @@ const CandidateDetailsArea = () => {
     <>
       {user?.user_type === "talent" ? (
         <section className="candidates-profile pt-150 pb-150 lg-pb-80">
-          <div className="container">
-            <div className="row">
-              <WorkExperience user={user} />
-
-              <div className="col-xxl-3 col-lg-4">
-                <div className="cadidate-profile-sidebar ms-xl-5 ms-xxl-0 md-mt-60">
-                  <div className="cadidate-bio bg-wrapper bg-color mb-60 md-mb-40">
-                    <div className="pt-25">
-                      <div className="cadidate-avatar m-auto">
-                        <Image
-                          src={avatar}
-                          alt="avatar"
-                          className="lazy-img rounded-circle w-100"
-                        />
-                      </div>
-                    </div>
-                    <h3 className="cadidate-name text-center">{user?.name}</h3>
-                    {/*  <div className="text-center pb-25">
-                    <a href="#" className="invite-btn fw-500">
-                      Invite
-                    </a>
-                  </div> */}
-                    {/* CandidateBio */}
-                    <CandidateBio />
-                    {/* CandidateBio */}
-                    {/*                     <a
-                      href="#"
-                      className="btn-ten fw-500 text-white w-100 text-center tran3s mt-15"
-                    >
-                      Download CV
-                    </a> */}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <WorkExperience user={user} />
         </section>
       ) : (
         <section className="company-details pt-110 lg-pt-80 pb-160 xl-pb-150 lg-pb-80">

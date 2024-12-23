@@ -1,345 +1,297 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { Chango, Lexend } from "next/font/google";
+// import { useReadContract } from "wagmi";
+import { contract, useStateContext } from "@/context";
+import {
+  useActiveAccount,
+  useReadContract,
+  useWalletInfo
+} from "thirdweb/react";
+import { getContract } from "thirdweb";
+import { client } from "@/config/thirdwebClient";
 import DashboardHeader from "./dashboard-header";
-// import TransactionComponent from "../transaction";
-import dynamic from "next/dynamic";
-import { useStateContext } from "@/context";
-import SelectEmployer from "./select-employer";
+import roles from "@/data/roles";
+import Image from "next/image";
+import Link from "next/link";
 import SelectSkills from "./select-skills";
+import Loader from "@/app/loading";
+import { useRouter } from "next/navigation";
+const chango = Chango({ weight: "400", subsets: ["latin"] });
+const lexend400 = Lexend({ weight: "400", subsets: ["latin"] });
 
-// Dynamically import client-side only components
-const SelectRole = dynamic(() => import("./select-role"), { ssr: false });
-const SelectMonth = dynamic(() => import("./select-month"), { ssr: false });
-const SelectYear = dynamic(() => import("./select-year"), { ssr: false });
-const SelectEmploymentType = dynamic(() => import("./select-employment-type"), {
-  ssr: false
-});
-
-type SelectInput = {
-  value: string;
-  label: string;
-};
-
-export type FormData = {
-  role: SelectInput;
-  company: SelectInput;
-  startMonth: SelectInput;
-  startYear: SelectInput;
-  endMonth: SelectInput;
-  endYear: SelectInput;
-  employmentType: SelectInput;
-  description: string;
-  skills: string[];
-};
 // props type
 type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
-  const [formData, setFormData] = useState<FormData>({
-    role: { value: "", label: "" },
-    company: { value: "", label: "" },
-    startMonth: { value: "01", label: "January" },
-    startYear: { value: "2024", label: "2024" },
-    endMonth: { value: "01", label: "January" },
-    endYear: { value: "2024", label: "2024" },
-    employmentType: { value: "full-time", label: "Full Time" },
-    description: "",
-    skills: []
-  });
+const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
+  const account = useActiveAccount();
+  const { updateCandidateSkills, isUserRegistered } = useStateContext();
   const [loading, setLoading] = useState(false);
-  const [txHash, setTxHash] = useState<any>(null);
-  const [error, setError] = useState<any>(null);
-  const { employers, addUserExperienceToResume, isUserRegistered } =
-    useStateContext();
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [skills, setSkills] = useState<any[]>([]);
+  const router = useRouter();
 
-  const updateResponsibility = (index: number, updatedText: string) => {};
+  useEffect(() => {
+    if (!account?.address) {
+      router.push("/");
+    }
+  }, [account, router]);
 
-  const handleChange = (field: keyof FormData, value: SelectInput) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+  useEffect(() => {
+    if (isUserRegistered) setSkills(isUserRegistered.skills);
+  }, [isUserRegistered]);
 
-  const handleSkillChange = (selectedSkills: string[]) => {
-    setFormData((prev) => ({
-      ...prev,
-      skills: selectedSkills
-    }));
-  };
-
-  // const { company } = formData;
-  const employerOptions = !employers.length
-    ? employers
-    : employers.map((employer: any) => ({
-        label: employer.company_name,
-        value: employer.ens_name
-      }));
-
-  const handleAddExperience = async () => {
-    if (txHash) {
-      setTxHash(null);
-    } else {
-      setLoading(true);
-      const response = await addUserExperienceToResume(formData);
-      if (response.transactionHash) {
-        setTxHash(response);
+  const handleAddSkills = async () => {
+    const body = {
+      skills
+    };
+    setLoading(true);
+    try {
+      const response = await updateCandidateSkills({
+        body,
+        address: account?.address
+      });
+      if (response && response.length) {
+        setSuccess(true);
       } else {
-        setError(response.message);
+        setError(true);
       }
+    } catch (error) {
+      console.error("Failed to call API:", error);
+      setError(true);
+    } finally {
       setLoading(false);
     }
   };
-
-  console.log(formData, formData.description);
+  const { data: experiences, isPending } = useReadContract({
+    contract,
+    method:
+      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
+    params: [account?.address!]
+  });
 
   return (
-    <>
-      <div className={`dashboard-body`}>
-        <div className="position-relative">
-          {/* header start */}
+    <div className={`dashboard-body position-relative`}>
+      {isPending ? (
+        <Loader />
+      ) : (
+        <>
           <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
-          {/* header end */}
-          <div className="d-flex justify-content-between align-items-center mb-20">
-            <div>
-              <h2 className={`main-title`}>My Resume</h2>
-              <label htmlFor="" style={{ color: "#ffffff80" }}>
-                Add Work Experience
-              </label>
+
+          <div className="row gx-0 align-items-center">
+            <div className="d-flex align-items-center justify-content-between">
+              <h2 className={`main-title m0`}>
+                {isPending ? "Loading..." : "My Resume"}
+              </h2>
             </div>
-            {/* <TransactionComponent {...formData} /> */}
           </div>
 
-          <div className="card-box border-20">
-            <div className="accordion dash-accordion-one" id="accordionTwo">
-              <div className="accordion-item pt-30">
-                <div
-                  id="collapseOneA"
-                  className="accordion-collapse collapse show"
-                  aria-labelledby="headingOneA"
-                  data-bs-parent="#accordionTwo"
-                >
-                  <div className="accordion-body">
-                    <div className="row align-items-center">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Role*</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          <SelectRole
-                            onChange={(value) => handleChange("role", value)}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row align-items-center">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Company*</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          <SelectEmployer
-                            onChange={(value) => handleChange("company", value)}
-                            options={employerOptions}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row align-items-center">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Duration*</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="row">
-                          <div className="col-sm-6">
-                            <div className="row">
-                              <div className="col-sm-5">
-                                {/* <SelectMonth
-                                  onChange={(value) =>
-                                    handleChange("startMonth", value)
-                                  }
-                                /> */}
-                              </div>
-                              <div className="col-sm-5">
-                                {/*  <SelectYear
-                                  onChange={(value) =>
-                                    handleChange("startYear", value)
-                                  }
-                                /> */}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-sm-6">
-                            <div className="row">
-                              <div className="col-sm-5">
-                                {/* <SelectMonth
-                                  onChange={(value) =>
-                                    handleChange("endMonth", value)
-                                  }
-                                /> */}
-                              </div>
-                              <div className="col-sm-5">
-                                {/*  <SelectYear
-                                  onChange={(value) =>
-                                    handleChange("endYear", value)
-                                  }
-                                /> */}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row align-items-center">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Employment Type*</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="row">
-                          <div className="col-sm-6">
-                            <SelectEmploymentType
-                              onChange={(value) =>
-                                handleChange("employmentType", value)
-                              }
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row align-items-center">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Description</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          <input
-                            type="text"
-                            placeholder="Description"
-                            value={formData.description}
-                            onChange={(e) =>
-                              setFormData({
-                                ...formData,
-                                description: e.target.value
-                              })
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row align-items-center">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Skills</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          {/* <SelectSkills
-                          // onChange={(value) => handleChange("role", value)}
-                          /> */}
-                        </div>
-                      </div>
-                    </div>
-                    {error && (
-                      <div className="subname-error mb-10">{error}</div>
-                    )}
+          <div className="experience-card card-box border-20 mt-40">
+            <h4 className="dash-title-three">Work Experience</h4>
+            <div className="experiences-grid mt-30">
+              {experiences && experiences.length ? (
+                <ExperienceCard experiences={experiences} />
+              ) : (
+                <div className="not-found-state">
+                  <p>Add your professional experience to build your resume.</p>
+                  <button
+                    className="tx-btn mb-0"
+                    onClick={() =>
+                      router.push("/dashboard/candidate-dashboard/experience")
+                    }
+                    disabled={loading}
+                  >
+                    Add Experience
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
 
-                    {txHash && (
-                      <div className="success-text mb-10">
-                        Experience added successfully.
-                      </div>
-                    )}
+          <div className="experience-card card-box border-20 mt-40">
+            <h4 className="dash-title-three">Skills</h4>
+            <div className="dash-input-wrapper">
+              <label htmlFor="">Add Skills*</label>
 
-                    {loading && (
-                      <div className="loading-text mb-10">
-                        Processing your transaction...
-                      </div>
-                    )}
-                    <div className="d-flex">
-                      <button
-                        className="tx-btn"
-                        onClick={handleAddExperience}
-                        disabled={loading}
-                      >
-                        {!txHash ? "Save" : "Add another experience"}
-                      </button>
-                    </div>
+              <div className="row align-items-center">
+                <div className="col-lg-10">
+                  <div className="dash-input-wrapper mb-30">
+                    <SelectSkills
+                      defaultValue={skills}
+                      onChange={(value: any[]) => {
+                        setSkills(value);
+                      }}
+                    />
                   </div>
                 </div>
               </div>
+
+              {error && <div className="subname-error mb-10">{error}</div>}
+
+              {success && (
+                <div className="success-text mb-10">Skills Updated.</div>
+              )}
+
+              {loading && <div className="loading-text mb-10">Saving...</div>}
+
+              <div className="d-flex">
+                <button
+                  className="tx-btn mb-0"
+                  onClick={handleAddSkills}
+                  disabled={loading}
+                >
+                  Save
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const SkillSelection = ({ selectedSkills, onSkillChange }: any) => {
-  const skillsOptions = [
-    "React",
-    "Node.js",
-    "JavaScript",
-    "TypeScript",
-    "CSS",
-    "HTML",
-    "Python",
-    "Django",
-    "Ruby"
-  ];
-
-  // Function to handle skill selection
-  const handleSkillSelect = (skill: any) => {
-    if (!selectedSkills.includes(skill)) {
-      onSkillChange([...selectedSkills, skill]);
-    }
-  };
-
-  // Function to handle skill removal
-  const handleSkillRemove = (skill: any) => {
-    onSkillChange(selectedSkills.filter((s: any) => s !== skill));
-  };
-
-  return (
-    <div>
-      <div className="skills-options">
-        {skillsOptions.map((skill) => (
-          <button
-            key={skill}
-            className={`skill-btn ${
-              selectedSkills.includes(skill) ? "selected" : ""
-            }`}
-            onClick={() => handleSkillSelect(skill)}
-          >
-            {skill}
-          </button>
-        ))}
-      </div>
-
-      <div className="selected-skills">
-        {selectedSkills.map((skill: any) => (
-          <span key={skill} className="skill-chip">
-            {skill}
-            <button
-              className="remove-skill"
-              onClick={() => handleSkillRemove(skill)}
-            >
-              &times;
-            </button>
-          </span>
-        ))}
-      </div>
+        </>
+      )}
     </div>
   );
 };
 
-export default DashboardResume;
+const ExperienceCard = ({ experiences }: { experiences: any }) => {
+  const { requestAttestation, getEmployerDetails } = useStateContext();
+  const [loading, setLoading] = useState(false);
+  const [txHash, setTxHash] = useState<any>(null);
+  const [error, setError] = useState<any>(null);
+  const [experienceId, setExperienceId] = useState(null);
+
+  const handleRequestAttestation = async (id: any, ens_name: string) => {
+    if (txHash) {
+      setTxHash(null);
+    } else {
+      setLoading(true);
+      setExperienceId(id);
+      try {
+        const employer = await getEmployerDetails(ens_name);
+        if (employer) {
+          const response = await requestAttestation(id, employer.address);
+          if (response.transactionHash) {
+            setTxHash(response);
+          } else {
+            setError(response.message);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  return experiences?.map((experience: any, index: number) => {
+    const role: string = experience?.role;
+    const nameParts = experience?.employer.trim().split(" "); // Split the name by space (for full names)
+    const firstName = nameParts[0]; // Get the first part (first name)
+    return (
+      <div
+        key={experience.id}
+        className={index === experiences.length - 1 ? "" : "mb-30"}
+      >
+        <div className="experience-title">
+          <div className="d-flex gap-3">
+            <div className={`${chango.className} company-logo-placeholder`}>
+              {firstName.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <h3 className={`${lexend400.className} mb-1`}>
+                {roles[role as keyof typeof roles]}
+              </h3>
+              <div className="company-name d-flex align-items-center gap-2 text-capitalize">
+                <Link
+                  href={`/${experience?.employer}.employd.eth`}
+                  target="_blank"
+                  className="on-hover-underline"
+                >
+                  {experience?.employer}
+                </Link>
+                <span>&#x2022;</span>
+                <span className="employment-type d-flex justify-content-between align-items-center">
+                  {experience.employmentType}
+                </span>
+                <span>&#x2022;</span>
+                <div className="employment-details">
+                  <span className="date-duration">
+                    <span className="duration">
+                      {experience.startMonth}/{experience.startYear} -{" "}
+                      {experience.endMonth}/{experience.endYear}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          {!experience.attestationStatus && !txHash ? (
+            <button
+              onClick={() =>
+                handleRequestAttestation(experience.id, experience.employer)
+              }
+              disabled={loading}
+              className="status-badge not-initiated"
+            >
+              Request Attestation
+            </button>
+          ) : experience.attestationStatus === 1 ? (
+            <Link
+              href={`/attestation/${experience.id}`}
+              target="_blank"
+              className="on-hover-underline status-badge pending"
+            >
+              Pending Attestation
+            </Link>
+          ) : experience.attestationStatus === 2 ? (
+            <Link
+              href={`/attestation/${experience.id}`}
+              target="_blank"
+              className="on-hover-underline status-badge attested"
+            >
+              Attested ✓
+            </Link>
+          ) : experience.attestationStatus === 3 ? (
+            <Link
+              href={`/attestation/${experience.id}`}
+              target="_blank"
+              className="on-hover-underline status-badge subname-error"
+            >
+              Rejected
+            </Link>
+          ) : null}
+        </div>
+        {experience?.description && (
+          <>
+            <div className="company-name mt-20">Description</div>
+            <div className="description-section mt-5">
+              {experience?.description}
+            </div>
+          </>
+        )}
+
+        {experience && experience.id === experienceId ? (
+          <>
+            {error && <div className="subname-error mt-10">{error}</div>}
+
+            {txHash && (
+              <div className="success-text mt-10">
+                Experience submitted for attestation.
+              </div>
+            )}
+
+            {loading && (
+              <div className="loading-text mt-10">
+                Processing your transaction...
+              </div>
+            )}
+          </>
+        ) : null}
+      </div>
+    );
+  });
+};
+
+export default AttestationDashboard;

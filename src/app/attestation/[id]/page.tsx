@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Wrapper from "@/layouts/wrapper";
 import Header from "@/layouts/headers/header";
 import Attestations from "@/app/components/attestations";

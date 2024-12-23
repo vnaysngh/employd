@@ -1,6 +1,7 @@
+import Link from "next/link";
 import React from "react";
 
-const CandidateBio = () => {
+const CandidateBio = ({ user }: { user: any }) => {
   return (
     <ul className="style-none">
       {/*  <li>
@@ -14,7 +15,7 @@ const CandidateBio = () => {
       <li>
         <span>Email: </span>
         <div>
-          <a href="mailto:me@support.com">me@support.com</a>
+          <a href="mailto:me@support.com">{user?.email}</a>
         </div>
       </li>
       {/*  <li>
@@ -32,15 +33,12 @@ const CandidateBio = () => {
       <li>
         <span>Social:</span>
         <div>
-          <a href="#" className="me-3">
+          <Link href={user?.socials?.twitter} className="me-3" target="_blank">
             <i className="bi bi-twitter"></i>
-          </a>
-          <a href="#" className="me-3">
+          </Link>
+          <Link href={user?.socials?.linkedIn} className="me-3" target="_blank">
             <i className="bi bi-linkedin"></i>
-          </a>
-          <a href="#">
-            <i className="bi bi-github"></i>
-          </a>
+          </Link>
         </div>
       </li>
     </ul>

@@ -7,7 +7,8 @@ import { usePathname } from "next/navigation";
 import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
 import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
 import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
-import avatar from "@/assets/dashboard/images/avatar_03.jpg";
+import nav_5 from "@/assets/dashboard/images/icon/icon_44.svg";
+import avatar from "@/assets/dashboard/images/icon/user.png";
 import { Chango } from "next/font/google";
 import { useStateContext } from "@/context";
 
@@ -33,6 +34,13 @@ export const nav_data: {
     icon: nav_2,
     icon_active: nav_2,
     link: "/dashboard/candidate-dashboard/profile",
+    title: "My Profile"
+  },
+  {
+    id: 2,
+    icon: nav_3,
+    icon_active: nav_3,
+    link: "/dashboard/candidate-dashboard/resume",
     title: "My Resume"
   },
   /*   {
@@ -44,18 +52,18 @@ export const nav_data: {
   }, */
   {
     id: 3,
-    icon: nav_3,
-    icon_active: nav_3,
+    icon: nav_5,
+    icon_active: nav_5,
     link: "/dashboard/candidate-dashboard/experience",
     title: "Add Experience"
-  },
-  {
+  }
+  /*  {
     id: 4,
     icon: nav_4,
     icon_active: nav_4,
     link: "/dashboard/candidate-dashboard/messages",
     title: "Messages"
-  }
+  } */
 ];
 // props type
 type IProps = {
@@ -90,18 +98,21 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             <div className="user-profile">
               <div className="user-avatar-wrapper">
                 <Image
-                  src={avatar}
+                  src={isUserRegistered?.image || avatar}
                   alt="avatar"
                   className="user-avatar"
-                  style={{ height: "auto" }}
+                  width={64}
+                  height={64}
                 />
-                <span className="online-indicator"></span>
+                {/* <span className="online-indicator"></span> */}
               </div>
-              <div className="user-info">
-                <button className="user-name">
-                  {isUserRegistered?.ens_name}.employd.eth
-                </button>
-              </div>
+              {isUserRegistered ? (
+                <div className="user-info">
+                  <button className="user-name">
+                    {isUserRegistered?.ens_name}.employd.eth
+                  </button>
+                </div>
+              ) : null}
             </div>
 
             {/* Navigation Section */}

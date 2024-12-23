@@ -7,6 +7,7 @@ import Attested from "@/assets/dashboard/images/icon/checked.png";
 import AttestedPending from "@/assets/dashboard/images/icon/pending.png";
 import Rejected from "@/assets/dashboard/images/icon/rejected-new.png";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useActiveAccount } from "thirdweb/react";
 
 const Attestations = ({
   experience,
@@ -22,7 +23,7 @@ const Attestations = ({
   signExperience: (id: bigint) => void;
 }) => {
   const [copied, setCopied] = useState(false);
-
+  const account = useActiveAccount();
   const getStatusBadge = () => {
     if (!experience.attestationStatus) return null;
     const statusConfig = {
@@ -135,14 +136,11 @@ const Attestations = ({
             </div>
           </div>
 
-          <div className="actions">
-            {experience.attestationStatus === 2 ? (
-              <div className="success-badge">
-                <Image src={Attested} alt="Attested" height={20} width={20} />
-                Attested Successfully
-              </div>
-            ) : (
-              !txHash && (
+          {experience.attestationFromAddress.toLowerCase() ===
+            account?.address.toLowerCase() &&
+          experience.attestationStatus !== 2 ? (
+            <div className="actions">
+              {!txHash && (
                 <button
                   className={`sign-button ${loading ? "loading" : ""}`}
                   onClick={() => signExperience(experience.id)}
@@ -157,14 +155,14 @@ const Attestations = ({
                     "Sign Attestation"
                   )}
                 </button>
-              )
-            )}
+              )}
 
-            {error && !txHash && <div className="error-message">{error}</div>}
-            {txHash && experience.attestationStatus !== 2 && (
-              <div className="success-message">Transaction submitted</div>
-            )}
-          </div>
+              {error && !txHash && <div className="error-message">{error}</div>}
+              {txHash && experience.attestationStatus !== 2 && (
+                <div className="success-message">Transaction submitted</div>
+              )}
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
