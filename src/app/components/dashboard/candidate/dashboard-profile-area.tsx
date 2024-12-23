@@ -4,7 +4,7 @@ import Image from "next/image";
 import avatar from "@/assets/dashboard/images/avatar_02.jpg";
 import search from "@/assets/dashboard/images/icon/icon_16.svg";
 import DashboardHeader from "./dashboard-header";
-import supabase, { supabase_storage } from "@/supabase";
+import supabase from "@/supabase";
 import { useActiveAccount } from "thirdweb/react";
 import { useStateContext } from "@/context";
 
