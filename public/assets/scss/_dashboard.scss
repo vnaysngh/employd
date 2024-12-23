@@ -2642,3 +2642,88 @@ a:hover {
   transition: all 0.2s ease;
   color: $text-white;
 }
+
+/* Previous CSS remains, adding new styles for employer details */
+
+.meta-data-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  // margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.meta-data-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.meta-data-label {
+  min-width: 100px;
+  color: #a8a8a8;
+  font-size: 0.9rem;
+}
+
+.meta-data-content {
+  color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.meta-data-content a {
+  color: #6c5ce7;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.meta-data-content a:hover {
+  color: #8b7ff9;
+}
+
+.contact-button {
+  display: inline-block;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  background-color: #6c5ce7;
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-button:hover {
+  background-color: #5849c4;
+  transform: translateY(-2px);
+}
+
+.category-tag {
+  background-color: #2d2d2d;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+/* Make the sidebar wider for employer view */
+.employer-sidebar {
+  min-width: 300px;
+}
+
+@media (max-width: 768px) {
+  .meta-data-item {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .meta-data-label {
+    min-width: auto;
+  }
+}
