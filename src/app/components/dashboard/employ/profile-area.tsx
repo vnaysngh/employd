@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import DashboardHeader from "../candidate/dashboard-header";
 import { useStateContext } from "@/context";
 import { useActiveAccount } from "thirdweb/react";
+import { useRouter } from "next/navigation";
 
 // props type
 type IProps = {
@@ -31,6 +32,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
   const account = useActiveAccount();
+  const router = useRouter();
 
   // Form states
   const [companyName, setCompanyName] = useState("");
@@ -42,7 +44,6 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [about, setAbout] = useState("");
   const [twitter, setTwitter] = useState("");
   const [linkedin, setLinkedin] = useState("");
-
   const convertUnixToDate = (unixTimestamp: number) => {
     // Create a Date object using the Unix timestamp (in milliseconds)
     const date = new Date(unixTimestamp * 1000);
@@ -55,6 +56,12 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
     // Format as YYYY-MM-DD
     return `${year}-${month}-${day}`;
   };
+
+  useEffect(() => {
+    if (!account?.address) {
+      router.push("/");
+    }
+  }, [account, router]);
 
   useEffect(() => {
     const fetchUserDetails = async () => {

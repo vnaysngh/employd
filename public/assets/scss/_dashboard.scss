@@ -96,10 +96,11 @@
       padding-left: 10px;
     }
     &:hover {
-      color: #ad79e1;
+      color: #6366f1;
     }
     &.active {
-      background: #2a2c37;
+      color: #6366f1;
+      background-color: rgba(99, 102, 241, 0.1);
     }
     img {
       max-width: 20px;
