@@ -5,6 +5,7 @@ import { useReadContract } from "thirdweb/react";
 import Skills from "./skills";
 import Image from "next/image";
 import Link from "next/link";
+import avatar from "@/assets/dashboard/images/icon/user.png";
 
 enum AttestationStatus {
   PENDING = 1,
@@ -82,7 +83,7 @@ const WorkExperience = ({ user }: { user: any }) => {
       <header className="profile-header">
         <div className="profile-image-container">
           <Image
-            src={user?.image}
+            src={user?.image || avatar}
             alt="Profile"
             className="profile-image"
             height={120}

@@ -9,7 +9,7 @@ import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
 import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
 import nav_5 from "@/assets/dashboard/images/icon/icon_41.svg";
 import { Chango } from "next/font/google";
-import avatar from "@/assets/dashboard/images/avatar_03.jpg";
+import avatar from "@/assets/dashboard/images/icon/user.png";
 import { useStateContext } from "@/context";
 
 const chango = Chango({ weight: "400", subsets: ["latin"] });
@@ -96,7 +96,6 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                   className="user-avatar"
                   style={{ height: "auto" }}
                 />
-                <span className="online-indicator"></span>
               </div>
               <div className="user-info">
                 <button className="user-name">
