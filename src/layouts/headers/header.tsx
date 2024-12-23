@@ -5,7 +5,7 @@ import useSticky from "@/hooks/use-sticky";
 import { WalletComponents } from "./component/wallet";
 import { nav_data } from "@/app/components/dashboard/candidate/aside";
 import { usePathname } from "next/navigation";
-import { Chango, Dela_Gothic_One } from "next/font/google";
+import { Chango } from "next/font/google";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "@/config/thirdwebClient";
 const chango = Chango({ weight: "400", subsets: ["latin"] });

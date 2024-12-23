@@ -16,8 +16,6 @@ const Homepage = () => {
   const [loginType, setLoginType] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
   const { createUser, isUserRegistered } = useStateContext();
-  const [showSignUp, setShowSignUp] = useState(false);
-  const [userType, setUserType] = useState(null);
 
   const { data: profiles } = useProfiles({
     client
