@@ -71,7 +71,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
           );
           // Populate form fields with user data
           setCompanyName(userDetails?.company_name || "");
-          setEmail(company_details?.email || "");
+          setEmail(userDetails?.email || "");
           setWebsite(company_details?.website || "");
           setFoundedDate(formattedDate || "");
           setCompanySize(company_details?.company_size || "");

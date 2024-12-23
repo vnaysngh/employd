@@ -9,6 +9,7 @@ import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
 import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
 import nav_5 from "@/assets/dashboard/images/icon/icon_41.svg";
 import { Chango } from "next/font/google";
+import avatar from "@/assets/dashboard/images/avatar_03.jpg";
 import { useStateContext } from "@/context";
 
 const chango = Chango({ weight: "400", subsets: ["latin"] });
@@ -64,74 +65,76 @@ type IProps = {
 };
 const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
   const pathname = usePathname();
+  const { isUserRegistered } = useStateContext();
 
   return (
     <>
       <aside className={`dash-aside-navbar ${isOpenSidebar ? "show" : ""}`}>
         <div className="position-relative">
-          <div className="logo text-md-center d-md-block d-flex align-items-center justify-content-between">
-            <Link href="/" className="d-flex align-items-center">
-              <div className={`logo-name ${chango.className} m-auto`}>
-                EMPLOYD
-              </div>
-            </Link>
-            <button
-              onClick={() => setIsOpenSidebar(false)}
-              className="close-btn d-block d-md-none"
-            >
-              <i className="bi bi-x-lg"></i>
-            </button>
-          </div>
-          <div className="user-data">
-            {/*  <div className="user-avatar online position-relative rounded-circle">
-               <Image
-                src={avatar}
-                alt="avatar"
-                className="lazy-img"
-                style={{ height: "auto" }}
-              />
-            </div> */}
-            <div className="user-name-data">
-              <button className="user-name">
-                {/* {isUserRegistered.ens_name}.employd.eth */}
+          <div className="sidebar-inner">
+            {/* Logo Section */}
+            <div className="sidebar-logo d-md-block d-flex align-items-center justify-content-between">
+              <Link href="/" className="d-flex align-items-center">
+                <div className={`logo-name ${chango.className} m-auto`}>
+                  EMPLOYD
+                </div>
+              </Link>
+              <button
+                onClick={() => setIsOpenSidebar(false)}
+                className="close-btn d-block d-md-none"
+              >
+                <i className="bi bi-x-lg"></i>
               </button>
             </div>
+
+            {/* User Profile Section */}
+            <div className="user-profile">
+              <div className="user-avatar-wrapper">
+                <Image
+                  src={avatar}
+                  alt="avatar"
+                  className="user-avatar"
+                  style={{ height: "auto" }}
+                />
+                <span className="online-indicator"></span>
+              </div>
+              <div className="user-info">
+                <button className="user-name">
+                  {isUserRegistered?.ens_name}.employd.eth
+                </button>
+              </div>
+            </div>
+
+            {/* Navigation Section */}
+            <div className="sidebar-nav">
+              <nav className="dashboard-main-nav">
+                <ul className="style-none">
+                  {nav_data.map((m) => {
+                    const isActive = pathname === m.link;
+                    return (
+                      <li key={m.id} onClick={() => setIsOpenSidebar(false)}>
+                        <Link
+                          href={m.link}
+                          className={`d-flex w-100 align-items-center ${
+                            isActive ? "active" : ""
+                          }`}
+                        >
+                          <Image
+                            src={isActive ? m.icon_active : m.icon}
+                            alt="icon"
+                            height={20}
+                            width={20}
+                            className="lazy-img"
+                          />
+                          <span>{m.title}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+            </div>
           </div>
-          <nav className="dasboard-main-nav">
-            <ul className="style-none">
-              {nav_data.map((m) => {
-                const isActive = pathname === m.link;
-                return (
-                  <li key={m.id} onClick={() => setIsOpenSidebar(false)}>
-                    <Link
-                      href={m.link}
-                      className={`d-flex w-100 align-items-center ${
-                        isActive ? "active" : ""
-                      }`}
-                    >
-                      <Image
-                        src={isActive ? m.icon_active : m.icon}
-                        alt=""
-                        className="lazy-img"
-                      />
-                      <span>{m.title}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-              {/*  <li>
-                <a
-                  href="#"
-                  className="d-flex w-100 align-items-center"
-                  data-bs-toggle="modal"
-                  data-bs-target="#deleteModal"
-                >
-                  <Image src={nav_8} alt="icon" className="lazy-img" />
-                  <span>Delete Account</span>
-                </a>
-              </li> */}
-            </ul>
-          </nav>
           {/*           <div className="profile-complete-status">
             <div className="progress-value fw-500">87%</div>
             <div className="progress-line position-relative">

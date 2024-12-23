@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
 import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
 import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
-
+import avatar from "@/assets/dashboard/images/avatar_03.jpg";
 import { Chango } from "next/font/google";
 import { useStateContext } from "@/context";
 
@@ -65,57 +65,75 @@ type IProps = {
 
 const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
   const pathname = usePathname();
-
+  const { isUserRegistered } = useStateContext();
   return (
     <>
       <aside className={`dash-aside-navbar ${isOpenSidebar ? "show" : ""}`}>
         <div className="position-relative">
-          <div className="logo text-md-center d-md-block d-flex align-items-center justify-content-between">
-            <Link href="/" className="d-flex align-items-center">
-              <div className={`logo-name ${chango.className} m-auto`}>
-                EMPLOYD
-              </div>
-            </Link>
-            <button
-              onClick={() => setIsOpenSidebar(false)}
-              className="close-btn d-block d-md-none"
-            >
-              <i className="bi bi-x-lg"></i>
-            </button>
-          </div>
-          <div className="user-data">
-            <div className="user-name-data">
-              <button className="user-name">
-                {/* {isUserRegistered.ens_name}.employd.eth */}
+          <div className="sidebar-inner">
+            {/* Logo Section */}
+            <div className="sidebar-logo d-md-block d-flex align-items-center justify-content-between">
+              <Link href="/" className="d-flex align-items-center">
+                <div className={`logo-name ${chango.className} m-auto`}>
+                  EMPLOYD
+                </div>
+              </Link>
+              <button
+                onClick={() => setIsOpenSidebar(false)}
+                className="close-btn d-block d-md-none"
+              >
+                <i className="bi bi-x-lg"></i>
               </button>
             </div>
+
+            {/* User Profile Section */}
+            <div className="user-profile">
+              <div className="user-avatar-wrapper">
+                <Image
+                  src={avatar}
+                  alt="avatar"
+                  className="user-avatar"
+                  style={{ height: "auto" }}
+                />
+                <span className="online-indicator"></span>
+              </div>
+              <div className="user-info">
+                <button className="user-name">
+                  {isUserRegistered?.ens_name}.employd.eth
+                </button>
+              </div>
+            </div>
+
+            {/* Navigation Section */}
+            <div className="sidebar-nav">
+              <nav className="dashboard-main-nav">
+                <ul className="style-none">
+                  {nav_data.map((m) => {
+                    const isActive = pathname === m.link;
+                    return (
+                      <li key={m.id} onClick={() => setIsOpenSidebar(false)}>
+                        <Link
+                          href={m.link}
+                          className={`d-flex w-100 align-items-center ${
+                            isActive ? "active" : ""
+                          }`}
+                        >
+                          <Image
+                            src={isActive ? m.icon_active : m.icon}
+                            alt="icon"
+                            height={20}
+                            width={20}
+                            className="lazy-img"
+                          />
+                          <span>{m.title}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+            </div>
           </div>
-          <nav className="dasboard-main-nav">
-            <ul className="style-none">
-              {nav_data.map((m) => {
-                const isActive = pathname === m.link;
-                return (
-                  <li key={m.id} onClick={() => setIsOpenSidebar(false)}>
-                    <Link
-                      href={m.link}
-                      className={`d-flex w-100 align-items-center ${
-                        isActive ? "active" : ""
-                      }`}
-                    >
-                      <Image
-                        src={isActive ? m.icon_active : m.icon}
-                        alt="icon"
-                        height={20}
-                        width={20}
-                        className="lazy-img"
-                      />
-                      <span>{m.title}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
 
           {/*   <a href="#" className="d-flex w-100 align-items-center logout-btn">
             <Image src={logout} alt="icon" className="lazy-img" />

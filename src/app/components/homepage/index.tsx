@@ -8,6 +8,7 @@ import { useStateContext } from "@/context";
 import { useRouter } from "next/navigation";
 import Loader from "@/app/loading";
 import { client } from "@/config/thirdwebClient";
+import supabase from "@/supabase";
 
 const Homepage = () => {
   const account = useActiveAccount();
@@ -15,7 +16,8 @@ const Homepage = () => {
   const [loading, setLoading] = useState(false);
   const [loginType, setLoginType] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
-  const { createUser, isUserRegistered } = useStateContext();
+  const { createUser } = useStateContext();
+  const [isUserRegistered, setIsUserRegistered] = useState<any>(null);
 
   const { data: profiles } = useProfiles({
     client
@@ -47,6 +49,28 @@ const Homepage = () => {
   }, [loginType, account, profiles]);
 
   useEffect(() => {
+    const checkIfRegisteredUser = async () => {
+      setLoading(true);
+      try {
+        let { data, error } = await supabase
+          .from("users")
+          .select("*")
+          .eq("address", account?.address);
+        if (error) console.error(error);
+        else {
+          if (data && data.length) setIsUserRegistered(data[0]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch names:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (account?.address) checkIfRegisteredUser();
+  }, [account?.address]);
+
+  useEffect(() => {
     if (account?.address && isUserRegistered) {
       setLoading(true);
       setLoginType("login");
@@ -59,9 +83,7 @@ const Homepage = () => {
       }
       setLoading(false);
     }
-  }, [account, isUserRegistered]);
-
-  console.log(account);
+  }, [account?.address, isUserRegistered, loginType]);
 
   return (
     <Wrapper>

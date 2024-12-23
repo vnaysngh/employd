@@ -63,7 +63,7 @@ const EmployerInvite = ({ setIsOpenSidebar }: IProps) => {
           </div>
         </div>
 
-        <div className="card-box card-box-employer border-20 mt-40">
+        {/* <div className="card-box card-box-employer border-20 mt-40">
           <div className="subtitle">Send Invite via Email</div>
           <div className="invite-link-container row align-items-center">
             <div className="col-lg-6">
@@ -81,7 +81,7 @@ const EmployerInvite = ({ setIsOpenSidebar }: IProps) => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -53,12 +53,11 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
         >
           <span></span>
         </button>
-        <form action="#" className="search-form">
-          <input type="text" placeholder="Search here.." />
-          <button>
-            <Image src={search} alt="search" className="lazy-img m-auto" />
-          </button>
-        </form>
+        <div className=" ms-2 ms-md-5 me-4">
+          <form action="#" className="search-form">
+            <input type="text" placeholder="Search here.." />
+          </form>
+        </div>
         <div className="ms-2">
           <ConnectButton
             client={client}
