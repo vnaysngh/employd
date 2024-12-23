@@ -13,7 +13,7 @@ import { getContract, prepareContractCall } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
 import { client } from "@/config/thirdwebClient";
 import { baseSepolia } from "thirdweb/chains";
-import { FormData } from "@/app/components/dashboard/candidate/dashboard-resume";
+import { FormData } from "@/app/components/dashboard/candidate/add-experience";
 
 const StateContext = createContext<any>({});
 
