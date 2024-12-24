@@ -3,15 +3,13 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import nav_1 from "@/assets/dashboard/images/icon/icon_48.svg";
 import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
 import nav_4 from "@/assets/dashboard/images/icon/icon_47.svg";
 import nav_5 from "@/assets/dashboard/images/icon/icon_41.svg";
-import nav_1 from "@/assets/dashboard/images/icon/icon_1.svg";
 import nav_3 from "@/assets/dashboard/images/icon/icon_45.svg";
-import nav_3_active from "@/assets/dashboard/images/icon/icon_3_active.svg";
-import nav_5_active from "@/assets/dashboard/images/icon/icon_39_active.svg";
 import nav_6 from "@/assets/dashboard/images/icon/icon_46.svg";
-import nav_6_active from "@/assets/dashboard/images/icon/icon_6_active.svg";
+import nav_7 from "@/assets/dashboard/images/icon/icon_49.svg";
 import { Chango } from "next/font/google";
 import avatar from "@/assets/dashboard/images/icon/user.png";
 import { useStateContext } from "@/context";
@@ -26,13 +24,6 @@ const nav_data: {
   link: string;
   title: string;
 }[] = [
-  /*  {
-    id: 1,
-    icon: nav_1,
-    icon_active: nav_1,
-    link: "/dashboard/employ-dashboard",
-    title: "Dashboard"
-  }, */
   {
     id: 2,
     icon: nav_2,
@@ -69,6 +60,30 @@ const nav_data: {
     title: "Invite"
   }
 ];
+
+const nav_data_2: {
+  id: number;
+  icon: StaticImageData;
+  icon_active: StaticImageData;
+  link: string;
+  title: string;
+}[] = [
+  {
+    id: 1,
+    icon: nav_7,
+    icon_active: nav_7,
+    link: "/candidates",
+    title: "Candidates"
+  },
+  {
+    id: 2,
+    icon: nav_1,
+    icon_active: nav_1,
+    link: "/companies",
+    title: "Companies"
+  }
+];
+
 // props type
 type IProps = {
   isOpenSidebar: boolean;
@@ -144,6 +159,34 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                 </ul>
               </nav>
             </div>
+
+            <nav className="dashboard-main-nav mt-20">
+              <ul className="style-none">
+                {nav_data_2.map((m) => {
+                  const isActive = pathname === m.link;
+                  return (
+                    <li key={m.id} onClick={() => setIsOpenSidebar(false)}>
+                      <Link
+                        href={m.link}
+                        className={`d-flex w-100 align-items-center ${
+                          isActive ? "active" : ""
+                        }`}
+                        target="_blank"
+                      >
+                        <Image
+                          src={isActive ? m.icon_active : m.icon}
+                          alt="icon"
+                          height={20}
+                          width={20}
+                          className="lazy-img"
+                        />
+                        <span>{m.title}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
           </div>
           {/*           <div className="profile-complete-status">
             <div className="progress-value fw-500">87%</div>

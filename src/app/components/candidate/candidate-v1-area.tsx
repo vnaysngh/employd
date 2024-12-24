@@ -4,17 +4,21 @@ import candidate_data from "@/data/candidate-data";
 import CandidateGridItem from "./candidate-grid-item";
 import CandidateListItem from "./candidate-list-item";
 import CandidateV1FilterArea from "./filter/candidate-v1-filter-area";
+import { useStateContext } from "@/context";
 // import ShortSelect from "../common/short-select";
 
-const CandidateV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
-  const [jobType, setJobType] = useState<string>(style_2 ? "list" : "grid");
+const CandidateV1Area = () => {
+  const { talents } = useStateContext();
+  if (!talents || (talents && !talents.length))
+    return <h3>No Candidates Founds</h3>;
+
   return (
     <>
       <section className="candidates-profile pt-110 lg-pt-80 pb-160 xl-pb-150 lg-pb-80">
         <div className="container">
           <div className="row">
             <div className="col-xl-3 col-lg-4">
-              <button
+              {/* <button
                 type="button"
                 className="filter-btn w-100 pt-2 pb-2 h-auto fw-500 tran3s d-lg-none mb-40"
                 data-bs-toggle="offcanvas"
@@ -22,7 +26,7 @@ const CandidateV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
               >
                 <i className="bi bi-funnel"></i>
                 Filter
-              </button>
+              </button> */}
               {/* filter area start */}
               <CandidateV1FilterArea />
               {/* filter area end */}
@@ -32,15 +36,13 @@ const CandidateV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
               <div className="ms-xxl-5 ms-xl-3">
                 <div className="upper-filter d-flex justify-content-between align-items-center mb-20">
                   <div className="total-job-found">
-                    <span className="fw-500">1,270</span>
-                    {"  "}
-                    candidates
+                    <span className="fw-500">{talents.length}</span> candidates
                   </div>
-                  <div className="d-flex align-items-center">
-                    {/* <div className="short-filter d-flex align-items-center">
+                  {/* <div className="d-flex align-items-center">
+                    <div className="short-filter d-flex align-items-center">
                       <div className="fw-500 me-2">Sort:</div>
                       <ShortSelect />
-                    </div> */}
+                    </div>
                     <button
                       onClick={() => setJobType("list")}
                       className={`style-changer-btn text-center rounded-circle tran3s ms-2 list-btn ${
@@ -59,16 +61,12 @@ const CandidateV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
                     >
                       <i className="bi bi-grid"></i>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
 
-                <div
-                  className={`accordion-box grid-style ${
-                    jobType === "grid" ? "show" : ""
-                  }`}
-                >
+                <div className={`accordion-box grid-style show`}>
                   <div className="row">
-                    {candidate_data.map((item) => (
+                    {talents.map((item: any) => (
                       <div key={item.id} className="col-xxl-4 col-sm-6 d-flex">
                         <CandidateGridItem item={item} />
                       </div>
@@ -76,7 +74,7 @@ const CandidateV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
                   </div>
                 </div>
 
-                <div
+                {/* <div
                   className={`accordion-box list-style ${
                     jobType === "list" ? "show" : ""
                   }`}
@@ -84,9 +82,9 @@ const CandidateV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
                   {candidate_data.map((item) => (
                     <CandidateListItem key={item.id} item={item} />
                   ))}
-                </div>
+                </div> */}
 
-                <div className="pt-20 d-sm-flex align-items-center justify-content-between">
+                {/*  <div className="pt-20 d-sm-flex align-items-center justify-content-between">
                   <p className="m0 order-sm-last text-center text-sm-start xs-pb-20">
                     Showing <span className="text-dark fw-500">1 to 20</span> of{" "}
                     <span className="text-dark fw-500">1,270</span>
@@ -109,7 +107,7 @@ const CandidateV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
                       </li>
                     </ul>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

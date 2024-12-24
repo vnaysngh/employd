@@ -33,6 +33,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const [pushUser, setPushUser] = useState<PushAPI>();
   const [isUserRegistered, setIsUserRegistered] = useState<any>(null);
   const [employers, setEmployers] = useState<any>([]);
+  const [talents, setTalents] = useState<any>([]);
 
   // useEffect(() => {
   const initializePushAPI = async () => {
@@ -72,6 +73,31 @@ export const StateContextProvider = ({ children }: { children: any }) => {
 
     if (account?.address) {
       getEmployers();
+    }
+  }, [account]);
+
+  useEffect(() => {
+    const getTalents = async () => {
+      try {
+        let { data: employers, error } = await supabase
+          .from("users")
+          .select("*")
+          .eq("user_type", "talent");
+
+        if (error) {
+          console.error(error);
+        } else {
+          if (employers && employers.length) {
+            setTalents(employers);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch employers:", error);
+      }
+    };
+
+    if (account?.address) {
+      getTalents();
     }
   }, [account]);
 
@@ -352,6 +378,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         names,
         attestExperience,
         employers,
+        talents,
         getUserDetails,
         getUserDetailsByEns,
         isUserRegistered,

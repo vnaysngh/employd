@@ -8,7 +8,7 @@ const CandidateGridItem = ({
   item,
   style_2 = false
 }: {
-  item: ICandidate;
+  item: any;
   style_2?: boolean;
 }) => {
   return (
@@ -17,9 +17,9 @@ const CandidateGridItem = ({
         item.favorite ? "favourite" : ""
       } text-center ${style_2 ? "border-0" : ""} grid-layout mb-25`}
     >
-      <Link href="/candidate-profile-v1" className="save-btn tran3s">
+      {/*  <Link href="/candidate-profile-v1" className="save-btn tran3s">
         <i className="bi bi-heart"></i>
-      </Link>
+      </Link> */}
       <div className="cadidate-avatar position-relative d-block m-auto">
         <Link href="/candidate-profile-v1" className="rounded-circle">
           <Image
@@ -36,10 +36,10 @@ const CandidateGridItem = ({
           {item.name}
         </Link>
       </h4>
-      <div className="candidate-post">{item.post}</div>
+      <div className="candidate-post">{item?.role}</div>
       <ul className="cadidate-skills style-none d-flex flex-wrap align-items-center justify-content-center justify-content-md-between pt-30 sm-pt-20 pb-10">
-        {item.skills.slice(0, 3).map((s, i) => (
-          <li key={i}>{s}</li>
+        {item?.skills?.slice(0, 3).map((s: any, i: number) => (
+          <li key={i}>{s?.label}</li>
         ))}
         {/* {item.skills.length > 3 && (
           <li className="more">
@@ -47,7 +47,7 @@ const CandidateGridItem = ({
           </li>
         )} */}
       </ul>
-      <div className="row gx-1">
+      {/*  <div className="row gx-1">
         <div className="col-md-6">
           <div className="candidate-info mt-10">
             <span>Salary</span>
@@ -62,24 +62,26 @@ const CandidateGridItem = ({
             <div>{item.location}</div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="row gx-2 pt-25 sm-pt-10">
-        <div className="col-md-6">
-          <Link
-            href="/candidate-profile-v1"
-            className="profile-btn tran3s w-100 mt-5"
-          >
-            View Profile
-          </Link>
-        </div>
-        <div className="col-md-6">
+        {/* <div className="col-md-6"> */}
+        <Link
+          href={`/${item.ens_name}.employd.eth`}
+          target="_blank"
+          className="profile-btn tran3s w-100 mt-5"
+          style={{ maxWidth: "80%", margin: "0 auto" }}
+        >
+          View Profile
+        </Link>
+        {/* </div> */}
+        {/*  <div className="col-md-6">
           <Link
             href="/candidate-profile-v1"
             className="msg-btn tran3s w-100 mt-5"
           >
             Message
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -8,11 +8,11 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  padding: 34px 15px 0;
+  padding: 34px 15px;
   border-radius: 30px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba($color: #000000, $alpha: 0.1);
-  &.favourite::before {
+  /* &.favourite::before {
     content: "";
     position: absolute;
     width: 90px;
@@ -30,7 +30,20 @@
     font-size: 15px;
     top: 9px;
     left: 14px;
+  } */
+
+  .profile-btn {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    line-height: 40px;
+    color: #fff;
+    background: darkslateblue;
+    text-align: center;
+    padding: 0 18px;
+    border-radius: 40px;
   }
+
   .company-logo {
     display: block;
     width: 85px;
@@ -39,7 +52,7 @@
   }
   .company-name {
     font-size: 24px;
-
+    color: $text-white;
     margin: 22px 0 8px;
     &:hover {
       color: $color-five;
@@ -79,7 +92,7 @@
   padding: 35px 20px;
   position: relative;
   border: 1px solid rgba($color: #000000, $alpha: 0.1);
-  &.favourite::before {
+  /* &.favourite::before {
     content: "";
     position: absolute;
     width: 60px;
@@ -97,7 +110,7 @@
     font-size: 14px;
     top: 2px;
     left: 7px;
-  }
+  } */
   .company-logo {
     display: block;
     width: 70px;

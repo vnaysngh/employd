@@ -4,10 +4,11 @@ import React from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
+import nav_1 from "@/assets/dashboard/images/icon/icon_48.svg";
 import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
 import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
-import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
 import nav_5 from "@/assets/dashboard/images/icon/icon_44.svg";
+import nav_7 from "@/assets/dashboard/images/icon/icon_49.svg";
 import avatar from "@/assets/dashboard/images/icon/user.png";
 import { Chango } from "next/font/google";
 import { useStateContext } from "@/context";
@@ -22,13 +23,6 @@ export const nav_data: {
   link: string;
   title: string;
 }[] = [
-  /*   {
-    id: 1,
-    icon: nav_1,
-    icon_active: nav_1,
-    link: "/dashboard/candidate-dashboard",
-    title: "Dashboard"
-  }, */
   {
     id: 1,
     icon: nav_2,
@@ -43,13 +37,6 @@ export const nav_data: {
     link: "/dashboard/candidate-dashboard/resume",
     title: "My Resume"
   },
-  /*   {
-    id: 2,
-    icon: nav_2,
-    icon_active: nav_2,
-    link: "/dashboard/candidate-dashboard/experience",
-    title: "Resume"
-  }, */
   {
     id: 3,
     icon: nav_5,
@@ -57,14 +44,31 @@ export const nav_data: {
     link: "/dashboard/candidate-dashboard/experience",
     title: "Add Experience"
   }
-  /*  {
-    id: 4,
-    icon: nav_4,
-    icon_active: nav_4,
-    link: "/dashboard/candidate-dashboard/messages",
-    title: "Messages"
-  } */
 ];
+
+const nav_data_2: {
+  id: number;
+  icon: StaticImageData;
+  icon_active: StaticImageData;
+  link: string;
+  title: string;
+}[] = [
+  {
+    id: 1,
+    icon: nav_7,
+    icon_active: nav_7,
+    link: "/candidates",
+    title: "Candidates"
+  },
+  {
+    id: 2,
+    icon: nav_1,
+    icon_active: nav_1,
+    link: "/companies",
+    title: "Companies"
+  }
+];
+
 // props type
 type IProps = {
   isOpenSidebar: boolean;
@@ -144,6 +148,34 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                 </ul>
               </nav>
             </div>
+
+            <nav className="dashboard-main-nav mt-20">
+              <ul className="style-none">
+                {nav_data_2.map((m) => {
+                  const isActive = pathname === m.link;
+                  return (
+                    <li key={m.id} onClick={() => setIsOpenSidebar(false)}>
+                      <Link
+                        href={m.link}
+                        className={`d-flex w-100 align-items-center ${
+                          isActive ? "active" : ""
+                        }`}
+                        target="_blank"
+                      >
+                        <Image
+                          src={isActive ? m.icon_active : m.icon}
+                          alt="icon"
+                          height={20}
+                          width={20}
+                          className="lazy-img"
+                        />
+                        <span>{m.title}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
           </div>
 
           {/*   <a href="#" className="d-flex w-100 align-items-center logout-btn">
