@@ -1,7 +1,7 @@
 import "./globals.scss";
 import type { Metadata } from "next";
 import { ThirdwebProvider } from "thirdweb/react";
-import { Lexend, Varela_Round } from "next/font/google";
+import { Lexend } from "next/font/google";
 import { StateContextProvider } from "@/context";
 
 const lexend = Lexend({ weight: "300", subsets: ["latin"] });

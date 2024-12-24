@@ -4,6 +4,7 @@ import DashboardHeader from "../candidate/dashboard-header";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { Lexend } from "next/font/google";
+import { useStateContext } from "@/context";
 
 // props type
 type IProps = {
@@ -13,6 +14,7 @@ const EmployerInvite = ({ setIsOpenSidebar }: IProps) => {
   const [copied, setCopied] = useState(false);
   const [emailList, setEmailList] = useState<any>([]);
   const [email, setEmail] = useState("");
+  const { isUserRegistered } = useStateContext();
 
   const handleCopyLink = () => {
     setCopied(true);
@@ -50,15 +52,13 @@ const EmployerInvite = ({ setIsOpenSidebar }: IProps) => {
           <div className="subtitle">Share Invite Link</div>
           <div className="invite-link-container">
             <div className="invite-link">
-              https://employd.xyz/invite?company=employd
+              {`https://employd.xyz/invite?company=${isUserRegistered.ens_name}`}
             </div>
             <CopyToClipboard
-              text={"https://employd.xyz/invite?company=employd"}
+              text={`https://employd.xyz/invite?company=${isUserRegistered.ens_name}`}
               onCopy={handleCopyLink}
             >
-              <button onClick={handleCopyLink} className="copy-btn">
-                Copy Link
-              </button>
+              <button className="copy-btn">Copy Link</button>
             </CopyToClipboard>
           </div>
         </div>

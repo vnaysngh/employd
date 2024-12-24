@@ -3,11 +3,15 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import nav_1 from "@/assets/dashboard/images/icon/icon_1.svg";
 import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
-import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
-import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
+import nav_4 from "@/assets/dashboard/images/icon/icon_47.svg";
 import nav_5 from "@/assets/dashboard/images/icon/icon_41.svg";
+import nav_1 from "@/assets/dashboard/images/icon/icon_1.svg";
+import nav_3 from "@/assets/dashboard/images/icon/icon_45.svg";
+import nav_3_active from "@/assets/dashboard/images/icon/icon_3_active.svg";
+import nav_5_active from "@/assets/dashboard/images/icon/icon_39_active.svg";
+import nav_6 from "@/assets/dashboard/images/icon/icon_46.svg";
+import nav_6_active from "@/assets/dashboard/images/icon/icon_6_active.svg";
 import { Chango } from "next/font/google";
 import avatar from "@/assets/dashboard/images/icon/user.png";
 import { useStateContext } from "@/context";
@@ -36,22 +40,29 @@ const nav_data: {
     link: "/dashboard/employ-dashboard/profile",
     title: "My Profile"
   },
-  // {
-  //   id: 3,
-  //   icon: nav_3,
-  //   icon_active: nav_3,
-  //   link: "/dashboard/employ-dashboard/jobs",
-  //   title: "My Jobs"
-  // },
   {
-    id: 4,
+    id: 3,
     icon: nav_4,
     icon_active: nav_4,
-    link: "/dashboard/employ-dashboard/messages",
-    title: "Messages"
+    link: "/dashboard/employ-dashboard/jobs",
+    title: "My Jobs"
+  },
+  {
+    id: 4,
+    icon: nav_3,
+    icon_active: nav_3,
+    link: "/dashboard/employ-dashboard/submit-job",
+    title: "Submit Job"
   },
   {
     id: 5,
+    icon: nav_6,
+    icon_active: nav_6,
+    link: "/dashboard/employ-dashboard/saved-candidate",
+    title: "People"
+  },
+  {
+    id: 6,
     icon: nav_5,
     icon_active: nav_5,
     link: "/dashboard/employ-dashboard/invite",
