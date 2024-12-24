@@ -15,6 +15,11 @@ const styles = {
   singleValue: (styles: any) => ({ ...styles, color: "#ffffffd9" })
 };
 
+const customComponents = {
+  DropdownIndicator: () => null, // Hides the dropdown indicator
+  IndicatorSeparator: () => null // Removes the separator line
+};
+
 const SelectRole = ({ onChange }: { onChange: (item: any) => void }) => {
   return (
     // <div className="multi-select-input">
@@ -28,6 +33,7 @@ const SelectRole = ({ onChange }: { onChange: (item: any) => void }) => {
       className="basic-multi-select"
       classNamePrefix="select"
       styles={styles}
+      components={customComponents}
     />
     // </div>
   );

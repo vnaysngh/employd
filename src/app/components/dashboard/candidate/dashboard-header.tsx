@@ -3,6 +3,9 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { ConnectButton } from "thirdweb/react";
 import { client } from "@/config/thirdwebClient";
+import SelectUser from "./select-user";
+import { useStateContext } from "@/context";
+import { useRouter } from "next/navigation";
 // notification item
 function NotificationItem({
   icon,
@@ -37,6 +40,17 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
     }
   };
 
+  const { users } = useStateContext();
+  const router = useRouter();
+
+  const userOptions =
+    users && users.length
+      ? users.map((user: any) => ({
+          label: user.user_type === "talent" ? user.name : user.company_name,
+          value: user.ens_name
+        }))
+      : [];
+
   return (
     <header className="dashboard-header">
       <div className="d-flex align-items-center justify-content-end">
@@ -47,9 +61,12 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
           <span></span>
         </button>
         <div className=" ms-2 ms-md-5 me-4">
-          <form action="#" className="search-form">
-            <input type="text" placeholder="Search here.." />
-          </form>
+          <SelectUser
+            onChange={(value) => {
+              router.push(`/${value.value}.employd.eth`);
+            }}
+            options={userOptions}
+          />
         </div>
         <div className="ms-2">
           <ConnectButton

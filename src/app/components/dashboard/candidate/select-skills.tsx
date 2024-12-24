@@ -14,6 +14,11 @@ const colourStyles = {
   input: (styles: any) => ({ ...styles, color: "#ffffffd9" })
 };
 
+const customComponents = {
+  DropdownIndicator: () => null, // Hides the dropdown indicator
+  IndicatorSeparator: () => null // Removes the separator line
+};
+
 const SelectSkills = ({
   defaultValue,
   onChange
@@ -33,6 +38,7 @@ const SelectSkills = ({
       className="basic-multi-select"
       classNamePrefix="select"
       styles={colourStyles}
+      components={customComponents}
     />
   );
 };

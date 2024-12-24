@@ -14,6 +14,11 @@ const styles = {
   singleValue: (styles: any) => ({ ...styles, color: "#ffffffd9" })
 };
 
+const customComponents = {
+  DropdownIndicator: () => null, // Hides the dropdown indicator
+  IndicatorSeparator: () => null // Removes the separator line
+};
+
 const SelectYear = ({
   placeHolder,
   onChange
@@ -38,6 +43,7 @@ const SelectYear = ({
       className="basic-multi-select"
       classNamePrefix="select"
       styles={styles}
+      components={customComponents}
     />
   );
 };

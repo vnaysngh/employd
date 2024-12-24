@@ -14,7 +14,8 @@ const styles = {
     backgroundColor: "#1d1e26",
     border: "1px solid hsla(0, 0%, 100%, 0.1)",
     padding: "6px 0",
-    borderRadius: "7px"
+    borderRadius: "7px",
+    width: "300px"
   }),
   input: (styles: any) => ({ ...styles, color: "#ffffffd9" }),
   singleValue: (styles: any) => ({ ...styles, color: "#ffffffd9" })
@@ -25,7 +26,7 @@ const customComponents = {
   IndicatorSeparator: () => null // Removes the separator line
 };
 
-const SelectEmployer = ({
+const SelectUser = ({
   onChange,
   options
 }: {
@@ -38,24 +39,18 @@ const SelectEmployer = ({
     );
   };
   return (
-    // <div className="multi-select-input">
     <AsyncSelect
       cacheOptions
       loadOptions={loadOptions}
       defaultOptions={options}
-      // defaultValue={}
-      // isMulti
-      placeholder="Select Employer"
-      // name="colors"
+      placeholder="Search here.."
       onChange={onChange}
-      // options={roles}
       className="basic-multi-select"
       classNamePrefix="select"
       styles={styles}
       components={customComponents}
     />
-    // </div>
   );
 };
 
-export default SelectEmployer;
+export default SelectUser;

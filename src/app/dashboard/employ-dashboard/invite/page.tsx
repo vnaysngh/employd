@@ -2,7 +2,15 @@
 import React, { useState } from "react";
 import Wrapper from "@/layouts/wrapper";
 import EmployAside from "@/app/components/dashboard/employ/aside";
-import EmployerInvite from "@/app/components/dashboard/employ/invite";
+import dynamic from "next/dynamic";
+
+// Dynamically import the component with SSR disabled
+const EmployerInvite = dynamic(
+  () => import("@/app/components/dashboard/employ/invite"),
+  {
+    ssr: false
+  }
+);
 
 const EmployerDashboardInvite = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
