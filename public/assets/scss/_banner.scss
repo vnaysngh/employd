@@ -54,7 +54,7 @@
     }
   }
   .rating-box {
-    background: url(../images/shape/bg_shape_01.png) no-repeat bottom center;
+    // background: url(../images/shape/bg_shape_01.png) no-repeat bottom center;
     background-size: cover;
     padding: 60px 50px;
     z-index: 1;
@@ -135,7 +135,7 @@
 }
 // Hero Banner Four
 .hero-banner-four {
-  background: url(../images/assets/img_27.jpg) no-repeat center bottom;
+  // background: url(../images/assets/img_27.jpg) no-repeat center bottom;
   background-size: cover;
   z-index: 1;
   .shape_01 {
@@ -178,7 +178,7 @@
     right: 0;
     bottom: 0;
     width: 45%;
-    background: url(../images/assets/img_29.jpg) no-repeat center;
+    // background: url(../images/assets/img_29.jpg) no-repeat center;
     background-size: cover;
     z-index: -1;
 
@@ -271,7 +271,7 @@
     left: -75px;
   }
   &:after {
-    content: url(../images/shape/shape_11.svg);
+    // content: url(../images/shape/shape_11.svg);
     position: absolute;
     bottom: -8px;
     right: 0;
@@ -339,14 +339,14 @@
     }
   }
   .img-meta {
-    background: url(../images/assets/img_20.jpg) no-repeat center;
+    // background: url(../images/assets/img_20.jpg) no-repeat center;
     background-size: cover;
     height: 100%;
   }
 }
 // Fancy Banner Three
 .fancy-banner-three .bg-wrapper {
-  background: url(../images/assets/img_21.jpg) no-repeat center;
+  // background: url(../images/assets/img_21.jpg) no-repeat center;
   background-size: cover;
   z-index: 1;
   &::after {
@@ -444,7 +444,7 @@
     }
   }
   .img-meta {
-    background: url(../images/assets/img_28.jpg) no-repeat center top;
+    // background: url(../images/assets/img_28.jpg) no-repeat center top;
     background-size: cover;
     height: 100%;
     border-radius: 30px 0 0 30px;
@@ -474,7 +474,7 @@
   }
 }
 .fancy-banner-five.bg-image {
-  background: url(../images/assets/img_40.jpg) no-repeat center;
+  // background: url(../images/assets/img_40.jpg) no-repeat center;
   background-size: cover;
   z-index: 1;
   &:before {
@@ -523,7 +523,7 @@
     left: -75px;
   }
   &:after {
-    content: url(../images/shape/shape_33.svg);
+    // content: url(../images/shape/shape_33.svg);
     position: absolute;
     bottom: -8px;
     right: 0;
@@ -636,7 +636,7 @@
     left: 0;
   }
   .candidate-profile-card {
-    background: url(../images/shape/shape_34.svg) repeat-x;
+    // background: url(../images/shape/shape_34.svg) repeat-x;
     background-size: cover;
     border: none;
     .candidate-post {

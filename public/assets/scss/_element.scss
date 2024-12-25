@@ -171,7 +171,7 @@
   padding-left: 35px;
   margin-top: 24px;
   &:before {
-    content: url(../images/icon/icon_07.svg);
+    // content: url(../images/icon/icon_07.svg);
     position: absolute;
     left: 0;
     top: 0;
@@ -208,7 +208,7 @@
   color: #000;
 }
 .accordion-style-one .accordion-button::after {
-  content: url(../images/icon/icon_20.svg);
+  // content: url(../images/icon/icon_20.svg);
   background-image: none;
   width: auto;
   height: auto;
@@ -220,7 +220,7 @@
   color: $color-four;
 }
 .accordion-style-one.color-two .accordion-button::after {
-  content: url(../images/icon/icon_40.svg);
+  // content: url(../images/icon/icon_40.svg);
 }
 .accordion-style-one.color-two .accordion-item {
   border-bottom: 1px solid #dedede;
