@@ -105,15 +105,7 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                 <div
                   className={`logo-name d-flex align-items-center ${chango.className} m-auto`}
                 >
-                  EMPL{" "}
-                  <Image
-                    src={logo}
-                    height={24}
-                    width={24}
-                    alt="logo"
-                    className="me-1"
-                  />{" "}
-                  YD
+                  EMPL <Image src={logo} height={24} width={24} alt="logo" /> YD
                 </div>
               </Link>
               <button

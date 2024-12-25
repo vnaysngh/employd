@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import roles from "@/data/json/roles.json";
+import React from "react";
 import AsyncSelect from "react-select/async";
 
 type Option = {
@@ -29,32 +28,50 @@ const SelectEmployer = ({
   onChange,
   options
 }: {
-  onChange: (item: any) => void;
+  onChange: (item: Option) => void;
   options: Option[];
 }) => {
-  const loadOptions = async (inputValue: string) => {
-    return options.filter((i: any) =>
+  const filterOptions = (inputValue: string) => {
+    const matchingOptions = options.filter((i) =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
+
+    if (inputValue) {
+      matchingOptions.push({
+        value: "create-new",
+        label: inputValue // Use the user's input directly
+      });
+    }
+
+    return matchingOptions;
   };
+
+  const loadOptions = async (inputValue: string) =>
+    new Promise<Option[]>((resolve) => {
+      resolve(filterOptions(inputValue));
+    });
+
+  const handleChange = (selectedOption: any) => {
+    if (selectedOption?.value === "create-new") {
+      const newCompany = selectedOption.label; // Directly use the user's input
+      onChange({ value: newCompany, label: newCompany });
+    } else {
+      onChange(selectedOption);
+    }
+  };
+
   return (
-    // <div className="multi-select-input">
     <AsyncSelect
       cacheOptions
       loadOptions={loadOptions}
       defaultOptions={options}
-      // defaultValue={}
-      // isMulti
       placeholder="Select Employer"
-      // name="colors"
-      onChange={onChange}
-      // options={roles}
+      onChange={handleChange}
       className="basic-multi-select"
       classNamePrefix="select"
       styles={styles}
       components={customComponents}
     />
-    // </div>
   );
 };
 

@@ -83,13 +83,23 @@ const CandidateDetailsArea = () => {
 
   if (!match) return <h3 className="">User does not exist</h3>;
 
-  if (loading) return <h3>Loading</h3>;
-
-  if (!user && !loading) return <h3>User not found</h3>;
-
   return (
     <section className="candidates-profile pt-150 pb-150 lg-pb-80">
-      <WorkExperience user={user} />
+      {loading ? (
+        <div className="profile-container">
+          <header className="profile-header">
+            <h3>Loading</h3>
+          </header>
+        </div>
+      ) : !user && !loading ? (
+        <div className="profile-container">
+          <header className="profile-header">
+            <h3>User not found</h3>
+          </header>
+        </div>
+      ) : (
+        <WorkExperience user={user} />
+      )}
     </section>
   );
 };

@@ -67,7 +67,6 @@ const CandidateGridItem = ({
         {/* <div className="col-md-6"> */}
         <Link
           href={`/${item.ens_name}.employd.eth`}
-          target="_blank"
           className="profile-btn tran3s w-100 mt-5"
           style={{ maxWidth: "80%", margin: "0 auto" }}
         >

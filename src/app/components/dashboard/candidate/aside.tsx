@@ -11,6 +11,7 @@ import nav_5 from "@/assets/dashboard/images/icon/icon_44.svg";
 import nav_7 from "@/assets/dashboard/images/icon/icon_49.svg";
 import avatar from "@/assets/dashboard/images/icon/user.png";
 import { Chango } from "next/font/google";
+import logo from "@/assets/dashboard/images/icon/logo.png";
 import { useStateContext } from "@/context";
 
 const chango = Chango({ weight: "400", subsets: ["latin"] });
@@ -86,8 +87,10 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             {/* Logo Section */}
             <div className="sidebar-logo d-md-block d-flex align-items-center justify-content-between">
               <Link href="/" className="d-flex align-items-center">
-                <div className={`logo-name ${chango.className} m-auto`}>
-                  EMPLOYD
+                <div
+                  className={`logo-name d-flex align-items-center ${chango.className} m-auto`}
+                >
+                  EMPL <Image src={logo} height={24} width={24} alt="logo" /> YD
                 </div>
               </Link>
               <button

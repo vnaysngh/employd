@@ -27,7 +27,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
     if (isUserRegistered) {
       const { name, bio, socials } = isUserRegistered;
       setName(name);
-      setBio(bio);
+      setBio(bio || "");
       setLinkedIin(socials?.linkedIn);
       setTwitter(socials?.twitter);
     }
