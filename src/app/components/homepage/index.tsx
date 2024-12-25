@@ -68,11 +68,13 @@ const Homepage = () => {
         else {
           if (data && data.length) setIsUserRegistered(data[0]);
           else {
-            setUserNotRegistered(true);
-            setTimeout(() => {
-              setUserNotRegistered(false);
-            }, 5000);
-            if (wallet) disconnect(wallet);
+            if (loginType === "login") {
+              setUserNotRegistered(true);
+              setTimeout(() => {
+                setUserNotRegistered(false);
+              }, 5000);
+              if (wallet) disconnect(wallet);
+            }
           }
         }
       } catch (error) {
