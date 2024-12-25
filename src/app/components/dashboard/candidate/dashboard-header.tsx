@@ -6,6 +6,7 @@ import { client } from "@/config/thirdwebClient";
 import SelectUser from "./select-user";
 import { useStateContext } from "@/context";
 import { useRouter } from "next/navigation";
+import { baseSepolia } from "thirdweb/chains";
 // notification item
 function NotificationItem({
   icon,
@@ -76,6 +77,10 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
               style: { fontSize: "16px" }
             }}
             autoConnect
+            accountAbstraction={{
+              chain: baseSepolia, // the chain where your smart accounts will be or is deployed
+              sponsorGas: true // enable or disable sponsored transactions
+            }}
           />
         </div>
       </div>

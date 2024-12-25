@@ -42,6 +42,10 @@ export function WalletComponents({
       }}
       onConnect={() => setLoginType(userType)}
       autoConnect
+      accountAbstraction={{
+        chain: baseSepolia, // the chain where your smart accounts will be or is deployed
+        sponsorGas: true // enable or disable sponsored transactions
+      }}
     />
   );
 }

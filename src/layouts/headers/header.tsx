@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 import { Chango } from "next/font/google";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "@/config/thirdwebClient";
+import { baseSepolia } from "thirdweb/chains";
+
 const chango = Chango({ weight: "400", subsets: ["latin"] });
 
 const Header = () => {
@@ -54,6 +56,10 @@ const Header = () => {
                       detailsButton={{
                         className: "tw-connected-details",
                         style: { fontSize: "16px" }
+                      }}
+                      accountAbstraction={{
+                        chain: baseSepolia, // the chain where your smart accounts will be or is deployed
+                        sponsorGas: true // enable or disable sponsored transactions
                       }}
                     />
                   </li>
