@@ -5,6 +5,8 @@ import DashboardHeader from "./dashboard-header";
 import dynamic from "next/dynamic";
 import { useStateContext } from "@/context";
 import SelectEmployer from "./select-employer";
+import { useRouter } from "next/navigation";
+import { useActiveAccount } from "thirdweb/react";
 
 // Dynamically import client-side only components
 const SelectRole = dynamic(() => import("./select-role"), { ssr: false });
@@ -36,6 +38,8 @@ type IProps = {
 };
 
 const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
+  const router = useRouter();
+  const account = useActiveAccount();
   const [formData, setFormData] = useState<FormData>({
     role: { value: "", label: "" },
     company: { value: "", label: "" },
@@ -47,6 +51,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     description: "",
     skills: []
   });
+
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
@@ -59,6 +64,12 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
+
+  useEffect(() => {
+    if (!account?.address) {
+      router.push("/");
+    }
+  }, [account, router]);
 
   const employerOptions = !employers.length
     ? []
@@ -77,7 +88,8 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
         try {
           const response = await createEmployer(
             "employer",
-            formData.company.label
+            formData?.company?.label,
+            formData?.company?.value
           );
           if (response && response.length) {
             const response = await addUserExperienceToResume(formData);
@@ -93,11 +105,23 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
         } finally {
           setLoading(false);
         }
+      } else {
+        setLoading(true);
+        try {
+          const response = await addUserExperienceToResume(formData);
+          if (response.transactionHash) {
+            setTxHash(response);
+          } else {
+            setError(response.message);
+          }
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setLoading(false);
+        }
       }
     }
   };
-
-  console.log(newEmployer, formData, "dfkdkfndk");
 
   return (
     <>

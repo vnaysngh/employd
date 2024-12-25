@@ -19,7 +19,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0x5BC0625b4136FAAd8338f83f63870e765454d623",
+  address: "0xD57Fd5449d706C8dD14E33d68Ba51294298cAA98",
   chain: baseSepolia,
   abi: abi as any
 });
@@ -118,7 +118,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     };
 
     if (account?.address) checkIfRegisteredUser();
-  }, [account?.address]);
+  }, [isUserRegistered, account?.address]);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -183,13 +183,18 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     else return data;
   };
 
-  const createEmployer = async (user_type: string, company_name: string) => {
+  const createEmployer = async (
+    user_type: string,
+    company_name: string,
+    ens_name: string
+  ) => {
     const { data, error } = await supabase
       .from("users")
       .insert([
         {
           user_type,
-          company_name
+          company_name,
+          ens_name
         }
       ])
       .select();

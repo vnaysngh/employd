@@ -7,6 +7,7 @@ import DashboardHeader from "./dashboard-header";
 import supabase from "@/supabase";
 import { useActiveAccount } from "thirdweb/react";
 import { useStateContext } from "@/context";
+import { useRouter } from "next/navigation";
 
 // props type
 type IProps = {
@@ -23,6 +24,15 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  const router = useRouter();
+  const account = useActiveAccount();
+
+  useEffect(() => {
+    if (!account?.address) {
+      router.push("/");
+    }
+  }, [account, router]);
+
   useEffect(() => {
     if (isUserRegistered) {
       const { name, bio, socials } = isUserRegistered;
@@ -32,8 +42,6 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
       setTwitter(socials?.twitter);
     }
   }, [isUserRegistered]);
-
-  const account = useActiveAccount();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

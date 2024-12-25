@@ -25,12 +25,10 @@ const WorkExperience = ({ user }: { user: any }) => {
     contract,
     method:
       "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
-    params: [user?.address!]
+    params: [user?.address! && user.user_type === "talent"]
   });
 
-  if (isPending) return <h5>Loading...</h5>;
-
-  if (!isPending && !experiences) return <h3>Profile Incomplete</h3>;
+  if (isPending && user.user_type === "talent") return <h5>Loading...</h5>;
 
   const STATUS_DISPLAY_MAP: Record<AttestationStatus, StatusDisplay> = {
     [AttestationStatus.PENDING]: {
@@ -91,7 +89,7 @@ const WorkExperience = ({ user }: { user: any }) => {
           />
         </div>
         <div className="profile-title">
-          <h1>{user.name}</h1>
+          <h1>{user.user_type === "talent" ? user.name : user.company_name}</h1>
           <p>
             {user.user_type === "talent"
               ? user?.role
@@ -238,7 +236,9 @@ const WorkExperience = ({ user }: { user: any }) => {
                 <div className="meta-data-item">
                   <span className="meta-data-label">Founded:</span>
                   <div className="meta-data-content">
-                    {getFoundedDate(user.company_details?.founded_date) || "-"}
+                    {user.company_details?.founded_date
+                      ? getFoundedDate(user.company_details?.founded_date)
+                      : "-"}
                   </div>
                 </div>
                 {/* 

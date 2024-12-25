@@ -59,6 +59,16 @@ const customComponents = {
   // SingleValue: CustomSingleValue
 };
 
+const generateRandomEnsName = (companyName: string) => {
+  // Generate a random number between 100 and 999
+  const randomNum = Math.floor(Math.random() * 900) + 100;
+
+  // Create the ENS name
+  const ensName = `${companyName.toLowerCase()}-${randomNum}`;
+
+  return ensName;
+};
+
 const SelectEmployer = ({
   onChange,
   options,
@@ -92,7 +102,7 @@ const SelectEmployer = ({
     if (selectedOption?.value === "create-new") {
       const newCompany = selectedOption.label; // Directly use the user's input
       setNewEmployer(true);
-      onChange({ value: newCompany, label: newCompany });
+      onChange({ value: generateRandomEnsName(newCompany), label: newCompany });
     } else {
       onChange(selectedOption);
       setNewEmployer(false);

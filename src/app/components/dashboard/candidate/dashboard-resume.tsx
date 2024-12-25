@@ -189,6 +189,32 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
     const role: string = experience?.role;
     const nameParts = experience?.employer.trim().split(" "); // Split the name by space (for full names)
     const firstName = nameParts[0]; // Get the first part (first name)
+    const { getUserDetailsByEns } = useStateContext();
+    const [employer, setEmployer] = useState<any>(null);
+
+    const getUserDetails = async () => {
+      setLoading(true);
+      try {
+        const response = await getUserDetailsByEns(experience?.employer);
+        if (response) {
+          setEmployer(response);
+        } else {
+          console.error(response);
+          setError(true);
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    useEffect(() => {
+      if (experience && experience.employer) {
+        getUserDetails();
+      }
+    }, [experience]);
+
     return (
       <div
         key={experience.id}
@@ -205,11 +231,11 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
               </h3>
               <div className="company-name d-flex align-items-center gap-2 text-capitalize">
                 <Link
-                  href={`/${experience?.employer}.employd.eth`}
+                  href={`/${employer?.ens_name}.employd.eth`}
                   target="_blank"
                   className="on-hover-underline"
                 >
-                  {experience?.employer}
+                  {employer?.company_name}
                 </Link>
                 <span>&#x2022;</span>
                 <span className="employment-type d-flex justify-content-between align-items-center">
