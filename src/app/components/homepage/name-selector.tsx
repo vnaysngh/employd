@@ -267,13 +267,13 @@ const Stepper = ({ userType }: { userType: string }) => {
     }
   };
 
-  const handleKeyDown = (e: any) => {
+  /*   const handleKeyDown = (e: any) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleNext();
     }
   };
-
+ */
   const steps =
     userType === "talent"
       ? [
@@ -288,7 +288,7 @@ const Stepper = ({ userType }: { userType: string }) => {
                 className="input-field"
                 value={formDataTalent.name}
                 onChange={handleChange}
-                onKeyDown={handleKeyDown}
+                // onKeyDown={handleKeyDown}
                 placeholder="Enter your name"
               />
             )
@@ -304,7 +304,7 @@ const Stepper = ({ userType }: { userType: string }) => {
                 className="input-field"
                 value={formDataTalent.role}
                 onChange={handleChange}
-                onKeyDown={handleKeyDown}
+                // onKeyDown={handleKeyDown}
                 placeholder="Enter your name"
               />
             )
@@ -322,7 +322,7 @@ const Stepper = ({ userType }: { userType: string }) => {
                 className="input-field"
                 value={formData.company_name}
                 onChange={handleChange}
-                onKeyDown={handleKeyDown}
+                // onKeyDown={handleKeyDown}
                 placeholder="What’s the name of your company or team?"
               />
             )
@@ -338,7 +338,7 @@ const Stepper = ({ userType }: { userType: string }) => {
                 className="input-field"
                 value={formData.name}
                 onChange={handleChange}
-                onKeyDown={handleKeyDown}
+                // onKeyDown={handleKeyDown}
                 placeholder="Enter your name"
               />
             )
@@ -352,7 +352,7 @@ const Stepper = ({ userType }: { userType: string }) => {
                 className="input-field"
                 value={formData.company_description}
                 onChange={handleChange}
-                onKeyDown={handleKeyDown}
+                // onKeyDown={handleKeyDown}
                 placeholder="Write about the company"
               />
             )
