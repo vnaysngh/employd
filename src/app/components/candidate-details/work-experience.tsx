@@ -6,6 +6,7 @@ import Skills from "./skills";
 import Image from "next/image";
 import Link from "next/link";
 import avatar from "@/assets/dashboard/images/icon/user.png";
+import company from "@/assets/dashboard/images/icon/company.png";
 
 enum AttestationStatus {
   PENDING = 1,
@@ -75,13 +76,16 @@ const WorkExperience = ({ user }: { user: any }) => {
     return formattedDate;
   };
 
+  const avatarPlaceholder =
+    user.user_type === "talent" ? (user.image ? user.image : avatar) : company;
+
   return (
     <div className="profile-container">
       {/* Header Section */}
       <header className="profile-header">
         <div className="profile-image-container">
           <Image
-            src={user?.image || avatar}
+            src={avatarPlaceholder}
             alt="Profile"
             className="profile-image"
             height={120}

@@ -115,9 +115,14 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
               </div>
               {isUserRegistered ? (
                 <div className="user-info">
-                  <button className="user-name">
-                    {isUserRegistered?.ens_name}.employd.eth
-                  </button>
+                  <Link
+                    href={`/${isUserRegistered?.ens_name}.employd.eth`}
+                    className="on-hover-underline"
+                  >
+                    <button className="user-name">
+                      {isUserRegistered?.ens_name}.employd.eth
+                    </button>
+                  </Link>
                 </div>
               ) : null}
             </div>

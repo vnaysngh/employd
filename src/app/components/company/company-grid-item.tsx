@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ICompany } from "@/types/company-type";
-import avatar from "@/assets/dashboard/images/icon/user.png";
+import avatar from "@/assets/dashboard/images/icon/company.png";
 
 const CompanyGridItem = ({ item }: { item: any }) => {
   console.log(item);

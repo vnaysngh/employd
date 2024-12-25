@@ -63,7 +63,6 @@ const CandidateDetailsArea = () => {
     setLoading(true);
     try {
       const response = await getUserDetailsByEns(match?.[1]);
-      console.log(response, "dfkdnfdk");
       if (response) {
         setUser(response);
       } else {
