@@ -2,7 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { WalletComponents } from "@/layouts/headers/component/wallet";
 import NameSelector from "./name-selector";
-import { useActiveAccount, useProfiles } from "thirdweb/react";
+import {
+  useActiveAccount,
+  useActiveWallet,
+  useDisconnect,
+  useProfiles
+} from "thirdweb/react";
 import Wrapper from "@/layouts/wrapper";
 import { useStateContext } from "@/context";
 import { useRouter } from "next/navigation";
@@ -17,7 +22,10 @@ const Homepage = () => {
   const [loginType, setLoginType] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
   const { createUser } = useStateContext();
+  const [userNotRegistered, setUserNotRegistered] = useState(false);
   const [isUserRegistered, setIsUserRegistered] = useState<any>(null);
+  const { disconnect } = useDisconnect();
+  const wallet = useActiveWallet();
 
   const { data: profiles } = useProfiles({
     client
@@ -59,6 +67,13 @@ const Homepage = () => {
         if (error) console.error(error);
         else {
           if (data && data.length) setIsUserRegistered(data[0]);
+          else {
+            setUserNotRegistered(true);
+            setTimeout(() => {
+              setUserNotRegistered(false);
+            }, 5000);
+            if (wallet) disconnect(wallet);
+          }
         }
       } catch (error) {
         console.error("Failed to fetch names:", error);
@@ -84,7 +99,7 @@ const Homepage = () => {
       setLoading(false);
     }
   }, [account?.address, isUserRegistered, loginType]);
-
+  console.log(userNotRegistered, "userNotRegistered");
   return (
     <Wrapper>
       <div className="main-page-wrapper">
@@ -135,6 +150,11 @@ const Homepage = () => {
                     connectModalText="Employer Sign up"
                   />
                 </div>
+                {userNotRegistered && (
+                  <div className="subname-error mt-20 text-center">
+                    User not registered
+                  </div>
+                )}
               </div>
             </div>
           ) : account.address && user ? (
