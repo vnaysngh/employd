@@ -60,7 +60,7 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
         >
           <span></span>
         </button>
-        <div className=" ms-2 ms-md-5 me-4">
+        <div className="search-form ms-2 ms-md-5 me-4">
           <SelectUser
             onChange={(value) => {
               router.push(`/${value.value}.employd.eth`);

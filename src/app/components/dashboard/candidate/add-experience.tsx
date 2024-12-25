@@ -181,11 +181,11 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                         </div>
                       </div>
                       <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          <div className="row">
-                            <div className="col-sm-6">
-                              <div className="row">
-                                <div className="col-sm-5">
+                        <div className="row">
+                          <div className="col-sm-6">
+                            <div className="row">
+                              <div className="col-sm-5">
+                                <div className="dash-input-wrapper mb-30">
                                   <SelectMonth
                                     placeHolder="Start Month"
                                     onChange={(value) =>
@@ -193,7 +193,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                                     }
                                   />
                                 </div>
-                                <div className="col-sm-5">
+                              </div>
+                              <div className="col-sm-5">
+                                <div className="dash-input-wrapper mb-30">
                                   <SelectYear
                                     placeHolder="Start Year"
                                     onChange={(value) =>
@@ -203,9 +205,11 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                                 </div>
                               </div>
                             </div>
-                            <div className="col-sm-6">
-                              <div className="row">
-                                <div className="col-sm-5">
+                          </div>
+                          <div className="col-sm-6">
+                            <div className="row">
+                              <div className="col-sm-5">
+                                <div className="dash-input-wrapper mb-30">
                                   <SelectMonth
                                     placeHolder="End Month"
                                     onChange={(value) =>
@@ -213,7 +217,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                                     }
                                   />
                                 </div>
-                                <div className="col-sm-5">
+                              </div>
+                              <div className="col-sm-5">
+                                <div className="dash-input-wrapper mb-30">
                                   <SelectYear
                                     placeHolder="End Year"
                                     onChange={(value) =>
