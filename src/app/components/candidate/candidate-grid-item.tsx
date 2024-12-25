@@ -23,7 +23,7 @@ const CandidateGridItem = ({
       <div className="cadidate-avatar position-relative d-block m-auto">
         <Link href="/candidate-profile-v1" className="rounded-circle">
           <Image
-            src={avatar}
+            src={item?.image || avatar}
             alt="image"
             className="lazy-img rounded-circle"
             height={80}
@@ -37,7 +37,7 @@ const CandidateGridItem = ({
         </Link>
       </h4>
       <div className="candidate-post">{item?.role}</div>
-      <ul className="cadidate-skills style-none d-flex flex-wrap align-items-center justify-content-center justify-content-md-between pt-30 sm-pt-20 pb-10">
+      <ul className="cadidate-skills style-none d-flex flex-wrap align-items-center justify-content-center pt-30 sm-pt-20 pb-10">
         {item?.skills?.slice(0, 3).map((s: any, i: number) => (
           <li key={i}>{s?.label}</li>
         ))}

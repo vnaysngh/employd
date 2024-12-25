@@ -5,6 +5,7 @@ import { ICompany } from "@/types/company-type";
 import avatar from "@/assets/dashboard/images/icon/user.png";
 
 const CompanyGridItem = ({ item }: { item: any }) => {
+  console.log(item);
   return (
     <div
       className={`company-grid-layout ${item.isFav ? "favourite" : ""} mb-30`}
@@ -14,7 +15,7 @@ const CompanyGridItem = ({ item }: { item: any }) => {
         className="company-logo me-auto ms-auto rounded-circle"
       >
         <Image
-          src={avatar}
+          src={item?.image || avatar}
           alt="image"
           className="lazy-img rounded-circle"
           height={80}
