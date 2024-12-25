@@ -50,7 +50,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
-  const { employers, addUserExperienceToResume } = useStateContext();
+  const [newEmployer, setNewEmployer] = useState(false);
+  const { employers, addUserExperienceToResume, createEmployer } =
+    useStateContext();
   const handleChange = (
     field: keyof FormData,
     value: SelectInput[] | SelectInput
@@ -62,23 +64,40 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     ? []
     : employers.map((employer: any) => ({
         label: employer.company_name,
-        value: employer.ens_name
+        value: employer.ens_name,
+        company_details: employer.company_details
       }));
 
   const handleAddExperience = async () => {
     if (txHash) {
       setTxHash(null);
     } else {
-      setLoading(true);
-      const response = await addUserExperienceToResume(formData);
-      if (response.transactionHash) {
-        setTxHash(response);
-      } else {
-        setError(response.message);
+      if (newEmployer) {
+        setLoading(true);
+        try {
+          const response = await createEmployer(
+            "employer",
+            formData.company.label
+          );
+          if (response && response.length) {
+            const response = await addUserExperienceToResume(formData);
+            if (response.transactionHash) {
+              setTxHash(response);
+            } else {
+              setError(response.message);
+            }
+            setLoading(false);
+          }
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setLoading(false);
+        }
       }
-      setLoading(false);
     }
   };
+
+  console.log(newEmployer, formData, "dfkdkfndk");
 
   return (
     <>
@@ -126,6 +145,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                           <SelectEmployer
                             onChange={(value) => handleChange("company", value)}
                             options={employerOptions}
+                            setNewEmployer={setNewEmployer}
                           />
                         </div>
                       </div>

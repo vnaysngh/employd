@@ -183,6 +183,21 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     else return data;
   };
 
+  const createEmployer = async (user_type: string, company_name: string) => {
+    const { data, error } = await supabase
+      .from("users")
+      .insert([
+        {
+          user_type,
+          company_name
+        }
+      ])
+      .select();
+
+    if (error) console.log(error);
+    else return data;
+  };
+
   const getUserDetails = async (address: string) => {
     if (!address) return null;
     try {
@@ -387,6 +402,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         pushUser,
         initializePushAPI,
         createUser,
+        createEmployer,
         createUserEns,
         updateUserDetails,
         updateCandidateSkills,

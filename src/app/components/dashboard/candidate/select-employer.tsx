@@ -1,5 +1,7 @@
 import React from "react";
 import AsyncSelect from "react-select/async";
+import nav_1 from "@/assets/dashboard/images/icon/company.png";
+import Image from "next/image";
 
 type Option = {
   value: string;
@@ -19,17 +21,52 @@ const styles = {
   singleValue: (styles: any) => ({ ...styles, color: "#ffffffd9" })
 };
 
+const CustomOption = (props: any) => {
+  const { data, innerRef, innerProps } = props;
+  return (
+    <div
+      ref={innerRef}
+      {...innerProps}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        padding: "10px",
+        cursor: "pointer",
+        borderBottom: "1px solid #ddd"
+      }}
+    >
+      <Image
+        src={data?.image || nav_1}
+        alt={data.label}
+        style={{ borderRadius: "50%", marginRight: "10px", background: "#fff" }}
+        height={24}
+        width={24}
+      />
+      <div>
+        <div style={{ fontWeight: "bold" }}>{data.label}</div>
+        <div style={{ fontSize: "12px", color: "#888" }}>
+          {data?.company_details?.website}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const customComponents = {
   DropdownIndicator: () => null, // Hides the dropdown indicator
-  IndicatorSeparator: () => null // Removes the separator line
+  IndicatorSeparator: () => null,
+  Option: CustomOption
+  // SingleValue: CustomSingleValue
 };
 
 const SelectEmployer = ({
   onChange,
-  options
+  options,
+  setNewEmployer
 }: {
   onChange: (item: Option) => void;
   options: Option[];
+  setNewEmployer: (item: any) => void;
 }) => {
   const filterOptions = (inputValue: string) => {
     const matchingOptions = options.filter((i) =>
@@ -54,9 +91,11 @@ const SelectEmployer = ({
   const handleChange = (selectedOption: any) => {
     if (selectedOption?.value === "create-new") {
       const newCompany = selectedOption.label; // Directly use the user's input
+      setNewEmployer(true);
       onChange({ value: newCompany, label: newCompany });
     } else {
       onChange(selectedOption);
+      setNewEmployer(false);
     }
   };
 
