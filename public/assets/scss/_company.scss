@@ -9,9 +9,9 @@
   position: relative;
   overflow: hidden;
   padding: 34px 15px;
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba($color: #000000, $alpha: 0.1);
+  border-radius: 8px;
+  border: solid 2px #888;
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
   /* &.favourite::before {
     content: "";
     position: absolute;
@@ -38,7 +38,7 @@
     letter-spacing: -0.5px;
     line-height: 40px;
     color: $text-white;
-    background: darkslateblue;
+    background: $btn-color;
     text-align: center;
     padding: 0 18px;
     border-radius: 40px;

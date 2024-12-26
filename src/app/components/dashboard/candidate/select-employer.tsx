@@ -15,8 +15,7 @@ const styles = {
     backgroundColor: "$bg-input",
     border: "1px solid $color-border",
     padding: "6px 0",
-    borderRadius: "8px",
-    boxShadow: "6px 6px 0px 0px rgba(0, 0, 0, 0.09)"
+    borderRadius: "8px"
   }),
   input: (styles: any) => ({ ...styles, color: "#333" }),
   singleValue: (styles: any) => ({ ...styles, color: "#333" })

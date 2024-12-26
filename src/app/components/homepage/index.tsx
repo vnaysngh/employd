@@ -91,7 +91,7 @@ const Homepage = () => {
       }
     };
 
-    if (account?.address && loginType === "login") checkIfRegisteredUser();
+    if (account?.address) checkIfRegisteredUser();
   }, [account?.address]);
 
   useEffect(() => {

@@ -136,7 +136,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
 
           <div className="card-box border-20">
             <div className="accordion dash-accordion-one" id="accordionTwo">
-              <div className="accordion-item pt-30">
+              <div className="accordion-item pt-30 pb-30">
                 <div
                   id="collapseOneA"
                   className="accordion-collapse collapse show"

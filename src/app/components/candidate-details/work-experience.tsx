@@ -26,7 +26,7 @@ const WorkExperience = ({ user }: { user: any }) => {
     contract,
     method:
       "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
-    params: [user?.address! && user.user_type === "talent"]
+    params: [user?.address!]
   });
 
   if (isPending && user.user_type === "talent") return <h5>Loading...</h5>;

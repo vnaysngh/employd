@@ -199,8 +199,9 @@
 
   .card-box-employer {
     padding: 30px 25px 30px;
-    background-color: $text-white;
-    border: 0;
+    border-radius: 8px;
+    border: solid 2px #888;
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 
     .form-select {
       font-size: 14px;
@@ -665,14 +666,14 @@
       height: 50px;
       letter-spacing: -0.16px;
       border: 1px solid $color-border;
-      border-radius: 8px;
+      border-radius: 4px;
       padding: 0 20px;
       color: $text-primary;
       background-color: $bg-secondary;
     }
     textarea {
       border: 1px solid $color-border;
-      border-radius: 8px;
+      border-radius: 4px;
       padding: 15px 20px;
       max-width: 100%;
       width: 100%;
@@ -872,13 +873,10 @@
     }
   }
   .dash-accordion-one {
-    // background-color: #e6c73f;
-    // border-radius: 15px;
     .accordion-item {
-      border: 0;
-      background: $text-white;
-      // margin-bottom: 20px;
-      // background-color: #e6c73f;
+      border: solid 2px #888;
+      box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+      border-radius: 8px;
 
       .accordion-button {
         font-size: 15px;
@@ -1953,10 +1951,11 @@
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid $color-border;
-  border-radius: 24px;
+  border-radius: 8px;
   padding: 2rem;
   color: white;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: solid 2px #888;
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 }
 
 .header {
@@ -1986,11 +1985,12 @@
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
-  color: white;
+  color: $text-primary;
   padding: 0.5rem 1rem;
-  border-radius: 12px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  border: 1px solid $color-border;
 }
 
 .user:hover {
@@ -2030,7 +2030,7 @@
 }
 
 .id-number {
-  color: #e2e8f0;
+  color: $text-secondary;
 }
 
 @media (max-width: 768px) {
@@ -2063,6 +2063,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
+  color: $text-white;
 }
 
 .avatar.employer {
@@ -2110,7 +2111,7 @@
 .info-item {
   background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
-  border-radius: 16px;
+  border-radius: 8px;
   border: 1px solid $color-border;
 }
 
@@ -2123,14 +2124,14 @@
 
 .info-item h3 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .description {
   background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
-  border-radius: 16px;
+  border-radius: 8px;
   border: 1px solid $color-border;
 }
 
@@ -2144,6 +2145,7 @@
 .description p {
   margin: 0;
   line-height: 1.6;
+  color: $text-primary;
 }
 
 .actions {
@@ -2428,9 +2430,8 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #6c5ce7;
+  border: 2px solid #666;
   padding: 3px;
-  background-color: #1a1a1a;
 }
 
 .profile-title h1 {
@@ -2464,10 +2465,11 @@
 
 /* Card styles */
 .card {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 2rem;
+  border: solid 2px #888;
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 }
 
 .card h2 {
@@ -2485,7 +2487,7 @@
   position: relative;
   padding-left: 1.5rem;
   margin-bottom: 2rem;
-  border-left: 2px solid #6c5ce7;
+  border-left: 2px solid $color-border;
   display: flex;
   flex-direction: column;
 }
@@ -2523,7 +2525,7 @@
 }
 
 .skill-tag {
-  background-color: #1a1a1a;
+  // background-color: #1a1a1a;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-size: 0.9rem;
@@ -2634,20 +2636,19 @@ a:hover {
 /* New styles for social links */
 .social-links {
   display: flex;
-  gap: 1rem;
+  gap: 10.2rem;
   margin-top: 1rem;
 }
 
 .social-link {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background-color: #1a1a1a;
+  // background-color: #1a1a1a;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  color: $text-primary;
+  // color: $text-primary;
 }
 
 /* Previous CSS remains, adding new styles for employer details */
@@ -2669,12 +2670,12 @@ a:hover {
 
 .meta-data-label {
   min-width: 100px;
-  color: #a8a8a8;
-  font-size: 0.9rem;
+  color: $text-secondary;
+  // font-size: 0.9rem;
 }
 
 .meta-data-content {
-  color: $text-white;
+  color: $text-primary;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
