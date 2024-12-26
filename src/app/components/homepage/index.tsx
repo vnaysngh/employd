@@ -67,9 +67,7 @@ const Homepage = () => {
         if (error) console.error(error);
         else {
           if (data && data.length) {
-            setUser;
             setLoading(true);
-            setLoginType("login");
             if (data[0].isOnboarded) {
               data[0].user_type === "talent"
                 ? router.push("/dashboard/candidate-dashboard/experience")
@@ -97,6 +95,7 @@ const Homepage = () => {
 
     if (account?.address) checkIfRegisteredUser();
   }, [account?.address]);
+
   return (
     <Wrapper>
       <div className="main-page-wrapper">

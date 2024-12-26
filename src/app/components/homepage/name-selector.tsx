@@ -74,6 +74,7 @@ const NameSelector = ({ user }: { user: any }) => {
   const handleSignMessage = async (e: any) => {
     e.preventDefault();
     if (!account) return;
+    setLoading(true);
     try {
       const response = await account.signMessage({
         message: JSON.stringify(nameData)
@@ -84,6 +85,8 @@ const NameSelector = ({ user }: { user: any }) => {
       console.log(response, "response");
     } catch (e) {
       console.log(e);
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -9,9 +9,9 @@ import { useRouter } from "next/navigation";
 import { useActiveAccount } from "thirdweb/react";
 
 // Dynamically import client-side only components
-const SelectRole = dynamic(() => import("./select-role"), { ssr: false });
-const SelectMonth = dynamic(() => import("./select-month"), { ssr: false });
-const SelectYear = dynamic(() => import("./select-year"), { ssr: false });
+const SelectRole = dynamic(() => import("./select-role"), { ssr: true });
+const SelectMonth = dynamic(() => import("./select-month"), { ssr: true });
+const SelectYear = dynamic(() => import("./select-year"), { ssr: true });
 const SelectEmploymentType = dynamic(() => import("./select-employment-type"), {
   ssr: false
 });

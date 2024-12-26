@@ -83,6 +83,9 @@
 .name-selector-wrapper {
   padding: 20px 30px;
   text-align: center;
+  border: solid 2px #888;
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+  border-radius: 8px;
 
   .title {
     font-size: 30px;
