@@ -23,7 +23,6 @@ const Homepage = () => {
   const [user, setUser] = useState<any>(null);
   const { createUser } = useStateContext();
   const [userNotRegistered, setUserNotRegistered] = useState(false);
-  const [isUserRegistered, setIsUserRegistered] = useState<any>(null);
   const { disconnect } = useDisconnect();
   const wallet = useActiveWallet();
 
@@ -36,17 +35,11 @@ const Homepage = () => {
       if (loginType !== "login") {
         setLoading(true);
         try {
-          console.log(
-            loginType,
-            profiles?.[0]?.details?.email || "",
-            account?.address
-          );
           const response = await createUser(
             loginType,
             profiles?.[0]?.details?.email || "",
             account?.address!
           );
-          console.log(response, "response");
           if (response && response.length) {
             setLoginType(null);
             setUser(response[0]);
@@ -64,17 +57,28 @@ const Homepage = () => {
 
   useEffect(() => {
     const checkIfRegisteredUser = async () => {
-      console.log(account?.address);
       setLoading(true);
       try {
         let { data, error } = await supabase
           .from("users")
           .select("*")
           .eq("address", account?.address);
+
         if (error) console.error(error);
         else {
-          if (data && data.length) setIsUserRegistered(data[0]);
-          else {
+          if (data && data.length) {
+            setUser;
+            setLoading(true);
+            setLoginType("login");
+            if (data[0].isOnboarded) {
+              data[0].user_type === "talent"
+                ? router.push("/dashboard/candidate-dashboard/experience")
+                : router.push("/dashboard/employ-dashboard/profile");
+            } else {
+              setUser(data[0]);
+            }
+            setLoading(false);
+          } else {
             if (loginType === "login") {
               setUserNotRegistered(true);
               setTimeout(() => {
@@ -93,21 +97,6 @@ const Homepage = () => {
 
     if (account?.address) checkIfRegisteredUser();
   }, [account?.address]);
-
-  useEffect(() => {
-    if (account?.address && isUserRegistered) {
-      setLoading(true);
-      setLoginType("login");
-      if (isUserRegistered.isOnboarded) {
-        isUserRegistered.user_type === "talent"
-          ? router.push("/dashboard/candidate-dashboard/experience")
-          : router.push("/dashboard/employ-dashboard/profile");
-      } else {
-        setUser(isUserRegistered);
-      }
-      setLoading(false);
-    }
-  }, [account?.address, isUserRegistered, loginType]);
   return (
     <Wrapper>
       <div className="main-page-wrapper">

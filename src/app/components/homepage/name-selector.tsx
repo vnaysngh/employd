@@ -118,9 +118,7 @@ const NameSelector = ({ user }: { user: any }) => {
         console.error("Error setting subname:", data.error);
         setError(data.error);
       } else {
-        console.log("Name set successfully:", data);
         const response = await createUserEns(debouncedName, account?.address);
-        console.log(response);
         if (response && response.length) {
           setSuccess(true);
           setError(false);

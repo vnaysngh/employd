@@ -21,8 +21,8 @@ const Header = () => {
           sticky ? "fixed" : ""
         }`}
       >
-        <div className="inner-content position-relative">
-          <div className="top-header">
+        <div className="inner-content position-relative w-100">
+          <div className="top-header w-100">
             <div className="d-flex align-items-center">
               <div className="logo order-lg-0">
                 <Link href="/" className="d-flex align-items-center">
@@ -50,7 +50,7 @@ const Header = () => {
                       })}
                     </>
                   )} */}
-                  <li>
+                  <li className="me-0">
                     <ConnectButton
                       client={client}
                       detailsButton={{
