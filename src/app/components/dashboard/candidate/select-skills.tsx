@@ -6,12 +6,10 @@ const colourStyles = {
   control: (styles: any) => ({
     ...styles,
     minHeight: 50,
-    backgroundColor: "#1d1e26",
-    border: "1px solid hsla(0, 0%, 100%, 0.1)",
     padding: "6px 0",
-    borderRadius: "7px"
+    borderRadius: "8px"
   }),
-  input: (styles: any) => ({ ...styles, color: "#ffffffd9" })
+  input: (styles: any) => ({ ...styles, color: "#333" })
 };
 
 const customComponents = {

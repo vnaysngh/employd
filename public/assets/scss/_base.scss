@@ -8,7 +8,7 @@
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #fff;
+  background: $text-white;
 }
 ::-webkit-scrollbar-thumb {
   background: $color-two;
@@ -39,7 +39,7 @@ h5,
 .h6,
 h6 {
   font-weight: 500;
-  color: $text-white;
+  color: $text-primary;
 }
 .h1,
 h1 {
@@ -82,7 +82,7 @@ hr {
   top: 0;
   width: 100%;
   z-index: 999999;
-  background: #fff;
+  background: $text-white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,7 +164,7 @@ hr {
   right: 5px;
   z-index: 99;
   text-align: center;
-  color: #fff;
+  color: $text-white;
   font-size: 25px;
   cursor: pointer;
   border-radius: 50%;
@@ -263,7 +263,7 @@ hr {
   @include transition(0.3s);
   &:hover {
     background: $color-one;
-    color: #fff;
+    color: $text-white;
   }
 }
 .btn-four {
@@ -277,7 +277,7 @@ hr {
   @include transition(0.3s);
   &:hover {
     background: $color-one;
-    color: #fff;
+    color: $text-white;
   }
 }
 .btn-five {
@@ -286,12 +286,12 @@ hr {
   min-width: 150px;
   text-align: center;
   border-radius: 50px;
-  color: #fff;
+  color: $text-white;
   background: $color-three;
   @include transition(0.3s);
   &:hover {
     background: $color-one;
-    color: #fff;
+    color: $text-white;
   }
 }
 .btn-five.border6 {
@@ -344,7 +344,7 @@ hr {
   &:hover {
     background: $color-one;
     border-color: $color-one;
-    color: #fff;
+    color: $text-white;
   }
 }
 .btn-seven.border6 {
@@ -393,11 +393,11 @@ hr {
 }
 .btn-eleven {
   height: 60px;
-  border-radius: 7px;
+  border-radius: 8px;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.88px;
-  color: #fff;
+  color: $text-white;
   background: $color-five;
   width: 100%;
   &:hover,

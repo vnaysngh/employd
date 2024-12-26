@@ -1,7 +1,7 @@
 // Card One
 .card-style-one .wrapper {
   display: block;
-  background: #fff;
+  background: $text-white;
   border-radius: 60px;
   padding: 50px 15px 30px;
   border: 1px solid rgba($color: #d1ece7, $alpha: 0.8);
@@ -72,7 +72,7 @@
 }
 // Card Four
 .card-style-four {
-  background: #ffffff;
+  background: $text-white;
   box-shadow: 0px 20px 50px rgba(1, 20, 44, 0.0356);
   border-radius: 10px;
   &:hover {
@@ -113,7 +113,7 @@
       margin: 0 0 5px;
     }
     .icon {
-      border-color: #fff;
+      border-color: $text-white;
     }
   }
 }
@@ -153,7 +153,7 @@
   height: 42px;
   border-radius: 10px;
   background: $color-three;
-  color: #fff;
+  color: $text-white;
   font-size: 15px;
   line-height: initial;
 }
@@ -202,7 +202,7 @@
   }
   &:hover {
     border-color: #35764b;
-    background: #fff;
+    background: $text-white;
   }
 }
 // Card Eight
@@ -214,7 +214,7 @@
     position: absolute;
     width: 50px;
     height: 50px;
-    background: #fff;
+    background: $text-white;
     right: -25px;
     bottom: -25px;
     transform: rotate(45deg);
@@ -229,7 +229,7 @@
 }
 // Card Nine
 .card-style-nine {
-  background: #fff;
+  background: $text-white;
   border-radius: 10px;
   padding: 30px 25px;
   .icon {
@@ -252,7 +252,7 @@
 }
 // Card Ten
 .card-style-ten {
-  background: #fff;
+  background: $text-white;
   border-radius: 50px;
   padding: 40px 20px 35px;
   &:hover {
@@ -266,7 +266,7 @@
     border-radius: 30px;
     &:hover {
       background: $color-three;
-      color: #fff;
+      color: $text-white;
     }
   }
 }
@@ -278,7 +278,7 @@
   position: relative;
   overflow: hidden;
   text-align: center;
-  background: #fff;
+  background: $text-white;
   border: 1px solid #244034;
   border-radius: 30px;
   padding: 38px 20px 38px;
@@ -312,7 +312,7 @@
     border-radius: 30px;
     font-weight: 500;
     letter-spacing: -0.36px;
-    color: #fff;
+    color: $text-white;
     max-width: 270px;
     &:hover {
       background: $color-two;
@@ -369,7 +369,7 @@
       color: $color-five;
     }
     .popular-badge {
-      color: #fff;
+      color: $text-white;
       &:before,
       &:after {
         background: $color-five;

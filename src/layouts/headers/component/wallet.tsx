@@ -31,7 +31,7 @@ export function WalletComponents({
         label: text,
         style: {
           background: "rgba(255, 255, 255, 0.1)",
-          color: "#ffffffd9",
+          color: "#333",
           height: "auto",
           minWidth: "165px"
         }
@@ -46,6 +46,7 @@ export function WalletComponents({
         chain: baseSepolia, // the chain where your smart accounts will be or is deployed
         sponsorGas: true // enable or disable sponsored transactions
       }}
+      theme="light"
     />
   );
 }

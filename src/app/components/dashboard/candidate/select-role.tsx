@@ -6,13 +6,13 @@ const styles = {
   control: (styles: any) => ({
     ...styles,
     minHeight: 50,
-    backgroundColor: "#1d1e26",
-    border: "1px solid hsla(0, 0%, 100%, 0.1)",
+    backgroundColor: "$bg-input",
+    border: "1px solid $color-border",
     padding: "6px 0",
-    borderRadius: "7px"
+    borderRadius: "8px"
   }),
-  input: (styles: any) => ({ ...styles, color: "#ffffffd9" }),
-  singleValue: (styles: any) => ({ ...styles, color: "#ffffffd9" })
+  input: (styles: any) => ({ ...styles, color: "#333" }),
+  singleValue: (styles: any) => ({ ...styles, color: "#333" })
 };
 
 const customComponents = {

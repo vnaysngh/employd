@@ -1,5 +1,5 @@
 .theme-main-menu {
-  background: #fff;
+  background: $text-white;
   position: relative;
   z-index: 999;
   padding: 35px 40px;
@@ -10,7 +10,7 @@
     top: 0;
     right: 0;
     left: 0;
-    background: #121217 !important;
+    background: $text-white !important;
   }
   &.fixed {
     position: fixed;
@@ -18,7 +18,7 @@
     right: 0;
     padding-top: 5px;
     padding-bottom: 5px;
-    background: #fff;
+    background: $text-white;
     box-shadow: 0 13px 35px -12px rgb(35 35 35 / 10%);
   }
   .category-dropdown {
@@ -64,7 +64,7 @@
       }
       &:hover {
         background: $color-five;
-        color: #fff;
+        color: $text-white;
       }
     }
   }
@@ -97,7 +97,7 @@
     transition: transform 0.25s;
     -webkit-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
-    background: #fff;
+    background: $text-white;
   }
   .navbar-toggler span {
     position: absolute;
@@ -109,7 +109,7 @@
     text-indent: 200%;
     -webkit-transition: opacity 0.25s;
     transition: opacity 0.25s;
-    background: #fff;
+    background: $text-white;
   }
   &.menu-style-one .navbar-toggler:before,
   &.menu-style-one .navbar-toggler:after,
@@ -141,7 +141,7 @@
   font-weight: 500;
   font-size: 1em;
   line-height: initial;
-  color: $text-white;
+  color: $text-primary;
   padding: 20px 0;
   margin: 0 18px;
   position: relative;
@@ -154,7 +154,7 @@
   text-transform: capitalize;
   line-height: 38px;
   padding: 0 15px;
-  color: $text-white;
+  color: $text-primary;
   font-size: 0.88em;
   background: transparent;
   position: relative;
@@ -172,7 +172,7 @@
   letter-spacing: 0.5px;
   position: absolute;
   background: red;
-  color: #fff;
+  color: $text-white;
   padding: 1px 3px;
   right: -18px;
   top: 7px;
@@ -182,13 +182,13 @@
   background: $color-one;
 }
 .menu-style-one .navbar .nav-item .nav-link {
-  color: #fff;
+  color: $text-white;
 }
 .menu-style-one .navbar .nav-item:hover .nav-link {
   color: $color-two;
 }
 .menu-style-one .navbar .nav-item.category-btn .nav-link {
-  background: rgba($color: #fff, $alpha: 0.1);
+  background: rgba($color: $text-white, $alpha: 0.1);
   line-height: 33px;
   padding: 0 17px;
   border-radius: 25px;
@@ -204,7 +204,7 @@
   background: #212121;
 }
 .menu-style-two .navbar .nav-item .nav-link {
-  color: #fff;
+  color: $text-white;
 }
 .menu-style-two .navbar .nav-item:hover .nav-link {
   color: $color-three;
@@ -248,12 +248,12 @@
 }
 // Widget
 .menu-style-one .job-post-btn {
-  color: #fff;
+  color: $text-white;
   font-weight: 500;
   padding-right: 20px;
   margin-right: 20px;
   line-height: 14px;
-  border-right: 1px solid rgba($color: #fff, $alpha: 0.27);
+  border-right: 1px solid rgba($color: $text-white, $alpha: 0.27);
   &:hover {
     color: $color-two;
   }
@@ -273,8 +273,8 @@
 }
 .theme-main-menu .login-btn-three {
   padding: 12px 27px;
-  border: 1px solid #fff;
-  color: #fff;
+  border: 1px solid $text-white;
+  color: $text-white;
   border-radius: 50px;
   &:hover {
     background: $color-three;
@@ -286,7 +286,7 @@
     &:hover {
       background: $color-three;
       border-color: $color-three;
-      color: #fff;
+      color: $text-white;
     }
   }
 }
@@ -295,7 +295,7 @@
   height: 45px;
   background: #fafafa;
   border: 1px solid #f0f0f0;
-  border-radius: 7px;
+  border-radius: 8px;
   input {
     width: calc(100% - 115px);
     height: 100%;
@@ -372,7 +372,7 @@
   .navbar .dropdown-menu {
     font-size: 1em;
     z-index: 5;
-    background-color: #fff;
+    background-color: $text-white;
     border-radius: 10px;
     display: block;
     right: auto;
@@ -431,7 +431,7 @@
   .navbar-collapse {
     position: fixed;
     top: 0;
-    background-color: #fff;
+    background-color: $text-white;
     left: 0;
     height: 100vh;
     max-height: 100vh;
@@ -472,7 +472,7 @@
   }
   .menu-style-one .navbar .dropdown-menu,
   .menu-style-two .navbar .dropdown-menu {
-    background: #fff;
+    background: $text-white;
   }
   .navbar [class*="mega-dropdown"] .dropdown-menu {
     padding: 0;

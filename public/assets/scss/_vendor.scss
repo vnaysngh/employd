@@ -1,6 +1,6 @@
 .nice-select {
   -webkit-tap-highlight-color: transparent;
-  background-color: #fff;
+  background-color: $text-white;
   border-radius: 5px;
   box-sizing: border-box;
   clear: both;
@@ -27,8 +27,8 @@
 }
 
 .nice-select:after {
-  border-bottom: 1px solid $text-white;
-  border-right: 1px solid $text-white;
+  border-bottom: 1px solid $text-primary;
+  border-right: 1px solid $text-primary;
   content: "";
   display: block;
   height: 7px;
@@ -310,7 +310,7 @@ body.compensate-for-scrollbar {
   padding: 44px 44px 0;
 }
 .fancybox-content {
-  background: #fff;
+  background: $text-white;
   display: inline-block;
   margin: 0 0 6px;
   max-width: 100%;
@@ -404,7 +404,7 @@ body.compensate-for-scrollbar {
   background: #e5e3df;
 }
 .fancybox-slide--iframe .fancybox-content {
-  background: #fff;
+  background: $text-white;
   height: calc(100% - 44px);
   margin-bottom: 44px;
 }
@@ -422,7 +422,7 @@ body.compensate-for-scrollbar {
   vertical-align: top;
 }
 .fancybox-error {
-  background: #fff;
+  background: $text-white;
   cursor: default;
   max-width: 400px;
   padding: 40px;
@@ -456,7 +456,7 @@ body.compensate-for-scrollbar {
 }
 .fancybox-button:focus,
 .fancybox-button:hover {
-  color: #fff;
+  color: $text-white;
 }
 .fancybox-button.disabled,
 .fancybox-button.disabled:hover,
@@ -553,7 +553,7 @@ body.compensate-for-scrollbar {
 .fancybox-slide--image .fancybox-close-small:hover svg,
 .fancybox-slide--video .fancybox-close-small:hover svg {
   background: transparent;
-  color: #fff;
+  color: $text-white;
 }
 .fancybox-is-scaling .fancybox-close-small,
 .fancybox-is-zoomable.fancybox-can-drag .fancybox-close-small {
@@ -561,7 +561,7 @@ body.compensate-for-scrollbar {
 }
 .fancybox-caption {
   bottom: 0;
-  color: #fff;
+  color: $text-white;
   font-size: 14px;
   font-weight: 400;
   left: 0;
@@ -599,7 +599,7 @@ body.compensate-for-scrollbar {
   text-decoration: none;
 }
 .fancybox-caption a:hover {
-  color: #fff;
+  color: $text-white;
   text-decoration: underline;
 }
 .fancybox-loading {
@@ -608,7 +608,7 @@ body.compensate-for-scrollbar {
   background: transparent;
   border: 6px solid hsla(0, 0%, 39%, 0.5);
   border-radius: 100%;
-  border-top-color: #fff;
+  border-top-color: $text-white;
   height: 60px;
   left: 50%;
   margin: -30px 0 0 -30px;
@@ -759,7 +759,7 @@ body.compensate-for-scrollbar {
 }
 .fancybox-share__button:link,
 .fancybox-share__button:visited {
-  color: #fff;
+  color: $text-white;
 }
 .fancybox-share__button:hover {
   text-decoration: none;
@@ -791,7 +791,7 @@ body.compensate-for-scrollbar {
   width: 25px;
 }
 .fancybox-share__button svg path {
-  fill: #fff;
+  fill: $text-white;
 }
 .fancybox-share__input {
   background: transparent;
@@ -806,7 +806,7 @@ body.compensate-for-scrollbar {
   width: 100%;
 }
 .fancybox-thumbs {
-  background: #fff;
+  background: $text-white;
   bottom: 0;
   display: none;
   margin: 0;
@@ -850,7 +850,7 @@ body.compensate-for-scrollbar {
   width: 7px;
 }
 .fancybox-thumbs-y > ul::-webkit-scrollbar-track {
-  background: #fff;
+  background: $text-white;
   border-radius: 10px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }

@@ -60,7 +60,7 @@
       letter-spacing: 0.5px;
       border-radius: 13px;
       padding: 5px 18px;
-      color: #fff;
+      color: $text-white;
       text-transform: uppercase;
       background: $color-three;
       position: absolute;
@@ -106,7 +106,7 @@
     }
   }
   &.box-layout {
-    background: #fff;
+    background: $text-white;
     border-radius: 20px;
     padding: 20px 25px 50px;
     .post-img {
@@ -182,7 +182,7 @@
         @include transition(0.2s);
         &:hover {
           background: $color-one;
-          color: #fff;
+          color: $text-white;
         }
       }
     }
@@ -273,7 +273,7 @@
       @include transition(0.2s);
       &:hover {
         background: $color-five;
-        color: #fff;
+        color: $text-white;
       }
     }
   }
@@ -311,7 +311,7 @@
         }
         .reply-btn {
           font-size: 13px;
-          color: #fff;
+          color: $text-white;
           text-transform: uppercase;
           letter-spacing: 0px;
           text-align: center;
@@ -348,7 +348,7 @@
       border: none;
       border-radius: 8px;
       padding: 0 25px;
-      background: #fff;
+      background: $text-white;
     }
     form textarea {
       display: block;
@@ -359,7 +359,7 @@
       border: none;
       border-radius: 8px;
       padding: 20px 25px;
-      background: #fff;
+      background: $text-white;
     }
   }
 }

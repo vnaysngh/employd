@@ -4,7 +4,7 @@
   z-index: 9;
 
   h1 {
-    color: #fff;
+    color: $text-white;
     span {
       display: block;
       color: $color-two;
@@ -165,7 +165,7 @@
 }
 // Hero Banner Five
 .hero-banner-five {
-  background: #fff;
+  background: $text-white;
   z-index: 2;
   h1 {
     font-size: 72px;
@@ -197,11 +197,11 @@
     color: $color-three;
     right: 0;
     bottom: 0;
-    background: #fff;
+    background: $text-white;
     z-index: 1;
     &:hover {
       background: $color-three;
-      color: #fff;
+      color: $text-white;
     }
   }
 }
@@ -212,7 +212,7 @@
   z-index: 5;
 
   h1 {
-    color: #fff;
+    color: $text-white;
     font-weight: 500;
     line-height: 1.15em;
   }
@@ -236,7 +236,7 @@
 }
 // Hero Banner Seven
 .hero-banner-seven {
-  background: #fff;
+  background: $text-white;
   z-index: 1;
   h1 {
     font-weight: 500;
@@ -265,7 +265,7 @@
     width: 155px;
     height: 155px;
     border-radius: 50%;
-    background: rgba($color: #fff, $alpha: 0.14);
+    background: rgba($color: $text-white, $alpha: 0.14);
     position: absolute;
     top: -65px;
     left: -75px;
@@ -318,7 +318,7 @@
   .text-wrapper {
     padding: 60px 25px 60px 65px;
     .counter-wrapper {
-      border-top: 1px solid #fff;
+      border-top: 1px solid $text-white;
       .main-count {
         font-size: 32px;
         margin-bottom: 5px;
@@ -327,7 +327,7 @@
     .explore-btn {
       font-size: 15px;
       font-weight: 500;
-      color: #fff;
+      color: $text-white;
       padding: 0 25px;
       line-height: 35px;
       border-radius: 30px;
@@ -384,7 +384,7 @@
     .video-icon {
       width: 65px;
       height: 65px;
-      color: #fff;
+      color: $text-white;
       font-size: 40px;
       padding-left: 5px;
       background: $color-three;
@@ -433,7 +433,7 @@
   .text-wrapper {
     padding: 80px 90px 100px 65px;
     .find-job-btn {
-      border: 1px solid #fff;
+      border: 1px solid $text-white;
       border-radius: 30px;
       padding: 7px 15px;
       @include transition(0.3s);
@@ -461,8 +461,8 @@
   background: #60392d;
   padding: 35px 15px 0;
   .btn-seven {
-    border-color: #fff;
-    color: #fff;
+    border-color: $text-white;
+    color: $text-white;
   }
   .shape_01 {
     bottom: 23%;
@@ -502,8 +502,8 @@
     z-index: -1;
   }
   .btn-seven {
-    border-color: #fff;
-    color: #fff;
+    border-color: $text-white;
+    color: $text-white;
   }
 }
 // Fancy Banner Six
@@ -580,14 +580,14 @@
   z-index: 9;
 
   h1 {
-    color: #fff;
+    color: $text-white;
     span {
       display: block;
       color: $color-two;
     }
   }
   .post-date {
-    color: rgba($color: #fff, $alpha: 0.5);
+    color: rgba($color: $text-white, $alpha: 0.5);
     margin: 25px 0 10px;
     a:hover {
       text-decoration: underline;
@@ -598,12 +598,12 @@
     a {
       font-size: 14px;
       font-weight: 500;
-      color: #fff;
+      color: $text-white;
       line-height: 33px;
       border-radius: 5px;
       padding: 0 15px;
       margin-top: 5px;
-      background: rgba($color: #fff, $alpha: 0.2);
+      background: rgba($color: $text-white, $alpha: 0.2);
       @include transition(0.2s);
       i {
         font-size: 13px;
@@ -611,19 +611,19 @@
       }
       &:hover {
         background: $color-three;
-        color: #fff;
+        color: $text-white;
       }
     }
   }
   .page-pagination li {
     font-size: 17px;
-    color: #fff;
+    color: $text-white;
     margin: 0 2px;
     i {
       font-size: 0.8em;
     }
     a:hover {
-      color: #fff;
+      color: $text-white;
       text-decoration: underline;
     }
   }
@@ -640,19 +640,19 @@
     background-size: cover;
     border: none;
     .candidate-post {
-      color: rgba($color: #fff, $alpha: 0.4);
+      color: rgba($color: $text-white, $alpha: 0.4);
     }
     .candidate-info span {
-      color: rgba($color: #fff, $alpha: 0.6);
+      color: rgba($color: $text-white, $alpha: 0.6);
     }
     .candidate-info div {
-      color: #fff;
+      color: $text-white;
     }
     .cv-download-btn {
       line-height: 38px;
-      border: 1px solid #fff;
+      border: 1px solid $text-white;
       border-radius: 40px;
-      color: #fff;
+      color: $text-white;
       font-size: 15px;
       letter-spacing: -0.5px;
       padding: 0 20px;
@@ -663,12 +663,12 @@
     }
     .cadidate-skills li {
       background: #375749;
-      color: rgba($color: #fff, $alpha: 0.55);
+      color: rgba($color: $text-white, $alpha: 0.55);
     }
     &.list-layout .save-btn {
       background: #375749;
-      border-color: #fff;
-      color: #fff;
+      border-color: $text-white;
+      color: $text-white;
     }
     &.list-layout .cadidate-skills {
       position: static;

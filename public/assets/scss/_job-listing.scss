@@ -9,7 +9,7 @@
   position: relative;
   .border-20 {
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid $color-border;
   }
   .btn-close {
     position: absolute;
@@ -29,7 +29,7 @@
       line-height: 35px;
       font-size: 16px;
       border-radius: 50%;
-      background: #fff;
+      background: $text-white;
       border: 1px solid rgba($color: #000000, $alpha: 0.01);
       position: absolute;
       right: 25px;
@@ -47,14 +47,14 @@
   }
   .light-bg {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid $color-border;
   }
   .main-title {
     font-size: 1.5rem;
-    color: $text-white;
+    color: $text-primary;
   }
   .filter-block.bottom-line {
-    border-bottom: 1px solid rgba($color: #8570e4, $alpha: 0.3);
+    border-bottom: 1px solid rgba($color: $btn-color, $alpha: 0.3);
   }
   .filter-title {
     font-size: 1em;
@@ -78,7 +78,7 @@
       top: 3px;
       text-align: center;
       line-height: 20px;
-      color: #fff;
+      color: $text-white;
       @include transition(0.2s);
     }
     &:not(.collapsed):before {
@@ -92,7 +92,7 @@
     font-size: 14px;
     color: rgba($color: #000000, $alpha: 0.65);
     border: 1px solid #ededed;
-    border-radius: 7px;
+    border-radius: 8px;
     outline: none;
     box-shadow: none;
     padding: 0 15px 0 15px;
@@ -142,7 +142,7 @@
       height: 14px;
       width: 14px;
       border-radius: 50%;
-      background: #fff;
+      background: $text-white;
       border: 2px solid $color-three;
       cursor: pointer;
       pointer-events: auto;
@@ -153,7 +153,7 @@
       height: 14px;
       width: 14px;
       border-radius: 50%;
-      background: #fff;
+      background: $text-white;
       border: 2px solid $color-three;
       cursor: pointer;
       pointer-events: auto;
@@ -176,7 +176,7 @@
         height: 16px;
         line-height: 14px;
         border-radius: 3px;
-        background: #fff;
+        background: $text-white;
         border: 1px solid rgba(0, 0, 0, 0.1);
         font-size: 12px;
         text-align: center;
@@ -196,7 +196,7 @@
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background: #fff;
+        background: $text-white;
         float: right;
         margin-top: 7px;
       }
@@ -213,7 +213,7 @@
     input[type="checkbox"]:checked + label:before {
       content: "\f633";
       background: $color-five;
-      color: #fff;
+      color: $text-white;
       border-color: $color-five;
     }
     input[type="checkbox"]:checked + label {
@@ -232,7 +232,7 @@
   }
   .more-btn {
     margin-top: 10px;
-    color: #fff;
+    color: $text-white;
     font-size: 12px;
     line-height: 28px;
     font-weight: 500;
@@ -247,7 +247,7 @@
     }
     &:hover {
       background: $color-three;
-      color: #fff;
+      color: $text-white;
     }
   }
   .salary-slider {
@@ -266,7 +266,7 @@
         font-size: 11px;
         text-align: center;
         color: #000;
-        background: #fff;
+        background: $text-white;
         border: 1px solid rgba($color: #000000, $alpha: 0.1);
         border-radius: 2px;
       }
@@ -280,15 +280,15 @@
     .slider {
       height: 4px;
       position: relative;
-      background: #fff;
-      border-radius: 7px;
+      background: $text-white;
+      border-radius: 8px;
     }
     .slider .progress {
       height: 100%;
       left: 0;
       right: 70%;
       position: absolute;
-      border-radius: 7px;
+      border-radius: 8px;
       background: $color-three;
     }
     .range-input {
@@ -309,7 +309,7 @@
       height: 12px;
       width: 12px;
       border-radius: 50%;
-      background: #fff;
+      background: $text-white;
       border: 2px solid $color-three;
       cursor: pointer;
       pointer-events: auto;
@@ -320,7 +320,7 @@
       height: 12px;
       width: 12px;
       border-radius: 50%;
-      background: #fff;
+      background: $text-white;
       border: 2px solid $color-three;
       cursor: pointer;
       pointer-events: auto;
@@ -337,7 +337,7 @@
       font-size: 11px;
       font-weight: 500;
       line-height: 20px;
-      background: #fff;
+      background: $text-white;
       color: $color-five;
       border-radius: 30px;
       padding: 0 12px;
@@ -356,7 +356,7 @@
     input[type="radio"]:checked + label,
     input[type="checkbox"]:checked + label {
       background: $color-five;
-      color: #fff;
+      color: $text-white;
     }
   }
 
@@ -366,11 +366,11 @@
       width: 100%;
       height: 100%;
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.8509803922);
-      border: 1px solid hsla(0, 0%, 100%, 0.1);
-      border-radius: 7px;
+      color: #333;
+      border: 1px solid $color-border;
+      border-radius: 8px;
       padding: 0 35px 0 15px;
-      background-color: #1d1e26;
+      background-color: $bg-input;
     }
     button {
       width: 50px;
@@ -396,13 +396,13 @@
   }
   &:hover {
     background: $color-one;
-    color: #fff;
+    color: $text-white;
   }
 }
 .upper-filter {
   position: relative;
   .total-job-found {
-    color: $text-white;
+    color: $text-primary;
     font-size: 1.5rem;
   }
 
@@ -433,12 +433,12 @@
     width: 35px;
     height: 35px;
     line-height: 15px;
-    color: $text-white;
+    color: $text-primary;
     font-size: 18px;
-    border: 1px solid $text-white;
+    border: 1px solid $text-primary;
     display: none;
     &:hover {
-      color: #fff;
+      color: $text-white;
       background: $color-five;
       border-color: $color-five;
     }
@@ -482,7 +482,7 @@
   }
 }
 .job-list-one {
-  background: #fff;
+  background: $text-white;
   padding: 42px 35px;
   border-radius: 10px;
   &.bottom-border {
@@ -570,7 +570,7 @@
     font-weight: 500;
     font-size: 12px;
     letter-spacing: 1px;
-    color: #fff;
+    color: $text-white;
     text-transform: uppercase;
     border-radius: 17px;
     background: $color-three;
@@ -629,8 +629,8 @@
 }
 .job-list-two {
   padding: 35px 35px 30px;
-  background: #ffffff;
-  border: 1px solid #fff;
+  background: $text-white;
+  border: 1px solid $text-white;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -690,7 +690,7 @@
     font-weight: 500;
     font-size: 12px;
     letter-spacing: 1px;
-    color: #fff;
+    color: $text-white;
     text-transform: uppercase;
     border-radius: 17px;
     background: $color-three;
@@ -707,7 +707,7 @@
     line-height: 32px;
     border: 1px solid #d6d6d6;
     color: #cbcbcb;
-    background: #fff;
+    background: $text-white;
     &:hover {
       background: #e7f6ef;
       border-color: #e7f6ef;
@@ -746,7 +746,7 @@
   background: $light-bg;
 }
 .job-list-three {
-  background: #fff;
+  background: $text-white;
   border: 1px solid #ebebeb;
   border-radius: 10px;
   padding: 28px 40px 30px;
@@ -807,7 +807,7 @@
       line-height: 29px;
       border: 1px solid #d6d6d6;
       color: #cbcbcb;
-      background: #fff;
+      background: $text-white;
       &:hover {
         background: #e7f6ef;
         border-color: #e7f6ef;
@@ -839,7 +839,7 @@
       font-weight: 500;
       font-size: 12px;
       letter-spacing: 1px;
-      color: #fff;
+      color: $text-white;
       text-transform: uppercase;
       border-radius: 17px;
       background: $color-five;
@@ -865,7 +865,7 @@
     margin: 0 auto;
     font-weight: 500;
     letter-spacing: -0.5px;
-    color: #fff;
+    color: $text-white;
     background: $color-one;
     border-radius: 30px;
     &:hover {
@@ -911,7 +911,7 @@
       &:hover {
         background: $color-one;
         border-color: $color-one;
-        color: #fff;
+        color: $text-white;
       }
     }
   }
@@ -942,7 +942,7 @@
       border-radius: 5px;
       padding: 0 15px;
       margin-top: 5px;
-      background: rgba($color: #8570e4, $alpha: 0.12);
+      background: rgba($color: $btn-color, $alpha: 0.12);
       @include transition(0.2s);
       i {
         font-size: 13px;
@@ -950,7 +950,7 @@
       }
       &:hover {
         background: $color-one;
-        color: #fff;
+        color: $text-white;
       }
     }
   }

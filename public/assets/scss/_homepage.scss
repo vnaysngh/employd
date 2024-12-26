@@ -23,13 +23,13 @@
         cursor: pointer;
         transition: all 0.2s ease;
         background: rgba(255, 255, 255, 0.1);
-        color: $text-white;
+        color: $text-primary;
       }
     }
 
     .connect-wallet-text {
       font-size: 20px;
-      color: $text-white;
+      color: $text-primary;
     }
   }
 }
@@ -44,21 +44,21 @@
 }
 
 .skill-btn {
-  background-color: #2a2c37;
+  background-color: #efeeef;
   border: 2px solid $heading;
   font-weight: 300;
   font-size: 14px;
-  // box-shadow: 2px 2px 0px 0px #2a2c37;
+  // box-shadow: 2px 2px 0px 0px #efeeef;
   padding: 5px 10px;
   cursor: pointer;
-  color: $text-white;
+  color: $text-primary;
   border-radius: 8px;
   transition: background-color 0.3s;
 }
 
 .skill-btn.selected {
   color: white;
-  border: 1px solid $text-white;
+  border: 1px solid $text-primary;
 }
 
 .header-list {
@@ -69,12 +69,12 @@
 
 .theme-main-menu {
   padding: 15px 50px !important;
-  border-bottom: 2px solid #1d1e26;
+  border-bottom: 2px solid $bg-input;
 }
 
 .logo-name {
   font-size: 24px;
-  color: #fff;
+  color: $text-white;
   padding: 0 10px;
   background-color: $btn-color;
 }
@@ -100,7 +100,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #191825;
+    // background: #191825;
     border-radius: 4px;
     padding: 10px;
     font-size: 16px;
@@ -115,10 +115,10 @@
   }
 
   .input-field {
-    background: none;
+    background: #efeeef;
     border: 0;
     border-bottom: 1px solid #3a3a3d;
-    color: $text-white;
+    color: $text-primary;
     font-size: 24px;
     outline: none;
     border-radius: 0;
@@ -173,21 +173,21 @@
 }
 
 .cb-wallet-connect {
-  background-color: #fff;
+  background-color: $text-white;
   border: 1px solid #333;
   //   font-size: 24px;
   box-shadow: 4px 4px 0px 0px #333;
   border-radius: 0;
 
   :hover {
-    color: #fff;
+    color: $text-white;
   }
 }
 
 .ul-header-list {
   li {
     margin-right: 20px;
-    color: $text-white;
+    color: $text-primary;
   }
 }
 
@@ -318,7 +318,7 @@
   }
 
   .back-btn {
-    color: $text-white;
+    color: $text-primary;
     background-color: grey;
   }
 
@@ -334,9 +334,9 @@
   gap: 10px;
 
   .dropdown-toggle {
-    background: #2a2c37;
+    background: #efeeef;
     border: 0;
-    color: #fff;
+    color: $text-white;
     font-size: 16px;
     height: 50px;
     width: 100%;
@@ -369,8 +369,9 @@
     background: rgba(255, 255, 255, 0.05);
     padding: 2.5rem 1.5rem;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
     width: 100%;
+    border: solid 2px #888;
     max-width: 500px;
   }
 
@@ -411,7 +412,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     background: rgba(255, 255, 255, 0.1);
-    color: $text-white;
+    color: $text-primary;
   }
 
   .auth-button img {
@@ -442,7 +443,7 @@
   .user-type-button h3 {
     margin: 0 0 0.25rem 0;
     font-size: 1.1rem;
-    color: $text-white;
+    color: $text-primary;
   }
 
   .user-type-button p {

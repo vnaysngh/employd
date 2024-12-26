@@ -1,6 +1,6 @@
 // Categpry Section One
 .category-section-one {
-  background: #fff;
+  background: $text-white;
   &.bg-color {
     background: #f2f9d8;
   }
@@ -116,7 +116,7 @@
     width: 120px;
     height: 120px;
     line-height: 120px;
-    color: #fff;
+    color: $text-white;
     font-size: 70px;
     background: $color-three;
     position: absolute;
@@ -145,7 +145,7 @@
     bottom: 30%;
   }
   .brand-icon {
-    background: #fff;
+    background: $text-white;
     position: absolute;
     z-index: 2;
     border: 1px solid #eeeeee;
@@ -221,7 +221,7 @@
     padding-left: 7px;
     &:hover {
       background: $color-three;
-      color: #fff;
+      color: $text-white;
     }
   }
 }
@@ -233,7 +233,7 @@
   .big-circle .logo {
     width: 155px;
     height: 155px;
-    background: #fff;
+    background: $text-white;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -252,7 +252,7 @@
   }
   .brand-icon {
     position: absolute;
-    background: #fff;
+    background: $text-white;
     &.icon_01 {
       width: 55px;
       height: 55px;
@@ -329,7 +329,7 @@
   }
   &.color-two li:hover {
     background: $color-three;
-    color: #fff;
+    color: $text-white;
   }
 }
 .expert-slider-two .slick-dots {

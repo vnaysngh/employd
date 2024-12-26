@@ -36,11 +36,17 @@ const Homepage = () => {
       if (loginType !== "login") {
         setLoading(true);
         try {
+          console.log(
+            loginType,
+            profiles?.[0]?.details?.email || "",
+            account?.address
+          );
           const response = await createUser(
             loginType,
             profiles?.[0]?.details?.email || "",
             account?.address!
           );
+          console.log(response, "response");
           if (response && response.length) {
             setLoginType(null);
             setUser(response[0]);
@@ -58,6 +64,7 @@ const Homepage = () => {
 
   useEffect(() => {
     const checkIfRegisteredUser = async () => {
+      console.log(account?.address);
       setLoading(true);
       try {
         let { data, error } = await supabase
@@ -84,7 +91,7 @@ const Homepage = () => {
       }
     };
 
-    if (account?.address) checkIfRegisteredUser();
+    if (account?.address && loginType === "login") checkIfRegisteredUser();
   }, [account?.address]);
 
   useEffect(() => {
@@ -101,7 +108,6 @@ const Homepage = () => {
       setLoading(false);
     }
   }, [account?.address, isUserRegistered, loginType]);
-  console.log(userNotRegistered, "userNotRegistered");
   return (
     <Wrapper>
       <div className="main-page-wrapper">
