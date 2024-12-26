@@ -1,6 +1,6 @@
 "use client";
 // import "bootstrap/js/dist/collapse";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
@@ -13,6 +13,8 @@ import avatar from "@/assets/dashboard/images/icon/user.png";
 import { Chango } from "next/font/google";
 import logo from "@/assets/dashboard/images/icon/logo.png";
 import { useStateContext } from "@/context";
+import supabase from "@/supabase";
+import { useActiveAccount } from "thirdweb/react";
 
 const chango = Chango({ weight: "400", subsets: ["latin"] });
 
@@ -77,8 +79,36 @@ type IProps = {
 };
 
 const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
+  const account = useActiveAccount();
   const pathname = usePathname();
-  const { isUserRegistered } = useStateContext();
+  const [isUserRegistered, setIsUserRegistered] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const checkIfRegisteredUser = async () => {
+      setLoading(true);
+      try {
+        let { data, error } = await supabase
+          .from("users")
+          .select("*")
+          .eq("address", account?.address);
+
+        if (error) console.error(error);
+        else {
+          if (data && data.length) {
+            setIsUserRegistered(data[0]);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch names:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (account?.address) checkIfRegisteredUser();
+  }, [account?.address]);
+
   return (
     <>
       <aside className={`dash-aside-navbar ${isOpenSidebar ? "show" : ""}`}>

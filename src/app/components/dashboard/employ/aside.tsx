@@ -1,19 +1,21 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import nav_1 from "@/assets/dashboard/images/icon/icon_48.svg";
 import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
-import nav_4 from "@/assets/dashboard/images/icon/icon_47.svg";
+// import nav_4 from "@/assets/dashboard/images/icon/icon_47.svg";
 import nav_5 from "@/assets/dashboard/images/icon/icon_41.svg";
-import nav_3 from "@/assets/dashboard/images/icon/icon_45.svg";
-import nav_6 from "@/assets/dashboard/images/icon/icon_46.svg";
+// import nav_3 from "@/assets/dashboard/images/icon/icon_45.svg";
+// import nav_6 from "@/assets/dashboard/images/icon/icon_46.svg";
 import nav_7 from "@/assets/dashboard/images/icon/icon_49.svg";
 import { Chango } from "next/font/google";
 import avatar from "@/assets/dashboard/images/icon/user.png";
 import logo from "@/assets/dashboard/images/icon/logo.png";
 import { useStateContext } from "@/context";
+import { useActiveAccount } from "thirdweb/react";
+import supabase from "@/supabase";
 
 const chango = Chango({ weight: "400", subsets: ["latin"] });
 
@@ -32,7 +34,7 @@ const nav_data: {
     link: "/dashboard/employ-dashboard/profile",
     title: "My Profile"
   },
-  {
+  /*   {
     id: 3,
     icon: nav_4,
     icon_active: nav_4,
@@ -52,7 +54,7 @@ const nav_data: {
     icon_active: nav_6,
     link: "/dashboard/employ-dashboard/saved-candidate",
     title: "People"
-  },
+  }, */
   {
     id: 6,
     icon: nav_5,
@@ -92,7 +94,36 @@ type IProps = {
 };
 const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
   const pathname = usePathname();
-  const { isUserRegistered } = useStateContext();
+
+  const account = useActiveAccount();
+
+  const [isUserRegistered, setIsUserRegistered] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const checkIfRegisteredUser = async () => {
+      setLoading(true);
+      try {
+        let { data, error } = await supabase
+          .from("users")
+          .select("*")
+          .eq("address", account?.address);
+
+        if (error) console.error(error);
+        else {
+          if (data && data.length) {
+            setIsUserRegistered(data[0]);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch names:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (account?.address) checkIfRegisteredUser();
+  }, [account?.address]);
 
   return (
     <>
