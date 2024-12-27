@@ -1,15 +1,18 @@
-import skillOptions from "@/data/json/skills";
 import React from "react";
 import Select from "react-select";
+import compensations from "@/data/json/salary.json";
 
-const colourStyles = {
+const styles = {
   control: (styles: any) => ({
     ...styles,
     minHeight: 50,
+    backgroundColor: "$bg-input",
+    border: "1px solid $color-border",
     padding: "6px 0",
     borderRadius: "8px"
   }),
-  input: (styles: any) => ({ ...styles, color: "#333" })
+  input: (styles: any) => ({ ...styles, color: "#333" }),
+  singleValue: (styles: any) => ({ ...styles, color: "#333" })
 };
 
 const customComponents = {
@@ -17,27 +20,25 @@ const customComponents = {
   IndicatorSeparator: () => null // Removes the separator line
 };
 
-const SelectSkills = ({
-  defaultValue,
-  onChange
+const SelectCompensation = ({
+  onChange,
+  placeHolder
 }: {
-  defaultValue?: any[];
   onChange: (item: any) => void;
+  placeHolder: string;
 }) => {
   return (
     <Select
-      value={defaultValue}
-      isMulti
-      placeholder="Select Skills"
+      placeholder={placeHolder}
       name="colors"
       onChange={onChange}
-      options={skillOptions}
+      options={compensations}
       className="basic-multi-select"
       classNamePrefix="select"
-      styles={colourStyles}
+      styles={styles}
       components={customComponents}
     />
   );
 };
 
-export default SelectSkills;
+export default SelectCompensation;

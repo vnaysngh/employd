@@ -78,14 +78,18 @@ const CompanyV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
 
               <div className={`accordion-box grid-style show`}>
                 <div className="row">
-                  {employers.map((item: any) => (
-                    <div
-                      key={item.id}
-                      className="col-xl-4 col-lg-6 col-md-4 col-sm-6 d-flex"
-                    >
-                      <CompanyGridItem item={item} />
-                    </div>
-                  ))}
+                  {employers.map((item: any) => {
+                    if (item.name) {
+                      return (
+                        <div
+                          key={item.id}
+                          className="col-xl-4 col-lg-6 col-md-4 col-sm-6 d-flex"
+                        >
+                          <CompanyGridItem item={item} />
+                        </div>
+                      );
+                    }
+                  })}
                 </div>
               </div>
 

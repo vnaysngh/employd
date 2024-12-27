@@ -7460,6 +7460,11 @@ react-select@^5.9.0:
     react-transition-group "^4.3.0"
     use-isomorphic-layout-effect "^1.2.0"
 
+react-simple-wysiwyg@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-simple-wysiwyg/-/react-simple-wysiwyg-3.2.0.tgz#319bc90687659543050269566496f142500daaa1"
+  integrity sha512-Iaqoe3GxnDKtx5otvM1TnYh7GrP+VxysI6QuqKwnbhkqSmo2MPm0xbZYsmNRmO7w4S5AyVlqprRu1MEImqj2sw==
+
 react-slick@^0.30.2:
   version "0.30.2"
   resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.30.2.tgz#b28e992f9c519bb516a0af8d37e82cb59fee08ce"

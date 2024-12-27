@@ -66,11 +66,18 @@ const CandidateV1Area = () => {
 
                 <div className={`accordion-box grid-style show`}>
                   <div className="row">
-                    {talents.map((item: any) => (
-                      <div key={item.id} className="col-xxl-4 col-sm-6 d-flex">
-                        <CandidateGridItem item={item} />
-                      </div>
-                    ))}
+                    {talents.map((item: any) => {
+                      if (item.name) {
+                        return (
+                          <div
+                            key={item.id}
+                            className="col-xxl-4 col-sm-6 d-flex"
+                          >
+                            <CandidateGridItem item={item} />
+                          </div>
+                        );
+                      }
+                    })}
                   </div>
                 </div>
 
