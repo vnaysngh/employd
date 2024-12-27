@@ -197,7 +197,9 @@ const WorkExperience = ({ user }: { user: any }) => {
               <div className="mt-30">
                 <h2>Social</h2>
                 <div className="social-links">
-                  {!user.socials || !user.socials?.length ? <p>-</p> : null}
+                  {!user.socials || !Object.keys(user.socials)?.length ? (
+                    <p>-</p>
+                  ) : null}
                   {user?.socials?.twitter ? (
                     <Link
                       href={user?.socials?.twitter}
