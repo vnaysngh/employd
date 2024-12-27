@@ -34,6 +34,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const [isUserRegistered, setIsUserRegistered] = useState<any>(null);
   const [employers, setEmployers] = useState<any>([]);
   const [talents, setTalents] = useState<any>([]);
+  const [userOnboarded, setUserOnboarded] = useState(false);
 
   // useEffect(() => {
   const initializePushAPI = async () => {
@@ -118,7 +119,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     };
 
     if (account?.address) checkIfRegisteredUser();
-  }, [account?.address]);
+  }, [account?.address, userOnboarded]);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -280,7 +281,10 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       .select();
 
     if (error) console.error(error);
-    else return data;
+    else {
+      setUserOnboarded(true);
+      return data;
+    }
   };
 
   const updateCandidateSkills = async ({
