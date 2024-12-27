@@ -17,6 +17,7 @@ import Link from "next/link";
 import SelectSkills from "./select-skills";
 import Loader from "@/app/loading";
 import { useRouter } from "next/navigation";
+import InviteEmployer from "../../popup/inviteEmployer";
 const chango = Chango({ weight: "400", subsets: ["latin"] });
 const lexend400 = Lexend({ weight: "400", subsets: ["latin"] });
 
@@ -32,13 +33,14 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [skills, setSkills] = useState<any[]>([]);
+  const [inviteEmployer, setInviteEmployer] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (!account?.address) {
       router.push("/");
     }
-  }, [account, router]);
+  }, [account, router]); */
 
   useEffect(() => {
     if (isUserRegistered) setSkills(isUserRegistered.skills);
@@ -73,8 +75,17 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
     params: [account?.address!]
   });
 
+  console.log(inviteEmployer);
+
   return (
     <div className={`dashboard-body position-relative`}>
+      {inviteEmployer && (
+        <InviteEmployer
+          employer={inviteEmployer}
+          onClose={() => setInviteEmployer(null)}
+        />
+      )}
+
       {isPending ? (
         <Loader />
       ) : (
@@ -93,7 +104,10 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
             <h4 className="dash-title-three">Work Experience</h4>
             <div className="experiences-grid mt-30">
               {experiences && experiences.length ? (
-                <ExperienceCard experiences={experiences} />
+                <ExperienceCard
+                  experiences={experiences}
+                  setInviteEmployer={setInviteEmployer}
+                />
               ) : (
                 <div className="not-found-state">
                   <p>Add your professional experience to build your resume.</p>
@@ -154,12 +168,21 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   );
 };
 
-const ExperienceCard = ({ experiences }: { experiences: any }) => {
-  const { requestAttestation, getEmployerDetails } = useStateContext();
+const ExperienceCard = ({
+  experiences,
+  setInviteEmployer
+}: {
+  experiences: any;
+  setInviteEmployer: any;
+}) => {
+  const { requestAttestation, getEmployerDetails, getUserDetailsByEns } =
+    useStateContext();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
   const [experienceId, setExperienceId] = useState(null);
+
+  const [employers, setEmployers] = useState<Record<string, any>>({}); // Cache employer details
 
   const handleRequestAttestation = async (id: any, ens_name: string) => {
     if (txHash) {
@@ -172,9 +195,15 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
         if (employer) {
           const response = await requestAttestation(id, employer.address);
           if (response.transactionHash) {
-            setTxHash(response);
+            setTxHash(response.transactionHash);
+            setTimeout(() => {
+              setTxHash(null);
+            }, 5000);
           } else {
             setError(response.message);
+            setTimeout(() => {
+              setError(null);
+            }, 5000);
           }
         }
       } catch (err) {
@@ -185,35 +214,37 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
     }
   };
 
+  const fetchEmployerDetails = async (ensName: string) => {
+    if (employers[ensName]) return; // Skip if already fetched
+    setLoading(true);
+    try {
+      const response = await getUserDetailsByEns(ensName);
+      console.log(response, "employers");
+      if (response) {
+        setEmployers((prev) => ({ ...prev, [ensName]: response }));
+      } else {
+        console.error("Failed to fetch employer details.");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    experiences.forEach((experience: any) => {
+      if (experience.employer) {
+        fetchEmployerDetails(experience.employer);
+      }
+    });
+  }, [experiences]);
+
   return experiences?.map((experience: any, index: number) => {
     const role: string = experience?.role;
-    const nameParts = experience?.employer.trim().split(" "); // Split the name by space (for full names)
-    const firstName = nameParts[0]; // Get the first part (first name)
-    const { getUserDetailsByEns } = useStateContext();
-    const [employer, setEmployer] = useState<any>(null);
-
-    const getUserDetails = async () => {
-      setLoading(true);
-      try {
-        const response = await getUserDetailsByEns(experience?.employer);
-        if (response) {
-          setEmployer(response);
-        } else {
-          console.error("Something went wrong");
-          setError(true);
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    useEffect(() => {
-      if (experience && experience.employer) {
-        getUserDetails();
-      }
-    }, [experience]);
+    const nameParts = experience?.employer.trim().split(" ");
+    const firstName = nameParts[0];
+    const employer = employers[experience.employer];
 
     return (
       <div
@@ -222,38 +253,44 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
       >
         <div className="experience-title">
           <div className="d-flex gap-3">
-            <div className={`${chango.className} company-logo-placeholder`}>
+            <div className="company-logo-placeholder">
               {firstName.charAt(0).toUpperCase()}
             </div>
             <div>
-              <h3 className={`${lexend400.className} mb-1`}>
-                {roles[role as keyof typeof roles]}
-              </h3>
+              <h3 className="mb-1">{roles[role as keyof typeof roles]}</h3>
               <div className="company-name d-flex align-items-center gap-2 text-capitalize">
-                <Link
-                  href={`/${employer?.ens_name}.employd.eth`}
-                  target="_blank"
-                  className="on-hover-underline"
-                >
-                  {employer?.company_name}
-                </Link>
+                {employer?.company_name ? (
+                  <Link
+                    href={`/${employer?.ens_name}.employd.eth`}
+                    target="_blank"
+                    className="on-hover-underline"
+                  >
+                    {employer?.company_name}
+                  </Link>
+                ) : (
+                  experience.employer
+                )}
                 <span>&#x2022;</span>
-                <span className="employment-type d-flex justify-content-between align-items-center">
+                <span className="employment-type">
                   {experience.employmentType}
                 </span>
                 <span>&#x2022;</span>
-                <div className="employment-details">
-                  <span className="date-duration">
-                    <span className="duration">
-                      {experience.startMonth}/{experience.startYear} -{" "}
-                      {experience.endMonth}/{experience.endYear}
-                    </span>
-                  </span>
-                </div>
+                <span className="duration">
+                  {experience.startMonth}/{experience.startYear} -{" "}
+                  {experience.endMonth}/{experience.endYear}
+                </span>
               </div>
             </div>
           </div>
-          {!experience.attestationStatus && !txHash ? (
+          {!employer?.address ? (
+            <button
+              onClick={() => setInviteEmployer(employer)}
+              disabled={loading}
+              className={`status-badge not-initiated bg-black`}
+            >
+              Invite Employer to Attest
+            </button>
+          ) : !experience.attestationStatus && !txHash ? (
             <button
               onClick={() =>
                 handleRequestAttestation(experience.id, experience.employer)
@@ -298,23 +335,21 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
           </>
         )}
 
-        {experience && experience.id === experienceId ? (
+        {experience && experience.id === experienceId && (
           <>
             {error && <div className="subname-error mt-10">{error}</div>}
-
             {txHash && (
               <div className="success-text mt-10">
                 Experience submitted for attestation.
               </div>
             )}
-
             {loading && (
               <div className="loading-text mt-10">
                 Processing your transaction...
               </div>
             )}
           </>
-        ) : null}
+        )}
       </div>
     );
   });

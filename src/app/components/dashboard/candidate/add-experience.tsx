@@ -110,8 +110,14 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
             );
             if (response.transactionHash) {
               setTxHash(response);
+              setTimeout(() => {
+                setTxHash(null);
+              }, 5000);
             } else {
               setError(response.message);
+              setTimeout(() => {
+                setError(null);
+              }, 5000);
             }
             setLoading(false);
           }
@@ -331,49 +337,34 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                         </div>
                       </div>
                     </div>
-                    {/*  <div className="row align-items-center">
-                      <div className="col-lg-2">
-                        <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Skills</label>
-                        </div>
-                      </div>
-                      <div className="col-lg-10">
-                        <div className="dash-input-wrapper mb-30">
-                          <SelectSkills
-                            onChange={(value: any[]) => {
-                              setFormData({
-                                ...formData,
-                                skills: value.map((item) => item.label)
-                              });
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div> */}
                     {error && (
                       <div className="subname-error mb-10">{error}</div>
                     )}
 
                     {txHash && (
                       <div className="success-text mb-10">
-                        Experience added successfully.
+                        Experience submitted.
                       </div>
                     )}
 
-                    {loading && (
-                      <div className="loading-text mb-10">
-                        Processing your transaction...
+                    {!txHash && (
+                      <div className="d-flex">
+                        <button
+                          className="tx-btn d-flex align-items-center gap-2"
+                          onClick={handleAddExperience}
+                          disabled={loading}
+                        >
+                          {loading ? (
+                            <>
+                              <div className="spinner" />
+                              Awaiting wallet confirmation. Please wait...
+                            </>
+                          ) : (
+                            "Save"
+                          )}
+                        </button>
                       </div>
                     )}
-                    <div className="d-flex">
-                      <button
-                        className="tx-btn"
-                        onClick={handleAddExperience}
-                        disabled={loading}
-                      >
-                        {!txHash ? "Save" : "Add another experience"}
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -384,63 +375,5 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     </>
   );
 };
-
-/* const SkillSelection = ({ selectedSkills, onSkillChange }: any) => {
-  const skillsOptions = [
-    "React",
-    "Node.js",
-    "JavaScript",
-    "TypeScript",
-    "CSS",
-    "HTML",
-    "Python",
-    "Django",
-    "Ruby"
-  ];
-
-  // Function to handle skill selection
-  const handleSkillSelect = (skill: any) => {
-    if (!selectedSkills.includes(skill)) {
-      onSkillChange([...selectedSkills, skill]);
-    }
-  };
-
-  // Function to handle skill removal
-  const handleSkillRemove = (skill: any) => {
-    onSkillChange(selectedSkills.filter((s: any) => s !== skill));
-  };
-
-  return (
-    <div>
-      <div className="skills-options">
-        {skillsOptions.map((skill) => (
-          <button
-            key={skill}
-            className={`skill-btn ${
-              selectedSkills.includes(skill) ? "selected" : ""
-            }`}
-            onClick={() => handleSkillSelect(skill)}
-          >
-            {skill}
-          </button>
-        ))}
-      </div>
-
-      <div className="selected-skills">
-        {selectedSkills.map((skill: any) => (
-          <span key={skill} className="skill-chip">
-            {skill}
-            <button
-              className="remove-skill"
-              onClick={() => handleSkillRemove(skill)}
-            >
-              &times;
-            </button>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}; */
 
 export default DashboardResume;
