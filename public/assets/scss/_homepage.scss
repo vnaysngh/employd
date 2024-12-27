@@ -13,7 +13,7 @@
     .wallet-connect-button {
       button {
         padding: 0.875rem;
-        border-radius: 8px;
+        border-radius: 0px;
         font-size: 1rem;
         font-weight: 500;
         display: flex;
@@ -52,7 +52,7 @@
   padding: 5px 10px;
   cursor: pointer;
   color: $text-primary;
-  border-radius: 8px;
+  border-radius: 0px;
   transition: background-color 0.3s;
 }
 
@@ -85,7 +85,7 @@
   text-align: center;
   border: solid 2px #888;
   box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
-  border-radius: 8px;
+  border-radius: 0px;
 
   .title {
     font-size: 30px;
@@ -343,7 +343,7 @@
     font-size: 16px;
     height: 50px;
     width: 100%;
-    border-radius: 8px;
+    border-radius: 0px;
 
     &::after {
       display: none;
@@ -371,7 +371,7 @@
   .auth-card {
     background: rgba(255, 255, 255, 0.05);
     padding: 2.5rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 0px;
     box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
     width: 100%;
     border: solid 2px #888;
@@ -405,7 +405,7 @@
   .auth-button {
     width: 100%;
     padding: 0.875rem;
-    border-radius: 8px;
+    border-radius: 0px;
     font-size: 1rem;
     font-weight: 500;
     display: flex;
