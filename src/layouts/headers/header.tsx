@@ -24,7 +24,10 @@ const Header = () => {
         <div className="inner-content position-relative w-100">
           <div className="top-header w-100">
             <div className="d-flex align-items-center">
-              <div className="logo order-lg-0">
+              <div
+                className="logo order-lg-0"
+                style={{ background: "#8570e4" }}
+              >
                 <Link href="/" className="d-flex align-items-center">
                   <div className={`logo-name ${chango.className}`}>EMPLOYD</div>
                 </Link>

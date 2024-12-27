@@ -199,7 +199,7 @@ const ExperienceCard = ({ experiences }: { experiences: any }) => {
         if (response) {
           setEmployer(response);
         } else {
-          console.error(response);
+          console.error("Something went wrong");
           setError(true);
         }
       } catch (err) {

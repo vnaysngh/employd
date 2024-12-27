@@ -55,13 +55,16 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
-  const [newEmployer, setNewEmployer] = useState(false);
+  const [newEmployer, setNewEmployer] = useState("");
   const { employers, addUserExperienceToResume, createEmployer } =
     useStateContext();
   const handleChange = (
     field: keyof FormData,
     value: SelectInput[] | SelectInput
   ) => {
+    if (field === "company") {
+      setNewEmployer("");
+    }
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -79,20 +82,30 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
         company_details: employer.company_details
       }));
 
+  const generateEnsName = (companyName: string) => {
+    const randomNum = Math.floor(Math.random() * 900) + 100;
+    const ensName = `${companyName.toLowerCase()}-${randomNum}`;
+    return ensName;
+  };
+
   const handleAddExperience = async () => {
     if (txHash) {
       setTxHash(null);
     } else {
       if (newEmployer) {
         setLoading(true);
+        const newEmployerEnsName = generateEnsName(newEmployer);
         try {
           const response = await createEmployer(
             "employer",
-            formData?.company?.label,
-            formData?.company?.value
+            newEmployer,
+            newEmployerEnsName
           );
           if (response && response.length) {
-            const response = await addUserExperienceToResume(formData);
+            const response = await addUserExperienceToResume(
+              formData,
+              newEmployerEnsName
+            );
             if (response.transactionHash) {
               setTxHash(response);
             } else {
@@ -122,6 +135,16 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       }
     }
   };
+
+  const handleNewCompany = (e: any) => {
+    setFormData({
+      ...formData,
+      company: { value: "", label: "" }
+    });
+    setNewEmployer(e.target.value);
+  };
+
+  console.log(formData.company, newEmployer);
 
   return (
     <>
@@ -164,12 +187,22 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                           <label htmlFor="">Company*</label>
                         </div>
                       </div>
-                      <div className="col-lg-10">
+                      <div className="col-lg-5">
                         <div className="dash-input-wrapper mb-30">
                           <SelectEmployer
                             onChange={(value) => handleChange("company", value)}
                             options={employerOptions}
-                            setNewEmployer={setNewEmployer}
+                            isDisabled={newEmployer}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-5">
+                        <div className="dash-input-wrapper mb-30">
+                          <input
+                            type="text"
+                            placeholder="Not listed? Enter the company name"
+                            value={newEmployer}
+                            onChange={handleNewCompany}
                           />
                         </div>
                       </div>

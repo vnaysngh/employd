@@ -326,7 +326,10 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     else return data;
   };
 
-  const addUserExperienceToResume = async (formData: FormData) => {
+  const addUserExperienceToResume = async (
+    formData: FormData,
+    newEmployer: string
+  ) => {
     if (!isUserRegistered || !isUserRegistered.address) return;
     const params: [
       string, // role
@@ -341,7 +344,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     ] = [
       formData.role.value,
       isUserRegistered.ens_name,
-      formData.company.value,
+      newEmployer ? newEmployer : formData.company.value,
       formData.startMonth.value,
       formData.startYear.value,
       formData.endMonth.value,

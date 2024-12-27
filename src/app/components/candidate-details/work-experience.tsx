@@ -267,6 +267,11 @@ const WorkExperience = ({ user }: { user: any }) => {
                 <div className="meta-data-item">
                   <span className="meta-data-label">Social:</span>
                   <div className="social-links mt-0">
+                    {!user?.company_details?.twitter &&
+                    !user?.company_details?.linkedin ? (
+                      <p>-</p>
+                    ) : null}
+
                     {user?.company_details?.twitter ? (
                       <Link
                         href={user?.company_details?.twitter}

@@ -9,11 +9,10 @@ type Option = {
 };
 
 const styles = {
-  control: (styles: any) => ({
+  control: (styles: any, state: any) => ({
     ...styles,
     minHeight: 50,
-    backgroundColor: "$bg-input",
-    border: "1px solid $color-border",
+    backgroundColor: state.isDisabled ? "#f5f5f5" : "$bg-input", // Light grey for disabled
     padding: "6px 0",
     borderRadius: "8px"
   }),
@@ -63,36 +62,26 @@ const customComponents = {
   // SingleValue: CustomSingleValue
 };
 
-const generateRandomEnsName = (companyName: string) => {
-  // Generate a random number between 100 and 999
-  const randomNum = Math.floor(Math.random() * 900) + 100;
-
-  // Create the ENS name
-  const ensName = `${companyName.toLowerCase()}-${randomNum}`;
-
-  return ensName;
-};
-
 const SelectEmployer = ({
   onChange,
   options,
-  setNewEmployer
+  isDisabled
 }: {
   onChange: (item: Option) => void;
   options: Option[];
-  setNewEmployer: (item: any) => void;
+  isDisabled: string;
 }) => {
   const filterOptions = (inputValue: string) => {
     const matchingOptions = options.filter((i) =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
 
-    if (inputValue) {
-      matchingOptions.push({
-        value: "create-new",
-        label: inputValue // Use the user's input directly
-      });
-    }
+    // if (inputValue) {
+    //   matchingOptions.push({
+    //     value: "create-new",
+    //     label: inputValue // Use the user's input directly
+    //   });
+    // }
 
     return matchingOptions;
   };
@@ -103,14 +92,13 @@ const SelectEmployer = ({
     });
 
   const handleChange = (selectedOption: any) => {
-    if (selectedOption?.value === "create-new") {
-      const newCompany = selectedOption.label; // Directly use the user's input
-      setNewEmployer(true);
-      onChange({ value: generateRandomEnsName(newCompany), label: newCompany });
-    } else {
-      onChange(selectedOption);
-      setNewEmployer(false);
-    }
+    // if (selectedOption?.value === "create-new") {
+    //   const newCompany = selectedOption.label; // Directly use the user's input
+    //   setNewEmployer(true);
+    //   onChange({ value: generateRandomEnsName(newCompany), label: newCompany });
+    // } else {
+    onChange(selectedOption);
+    // }
   };
 
   return (
@@ -123,6 +111,7 @@ const SelectEmployer = ({
       className="basic-multi-select"
       classNamePrefix="select"
       styles={styles}
+      isDisabled={Boolean(isDisabled)}
       components={customComponents}
     />
   );
