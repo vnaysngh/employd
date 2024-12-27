@@ -78,11 +78,15 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
 
   const employerOptions = !employers.length
     ? []
-    : employers.map((employer: any) => ({
-        label: employer.company_name,
-        value: employer.ens_name,
-        company_details: employer.company_details
-      }));
+    : employers.map((employer: any) => {
+        if (employer.ens_name !== "") {
+          return {
+            label: employer.company_name,
+            value: employer.ens_name,
+            company_details: employer.company_details
+          };
+        }
+      });
 
   const generateEnsName = (companyName: string) => {
     const randomNum = Math.floor(Math.random() * 900) + 100;
