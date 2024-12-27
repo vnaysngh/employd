@@ -42,6 +42,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
   const [minSalary, setMinSalary] = useState<string | null>(null);
   const [maxSalary, setMaxSalary] = useState<string | null>(null);
   const [address, setAddress] = useState<string>("");
+  const [applyLink, setApplyLink] = useState("");
   const [email, setEmail] = useState<string>(isUserRegistered?.email || "");
 
   // Form submission handler
@@ -143,6 +144,34 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
             </div>
           </div>
 
+          {/* Email */}
+          <div className="row">
+            <div className="col-6">
+              <div className="dash-input-wrapper mb-25">
+                <label htmlFor="email">Work Email (For Invoice)*</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="companyinc@gmail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="col-6">
+              <div className="dash-input-wrapper mb-25">
+                <label htmlFor="email">Link to apply</label>
+                <input
+                  id="applyLink"
+                  type="text"
+                  placeholder="Apply via this link"
+                  value={applyLink}
+                  onChange={(e) => setApplyLink(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+
           {/* Address */}
           <div className="row">
             <div className="col-12">
@@ -156,22 +185,6 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
                   placeholder="Cowrasta, Chandana, Gazipur Sadar"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Email */}
-          <div className="row">
-            <div className="col-6">
-              <div className="dash-input-wrapper mb-25">
-                <label htmlFor="email">Work Email (For Invoice)*</label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="companyinc@gmail.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
