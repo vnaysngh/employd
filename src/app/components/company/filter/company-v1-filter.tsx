@@ -3,7 +3,7 @@ import FilterCompanyLocation from "./filter-company-location";
 
 const CompanyV1Filter = () => {
   return (
-    <div className="border-20 ps-4 pe-4 pt-25 pb-30 mt-20">
+    <div className="border-20 ps-4 pe-4 pt-25 pb-30 mt-20 mb-20">
       <div className="filter-block bottom-line pb-25">
         {/*  <a
           className="filter-title fw-500 text-dark"

@@ -70,12 +70,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  useEffect(() => {
-    if (!account?.address) {
-      router.push("/");
-    }
-  }, [account, router]);
-
   const employerOptions = !employers.length
     ? []
     : employers.map((employer: any) => {

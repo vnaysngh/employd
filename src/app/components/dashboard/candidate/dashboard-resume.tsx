@@ -36,12 +36,6 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   const [inviteEmployer, setInviteEmployer] = useState(null);
   const router = useRouter();
 
-  /* useEffect(() => {
-    if (!account?.address) {
-      router.push("/");
-    }
-  }, [account, router]); */
-
   useEffect(() => {
     if (isUserRegistered) setSkills(isUserRegistered.skills);
   }, [isUserRegistered]);

@@ -82,6 +82,9 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
               sponsorGas: true // enable or disable sponsored transactions
             }}
             theme="light"
+            onDisconnect={() => {
+              router.push("/");
+            }}
           />
         </div>
       </div>

@@ -26,12 +26,6 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const account = useActiveAccount();
 
   useEffect(() => {
-    if (!account?.address) {
-      router.push("/");
-    }
-  }, [account, router]);
-
-  useEffect(() => {
     if (isUserRegistered) {
       const { name, bio, socials } = isUserRegistered;
       setName(name);

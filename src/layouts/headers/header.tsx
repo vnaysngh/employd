@@ -4,7 +4,7 @@ import Link from "next/link";
 import useSticky from "@/hooks/use-sticky";
 import { WalletComponents } from "./component/wallet";
 import { nav_data } from "@/app/components/dashboard/candidate/aside";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Chango } from "next/font/google";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "@/config/thirdwebClient";
@@ -14,6 +14,8 @@ const chango = Chango({ weight: "400", subsets: ["latin"] });
 
 const Header = () => {
   const { sticky } = useSticky();
+  const router = useRouter();
+
   return (
     <>
       <header
@@ -65,6 +67,9 @@ const Header = () => {
                         sponsorGas: true // enable or disable sponsored transactions
                       }}
                       theme="light"
+                      onDisconnect={() => {
+                        router.push("/");
+                      }}
                     />
                   </li>
                 </ul>

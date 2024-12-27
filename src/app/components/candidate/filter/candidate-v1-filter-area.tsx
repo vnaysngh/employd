@@ -6,14 +6,14 @@ const CandidateV1FilterArea = () => {
   const [priceValue, setPriceValue] = useState<number[]>([0, 50000]);
   return (
     <div className="filter-area-tab offcanvas-start" id="filteroffcanvas">
-      <button
+      {/*  <button
         type="button"
         className="btn-close text-reset d-lg-none"
         data-bs-dismiss="offcanvas"
         aria-label="Close"
-      ></button>
+      ></button> */}
       <div className="main-title fw-500">Filter By</div>
-      <div className="light-bg border-20 ps-4 pe-4 pt-25 pb-30 mt-20">
+      <div className="light-bg border-20 ps-4 pe-4 pt-25 pb-30 mt-20 mb-20">
         <div className="filter-block bottom-line pb-25">
           {/*  <a
             className="filter-title fw-500 text-dark"

@@ -58,12 +58,6 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
   };
 
   useEffect(() => {
-    if (!account?.address) {
-      router.push("/");
-    }
-  }, [account, router]);
-
-  useEffect(() => {
     const fetchUserDetails = async () => {
       if (!account?.address) return;
 
