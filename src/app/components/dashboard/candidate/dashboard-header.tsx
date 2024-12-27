@@ -46,10 +46,12 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
 
   const userOptions =
     users && users.length
-      ? users.map((user: any) => ({
-          label: user.user_type === "talent" ? user.name : user.company_name,
-          value: user.ens_name
-        }))
+      ? users
+          .map((user: any) => ({
+            label: user.user_type === "talent" ? user.name : user.company_name,
+            value: user.ens_name
+          }))
+          .filter((user: any) => user.label !== null)
       : [];
 
   return (
