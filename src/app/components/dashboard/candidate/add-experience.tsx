@@ -30,6 +30,7 @@ export type FormData = {
   endYear: SelectInput;
   employmentType: SelectInput;
   description: string;
+  currentlyWorking: boolean;
   skills: any[];
 };
 // props type
@@ -49,6 +50,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     endYear: { value: "2024", label: "2024" },
     employmentType: { value: "full-time", label: "Full Time" },
     description: "",
+    currentlyWorking: false,
     skills: []
   });
 
@@ -144,8 +146,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     setNewEmployer(e.target.value);
   };
 
-  console.log(formData.company, newEmployer);
-
   return (
     <>
       <div className={`dashboard-body`}>
@@ -215,6 +215,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                       </div>
                       <div className="col-lg-10">
                         <div className="row">
+                          {/* Start Date Inputs */}
                           <div className="col-sm-6">
                             <div className="row">
                               <div className="col-sm-5">
@@ -239,6 +240,8 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                               </div>
                             </div>
                           </div>
+
+                          {/* End Date Inputs and Checkbox */}
                           <div className="col-sm-6">
                             <div className="row">
                               <div className="col-sm-5">
@@ -248,6 +251,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                                     onChange={(value) =>
                                       handleChange("endMonth", value)
                                     }
+                                    isDisabled={formData.currentlyWorking}
                                   />
                                 </div>
                               </div>
@@ -258,6 +262,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                                     onChange={(value) =>
                                       handleChange("endYear", value)
                                     }
+                                    isDisabled={formData.currentlyWorking}
                                   />
                                 </div>
                               </div>
@@ -265,6 +270,24 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                           </div>
                         </div>
                       </div>
+                      {/* <div className="col-lg-2"></div>
+                      <div className="col-lg-10">
+                        <div className="dash-input-wrapper mb-30">
+                          <div className="form-check-label">
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  currentlyWorking: !formData.currentlyWorking
+                                });
+                              }}
+                            />
+                            <label>I currently work here</label>
+                          </div>
+                        </div>
+                      </div> */}
                     </div>
                     <div className="row align-items-center">
                       <div className="col-lg-2">

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Select from "react-select";
 
 const styles = {
-  control: (styles: any) => ({
+  control: (styles: any, state: any) => ({
     ...styles,
     minHeight: 50,
-    backgroundColor: "$bg-input",
+    backgroundColor: state.isDisabled ? "#f5f5f5" : "$bg-input", // Light grey for disabled
     border: "1px solid $color-border",
     padding: "6px 0",
     borderRadius: "8px"
@@ -21,10 +21,12 @@ const customComponents = {
 
 const SelectMonth = ({
   placeHolder,
-  onChange
+  onChange,
+  isDisabled
 }: {
   placeHolder: string;
   onChange: (item: any) => void;
+  isDisabled?: boolean;
 }) => {
   return (
     <Select
@@ -49,6 +51,7 @@ const SelectMonth = ({
       classNamePrefix="select"
       styles={styles}
       components={customComponents}
+      isDisabled={isDisabled}
     />
   );
 };

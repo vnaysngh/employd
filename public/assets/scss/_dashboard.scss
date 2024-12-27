@@ -651,6 +651,25 @@
       margin-bottom: 10px;
     }
 
+    .form-check-label {
+      display: flex;
+      align-items: center;
+      input {
+        height: 20px !important;
+        width: 20px !important;
+        padding: 0 !important;
+        margin-right: 0.5rem;
+
+        &:checked {
+          background-color: #4d80e6;
+        }
+      }
+
+      label {
+        margin-bottom: 0 !important;
+      }
+    }
+
     .attestation-item {
       color: $text-primary;
     }
