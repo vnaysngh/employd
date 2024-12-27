@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import skills from "@/data/json/skills.json";
+import skillOptions from "@/data/json/skills";
+import React from "react";
 import Select from "react-select";
 
 const colourStyles = {
@@ -24,7 +24,6 @@ const SelectSkills = ({
   defaultValue: any[];
   onChange: (item: any) => void;
 }) => {
-  console.log(defaultValue);
   return (
     <Select
       value={defaultValue}
@@ -32,7 +31,7 @@ const SelectSkills = ({
       placeholder="Select Skills"
       name="colors"
       onChange={onChange}
-      options={skills}
+      options={skillOptions}
       className="basic-multi-select"
       classNamePrefix="select"
       styles={colourStyles}

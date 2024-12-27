@@ -7,7 +7,7 @@ import nav_1 from "@/assets/dashboard/images/icon/icon_48.svg";
 import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
 // import nav_4 from "@/assets/dashboard/images/icon/icon_47.svg";
 import nav_5 from "@/assets/dashboard/images/icon/icon_41.svg";
-// import nav_3 from "@/assets/dashboard/images/icon/icon_45.svg";
+import nav_3 from "@/assets/dashboard/images/icon/icon_45.svg";
 // import nav_6 from "@/assets/dashboard/images/icon/icon_46.svg";
 import nav_7 from "@/assets/dashboard/images/icon/icon_49.svg";
 import { Chango } from "next/font/google";
@@ -32,13 +32,6 @@ const nav_data: {
     link: "/dashboard/employ-dashboard/profile",
     title: "My Profile"
   },
-  /*   {
-    id: 3,
-    icon: nav_4,
-    icon_active: nav_4,
-    link: "/dashboard/employ-dashboard/jobs",
-    title: "My Jobs"
-  },
   {
     id: 4,
     icon: nav_3,
@@ -46,6 +39,14 @@ const nav_data: {
     link: "/dashboard/employ-dashboard/submit-job",
     title: "Submit Job"
   },
+  /*   {
+    id: 3,
+    icon: nav_4,
+    icon_active: nav_4,
+    link: "/dashboard/employ-dashboard/jobs",
+    title: "My Jobs"
+  },
+ ,
   {
     id: 5,
     icon: nav_6,

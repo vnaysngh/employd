@@ -19,20 +19,17 @@ const customComponents = {
   IndicatorSeparator: () => null // Removes the separator line
 };
 
-const SelectEmploymentType = ({
-  onChange
-}: {
-  onChange: (item: any) => void;
-}) => {
+const SelectSalaryType = ({ onChange }: { onChange: (item: any) => void }) => {
   return (
     <Select
       placeholder={"Employment Type"}
       name="colors"
       onChange={onChange}
       options={[
-        { value: "full-time", label: "Full Time" },
-        { value: "part-time", label: "Part Time" },
-        { value: "internship", label: "Internship" }
+        { value: "yearly", label: "Yearly" },
+        { value: "monthly", label: "Monthly" },
+        { value: "weekly", label: "Weekly" },
+        { value: "hourly", label: "Hourly" }
       ]}
       className="basic-multi-select"
       classNamePrefix="select"
@@ -42,4 +39,4 @@ const SelectEmploymentType = ({
   );
 };
 
-export default SelectEmploymentType;
+export default SelectSalaryType;
