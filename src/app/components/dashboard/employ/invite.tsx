@@ -18,7 +18,9 @@ const EmployerInvite = ({ setIsOpenSidebar }: IProps) => {
 
   const handleCopyLink = () => {
     setCopied(true);
-    // alert("Invite link copied to clipboard!");
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
   };
 
   const handleAddEmail = () => {
@@ -58,7 +60,10 @@ const EmployerInvite = ({ setIsOpenSidebar }: IProps) => {
               text={`https://employd.xyz/invite?company=${isUserRegistered?.ens_name}`}
               onCopy={handleCopyLink}
             >
-              <button className="copy-btn">Copy Link</button>
+              <button className="copy-btn d-flex align-items-center">
+                Copy Link
+                {copied && <i className="bi bi-check-lg"></i>}
+              </button>
             </CopyToClipboard>
           </div>
         </div>

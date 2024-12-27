@@ -120,15 +120,16 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             <div className="user-profile">
               <div className="user-avatar-wrapper">
                 <Image
-                  src={avatar}
+                  src={isUserRegistered?.image || avatar}
                   alt="avatar"
                   className="user-avatar"
-                  style={{ height: "auto" }}
+                  width={64}
+                  height={64}
                 />
               </div>
               <div className="user-info">
                 <Link
-                  href={`/${isUserRegistered?.ens_name}.employd.eth}`}
+                  href={`/${isUserRegistered?.ens_name}.employd.eth`}
                   className="on-hover-underline"
                 >
                   <button className="user-name">

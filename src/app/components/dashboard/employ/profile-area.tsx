@@ -4,6 +4,8 @@ import DashboardHeader from "../candidate/dashboard-header";
 import { useStateContext } from "@/context";
 import { useActiveAccount } from "thirdweb/react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import supabase from "@/supabase";
 
 // props type
 type IProps = {
@@ -26,13 +28,13 @@ const categories = [
 ];
 
 const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
-  const { getUserDetails, updateEmployerDetails } = useStateContext();
+  const { getUserDetails, updateEmployerDetails, isUserRegistered } =
+    useStateContext();
   const [employer, setEmployer] = useState<any>({});
   const [loading, setLoading] = useState(false);
-  const [txHash, setTxHash] = useState<any>(null);
+  const [success, setSuccess] = useState<any>(null);
   const [error, setError] = useState<any>(null);
   const account = useActiveAccount();
-  const router = useRouter();
 
   // Form states
   const [companyName, setCompanyName] = useState("");
@@ -44,6 +46,9 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [about, setAbout] = useState("");
   const [twitter, setTwitter] = useState("");
   const [linkedin, setLinkedin] = useState("");
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<any>(null);
   const convertUnixToDate = (unixTimestamp: number) => {
     // Create a Date object using the Unix timestamp (in milliseconds)
     const date = new Date(unixTimestamp * 1000);
@@ -152,15 +157,71 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
       setLoading(true);
       const response = await updateEmployerDetails(body);
       if (response) {
-        setTxHash(response);
-      } else {
-        setError(response.message);
+        setSuccess(response);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 5000);
       }
     } catch (err) {
       console.error(err);
       setError(err);
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file)); // Show a preview of the image
+    }
+  };
+
+  const handleDeleteImage = () => {
+    setPreview(null);
+    setSelectedFile(null);
+  };
+
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      alert("Please select a file to upload.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+    const fileName = `${isUserRegistered.ens_name}`;
+
+    try {
+      const { data, error } = await supabase.storage
+        .from("employd-images")
+        .upload(`public/${fileName}`, selectedFile);
+
+      if (data) {
+        const fileUrl = `https://umryooifjtwokxeybbxc.supabase.co/storage/v1/object/public/employd-images/public/${fileName}`;
+        const { data, error } = await supabase
+          .from("users")
+          .update({
+            image: fileUrl
+          })
+          .eq("address", account?.address)
+          .select();
+
+        if (data) {
+          alert("Image uploaded successfully!");
+          setSelectedFile(null);
+          setPreview(null);
+        }
+      } else {
+        alert("Failed to upload image.");
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      alert("An error occurred while uploading the image.");
     }
   };
 
@@ -172,6 +233,52 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
         <h2 className="main-title mb-20">Profile</h2>
 
         <div className="card-box card-box-employer border-20">
+          <div className="user-avatar-setting d-flex align-items-center mb-30">
+            {preview && (
+              <Image
+                src={preview}
+                alt="avatar"
+                className="lazy-img user-img"
+                width={100}
+                height={100}
+              />
+            )}
+            {!selectedFile ? (
+              <div className="upload-btn position-relative tran3s me-3">
+                <label htmlFor="uploadImg" className="upload-label">
+                  Upload new photo
+                </label>
+                <input
+                  type="file"
+                  id="uploadImg"
+                  name="uploadImg"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+              </div>
+            ) : (
+              <div className="position-relative tran3s ms-4 me-3">
+                <button
+                  className="dash-btn-two upload-image-btn tran3s"
+                  onClick={handleUpload}
+                  disabled={!selectedFile}
+                >
+                  Upload
+                </button>
+              </div>
+            )}
+            {selectedFile && (
+              <button
+                className="delete-btn tran3s"
+                style={{
+                  color: "#e96e6e"
+                }}
+                onClick={handleDeleteImage}
+              >
+                Delete
+              </button>
+            )}
+          </div>
           <div className="dash-input-wrapper mb-30">
             <label htmlFor="">Company Name*</label>
             <input
@@ -289,7 +396,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
         </div>
         {error && <div className="subname-error mt-20">{error}</div>}
 
-        {txHash && <div className="success-text mt-20">Details Updated.</div>}
+        {success && <div className="success-text mt-20">Details Updated.</div>}
 
         {loading && (
           <div className="loading-text mt-20">
