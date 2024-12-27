@@ -52,8 +52,8 @@ const Homepage = () => {
       }
     };
 
-    if (loginType && account?.address && profiles) onConnect();
-  }, [loginType, account, profiles]);
+    if (loginType && account?.address) onConnect();
+  }, [loginType, account?.address, profiles]);
 
   useEffect(() => {
     const checkIfRegisteredUser = async () => {
