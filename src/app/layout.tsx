@@ -4,7 +4,7 @@ import { ThirdwebProvider } from "thirdweb/react";
 import { Lexend } from "next/font/google";
 import { StateContextProvider } from "@/context";
 
-const lexend = Lexend({ weight: "300", subsets: ["latin"] });
+const lexend = Lexend({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "employd",

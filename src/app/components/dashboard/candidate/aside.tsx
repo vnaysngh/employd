@@ -1,6 +1,6 @@
 "use client";
 // import "bootstrap/js/dist/collapse";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
@@ -13,8 +13,6 @@ import avatar from "@/assets/dashboard/images/icon/user.png";
 import { Chango } from "next/font/google";
 import logo from "@/assets/dashboard/images/icon/logo.png";
 import { useStateContext } from "@/context";
-import supabase from "@/supabase";
-import { useActiveAccount } from "thirdweb/react";
 
 const chango = Chango({ weight: "400", subsets: ["latin"] });
 
@@ -79,35 +77,8 @@ type IProps = {
 };
 
 const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
-  const account = useActiveAccount();
   const pathname = usePathname();
-  const [isUserRegistered, setIsUserRegistered] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const checkIfRegisteredUser = async () => {
-      setLoading(true);
-      try {
-        let { data, error } = await supabase
-          .from("users")
-          .select("*")
-          .eq("address", account?.address);
-
-        if (error) console.error(error);
-        else {
-          if (data && data.length) {
-            setIsUserRegistered(data[0]);
-          }
-        }
-      } catch (error) {
-        console.error("Failed to fetch names:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (account?.address) checkIfRegisteredUser();
-  }, [account?.address]);
+  const { isUserRegistered } = useStateContext();
 
   return (
     <>
@@ -171,13 +142,13 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                             isActive ? "active" : ""
                           }`}
                         >
-                          <Image
+                          {/*  <Image
                             src={isActive ? m.icon_active : m.icon}
                             alt="icon"
                             height={20}
                             width={20}
                             className="lazy-img"
-                          />
+                          /> */}
                           <span>{m.title}</span>
                         </Link>
                       </li>
@@ -200,13 +171,13 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                         }`}
                         target="_blank"
                       >
-                        <Image
+                        {/* <Image
                           src={isActive ? m.icon_active : m.icon}
                           alt="icon"
                           height={20}
                           width={20}
                           className="lazy-img"
-                        />
+                        /> */}
                         <span>{m.title}</span>
                       </Link>
                     </li>

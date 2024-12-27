@@ -7,10 +7,9 @@
   min-height: 100vh;
   overflow-y: auto;
   width: 260px;
-  background: $text-white;
+  background-color: #4d80e6;
   padding: 30px 20px 30px;
-  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
-  border: solid 1px #888;
+  border-right: 4px solid #333;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -89,9 +88,9 @@
   .dashboard-main-nav li a {
     // font-size: 14px;
     letter-spacing: -0.16px;
-    color: $text-primary;
+    color: $text-white;
     padding: 15px 5px 15px 20px;
-    border-radius: 15px;
+    border-radius: 4px;
     @include transition(0.25s);
     span {
       padding-left: 10px;
@@ -100,7 +99,8 @@
       color: #ad79e1;
     }
     &.active {
-      background: #efeeef;
+      background: #fff;
+      color: #333;
     }
     img {
       max-width: 20px;
@@ -2329,7 +2329,7 @@
 .user-name {
   background: none;
   border: none;
-  // color: $text-white;
+  color: $text-white;
   font-size: 0.975rem;
   padding: 0;
 }

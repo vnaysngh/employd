@@ -52,10 +52,10 @@ const EmployerInvite = ({ setIsOpenSidebar }: IProps) => {
           <div className="subtitle">Share Invite Link</div>
           <div className="invite-link-container">
             <div className="invite-link">
-              {`https://employd.xyz/invite?company=${isUserRegistered.ens_name}`}
+              {`https://employd.xyz/invite?company=${isUserRegistered?.ens_name}`}
             </div>
             <CopyToClipboard
-              text={`https://employd.xyz/invite?company=${isUserRegistered.ens_name}`}
+              text={`https://employd.xyz/invite?company=${isUserRegistered?.ens_name}`}
               onCopy={handleCopyLink}
             >
               <button className="copy-btn">Copy Link</button>
