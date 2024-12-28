@@ -3,11 +3,9 @@ import React, { useState } from "react";
 import roles from "@/data/roles";
 import Link from "next/link";
 import Image from "next/image";
-import Attested from "@/assets/dashboard/images/icon/checked.png";
-import AttestedPending from "@/assets/dashboard/images/icon/pending.png";
-import Rejected from "@/assets/dashboard/images/icon/rejected-new.png";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useActiveAccount } from "thirdweb/react";
+import { statusConfig } from "@/context";
 
 const Attestations = ({
   experience,
@@ -26,12 +24,6 @@ const Attestations = ({
   const account = useActiveAccount();
   const getStatusBadge = () => {
     if (!experience.attestationStatus) return null;
-    const statusConfig = {
-      1: { icon: AttestedPending, text: "Pending", class: "pending" },
-      2: { icon: Attested, text: "Attested", class: "success" },
-      3: { icon: Rejected, text: "Rejected", class: "rejected" }
-    };
-
     const status =
       statusConfig[experience.attestationStatus as keyof typeof statusConfig];
     return status ? (

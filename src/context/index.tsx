@@ -14,6 +14,15 @@ import { useSendTransaction } from "thirdweb/react";
 import { client } from "@/config/thirdwebClient";
 import { baseSepolia } from "thirdweb/chains";
 import { FormData } from "@/app/components/dashboard/candidate/add-experience";
+import Attested from "@/assets/dashboard/images/icon/checked.png";
+import AttestedPending from "@/assets/dashboard/images/icon/pending.png";
+import Rejected from "@/assets/dashboard/images/icon/rejected-new.png";
+
+export const statusConfig = {
+  1: { icon: AttestedPending, text: "Pending", class: "pending" },
+  2: { icon: Attested, text: "Attested", class: "success" },
+  3: { icon: Rejected, text: "Rejected", class: "rejected" }
+};
 
 const StateContext = createContext<any>({});
 
