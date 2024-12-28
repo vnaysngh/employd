@@ -85,20 +85,20 @@ const Attestations = ({
                 className="user"
               >
                 <div className="avatar">
-                  {experience.seeker[0].toUpperCase()}
+                  {experience?.seekerName[0].toUpperCase()}
                 </div>
-                <span>{experience.seeker}.employd.eth</span>
+                <span>{experience?.seekerEnsName}.employd.eth</span>
               </Link>
               <div className="connection-line" />
               <Link
-                href={`/${experience.employer}.employd.eth`}
+                href={`/${experience.employerEnsName}.employd.eth`}
                 target="_blank"
                 className="user"
               >
                 <div className="avatar employer">
-                  {experience.employer[0].toUpperCase()}
+                  {experience?.employerEnsName[0]?.toUpperCase()}
                 </div>
-                <span>{experience.employer}.employd.eth</span>
+                <span>{experience?.employerEnsName}.employd.eth</span>
               </Link>
             </div>
           </div>
@@ -107,11 +107,11 @@ const Attestations = ({
             <div className="info-grid">
               <div className="info-item">
                 <label>Title</label>
-                <h3>{roles[experience?.role as keyof typeof roles]}</h3>
+                <h3>{experience?.role}</h3>
               </div>
               <div className="info-item">
                 <label>Company</label>
-                <h3 className="text-capitalize">{experience?.employer}</h3>
+                <h3 className="text-capitalize">{experience?.employerName}</h3>
               </div>
               <div className="info-item">
                 <label>Duration</label>
@@ -136,7 +136,7 @@ const Attestations = ({
             </div>
           </div>
 
-          {experience.attestationFromAddress.toLowerCase() ===
+          {experience?.employerAddress.toLowerCase() ===
             account?.address.toLowerCase() &&
           experience.attestationStatus !== 2 ? (
             <div className="actions">

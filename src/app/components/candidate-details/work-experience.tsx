@@ -25,7 +25,7 @@ const WorkExperience = ({ user }: { user: any }) => {
   const { data: experiences, isPending } = useReadContract({
     contract,
     method:
-      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
+      "function getUserExperiences(address user) view returns ((uint256 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus)[])",
     params: [user?.address!]
   });
 

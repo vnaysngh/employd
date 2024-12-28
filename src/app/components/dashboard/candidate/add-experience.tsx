@@ -19,6 +19,9 @@ const SelectEmploymentType = dynamic(() => import("./select-employment-type"), {
 type SelectInput = {
   value: string;
   label: string;
+  company_details?: any;
+  address?: any;
+  company_name?: any;
 };
 
 export type FormData = {
@@ -77,7 +80,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
           return {
             label: employer.company_name,
             value: employer.ens_name,
-            company_details: employer.company_details
+            company_details: employer.company_details,
+            address: employer.address,
+            company_name: employer.company_name
           };
         }
       });
@@ -104,6 +109,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
           if (response && response.length) {
             const response = await addUserExperienceToResume(
               formData,
+              newEmployer,
               newEmployerEnsName
             );
             if (response.transactionHash) {

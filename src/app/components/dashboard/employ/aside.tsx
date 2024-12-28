@@ -26,6 +26,13 @@ const nav_data: {
   title: string;
 }[] = [
   {
+    id: 1,
+    icon: nav_2,
+    icon_active: nav_2,
+    link: "/dashboard/employ-dashboard/attestation",
+    title: "Attestation"
+  },
+  {
     id: 2,
     icon: nav_2,
     icon_active: nav_2,

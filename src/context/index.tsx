@@ -19,7 +19,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0xD57Fd5449d706C8dD14E33d68Ba51294298cAA98",
+  address: "0xf9dB075f3C737CeF4bf0f4B204786c53366e5567",
   chain: baseSepolia,
   abi: abi as any
 });
@@ -332,34 +332,41 @@ export const StateContextProvider = ({ children }: { children: any }) => {
 
   const addUserExperienceToResume = async (
     formData: FormData,
-    newEmployer: string
+    newEmployer: string,
+    newEmployerEnsName: string
   ) => {
     if (!isUserRegistered || !isUserRegistered.address) return;
     const params: [
-      string, // role
-      string, //seeker
-      string, // company
-      string, // startMonth
-      string, // startYear
-      string, // endMonth
-      string, // endYear
-      string, // employmentType
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
       string
     ] = [
-      formData.role.value,
+      formData.role.label,
+      isUserRegistered.name,
       isUserRegistered.ens_name,
-      newEmployer ? newEmployer : formData.company.value,
+      newEmployer ? newEmployer : formData.company.label,
+      newEmployerEnsName ? newEmployerEnsName : formData.company.value,
       formData.startMonth.value,
       formData.startYear.value,
       formData.endMonth.value,
       formData.endYear.value,
-      formData.employmentType.value,
-      formData.description
+      formData.employmentType.label,
+      formData.description,
+      newEmployer ? "" : formData.company.address
     ];
     const transaction = prepareContractCall({
       contract,
       method:
-        "function addExperience(string _role, string _seeker, string _employer, string _startMonth, string _startYear, string _endMonth, string _endYear, string _employmentType, string _description) returns (uint256)",
+        "function addExperience(string _role, string _seekerName, string _seekerEnsName, string _employerName, string _employerEnsName, string _startMonth, string _startYear, string _endMonth, string _endYear, string _employmentType, string _description, address _employerAddress) returns (uint256)",
       params
     });
     return sendTransaction(transaction)
@@ -370,12 +377,15 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       });
   };
 
-  const requestAttestation = async (experienceId: any, employer: string) => {
+  const requestAttestation = async (
+    experienceId: any,
+    employerAddress: string
+  ) => {
     const transaction = prepareContractCall({
       contract,
       method:
-        "function chooseEmployerForAttestation(uint256 experienceId, address employer)",
-      params: [experienceId, employer]
+        "function chooseEmployerForAttestation(uint256 experienceId, address employerAddress)",
+      params: [experienceId, employerAddress]
     });
     return sendTransaction(transaction)
       .then((res) => res)

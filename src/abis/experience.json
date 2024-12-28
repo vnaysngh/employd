@@ -37,7 +37,7 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "attester",
+        "name": "employer",
         "type": "address"
       },
       {
@@ -60,9 +60,9 @@
         "type": "uint256"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
-        "name": "employer",
+        "name": "employerAddress",
         "type": "address"
       },
       {
@@ -76,6 +76,44 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "experienceId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "ExperienceAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
     "inputs": [
       {
         "internalType": "string",
@@ -84,12 +122,22 @@
       },
       {
         "internalType": "string",
-        "name": "_seeker",
+        "name": "_seekerName",
         "type": "string"
       },
       {
         "internalType": "string",
-        "name": "_employer",
+        "name": "_seekerEnsName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_employerName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_employerEnsName",
         "type": "string"
       },
       {
@@ -121,6 +169,11 @@
         "internalType": "string",
         "name": "_description",
         "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_employerAddress",
+        "type": "address"
       }
     ],
     "name": "addExperience",
@@ -156,7 +209,7 @@
       },
       {
         "internalType": "address",
-        "name": "employer",
+        "name": "employerAddress",
         "type": "address"
       }
     ],
@@ -168,101 +221,99 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "experiences",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
         "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "role",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "seeker",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
         "name": "employer",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "startMonth",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "startYear",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "endMonth",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "endYear",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "employmentType",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "description",
-        "type": "string"
-      },
-      {
-        "internalType": "enum AttestationStatus",
-        "name": "attestationStatus",
-        "type": "uint8"
-      },
-      {
-        "internalType": "address",
-        "name": "attestationFromAddress",
         "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "attestationFromEns",
-        "type": "string"
       }
     ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "experiencesIds",
+    "name": "getEmployerExperiences",
     "outputs": [
       {
-        "internalType": "uint256",
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "role",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "seekerName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "seekerEnsName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employerName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employerEnsName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "startMonth",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "startYear",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "endMonth",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "endYear",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employmentType",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "employerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "seekerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "enum AttestationStatus",
+            "name": "attestationStatus",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct Employd.Experience[]",
         "name": "",
-        "type": "uint256"
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",
@@ -297,12 +348,22 @@
           },
           {
             "internalType": "string",
-            "name": "seeker",
+            "name": "seekerName",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "employer",
+            "name": "seekerEnsName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employerName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employerEnsName",
             "type": "string"
           },
           {
@@ -336,19 +397,19 @@
             "type": "string"
           },
           {
-            "internalType": "enum AttestationStatus",
-            "name": "attestationStatus",
-            "type": "uint8"
-          },
-          {
             "internalType": "address",
-            "name": "attestationFromAddress",
+            "name": "employerAddress",
             "type": "address"
           },
           {
-            "internalType": "string",
-            "name": "attestationFromEns",
-            "type": "string"
+            "internalType": "address",
+            "name": "seekerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "enum AttestationStatus",
+            "name": "attestationStatus",
+            "type": "uint8"
           }
         ],
         "internalType": "struct Employd.Experience",
@@ -360,8 +421,14 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "getExperiences",
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "getUserExperiences",
     "outputs": [
       {
         "components": [
@@ -382,12 +449,22 @@
           },
           {
             "internalType": "string",
-            "name": "seeker",
+            "name": "seekerName",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "employer",
+            "name": "seekerEnsName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employerName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "employerEnsName",
             "type": "string"
           },
           {
@@ -421,19 +498,19 @@
             "type": "string"
           },
           {
-            "internalType": "enum AttestationStatus",
-            "name": "attestationStatus",
-            "type": "uint8"
-          },
-          {
             "internalType": "address",
-            "name": "attestationFromAddress",
+            "name": "employerAddress",
             "type": "address"
           },
           {
-            "internalType": "string",
-            "name": "attestationFromEns",
-            "type": "string"
+            "internalType": "address",
+            "name": "seekerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "enum AttestationStatus",
+            "name": "attestationStatus",
+            "type": "uint8"
           }
         ],
         "internalType": "struct Employd.Experience[]",
@@ -445,91 +522,13 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_owner",
-        "type": "address"
-      }
-    ],
-    "name": "getUserExperience",
+    "inputs": [],
+    "name": "owner",
     "outputs": [
       {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "id",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "owner",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "role",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "seeker",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "employer",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "startMonth",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "startYear",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "endMonth",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "endYear",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "employmentType",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "description",
-            "type": "string"
-          },
-          {
-            "internalType": "enum AttestationStatus",
-            "name": "attestationStatus",
-            "type": "uint8"
-          },
-          {
-            "internalType": "address",
-            "name": "attestationFromAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "attestationFromEns",
-            "type": "string"
-          }
-        ],
-        "internalType": "struct Employd.Experience[]",
+        "internalType": "address",
         "name": "",
-        "type": "tuple[]"
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -550,15 +549,9 @@
   },
   {
     "inputs": [],
-    "name": "schemaId",
-    "outputs": [
-      {
-        "internalType": "uint64",
-        "name": "",
-        "type": "uint64"
-      }
-    ],
-    "stateMutability": "view",
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -601,29 +594,16 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "spInstance",
-    "outputs": [
+    "inputs": [
       {
-        "internalType": "contract ISP",
-        "name": "",
+        "internalType": "address",
+        "name": "newOwner",
         "type": "address"
       }
     ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "totalExperieceCount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

@@ -65,7 +65,7 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   const { data: experiences, isPending } = useReadContract({
     contract,
     method:
-      "function getUserExperience(address _owner) view returns ((uint256 id, address owner, string role, string seeker, string employer, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, uint8 attestationStatus, address attestationFromAddress, string attestationFromEns)[])",
+      "function getUserExperiences(address user) view returns ((uint256 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus)[])",
     params: [account?.address!]
   });
 
@@ -228,17 +228,16 @@ const ExperienceCard = ({
 
   useEffect(() => {
     experiences.forEach((experience: any) => {
-      if (experience.employer) {
-        fetchEmployerDetails(experience.employer);
+      if (experience.employerEnsName) {
+        fetchEmployerDetails(experience.employerEnsName);
       }
     });
   }, [experiences]);
 
   return experiences?.map((experience: any, index: number) => {
-    const role: string = experience?.role;
-    const nameParts = experience?.employer.trim().split(" ");
+    const nameParts = experience?.employerEnsName.trim().split(" ");
     const firstName = nameParts[0];
-    const employer = employers[experience.employer];
+    const employer = employers[experience.employerEnsName];
 
     return (
       <div
@@ -251,7 +250,7 @@ const ExperienceCard = ({
               {firstName.charAt(0).toUpperCase()}
             </div>
             <div>
-              <h3 className="mb-1">{roles[role as keyof typeof roles]}</h3>
+              <h3 className="mb-1">{experience?.role}</h3>
               <div className="company-name d-flex align-items-center gap-2 text-capitalize">
                 {employer?.company_name ? (
                   <Link
@@ -262,7 +261,7 @@ const ExperienceCard = ({
                     {employer?.company_name}
                   </Link>
                 ) : (
-                  experience.employer
+                  experience.employerEnsName
                 )}
                 <span>&#x2022;</span>
                 <span className="employment-type">
@@ -287,7 +286,10 @@ const ExperienceCard = ({
           ) : !experience.attestationStatus && !txHash ? (
             <button
               onClick={() =>
-                handleRequestAttestation(experience.id, experience.employer)
+                handleRequestAttestation(
+                  experience.id,
+                  experience.employerEnsName
+                )
               }
               disabled={loading}
               className="status-badge not-initiated"
