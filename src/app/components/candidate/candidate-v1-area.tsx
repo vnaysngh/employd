@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import candidate_data from "@/data/candidate-data";
 import CandidateGridItem from "./candidate-grid-item";
-import CandidateListItem from "./candidate-list-item";
 import CandidateV1FilterArea from "./filter/candidate-v1-filter-area";
 import { useStateContext } from "@/context";
 // import ShortSelect from "../common/short-select";

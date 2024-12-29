@@ -76,6 +76,15 @@ const WorkExperience = ({ user }: { user: any }) => {
     return formattedDate;
   };
 
+  const progressPercentage = experiences
+    ? (experiences.filter(
+        (experience: any) =>
+          experience.attestationStatus === AttestationStatus.SUBMITTED
+      ).length /
+        experiences.length) *
+      100
+    : 0;
+
   const avatarPlaceholder =
     user.user_type === "talent" ? (user.image ? user.image : avatar) : company;
 
@@ -129,29 +138,28 @@ const WorkExperience = ({ user }: { user: any }) => {
           {user.user_type === "talent" && (
             <section className="card">
               <h2>Experience</h2>
-              {experiences?.map((exp: any, index: number) => {
-                const role: string = exp?.role;
+              {experiences?.map((experience: any, index: number) => {
                 return (
                   <div key={index} className="experience-item">
-                    <h3>{roles[role as keyof typeof roles]}</h3>
+                    <h3>{experience?.role}</h3>
                     <div className="d-flex align-items-center gap-3">
                       <Link
-                        href={`/${exp.employer}.employd.eth`}
+                        href={`/${experience.employerEnsName}.employd.eth`}
                         target="_blank"
                         className="on-hover-underline"
                       >
                         <p className="company text-capitalize">
-                          {exp.employer}
+                          {experience.employerEnsName}
                         </p>
                       </Link>
                       <p className="period">
-                        {exp.startMonth}/{exp.startYear} - {exp.endMonth}/
-                        {exp.endYear}
+                        {experience.startMonth}/{experience.startYear} -{" "}
+                        {experience.endMonth}/{experience.endYear}
                       </p>
                     </div>
 
-                    <p>{exp.description}</p>
-                    {getAttestationBadge(exp.attestationStatus)}
+                    <p>{experience.description}</p>
+                    {getAttestationBadge(experience.attestationStatus)}
                   </div>
                 );
               })}

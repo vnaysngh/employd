@@ -36,25 +36,21 @@ const Header = () => {
               </div>
               <div className="right-widget ms-auto order-lg-3">
                 <ul className="d-flex align-items-center style-none header-list ul-header-list">
-                  {/*    {account?.address && (
-                    <>
-                      {nav_data.map((m) => {
-                        const isActive = pathname === m.link;
-                        return (
-                          <li key={m.id}>
-                            <Link
-                              href={m.link}
-                              className={`d-flex w-100 align-items-center ${
-                                isActive ? "active" : ""
-                              }`}
-                            >
-                              <span>{m.title}</span>
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </>
-                  )} */}
+                  <li className="">
+                    <Link href="/jobs" className="me-2 tran3s">
+                      Jobs
+                    </Link>
+                  </li>
+                  <li className="">
+                    <Link href="/companies" className="me-2 tran3s">
+                      Companies
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/candidates" className="me-2">
+                      Candidates
+                    </Link>
+                  </li>
                   <li className="me-0">
                     <ConnectButton
                       client={client}

@@ -102,8 +102,6 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
   const pathname = usePathname();
   const { isUserRegistered } = useStateContext();
 
-  console.log(isUserRegistered, "isUserRegistered");
-
   return (
     <>
       <aside className={`dash-aside-navbar ${isOpenSidebar ? "show" : ""}`}>

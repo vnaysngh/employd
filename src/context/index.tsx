@@ -28,7 +28,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0xf9dB075f3C737CeF4bf0f4B204786c53366e5567",
+  address: "0x971bba33D26bb618dBD96C4DA3064BfBDAFf32f5",
   chain: baseSepolia,
   abi: abi as any
 });

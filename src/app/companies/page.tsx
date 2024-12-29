@@ -5,7 +5,7 @@ import Wrapper from "@/layouts/wrapper";
 import CompanyV1Area from "../components/company/company-v1-area";
 
 export const metadata: Metadata = {
-  title: "Company v1"
+  title: "Companies"
 };
 
 const CompanyV1Page = () => {
