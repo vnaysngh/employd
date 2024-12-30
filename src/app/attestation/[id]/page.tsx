@@ -13,13 +13,13 @@ const CandidateDashboardResumePage = () => {
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
 
-  const handleSignExperience = async (id: bigint) => {
+  const handleSignExperience = async (id: bigint, seeker: string) => {
     if (txHash) {
       setTxHash(null);
     } else {
       setLoading(true);
       try {
-        const response = await attestExperience(id);
+        const response = await attestExperience(id, seeker);
         if (response.transactionHash) {
           setTxHash(response);
         } else {
@@ -36,8 +36,8 @@ const CandidateDashboardResumePage = () => {
   const { data, isPending } = useReadContract({
     contract,
     method:
-      "function getExperienceById(uint256 experienceId) view returns ((uint256 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus))",
-    params: [BigInt(params?.id!)]
+      "function getExperienceById(uint32 experienceId) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus))",
+    params: [Number(params?.id!)]
   });
 
   if (isPending) return <h3>Loading</h3>;

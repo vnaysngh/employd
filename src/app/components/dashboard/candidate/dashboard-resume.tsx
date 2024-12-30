@@ -65,7 +65,7 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   const { data: experiences, isPending } = useReadContract({
     contract,
     method:
-      "function getUserExperiences(address user) view returns ((uint256 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus)[])",
+      "function getUserExperiences(address user) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus)[])",
     params: [account?.address!]
   });
 
@@ -233,6 +233,8 @@ const ExperienceCard = ({
       }
     });
   }, [experiences]);
+
+  console.log(experiences, "experiuences");
 
   return experiences?.map((experience: any, index: number) => {
     const nameParts = experience?.employerEnsName.trim().split(" ");

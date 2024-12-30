@@ -3,23 +3,10 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "uint256",
+        "indexed": true,
+        "internalType": "uint32",
         "name": "experienceId",
-        "type": "uint256"
-      }
-    ],
-    "name": "AttestationApproved",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "experienceId",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "name": "AttestationRejected",
@@ -29,10 +16,16 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "uint256",
+        "indexed": true,
+        "internalType": "uint32",
         "name": "experienceId",
-        "type": "uint256"
+        "type": "uint32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "seeker",
+        "type": "address"
       },
       {
         "indexed": true,
@@ -54,10 +47,10 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "uint256",
+        "indexed": true,
+        "internalType": "uint32",
         "name": "experienceId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "indexed": true,
@@ -79,10 +72,10 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "uint256",
+        "indexed": true,
+        "internalType": "uint32",
         "name": "experienceId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "indexed": true,
@@ -179,9 +172,9 @@
     "name": "addExperience",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "stateMutability": "nonpayable",
@@ -190,22 +183,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "experienceId",
-        "type": "uint256"
-      }
-    ],
-    "name": "approveAttestation",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "experienceId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "internalType": "address",
@@ -231,9 +211,9 @@
       {
         "components": [
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "id",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
             "internalType": "address",
@@ -322,9 +302,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "experienceId",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "name": "getExperienceById",
@@ -332,9 +312,9 @@
       {
         "components": [
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "id",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
             "internalType": "address",
@@ -433,9 +413,9 @@
       {
         "components": [
           {
-            "internalType": "uint256",
+            "internalType": "uint32",
             "name": "id",
-            "type": "uint256"
+            "type": "uint32"
           },
           {
             "internalType": "address",
@@ -537,9 +517,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "experienceId",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "name": "rejectAttestation",
@@ -583,9 +563,14 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "experienceId",
-        "type": "uint256"
+        "type": "uint32"
+      },
+      {
+        "internalType": "address",
+        "name": "seeker",
+        "type": "address"
       }
     ],
     "name": "signAttestation",

@@ -73,19 +73,20 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  console.log(employers, "employers");
+
   const employerOptions = !employers.length
     ? []
-    : employers.map((employer: any) => {
-        if (employer.ens_name !== "") {
-          return {
-            label: employer.company_name,
-            value: employer.ens_name,
-            company_details: employer.company_details,
-            address: employer.address,
-            company_name: employer.company_name
-          };
-        }
-      });
+    : employers
+        .filter((employer: any) => employer.ens_name && employer.company_name) // Filter valid employers
+        .map((employer: any) => ({
+          label: employer.company_name,
+          value: employer.ens_name,
+          company_details: employer.company_details,
+          address: employer.address,
+          company_name: employer.company_name
+        }));
+  console.log(employerOptions);
 
   const generateEnsName = (companyName: string) => {
     const randomNum = Math.floor(Math.random() * 900) + 100;

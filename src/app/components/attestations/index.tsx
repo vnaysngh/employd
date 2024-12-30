@@ -18,7 +18,7 @@ const Attestations = ({
   loading: boolean;
   txHash: any;
   error: any;
-  signExperience: (id: bigint) => void;
+  signExperience: (id: bigint, seeker: string) => void;
 }) => {
   const [copied, setCopied] = useState(false);
   const account = useActiveAccount();
@@ -55,14 +55,7 @@ const Attestations = ({
                 >
                   <button className="copy-button">
                     <span className="id-label">ID:</span>
-                    <span className="id-number">
-                      #
-                      {`${experience?.id
-                        ?.toString()
-                        .slice(0, 4)}...${experience?.id
-                        ?.toString()
-                        .slice(-4)}`}
-                    </span>
+                    <span className="id-number">#{experience?.id}</span>
                     {copied && <i className="bi bi-check-lg"></i>}
                   </button>
                 </CopyToClipboard>
@@ -135,7 +128,9 @@ const Attestations = ({
               {!txHash && (
                 <button
                   className={`sign-button ${loading ? "loading" : ""}`}
-                  onClick={() => signExperience(experience.id)}
+                  onClick={() =>
+                    signExperience(experience.id, experience.seekerAddress)
+                  }
                   disabled={loading}
                 >
                   {loading ? (

@@ -28,7 +28,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0x971bba33D26bb618dBD96C4DA3064BfBDAFf32f5",
+  address: "0xd25B57aA42E5e4Cb463F73A103Dd47c7eCE30b7f",
   chain: baseSepolia,
   abi: abi as any
 });
@@ -393,7 +393,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     const transaction = prepareContractCall({
       contract,
       method:
-        "function chooseEmployerForAttestation(uint256 experienceId, address employerAddress)",
+        "function chooseEmployerForAttestation(uint32 experienceId, address employerAddress)",
       params: [experienceId, employerAddress]
     });
     return sendTransaction(transaction)
@@ -404,11 +404,11 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       });
   };
 
-  const attestExperience = async (experienceId: any) => {
+  const attestExperience = async (experienceId: any, seeker: string) => {
     const transaction = prepareContractCall({
       contract,
-      method: "function signAttestation(uint256 experienceId)",
-      params: [experienceId]
+      method: "function signAttestation(uint32 experienceId, address seeker)",
+      params: [experienceId, seeker]
     });
     return sendTransaction(transaction)
       .then((res) => res)
