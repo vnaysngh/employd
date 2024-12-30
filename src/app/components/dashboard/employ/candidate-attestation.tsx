@@ -1,11 +1,9 @@
 "use client";
 import React from "react";
 import DashboardHeader from "../candidate/dashboard-header";
-import candidate_data from "@/data/candidate-data";
 import CandidateItem from "./candidate-item";
 import { useActiveAccount, useReadContract } from "thirdweb/react";
 import { contract } from "@/context";
-// import EmployShortSelect from "./short-select";
 
 // props type
 type IProps = {
@@ -22,12 +20,7 @@ const CandidateAttestation = ({ setIsOpenSidebar }: IProps) => {
     params: [account?.address!]
   });
 
-  if (isPending) return <h3>Loading...</h3>;
-
-  if (!isPending && (!attestations || !attestations?.length))
-    return <h3>No attestations</h3>;
-
-  console.log(attestations);
+  // if (isPending) return <h3>Loading...</h3>;
 
   return (
     <div className="dashboard-body">
@@ -39,9 +32,17 @@ const CandidateAttestation = ({ setIsOpenSidebar }: IProps) => {
         </div>
 
         <div className="wrapper">
-          {attestations.map((item: any) => (
-            <CandidateItem key={item.id} item={item} />
-          ))}
+          {isPending ? (
+            <h3>Loading...</h3>
+          ) : !isPending && (!attestations || !attestations?.length) ? (
+            <h3>No attestations</h3>
+          ) : (
+            <>
+              {attestations.map((item: any) => (
+                <CandidateItem key={item.id} item={item} />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>

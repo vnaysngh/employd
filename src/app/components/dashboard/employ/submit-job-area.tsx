@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import Image from "next/image";
 import DashboardHeader from "../candidate/dashboard-header";
@@ -11,42 +10,76 @@ import { useStateContext } from "@/context";
 import SelectCompensation from "../candidate/select-compensation";
 import JobDescription from "./job-description";
 
-// Grouped options data for skills (reused by SelectSkills)
-const options = [
-  {
-    label: "Web3 Developer",
-    options: [
-      { label: "Bitcoin", value: "bitcoin" },
-      { label: "Ethereum / Solidity", value: "ethereum_solidity" },
-      { label: "Solana", value: "solana" },
-      { label: "EOS", value: "eos" },
-      { label: "TON (Func)", value: "ton_func" }
-    ]
-  }
-  // Other categories omitted for brevity
-];
-
 type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+type SelectInput = {
+  value: string;
+  label: string;
+};
+
 const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
-  const { isUserRegistered } = useStateContext();
+  const { createJob } = useStateContext();
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   // Define states for all fields
   const [jobTitle, setJobTitle] = useState<string>("");
   const [jobDescription, setJobDescription] = useState<string>("");
   const [skills, setSkills] = useState<any[]>([]);
-  const [jobType, setJobType] = useState<string | null>(null);
-  const [salaryType, setSalaryType] = useState<string | null>(null);
-  const [minSalary, setMinSalary] = useState<string | null>(null);
-  const [maxSalary, setMaxSalary] = useState<string | null>(null);
+  const [jobType, setJobType] = useState<SelectInput | null>(null);
+  const [salaryType, setSalaryType] = useState<SelectInput | null>(null);
+  const [minSalary, setMinSalary] = useState<SelectInput | null>(null);
+  const [maxSalary, setMaxSalary] = useState<SelectInput | null>(null);
   const [address, setAddress] = useState<string>("");
   const [applyLink, setApplyLink] = useState("");
-  const [email, setEmail] = useState<string>(isUserRegistered?.email || "");
+  // const [email, setEmail] = useState<string>(isUserRegistered?.email || "");
 
   // Form submission handler
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    // Reset error and success states
+    setError(false);
+    setSuccess(false);
+
+    // Validation checks
+    const isValidLink = (url: string) => {
+      const regex =
+        /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
+      return regex.test(url);
+    };
+
+    if (
+      !jobTitle ||
+      !jobDescription ||
+      skills.length === 0 ||
+      !jobType ||
+      !salaryType ||
+      !minSalary ||
+      !maxSalary ||
+      !applyLink
+    ) {
+      setError(true);
+      console.error("All fields except address must be filled.");
+      alert("All fields except address must be filled.");
+      return;
+    }
+
+    if (maxSalary.value < minSalary.value) {
+      console.error("Max salary cannot be less than min salary.");
+      alert("Max salary cannot be less than min salary.");
+      return;
+    }
+
+    if (!isValidLink(applyLink)) {
+      setError(true);
+      console.error("Apply link is not a valid URL.");
+      alert("Apply link is not a valid URL.");
+      return;
+    }
+
+    // If all validations pass, proceed with form submission
     const formData = {
       jobTitle,
       jobDescription,
@@ -56,11 +89,27 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
       minSalary,
       maxSalary,
       address,
-      email
+      applyLink
     };
 
-    console.log("Job Form Data Submitted:", formData);
-    // Further processing (e.g., API call) can go here
+    setLoading(true);
+    try {
+      const response = await createJob([formData]);
+      if (response && response.length) {
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 5000);
+      }
+    } catch (error) {
+      console.error("Failed to call API:", error);
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 5000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -94,7 +143,10 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
             ></textarea> */}
-            <JobDescription />
+            <JobDescription
+              jobDescription={jobDescription}
+              setJobDescription={setJobDescription}
+            />
           </div>
 
           {/* Skills, Job Type, Salary */}
@@ -146,7 +198,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
 
           {/* Email */}
           <div className="row">
-            <div className="col-6">
+            {/* <div className="col-6">
               <div className="dash-input-wrapper mb-25">
                 <label htmlFor="email">Work Email (For Invoice)*</label>
                 <input
@@ -157,19 +209,19 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+            </div> */}
+            {/* <div className="col-6"> */}
+            <div className="dash-input-wrapper mb-25">
+              <label htmlFor="email">Link to apply</label>
+              <input
+                id="applyLink"
+                type="text"
+                placeholder="Apply via this link"
+                value={applyLink}
+                onChange={(e) => setApplyLink(e.target.value)}
+              />
             </div>
-            <div className="col-6">
-              <div className="dash-input-wrapper mb-25">
-                <label htmlFor="email">Link to apply</label>
-                <input
-                  id="applyLink"
-                  type="text"
-                  placeholder="Apply via this link"
-                  value={applyLink}
-                  onChange={(e) => setApplyLink(e.target.value)}
-                />
-              </div>
-            </div>
+            {/* </div> */}
           </div>
 
           {/* Address */}
@@ -191,17 +243,35 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
           </div>
         </div>
 
+        {error && <div className="subname-error mb-10">{error}</div>}
+
+        {success && (
+          <div className="success-text mb-10">
+            Thank you! Your job has been submitted.
+          </div>
+        )}
+
         {/* Action Buttons */}
         <div className="button-group d-inline-flex align-items-center mt-30">
-          <button className="dash-btn-two tran3s me-3" onClick={handleSubmit}>
-            Submit
-          </button>
           <button
+            className="dash-btn-two tran3s me-3 d-flex align-items-center gap-2"
+            onClick={handleSubmit}
+          >
+            {loading ? (
+              <>
+                <div className="spinner" />
+                Submitting...
+              </>
+            ) : (
+              "Submit"
+            )}
+          </button>
+          {/*           <button
             className="dash-cancel-btn tran3s"
             onClick={() => console.log("Form canceled")}
           >
             Cancel
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

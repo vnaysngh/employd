@@ -86,6 +86,25 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     }
   }, [account]);
 
+  const createJob = async (jobs: any[]) => {
+    try {
+      let { data, error } = await supabase
+        .from("users")
+        .update({
+          jobs
+        })
+        .eq("address", account?.address)
+        .eq("user_type", "employer")
+        .select();
+
+      if (error) {
+        console.error(error);
+      } else return data;
+    } catch (error) {
+      console.error("Failed to fetch employers:", error);
+    }
+  };
+
   useEffect(() => {
     const getTalents = async () => {
       try {
@@ -433,6 +452,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         pushUser,
         initializePushAPI,
         createUser,
+        createJob,
         createEmployer,
         createUserEns,
         updateUserDetails,

@@ -73,8 +73,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  console.log(employers, "employers");
-
   const employerOptions = !employers.length
     ? []
     : employers

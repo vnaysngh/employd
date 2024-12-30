@@ -1,19 +1,21 @@
 import { useState } from "react";
 import Editor from "react-simple-wysiwyg";
 
-function JobDescription() {
-  const [html, setHtml] = useState("my <b>HTML</b>");
-
+function JobDescription({
+  jobDescription,
+  setJobDescription
+}: {
+  jobDescription: string;
+  setJobDescription: (item: string) => void;
+}) {
   function onChange(e: any) {
-    setHtml(e.target.value);
+    setJobDescription(e.target.value);
   }
-
-  console.log(html);
 
   return (
     <Editor
       containerProps={{ style: { height: "300px" } }}
-      value={html}
+      value={jobDescription}
       onChange={onChange}
     />
   );
