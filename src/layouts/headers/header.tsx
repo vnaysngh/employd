@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <>
       <header
-        className={`theme-main-menu bg-white menu-overlay menu-style-one sticky-menu ${
+        className={`theme-main-menu menu-overlay menu-style-one sticky-menu ${
           sticky ? "fixed" : ""
         }`}
       >

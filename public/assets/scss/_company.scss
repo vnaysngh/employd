@@ -1,17 +1,124 @@
 .company-profiles.bg-color {
   background: $light-bg;
 }
+
+.company-grid-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.company-grid-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.company-title a {
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.company-title a:hover {
+  color: var(--bs-primary);
+}
+
+.company-stats {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.skills-section .badge {
+  padding: 0.5rem 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.action-buttons .btn {
+  padding: 0.5rem 1rem;
+}
+
 // Company Grid Layout
 .company-grid-layout {
   display: flex;
   flex-direction: column;
+  grid-column-gap: 12px;
+  grid-row-gap: 12px;
   width: 100%;
   position: relative;
   overflow: hidden;
-  padding: 34px 15px;
-  border-radius: 0px;
+  padding: 20px;
+  border-radius: 8px;
   border: solid 2px #888;
+  cursor: pointer;
   box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+
+  .attestation-count {
+    background: #e9ecef;
+    // color: white;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    // gap: 4px;
+    z-index: 1;
+  }
+
+  .ens-name {
+    font-size: 12px;
+  }
+
+  .category {
+    background: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .sector-badge {
+    background: #f8f9fa;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #6c757d;
+  }
+
+  .attestation-stats {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-item i {
+    display: block;
+    font-size: 20px;
+    color: #6c757d;
+    margin-bottom: 5px;
+  }
+
+  .stat-item span {
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .stat-item small {
+    display: block;
+    color: #6c757d;
+    font-size: 12px;
+  }
+
+  .company-description {
+    color: #6c757d;
+    font-size: 14px;
+  }
   /* &.favourite::before {
     content: "";
     position: absolute;
@@ -32,6 +139,24 @@
     left: 14px;
   } */
 
+  .cadidate-skills {
+    li {
+      margin: 0 2px 5px;
+      line-height: 25px;
+      padding: 0 14px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #333;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid $color-border;
+      &.more {
+        background: $color-two;
+        color: #000;
+      }
+    }
+  }
+
   .profile-btn {
     font-size: 14px;
     font-weight: 500;
@@ -49,11 +174,14 @@
     width: 85px;
     height: 85px;
     overflow: hidden;
+    outline: 1px solid #0000001f;
+    padding: 3px;
+    border-radius: 50%;
   }
   .company-name {
     font-size: 24px;
     color: $text-primary;
-    margin: 22px 0 8px;
+    // margin: 22px 0 8px;
     &:hover {
       color: $color-five;
     }

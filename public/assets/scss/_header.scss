@@ -1,5 +1,5 @@
 .theme-main-menu {
-  background: $text-white;
+  background: #8570e4;
   position: relative;
   z-index: 999;
   padding: 35px 40px;
@@ -10,7 +10,6 @@
     top: 0;
     right: 0;
     left: 0;
-    background: $text-white !important;
   }
   &.fixed {
     position: fixed;
@@ -179,7 +178,7 @@
 }
 // Menu One
 .menu-style-one.theme-main-menu.fixed {
-  background: $color-one;
+  background: #8570e4;
 }
 .menu-style-one .navbar .nav-item .nav-link {
   color: $text-white;

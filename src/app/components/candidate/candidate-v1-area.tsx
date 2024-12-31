@@ -1,65 +1,35 @@
 "use client";
 import React, { useState } from "react";
+import candidate_data from "@/data/candidate-data";
 import CandidateGridItem from "./candidate-grid-item";
-import CandidateV1FilterArea from "./filter/candidate-v1-filter-area";
+import CandidateListItem from "./candidate-list-item";
 import { useStateContext } from "@/context";
-// import ShortSelect from "../common/short-select";
+import CandidateV1FilterArea from "./filter/candidate-v1-filter-area";
 
 const CandidateV1Area = () => {
   const { talents } = useStateContext();
   if (!talents || (talents && !talents.length))
     return <h3>No Candidates Founds</h3>;
-
   return (
     <>
-      <section className="candidates-profile pt-110 lg-pt-80 pb-160 xl-pb-150 lg-pb-80">
+      <section className="candidates-profile pt-150 lg-pt-70 pb-160 xl-pb-150 lg-pb-80">
         <div className="container">
           <div className="row">
-            <div className="col-xl-3 col-lg-4">
-              {/* <button
-                type="button"
-                className="filter-btn w-100 pt-2 pb-2 h-auto fw-500 tran3s d-lg-none mb-40"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#filteroffcanvas"
-              >
-                <i className="bi bi-funnel"></i>
-                Filter
-              </button> */}
-              {/* filter area start */}
-              <CandidateV1FilterArea />
-              {/* filter area end */}
+            <div className="col-xl-8 m-auto text-center">
+              <div className="title-two">
+                <h2>Explore Verified Talent Backed by Attested Experience</h2>
+              </div>
             </div>
-
-            <div className="col-xl-9 col-lg-8">
-              <div className="ms-xxl-5 ms-xl-3">
-                <div className="upper-filter d-flex justify-content-between align-items-center mb-20">
-                  <div className="total-job-found">
-                    <span className="fw-500">{talents.length}</span> candidates
-                  </div>
-                  {/* <div className="d-flex align-items-center">
-                    <div className="short-filter d-flex align-items-center">
-                      <div className="fw-500 me-2">Sort:</div>
-                      <ShortSelect />
+            <div className="col-12">
+              <div className="position-relative">
+                <div className="col-3">
+                  <div className="wrapper mt-30">
+                    <div className="upper-filter mb-25">
+                      <div className="align-items-center">
+                        <CandidateV1FilterArea />
+                      </div>
                     </div>
-                    <button
-                      onClick={() => setJobType("list")}
-                      className={`style-changer-btn text-center rounded-circle tran3s ms-2 list-btn ${
-                        jobType === "grid" ? "active" : ""
-                      }`}
-                      title="Active List"
-                    >
-                      <i className="bi bi-list"></i>
-                    </button>
-                    <button
-                      onClick={() => setJobType("grid")}
-                      className={`style-changer-btn text-center rounded-circle tran3s ms-2 grid-btn ${
-                        jobType === "list" ? "active" : ""
-                      }`}
-                      title="Active Grid"
-                    >
-                      <i className="bi bi-grid"></i>
-                    </button>
-                  </div> */}
+                  </div>
                 </div>
 
                 <div className={`accordion-box grid-style show`}>
@@ -78,41 +48,6 @@ const CandidateV1Area = () => {
                     })}
                   </div>
                 </div>
-
-                {/* <div
-                  className={`accordion-box list-style ${
-                    jobType === "list" ? "show" : ""
-                  }`}
-                >
-                  {candidate_data.map((item) => (
-                    <CandidateListItem key={item.id} item={item} />
-                  ))}
-                </div> */}
-
-                {/*  <div className="pt-20 d-sm-flex align-items-center justify-content-between">
-                  <p className="m0 order-sm-last text-center text-sm-start xs-pb-20">
-                    Showing <span className="text-dark fw-500">1 to 20</span> of{" "}
-                    <span className="text-dark fw-500">1,270</span>
-                  </p>
-                  <div className="d-flex justify-content-center">
-                    <ul className="pagination-two d-flex align-items-center style-none">
-                      <li className="active">
-                        <a href="#">1</a>
-                      </li>
-                      <li>
-                        <a href="#">2</a>
-                      </li>
-                      <li>
-                        <a href="#">3</a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="bi bi-chevron-right"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>

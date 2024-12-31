@@ -99,7 +99,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
-        }, 5000);
+        }, 10000);
       }
     } catch (error) {
       console.error("Failed to call API:", error);
@@ -243,7 +243,9 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
           </div>
         </div>
 
-        {error && <div className="subname-error mb-10">{error}</div>}
+        {error && (
+          <div className="subname-error mb-10">Something went wrong</div>
+        )}
 
         {success && (
           <div className="success-text mb-10">

@@ -190,7 +190,7 @@
 .ul-header-list {
   li {
     margin-right: 20px;
-    color: $text-primary;
+    color: $text-white;
   }
 }
 
@@ -246,13 +246,11 @@
 }
 
 .tw-connected-details {
+  background-color: #fff !important;
+
   span {
     font-size: 14px;
   }
-}
-
-.tw-connected-details:hover {
-  background: transparent !important;
 }
 
 .stepper-container {

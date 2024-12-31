@@ -5,6 +5,19 @@
     display: block;
   }
 }
+
+.company-search-input {
+  font-size: 14px;
+  height: 44px;
+  letter-spacing: -0.16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0 20px;
+  color: #333;
+  background-color: transparent;
+  width: 100%;
+}
+
 .filter-area-tab {
   position: relative;
   .border-20 {
@@ -53,6 +66,7 @@
     font-size: 1.5rem;
     color: $text-primary;
   }
+
   .filter-block.bottom-line {
     border-bottom: 1px solid rgba($color: $btn-color, $alpha: 0.3);
   }

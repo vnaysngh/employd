@@ -2,56 +2,78 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import avatar from "@/assets/dashboard/images/icon/company.png";
+import logo from "@/assets/dashboard/images/icon/logo.svg";
 
 const CompanyGridItem = ({ item }: { item: any }) => {
-  console.log(item);
   return (
-    <div
-      className={`company-grid-layout ${item.isFav ? "favourite" : ""} mb-30`}
-    >
-      <Link
-        href="/company-details"
-        className="company-logo me-auto ms-auto rounded-circle"
-      >
-        <Image
-          src={item?.image || avatar}
-          alt="image"
-          className="lazy-img rounded-circle"
-          height={80}
-          width={80}
-        />
-      </Link>
-      <h5 className="text-center">
-        <Link href="/company-details" className="company-name tran3s">
-          {item.company_name}
-        </Link>
-      </h5>
-      <div className="row gx-2 pt-25 sm-pt-10">
-        {/* <div className="col-md-6"> */}
-        <Link
-          href={`/${item.ens_name}.employd.eth`}
-          className="profile-btn tran3s w-100 mt-5"
-          style={{ maxWidth: "80%", margin: "0 auto" }}
-        >
-          View Profile
-        </Link>
-        {/* </div> */}
-        {/*  <div className="col-md-6">
-          <Link
-            href="/candidate-profile-v1"
-            className="msg-btn tran3s w-100 mt-5"
-          >
-            Message
-          </Link>
-        </div> */}
+    <div className={`company-grid-layout mb-30`}>
+      <div className="d-flex justify-content-between mb-10  ">
+        <div className="category">
+          {item?.company_details?.category || "Others"}
+        </div>
+        {/* Attestation badge */}
+        <div className="attestation-count">
+          <Image src={logo} height={24} width={24} alt="logo" />
+          <span>{item.attestations_count || 0}</span>
+        </div>
       </div>
-      {/* <p className="text-center mb-auto">{item.location}</p> */}
-      {/* <div className="bottom-line d-flex"> */}
-      {/* <Link href="/company-details">{item.vacancy} Vacancy</Link>
-        <Link href="/company-details">
-          <i className="bi bi-bookmark-dash"></i> Save
-        </Link> */}
-      {/* </div> */}
+      <div className="position-relative">
+        <div className="company-logo rounded-circle">
+          <Image
+            src={item?.image || avatar}
+            alt="image"
+            className="lazy-img rounded-circle"
+            height={80}
+            width={80}
+          />
+        </div>
+      </div>
+
+      <div className="d-flex gap-2">
+        <Link href={`/${item.ens_name}.employd.eth`}>
+          <h5 className="mb-0">
+            {item.company_name}
+            <div className="ens-name mt-5">@{item.ens_name}</div>
+          </h5>
+        </Link>
+      </div>
+
+      {/* ENS name */}
+      {/*  <div>
+        <span>{item.ens_name || "company.employd.eth"}</span>
+      </div> */}
+
+      <div className="company-description">{item.company_description}</div>
+
+      <div className="social-links mt-0 gap-2">
+        {item?.company_details?.twitter ? (
+          <Link
+            href={item?.company_details?.twitter}
+            target="_blank"
+            className="social-icon"
+          >
+            <i className="bi bi-twitter"></i>
+          </Link>
+        ) : null}
+        {item?.company_details?.website ? (
+          <Link
+            href={item?.company_details?.website}
+            target="_blank"
+            className="social-icon"
+          >
+            <i className="bi bi-globe"></i>
+          </Link>
+        ) : null}
+        {item?.company_details?.linkedin ? (
+          <Link
+            href={item?.company_details?.linkedin}
+            target="_blank"
+            className="social-icon"
+          >
+            <i className="bi bi-linkedin"></i>
+          </Link>
+        ) : null}
+      </div>
     </div>
   );
 };
