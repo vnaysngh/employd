@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import avatar from "@/assets/dashboard/images/icon/company.png";
-import logo from "@/assets/dashboard/images/icon/logo.svg";
+import logo from "@/assets/images/assets/letter-stamp.png";
 
 const CompanyGridItem = ({ item }: { item: any }) => {
   return (
@@ -13,7 +13,7 @@ const CompanyGridItem = ({ item }: { item: any }) => {
         </div>
         {/* Attestation badge */}
         <div className="attestation-count">
-          <Image src={logo} height={24} width={24} alt="logo" />
+          <Image src={logo} height={12} width={12} alt="logo" />
           <span>{item.attestations_count || 0}</span>
         </div>
       </div>

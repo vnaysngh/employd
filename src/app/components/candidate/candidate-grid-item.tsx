@@ -20,7 +20,7 @@ const CandidateGridItem = ({ item }: { item: any }) => {
         <div className="category">{item?.role || "Others"}</div>
         {/* Attestation badge */}
         <div className="attestation-count">
-          <Image src={logo} height={24} width={24} alt="logo" />
+          <Image src={logo} height={12} width={12} alt="logo" />
           <span>{attestations?.length || 0}</span>
         </div>
       </div>
