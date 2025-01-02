@@ -121,7 +121,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
 
         <h2 className="main-title mb-20">My Profile</h2>
 
-        <div className="experience-card card-box border-20">
+        <div className="experience-card card-box border-20 mt-40">
           <div className="user-avatar-setting d-flex align-items-center mb-30">
             {preview && (
               <Image

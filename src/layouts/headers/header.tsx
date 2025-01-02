@@ -1,83 +1,96 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
+import logo from "@/assets/images/assets/letter-stamp.png";
 import useSticky from "@/hooks/use-sticky";
-import { WalletComponents } from "./component/wallet";
-import { nav_data } from "@/app/components/dashboard/candidate/aside";
-import { usePathname, useRouter } from "next/navigation";
-import { Chango } from "next/font/google";
-import { ConnectButton, useActiveAccount } from "thirdweb/react";
-import { client } from "@/config/thirdwebClient";
-import { baseSepolia } from "thirdweb/chains";
+import { Titan_One } from "next/font/google";
+import { useActiveAccount } from "thirdweb/react";
 
-const chango = Chango({ weight: "400", subsets: ["latin"] });
+const titan = Titan_One({ weight: "400", subsets: ["latin"] });
 
-const Header = () => {
+const HeaderThree = () => {
   const { sticky } = useSticky();
-  const router = useRouter();
   const account = useActiveAccount();
   return (
     <>
       <header
-        className={`theme-main-menu menu-overlay menu-style-one sticky-menu ${
-          sticky ? "fixed" : ""
-        }`}
+        className={`theme-main-menu sticky-menu ${sticky ? "fixed" : ""}`}
       >
-        <div className="inner-content position-relative w-100">
-          <div className="top-header w-100">
-            <div className="d-flex align-items-center">
-              <div
-                className="logo order-lg-0"
-                // style={{ background: "#00bf58" }}
-              >
+        <div className="inner-content position-relative">
+          <div className="top-header">
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="logo order-lg-0">
                 <Link href="/" className="d-flex align-items-center">
-                  <div className={`logo-name ${chango.className}`}>EMPLOYD</div>
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    priority
+                    height={40}
+                    width={40}
+                  />
+                  <div className={`logo-name ${titan.className}`}>EMPLOYD</div>
                 </Link>
               </div>
-              <div className="right-widget ms-auto order-lg-3">
-                <ul className="d-flex align-items-center style-none header-list ul-header-list">
-                  <li className="">
-                    <Link href="/jobs" className="me-2 tran3s">
-                      Jobs
+
+              {/* <div className="right-widget ms-auto ms-xl-5 order-lg-3">
+                <ul className="d-flex align-items-center style-none">
+                  <li className="d-none d-lg-block ms-4">
+                    <Link href="/auth" className="btn-five">
+                      Launch App
                     </Link>
                   </li>
-                  <li className="">
-                    <Link href="/companies" className="me-2 tran3s">
-                      Companies
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/candidates" className="me-2">
-                      Candidates
-                    </Link>
-                  </li>
-                  {account?.address ? (
-                    <li className="me-0">
-                      <ConnectButton
-                        client={client}
-                        detailsButton={{
-                          className: "tw-connected-details",
-                          style: { fontSize: "16px" }
-                        }}
-                        accountAbstraction={{
-                          chain: baseSepolia, // the chain where your smart accounts will be or is deployed
-                          sponsorGas: true // enable or disable sponsored transactions
-                        }}
-                        theme="light"
-                        onDisconnect={() => {
-                          router.push("/");
-                        }}
-                      />
-                    </li>
-                  ) : null}
                 </ul>
-              </div>
+              </div> */}
+              <nav className="navbar navbar-expand-lg p0  ms-3 ms-lg-auto order-lg-2">
+                <button
+                  className="navbar-toggler d-block d-lg-none"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                  <ul className="navbar-nav">
+                    <li className="d-block d-lg-none">
+                      <div className="logo">
+                        <Link href="/" className="d-block">
+                          {/* <Image src={logo} alt="logo" width="100"priority style={{height:'auto'}} /> */}
+                        </Link>
+                      </div>
+                    </li>
+                    <li className="nav-item">
+                      <Link href="/jobs" className="nav-link">
+                        Jobs
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link href="/companies" className="nav-link">
+                        Companies
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link href="/candidates" className="nav-link">
+                        Candidates
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
             </div>
           </div>
         </div>
       </header>
+
+      {/* login modal start */}
+      {/* <LoginModal/> */}
+      {/* login modal end */}
     </>
   );
 };
 
-export default Header;
+export default HeaderThree;

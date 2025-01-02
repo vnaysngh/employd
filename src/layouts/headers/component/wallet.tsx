@@ -16,12 +16,14 @@ export function WalletComponents({
   text,
   userType,
   setLoginType,
-  connectModalText
+  connectModalText,
+  isBgGreen
 }: {
   text: string | React.ReactNode;
   userType: string;
   setLoginType: (type: string | null) => void;
   connectModalText?: string;
+  isBgGreen?: boolean;
 }) {
   return (
     <ConnectButton
@@ -30,11 +32,11 @@ export function WalletComponents({
       connectButton={{
         label: text,
         style: {
-          background: "rgba(255, 255, 255, 0.1)",
-          color: "#333",
+          background: isBgGreen ? "#19aa6e" : "transparent",
+          color: isBgGreen ? "#fff" : "#19aa6e",
           height: "auto",
           minWidth: "165px",
-          border: "1px solid #ccc",
+          border: isBgGreen ? 0 : "1px solid #19aa6e",
           borderRadius: "8px"
         }
       }}

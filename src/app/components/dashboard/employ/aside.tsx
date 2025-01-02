@@ -10,12 +10,12 @@ import nav_5 from "@/assets/dashboard/images/icon/icon_41.svg";
 import nav_3 from "@/assets/dashboard/images/icon/icon_45.svg";
 // import nav_6 from "@/assets/dashboard/images/icon/icon_46.svg";
 import nav_7 from "@/assets/dashboard/images/icon/icon_49.svg";
-import { Chango } from "next/font/google";
+import { Titan_One } from "next/font/google";
 import avatar from "@/assets/dashboard/images/icon/user.png";
-import logo from "@/assets/dashboard/images/icon/logo.png";
+import logo from "@/assets/images/assets/letter-stamp.png";
 import { useStateContext } from "@/context";
 
-const chango = Chango({ weight: "400", subsets: ["latin"] });
+const titan = Titan_One({ weight: "400", subsets: ["latin"] });
 
 // nav data
 const nav_data: {
@@ -110,11 +110,8 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             {/* Logo Section */}
             <div className="sidebar-logo d-md-block d-flex align-items-center justify-content-between">
               <Link href="/" className="d-flex align-items-center">
-                <div
-                  className={`logo-name d-flex align-items-center ${chango.className} m-auto`}
-                >
-                  EMPL <Image src={logo} height={24} width={24} alt="logo" /> YD
-                </div>
+                <Image src={logo} alt="logo" priority height={40} width={40} />
+                <div className={`logo-name ${titan.className}`}>EMPLOYD</div>
               </Link>
               <button
                 onClick={() => setIsOpenSidebar(false)}

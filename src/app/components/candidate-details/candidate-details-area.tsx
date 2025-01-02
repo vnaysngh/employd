@@ -84,7 +84,7 @@ const CandidateDetailsArea = () => {
   if (!match) return <h3 className="">User does not exist</h3>;
 
   return (
-    <section className="candidates-profile pt-150 pb-150 lg-pb-80">
+    <section className="candidates-profile pt-50 pb-150 lg-pb-80">
       {loading ? (
         <div className="profile-container">
           <header className="profile-header">

@@ -2,10 +2,11 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import logo from "@/assets/images/assets/letter-stamp.png";
 import useSticky from "@/hooks/use-sticky";
-import { Chango } from "next/font/google";
+import { Titan_One } from "next/font/google";
 
-const chango = Chango({ weight: "400", subsets: ["latin"] });
+const titan = Titan_One({ weight: "400", subsets: ["latin"] });
 
 const HeaderThree = () => {
   const { sticky } = useSticky();
@@ -19,15 +20,21 @@ const HeaderThree = () => {
             <div className="d-flex align-items-center justify-content-between">
               <div className="logo order-lg-0">
                 <Link href="/" className="d-flex align-items-center">
-                  {/* <Image src={logo} alt="logo" priority style={{height:'auto'}} /> */}
-                  <div className={`logo-name ${chango.className}`}>EMPLOYD</div>
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    priority
+                    height={40}
+                    width={40}
+                  />
+                  <div className={`logo-name ${titan.className}`}>EMPLOYD</div>
                 </Link>
               </div>
 
               <div className="right-widget ms-auto ms-xl-5 order-lg-3">
                 <ul className="d-flex align-items-center style-none">
                   <li className="d-none d-lg-block ms-4">
-                    <Link href="/register" className="btn-five">
+                    <Link href="/auth" className="btn-five">
                       Launch App
                     </Link>
                   </li>

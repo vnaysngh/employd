@@ -13,7 +13,7 @@ const styles = {
     minHeight: 50,
     padding: "6px 0",
     borderRadius: "8px",
-    boxShadow: "6px 6px 0px 0px rgba(0, 0, 0, 0.09)",
+    // boxShadow: "6px 6px 0px 0px rgba(0, 0, 0, 0.09)",
     width: "300px"
   }),
   input: (styles: any) => ({ ...styles, color: "#333" }),

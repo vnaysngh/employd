@@ -76,7 +76,7 @@
   font-size: 2rem;
   // color: $text-white;
   padding: 0 10px;
-  // background-color: $btn-color;
+  color: #19aa6e;
 }
 
 /* Modal styling */
@@ -371,12 +371,12 @@
   padding: 20px;
 
   .auth-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: #f4faf7;
     padding: 2.5rem 1.5rem;
-    border-radius: 0px;
+    border-radius: 4px;
     box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
     width: 100%;
-    border: solid 2px #888;
+    // border: solid 2px #888;
     max-width: 500px;
   }
 
@@ -387,7 +387,7 @@
 
   .auth-header h2 {
     font-size: 2rem;
-    color: #60a5fa;
+    color: #005025;
     margin: 0 0 0.75rem 0;
     font-weight: 600;
   }
@@ -448,13 +448,13 @@
   .user-type-button h3 {
     margin: 0 0 0.25rem 0;
     font-size: 1.1rem;
-    color: $text-primary;
+    color: #19aa6e;
   }
 
   .user-type-button p {
     margin: 0;
     font-size: 0.85rem;
-    color: $text-secondary;
+    color: #19aa6e;
   }
 }
 

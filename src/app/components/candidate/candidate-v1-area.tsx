@@ -12,7 +12,7 @@ const CandidateV1Area = () => {
     return <h3>No Candidates Founds</h3>;
   return (
     <>
-      <section className="candidates-profile pt-150 lg-pt-70 pb-160 xl-pb-150 lg-pb-80">
+      <section className="candidates-profile pt-50 lg-pt-50 pb-160 xl-pb-150 lg-pb-80">
         <div className="container">
           <div className="row">
             <div className="col-xl-8 m-auto text-center">

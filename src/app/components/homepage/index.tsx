@@ -115,6 +115,7 @@ const Homepage = () => {
                     text={"Sign in"}
                     userType="login"
                     setLoginType={setLoginType}
+                    isBgGreen
                   />
                 </div>
 

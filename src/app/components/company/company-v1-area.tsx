@@ -10,7 +10,7 @@ const CompanyV3Area = () => {
     return <h3>No Candidates Founds</h3>;
   return (
     <>
-      <section className="company-profiles pt-150 lg-pt-80 pb-160 xl-pb-150 lg-pb-80">
+      <section className="company-profiles pt-50 lg-pt-50 pb-160 xl-pb-150 lg-pb-80">
         <div className="container">
           <div className="row">
             <div className="col-xl-8 m-auto text-center">

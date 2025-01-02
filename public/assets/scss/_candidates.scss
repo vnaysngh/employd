@@ -3,10 +3,11 @@
 }
 .candidate-profile-card {
   overflow: hidden;
-  border-radius: 0px;
+  border-radius: 20px;
   position: relative;
-  border: solid 2px #888;
-  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+  border: 0;
+  background-color: #fff;
+  // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 
   @include transition(0.2s);
   &:hover {
@@ -22,7 +23,7 @@
     position: relative;
     overflow: hidden;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 20px;
     border: solid 2px #888;
     cursor: pointer;
     box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
