@@ -28,7 +28,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0xd25B57aA42E5e4Cb463F73A103Dd47c7eCE30b7f",
+  address: "0x8f9134a6d3cda515adbfeF7AeEb53D16bd7cDc09",
   chain: baseSepolia,
   abi: abi as any
 });
@@ -81,10 +81,8 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       }
     };
 
-    if (account?.address) {
-      getEmployers();
-    }
-  }, [account]);
+    getEmployers();
+  }, []);
 
   const createJob = async (jobs: any[]) => {
     try {
@@ -108,7 +106,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   useEffect(() => {
     const getTalents = async () => {
       try {
-        let { data: employers, error } = await supabase
+        let { data: talents, error } = await supabase
           .from("users")
           .select("*")
           .eq("user_type", "talent");
@@ -116,19 +114,17 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         if (error) {
           console.error(error);
         } else {
-          if (employers && employers.length) {
-            setTalents(employers);
+          if (talents && talents.length) {
+            setTalents(talents);
           }
         }
       } catch (error) {
-        console.error("Failed to fetch employers:", error);
+        console.error("Failed to fetch talents:", error);
       }
     };
 
-    if (account?.address) {
-      getTalents();
-    }
-  }, [account]);
+    getTalents();
+  }, []);
 
   useEffect(() => {
     const checkIfRegisteredUser = async () => {
@@ -360,10 +356,10 @@ export const StateContextProvider = ({ children }: { children: any }) => {
 
   const addUserExperienceToResume = async (
     formData: FormData,
-    newEmployer: string,
-    newEmployerEnsName: string
+    newEmployerEnsName?: string
   ) => {
     if (!isUserRegistered || !isUserRegistered.address) return;
+    const { newEmployer, currentlyWorking } = formData;
     const params: [
       string,
       string,
@@ -385,8 +381,8 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       newEmployerEnsName ? newEmployerEnsName : formData.company.value,
       formData.startMonth.value,
       formData.startYear.value,
-      formData.endMonth.value,
-      formData.endYear.value,
+      currentlyWorking ? "N/A" : formData.endMonth.value,
+      currentlyWorking ? "N/A" : formData.endYear.value,
       formData.employmentType.label,
       formData.description,
       newEmployer ? "" : formData.company.address

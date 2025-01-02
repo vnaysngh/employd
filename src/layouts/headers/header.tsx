@@ -15,7 +15,7 @@ const chango = Chango({ weight: "400", subsets: ["latin"] });
 const Header = () => {
   const { sticky } = useSticky();
   const router = useRouter();
-
+  const account = useActiveAccount();
   return (
     <>
       <header
@@ -28,7 +28,7 @@ const Header = () => {
             <div className="d-flex align-items-center">
               <div
                 className="logo order-lg-0"
-                style={{ background: "#8570e4" }}
+                style={{ background: "#4d80e6" }}
               >
                 <Link href="/" className="d-flex align-items-center">
                   <div className={`logo-name ${chango.className}`}>EMPLOYD</div>
@@ -51,23 +51,25 @@ const Header = () => {
                       Candidates
                     </Link>
                   </li>
-                  <li className="me-0">
-                    <ConnectButton
-                      client={client}
-                      detailsButton={{
-                        className: "tw-connected-details",
-                        style: { fontSize: "16px" }
-                      }}
-                      accountAbstraction={{
-                        chain: baseSepolia, // the chain where your smart accounts will be or is deployed
-                        sponsorGas: true // enable or disable sponsored transactions
-                      }}
-                      theme="light"
-                      onDisconnect={() => {
-                        router.push("/");
-                      }}
-                    />
-                  </li>
+                  {account?.address ? (
+                    <li className="me-0">
+                      <ConnectButton
+                        client={client}
+                        detailsButton={{
+                          className: "tw-connected-details",
+                          style: { fontSize: "16px" }
+                        }}
+                        accountAbstraction={{
+                          chain: baseSepolia, // the chain where your smart accounts will be or is deployed
+                          sponsorGas: true // enable or disable sponsored transactions
+                        }}
+                        theme="light"
+                        onDisconnect={() => {
+                          router.push("/");
+                        }}
+                      />
+                    </li>
+                  ) : null}
                 </ul>
               </div>
             </div>

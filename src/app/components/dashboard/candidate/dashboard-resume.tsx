@@ -69,8 +69,6 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
     params: [account?.address!]
   });
 
-  console.log(inviteEmployer);
-
   return (
     <div className={`dashboard-body position-relative`}>
       {inviteEmployer && (
@@ -272,7 +270,13 @@ const ExperienceCard = ({
                 <span>&#x2022;</span>
                 <span className="duration">
                   {experience.startMonth}/{experience.startYear} -{" "}
-                  {experience.endMonth}/{experience.endYear}
+                  {experience.endMonth === "N/A" ? (
+                    "Present"
+                  ) : (
+                    <>
+                      {experience.endMonth}/{experience.endYear}
+                    </>
+                  )}
                 </span>
               </div>
             </div>

@@ -1,8 +1,9 @@
 .theme-main-menu {
-  background: #8570e4;
+  // background: #4d80e6;
   position: relative;
   z-index: 999;
   padding: 35px 40px;
+  // border-bottom: 4px solid #333;
   // box-shadow: 0 13px 35px -12px rgb(35 35 35 / 10%);
   @include transition(0.4s);
   &.menu-overlay {
@@ -178,7 +179,7 @@
 }
 // Menu One
 .menu-style-one.theme-main-menu.fixed {
-  background: #8570e4;
+  background: #4d80e6;
 }
 .menu-style-one .navbar .nav-item .nav-link {
   color: $text-white;

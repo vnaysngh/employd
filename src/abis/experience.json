@@ -206,6 +206,25 @@
         "type": "address"
       }
     ],
+    "name": "getEmployerExperienceIds",
+    "outputs": [
+      {
+        "internalType": "uint32[]",
+        "name": "",
+        "type": "uint32[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "employer",
+        "type": "address"
+      }
+    ],
     "name": "getEmployerExperiences",
     "outputs": [
       {
@@ -395,6 +414,25 @@
         "internalType": "struct Employd.Experience",
         "name": "",
         "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "getUserExperienceIds",
+    "outputs": [
+      {
+        "internalType": "uint32[]",
+        "name": "",
+        "type": "uint32[]"
       }
     ],
     "stateMutability": "view",

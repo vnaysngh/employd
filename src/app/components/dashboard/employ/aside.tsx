@@ -45,7 +45,7 @@ const nav_data: {
     icon_active: nav_3,
     link: "/dashboard/employ-dashboard/submit-job",
     title: "Submit Job"
-  },
+  }
   /*   {
     id: 3,
     icon: nav_4,
@@ -61,13 +61,13 @@ const nav_data: {
     link: "/dashboard/employ-dashboard/saved-candidate",
     title: "People"
   }, */
-  {
+  /*   {
     id: 6,
     icon: nav_5,
     icon_active: nav_5,
     link: "/dashboard/employ-dashboard/invite",
     title: "Invite"
-  }
+  } */
 ];
 
 const nav_data_2: {

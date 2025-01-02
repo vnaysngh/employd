@@ -34,7 +34,7 @@ export type FormData = {
   employmentType: SelectInput;
   description: string;
   currentlyWorking: boolean;
-  skills: any[];
+  newEmployer: string;
 };
 // props type
 type IProps = {
@@ -42,8 +42,6 @@ type IProps = {
 };
 
 const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
-  const router = useRouter();
-  const account = useActiveAccount();
   const [formData, setFormData] = useState<FormData>({
     role: { value: "", label: "" },
     company: { value: "", label: "" },
@@ -54,13 +52,12 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     employmentType: { value: "full-time", label: "Full Time" },
     description: "",
     currentlyWorking: false,
-    skills: []
+    newEmployer: ""
   });
 
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState<any>(null);
   const [error, setError] = useState<any>(null);
-  const [newEmployer, setNewEmployer] = useState("");
   const { employers, addUserExperienceToResume, createEmployer } =
     useStateContext();
   const handleChange = (
@@ -68,7 +65,10 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     value: SelectInput[] | SelectInput
   ) => {
     if (field === "company") {
-      setNewEmployer("");
+      setFormData({
+        ...formData,
+        newEmployer: ""
+      });
     }
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
@@ -84,7 +84,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
           address: employer.address,
           company_name: employer.company_name
         }));
-  console.log(employerOptions);
 
   const generateEnsName = (companyName: string) => {
     const randomNum = Math.floor(Math.random() * 900) + 100;
@@ -96,6 +95,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     if (txHash) {
       setTxHash(null);
     } else {
+      const { newEmployer } = formData;
       if (newEmployer) {
         setLoading(true);
         const newEmployerEnsName = generateEnsName(newEmployer);
@@ -108,7 +108,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
           if (response && response.length) {
             const response = await addUserExperienceToResume(
               formData,
-              newEmployer,
               newEmployerEnsName
             );
             if (response.transactionHash) {
@@ -150,9 +149,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const handleNewCompany = (e: any) => {
     setFormData({
       ...formData,
-      company: { value: "", label: "" }
+      company: { value: "", label: "" },
+      newEmployer: e.target.value
     });
-    setNewEmployer(e.target.value);
   };
 
   return (
@@ -201,7 +200,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                           <SelectEmployer
                             onChange={(value) => handleChange("company", value)}
                             options={employerOptions}
-                            isDisabled={newEmployer}
+                            isDisabled={formData.newEmployer}
                           />
                         </div>
                       </div>
@@ -210,7 +209,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                           <input
                             type="text"
                             placeholder="Not listed? Enter the company name"
-                            value={newEmployer}
+                            value={formData.newEmployer}
                             onChange={handleNewCompany}
                           />
                         </div>
@@ -279,7 +278,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                           </div>
                         </div>
                       </div>
-                      {/* <div className="col-lg-2"></div>
+                      <div className="col-lg-2"></div>
                       <div className="col-lg-10">
                         <div className="dash-input-wrapper mb-30">
                           <div className="form-check-label">
@@ -296,7 +295,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                             <label>I currently work here</label>
                           </div>
                         </div>
-                      </div> */}
+                      </div>
                     </div>
                     <div className="row align-items-center">
                       <div className="col-lg-2">

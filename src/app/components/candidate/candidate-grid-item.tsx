@@ -3,8 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import avatar from "@/assets/dashboard/images/icon/company.png";
 import logo from "@/assets/dashboard/images/icon/logo.svg";
+import { useReadContract } from "thirdweb/react";
+import { contract } from "@/context";
 
 const CandidateGridItem = ({ item }: { item: any }) => {
+  const { data: attestations, isPending } = useReadContract({
+    contract: contract,
+    method:
+      "function getUserExperienceIds(address user) view returns (uint32[])",
+    params: [item.address!]
+  });
+
   return (
     <div className={`company-grid-layout mb-30`}>
       <div className="d-flex justify-content-between mb-10  ">
@@ -12,7 +21,7 @@ const CandidateGridItem = ({ item }: { item: any }) => {
         {/* Attestation badge */}
         <div className="attestation-count">
           <Image src={logo} height={24} width={24} alt="logo" />
-          <span>{item.attestations_count || 0}</span>
+          <span>{attestations?.length || 0}</span>
         </div>
       </div>
       <div className="position-relative">
