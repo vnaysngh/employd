@@ -92,56 +92,102 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   };
 
   const handleAddExperience = async () => {
+    const {
+      role,
+      company,
+      startMonth,
+      startYear,
+      endMonth,
+      endYear,
+      currentlyWorking,
+      newEmployer,
+      employmentType,
+      description
+    } = formData;
+
+    // Clear previous transaction hash
     if (txHash) {
       setTxHash(null);
-    } else {
-      const { newEmployer } = formData;
-      if (newEmployer) {
-        setLoading(true);
-        const newEmployerEnsName = generateEnsName(newEmployer);
-        try {
-          const response = await createEmployer(
-            "employer",
-            newEmployer,
+    }
+
+    // Validation logic
+    if (!role.value) {
+      setError("Role is required.");
+      return;
+    }
+
+    if (!employmentType.value) {
+      setError("Employment type is required.");
+      return;
+    }
+
+    if (!startMonth.value || !startYear.value) {
+      setError("Start month and year are required.");
+      return;
+    }
+
+    if (!currentlyWorking && (!endMonth.value || !endYear.value)) {
+      setError("End month and year are required unless currently working.");
+      return;
+    }
+
+    if (!newEmployer && (!company.value || !company.label)) {
+      setError("Company is required unless a new employer is added.");
+      return;
+    }
+
+    if (!description.trim()) {
+      setError("Description is required.");
+      return;
+    }
+
+    setError(null); // Clear previous errors if validation passes
+
+    if (newEmployer) {
+      setLoading(true);
+      const newEmployerEnsName = generateEnsName(newEmployer);
+      try {
+        const response = await createEmployer(
+          "employer",
+          newEmployer,
+          newEmployerEnsName
+        );
+        if (response && response.length) {
+          const response = await addUserExperienceToResume(
+            formData,
             newEmployerEnsName
           );
-          if (response && response.length) {
-            const response = await addUserExperienceToResume(
-              formData,
-              newEmployerEnsName
-            );
-            if (response.transactionHash) {
-              setTxHash(response);
-              setTimeout(() => {
-                setTxHash(null);
-              }, 5000);
-            } else {
-              setError(response.message);
-              setTimeout(() => {
-                setError(null);
-              }, 5000);
-            }
-            setLoading(false);
-          }
-        } catch (err) {
-          console.log(err);
-        } finally {
-          setLoading(false);
-        }
-      } else {
-        setLoading(true);
-        try {
-          const response = await addUserExperienceToResume(formData);
           if (response.transactionHash) {
             setTxHash(response);
+            setTimeout(() => {
+              setTxHash(null);
+            }, 5000);
           } else {
             setError(response.message);
+            setTimeout(() => {
+              setError(null);
+            }, 5000);
           }
-        } catch (err) {
-          console.log(err);
-        } finally {
           setLoading(false);
         }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(true);
+      try {
+        const response = await addUserExperienceToResume(formData);
+        if (response.transactionHash) {
+          setTxHash(response);
+        } else {
+          setError(response.message);
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
       }
     }
   };
