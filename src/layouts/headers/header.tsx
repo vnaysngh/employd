@@ -28,7 +28,7 @@ const Header = () => {
             <div className="d-flex align-items-center">
               <div
                 className="logo order-lg-0"
-                style={{ background: "#4d80e6" }}
+                // style={{ background: "#00bf58" }}
               >
                 <Link href="/" className="d-flex align-items-center">
                   <div className={`logo-name ${chango.className}`}>EMPLOYD</div>

@@ -68,13 +68,13 @@
 }
 
 .theme-main-menu {
-  padding: 15px 20px !important;
+  // padding: 15px 20px !important;
   // border-bottom: 2px solid #333;
 }
 
 .logo-name {
   font-size: 2rem;
-  color: $text-white;
+  // color: $text-white;
   padding: 0 10px;
   // background-color: $btn-color;
 }
@@ -456,4 +456,27 @@
     font-size: 0.85rem;
     color: $text-secondary;
   }
+}
+
+.features img {
+  border: 3px solid #dee2e6;
+}
+
+.resume-highlights .card {
+  background-color: #f8f9fa;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.resume-highlights .card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cta {
+  background: linear-gradient(to bottom right, #0077b6, #00b4d8);
+}
+
+footer {
+  background: #1d3557;
+  color: #fff;
 }

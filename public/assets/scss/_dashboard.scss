@@ -7,7 +7,7 @@
   min-height: 100vh;
   overflow-y: auto;
   width: 260px;
-  background-color: #4d80e6;
+  background-color: #00bf58;
   padding: 30px 20px 30px;
   border-right: 4px solid #333;
 
@@ -661,7 +661,7 @@
         margin-right: 0.5rem;
 
         &:checked {
-          background-color: #4d80e6;
+          background-color: #00bf58;
         }
       }
 
@@ -834,7 +834,7 @@
         margin: 10px 3px 0;
         padding: 0 14px;
         height: 25px;
-        background: rgba($color: #4d80e6, $alpha: 0.1);
+        background: rgba($color: #00bf58, $alpha: 0.1);
         border-radius: 30px;
         @include transition(0.2s);
         &:hover {

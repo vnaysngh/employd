@@ -440,7 +440,7 @@ hr {
   color: $heading;
   margin: 0;
   &.color-blue {
-    color: $color-four;
+    color: $text-primary;
   }
   span {
     color: $color-two;
@@ -464,7 +464,7 @@ hr {
     color: #000;
   }
   &.color-blue {
-    color: $color-four;
+    color: $text-primary;
   }
 }
 .title-four h2 {

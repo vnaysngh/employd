@@ -575,7 +575,7 @@
     &:hover {
       background: #e7f6ef;
       border-color: #e7f6ef;
-      color: $color-four;
+      color: $text-primary;
     }
   }
   .apply-btn {
@@ -589,7 +589,7 @@
     border-radius: 17px;
     background: $color-three;
     &:hover {
-      background: $color-four;
+      background: $text-primary;
     }
   }
   &.style-two {
@@ -709,7 +709,7 @@
     border-radius: 17px;
     background: $color-three;
     &:hover {
-      background: $color-four;
+      background: $text-primary;
     }
   }
   .save-btn {
@@ -725,7 +725,7 @@
     &:hover {
       background: #e7f6ef;
       border-color: #e7f6ef;
-      color: $color-four;
+      color: $text-primary;
     }
   }
 
@@ -825,7 +825,7 @@
       &:hover {
         background: #e7f6ef;
         border-color: #e7f6ef;
-        color: $color-four;
+        color: $text-primary;
       }
     }
     p {
@@ -858,7 +858,7 @@
       border-radius: 17px;
       background: $color-five;
       &:hover {
-        background: $color-four;
+        background: $text-primary;
       }
     }
   }
