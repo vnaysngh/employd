@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import avatar from "@/assets/dashboard/images/icon/company.png";
-import logo from "@/assets/dashboard/images/icon/logo.svg";
+import logo from "@/assets/images/assets/letter-stamp.png";
 import { useReadContract } from "thirdweb/react";
 import { contract } from "@/context";
 

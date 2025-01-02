@@ -41,7 +41,7 @@ const HeaderThree = () => {
                 </ul>
               </div>
               <nav className="navbar navbar-expand-lg p0  ms-3 ms-lg-auto order-lg-2">
-                <button
+                {/*  <button
                   className="navbar-toggler d-block d-lg-none"
                   type="button"
                   data-bs-toggle="collapse"
@@ -51,7 +51,7 @@ const HeaderThree = () => {
                   aria-label="Toggle navigation"
                 >
                   <span></span>
-                </button>
+                </button> */}
                 <div className="collapse navbar-collapse" id="navbarNav">
                   <ul className="navbar-nav">
                     <li className="d-block d-lg-none">
@@ -61,17 +61,17 @@ const HeaderThree = () => {
                         </Link>
                       </div>
                     </li>
-                    <li className="nav-item">
+                    {/*  <li className="nav-item">
                       <Link href="/jobs" className="nav-link">
                         Jobs
                       </Link>
-                    </li>
-                    <li className="nav-item">
+                    </li> */}
+                    <li className="nav-item dropdown">
                       <Link href="/companies" className="nav-link">
                         Companies
                       </Link>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item dropdown">
                       <Link href="/candidates" className="nav-link">
                         Candidates
                       </Link>
