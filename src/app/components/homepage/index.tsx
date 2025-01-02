@@ -157,7 +157,7 @@ const Homepage = () => {
           ) : account.address && user ? (
             <NameSelector user={user} />
           ) : (
-            "Something went wrong"
+            "Loading"
           )}
         </div>
       </div>
