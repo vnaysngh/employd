@@ -19,10 +19,10 @@ const CandidateGridItem = ({ item }: { item: any }) => {
       <div className="d-flex justify-content-between mb-10  ">
         <div className="category">{item?.role || "Others"}</div>
         {/* Attestation badge */}
-        <div className="attestation-count">
+        {/* <div className="attestation-count">
           <Image src={logo} height={12} width={12} alt="logo" />
           <span>{attestations?.length || 0}</span>
-        </div>
+        </div> */}
       </div>
       <div className="position-relative">
         <div className="company-logo rounded-circle">

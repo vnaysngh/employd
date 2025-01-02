@@ -12,10 +12,10 @@ const CompanyGridItem = ({ item }: { item: any }) => {
           {item?.company_details?.category || "Others"}
         </div>
         {/* Attestation badge */}
-        <div className="attestation-count">
+        {/*  <div className="attestation-count">
           <Image src={logo} height={12} width={12} alt="logo" />
           <span>{item.attestations_count || 0}</span>
-        </div>
+        </div> */}
       </div>
       <div className="position-relative">
         <div className="company-logo rounded-circle">
