@@ -159,31 +159,46 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
               </nav>
             </div>
 
-            <nav className="dashboard-main-nav mt-20">
-              <ul className="style-none">
-                {nav_data_2.map((m) => {
-                  const isActive = pathname === m.link;
-                  return (
-                    <li key={m.id} onClick={() => setIsOpenSidebar(false)}>
-                      <Link
-                        href={m.link}
-                        className={`d-flex w-100 align-items-center ${
-                          isActive ? "active" : ""
-                        }`}
-                        target="_blank"
-                      >
-                        {/* <Image
+            <div className="sidebar-nav">
+              <nav className="dashboard-main-nav mt-20">
+                <ul className="style-none">
+                  {nav_data_2.map((m) => {
+                    const isActive = pathname === m.link;
+                    return (
+                      <li key={m.id} onClick={() => setIsOpenSidebar(false)}>
+                        <Link
+                          href={m.link}
+                          className={`d-flex w-100 align-items-center ${
+                            isActive ? "active" : ""
+                          }`}
+                          target="_blank"
+                        >
+                          {/* <Image
                           src={isActive ? m.icon_active : m.icon}
                           alt="icon"
                           height={20}
                           width={20}
                           className="lazy-img"
                         /> */}
-                        <span>{m.title}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
+                          <span>{m.title}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+            </div>
+
+            <nav className="dashboard-main-nav mt-20">
+              <ul className="style-none">
+                <li>
+                  <Link
+                    href={"/dashboard/candidate-dashboard/web3-resume"}
+                    className={`d-flex w-100 align-items-center`}
+                  >
+                    <span>Web3 Resume</span>
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>

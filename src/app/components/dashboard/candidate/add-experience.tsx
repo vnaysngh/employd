@@ -5,8 +5,6 @@ import DashboardHeader from "./dashboard-header";
 import dynamic from "next/dynamic";
 import { useStateContext } from "@/context";
 import SelectEmployer from "./select-employer";
-import { useRouter } from "next/navigation";
-import { useActiveAccount } from "thirdweb/react";
 
 // Dynamically import client-side only components
 const SelectRole = dynamic(() => import("./select-role"), { ssr: true });
