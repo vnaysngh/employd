@@ -16,7 +16,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [preview, setPreview] = useState<any>(null);
   const { isUserRegistered, updateUserDetails } = useStateContext();
   const [name, setName] = useState("");
-  const [bio, setBio] = useState("");
+  const [about, setAbout] = useState("");
   const [twitter, setTwitter] = useState("");
   const [linkedIn, setLinkedIin] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,9 +27,9 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
 
   useEffect(() => {
     if (isUserRegistered) {
-      const { name, bio, socials } = isUserRegistered;
+      const { name, about, socials } = isUserRegistered;
       setName(name);
-      setBio(bio || "");
+      setAbout(about || "");
       setLinkedIin(socials?.linkedIn);
       setTwitter(socials?.twitter);
     }
@@ -51,7 +51,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
     setLoading(true);
     const body = {
       name,
-      bio,
+      about,
       socials: {
         linkedIn,
         twitter
@@ -182,8 +182,8 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
             <textarea
               className="size-lg"
               placeholder="Write something interesting about you...."
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
+              value={about}
+              onChange={(e) => setAbout(e.target.value)}
             ></textarea>
           </div>
         </div>

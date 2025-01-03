@@ -359,7 +359,18 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     newEmployerEnsName?: string
   ) => {
     if (!isUserRegistered || !isUserRegistered.address) return;
-    const { newEmployer, currentlyWorking } = formData;
+    const {
+      role,
+      company,
+      startMonth,
+      startYear,
+      endMonth,
+      endYear,
+      currentlyWorking,
+      newEmployer,
+      employmentType,
+      description
+    } = formData;
     const params: [
       string,
       string,
@@ -374,18 +385,18 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       string,
       string
     ] = [
-      formData.role.label,
+      role.label,
       isUserRegistered.name,
       isUserRegistered.ens_name,
-      newEmployer ? newEmployer : formData.company.label,
-      newEmployerEnsName ? newEmployerEnsName : formData.company.value,
-      formData.startMonth.value,
-      formData.startYear.value,
-      currentlyWorking ? "N/A" : formData.endMonth.value,
-      currentlyWorking ? "N/A" : formData.endYear.value,
-      formData.employmentType.label,
-      formData.description,
-      newEmployer ? "" : formData.company.address
+      newEmployer ? newEmployer : company.label,
+      newEmployerEnsName ? newEmployerEnsName : company.value,
+      startMonth.value,
+      startYear.value,
+      currentlyWorking ? "N/A" : endMonth.value,
+      currentlyWorking ? "N/A" : endYear.value,
+      employmentType.label,
+      description,
+      newEmployer ? "" : company.address ? company.address : ""
     ];
     const transaction = prepareContractCall({
       contract,

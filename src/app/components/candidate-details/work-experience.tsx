@@ -2,7 +2,6 @@ import { contract } from "@/context";
 import roles from "@/data/roles";
 import React from "react";
 import { useReadContract } from "thirdweb/react";
-import Skills from "./skills";
 import Image from "next/image";
 import Link from "next/link";
 import avatar from "@/assets/dashboard/images/icon/user.png";
@@ -76,15 +75,6 @@ const WorkExperience = ({ user }: { user: any }) => {
     return formattedDate;
   };
 
-  const progressPercentage = experiences
-    ? (experiences.filter(
-        (experience: any) =>
-          experience.attestationStatus === AttestationStatus.SUBMITTED
-      ).length /
-        experiences.length) *
-      100
-    : 0;
-
   const avatarPlaceholder =
     user.user_type === "talent" ? (user.image ? user.image : avatar) : company;
 
@@ -104,9 +94,7 @@ const WorkExperience = ({ user }: { user: any }) => {
         <div className="profile-title">
           <h1>{user.user_type === "talent" ? user.name : user.company_name}</h1>
           <p>
-            {user.user_type === "talent"
-              ? user?.role
-              : user.company_description}
+            {user.user_type === "talent" ? user?.bio : user.company_description}
           </p>
           <div className="profile-badges">
             <span className="badge">
@@ -129,7 +117,7 @@ const WorkExperience = ({ user }: { user: any }) => {
             <h2>About</h2>
             <p>
               {user.user_type === "talent"
-                ? user.bio || "-"
+                ? user.about || "-"
                 : user.company_details?.about || "-"}
             </p>
           </section>
@@ -154,7 +142,13 @@ const WorkExperience = ({ user }: { user: any }) => {
                       </Link>
                       <p className="period">
                         {experience.startMonth}/{experience.startYear} -{" "}
-                        {experience.endMonth}/{experience.endYear}
+                        {experience.endMonth === "N/A" ? (
+                          "Present"
+                        ) : (
+                          <>
+                            {experience.endMonth}/{experience.endYear}
+                          </>
+                        )}
                       </p>
                     </div>
 

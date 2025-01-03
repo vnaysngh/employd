@@ -54,6 +54,8 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
           .filter((user: any) => user.label !== null)
       : [];
 
+  console.log(userOptions, "sdlmsslm");
+
   return (
     <header className="dashboard-header">
       <div className="d-flex align-items-center justify-content-end">

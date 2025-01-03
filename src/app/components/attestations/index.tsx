@@ -101,8 +101,14 @@ const Attestations = ({
               <div className="info-item">
                 <label>Duration</label>
                 <h3>
-                  {experience?.startMonth}/{experience?.startYear} -{" "}
-                  {experience?.endMonth}/{experience?.endYear}
+                  {experience.startMonth}/{experience.startYear} -{" "}
+                  {experience.endMonth === "N/A" ? (
+                    "Present"
+                  ) : (
+                    <>
+                      {experience.endMonth}/{experience.endYear}
+                    </>
+                  )}
                 </h3>
               </div>
               <div className="info-item">

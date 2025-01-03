@@ -45,11 +45,11 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [formData, setFormData] = useState<FormData>({
     role: { value: "", label: "" },
     company: { value: "", label: "" },
-    startMonth: { value: "01", label: "January" },
-    startYear: { value: "2024", label: "2024" },
-    endMonth: { value: "01", label: "January" },
-    endYear: { value: "2024", label: "2024" },
-    employmentType: { value: "full-time", label: "Full Time" },
+    startMonth: { value: "", label: "" },
+    startYear: { value: "", label: "" },
+    endMonth: { value: "", label: "" },
+    endYear: { value: "", label: "" },
+    employmentType: { value: "", label: "" },
     description: "",
     currentlyWorking: false,
     newEmployer: ""
@@ -86,10 +86,22 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
         }));
 
   const generateEnsName = (companyName: string) => {
+    // Remove spaces and replace them with hyphens, then convert to lowercase
+    const sanitizedCompanyName = companyName
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, "-");
+
+    // Generate a random number between 100 and 999
     const randomNum = Math.floor(Math.random() * 900) + 100;
-    const ensName = `${companyName.toLowerCase()}-${randomNum}`;
+
+    // Create the ENS name
+    const ensName = `${sanitizedCompanyName}-${randomNum}`;
+
     return ensName;
   };
+
+  console.log(formData, "form data");
 
   const handleAddExperience = async () => {
     const {
@@ -116,8 +128,8 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       return;
     }
 
-    if (!employmentType.value) {
-      setError("Employment type is required.");
+    if (!newEmployer && (!company.value || !company.label)) {
+      setError("Company is required unless a new employer is added.");
       return;
     }
 
@@ -131,13 +143,13 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       return;
     }
 
-    if (!newEmployer && (!company.value || !company.label)) {
-      setError("Company is required unless a new employer is added.");
+    if (!currentlyWorking && Number(endYear.value) < Number(startYear.value)) {
+      setError("Duration is incorrect");
       return;
     }
 
-    if (!description.trim()) {
-      setError("Description is required.");
+    if (!employmentType.value) {
+      setError("Employment type is required.");
       return;
     }
 
@@ -180,9 +192,13 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       try {
         const response = await addUserExperienceToResume(formData);
         if (response.transactionHash) {
-          setTxHash(response);
+          setTimeout(() => {
+            setTxHash(null);
+          }, 5000);
         } else {
-          setError(response.message);
+          setTimeout(() => {
+            setError(null);
+          }, 5000);
         }
       } catch (err) {
         console.log(err);
@@ -195,7 +211,6 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const handleNewCompany = (e: any) => {
     setFormData({
       ...formData,
-      company: { value: "", label: "" },
       newEmployer: e.target.value
     });
   };
@@ -366,7 +381,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                     <div className="row align-items-center">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">
-                          <label htmlFor="">Description</label>
+                          <label htmlFor="">Description (Optional)</label>
                         </div>
                       </div>
                       <div className="col-lg-10">

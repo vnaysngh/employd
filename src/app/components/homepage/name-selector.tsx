@@ -43,7 +43,7 @@ const NameSelector = ({ user }: { user: any }) => {
   const [subname, setSubname] = useState("poookie-popeye");
   const [userSubnames, setUserSubnames] = useState<string[]>([]);
   const [isUserEnsRegistered, setIsUserEnsRegistered] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | false>(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const { names, createUserEns } = useStateContext();
@@ -91,7 +91,11 @@ const NameSelector = ({ user }: { user: any }) => {
   };
 
   const handleInputChange = (e: any) => {
-    setSubname(e.target.value);
+    const value = e.target.value;
+    setSubname(value);
+
+    const validationError = validateUsername(value);
+    setError(validationError);
   };
 
   const setEnsName = async () => {
@@ -135,10 +139,26 @@ const NameSelector = ({ user }: { user: any }) => {
     }
   };
 
+  const validateUsername = (name: string): string | false => {
+    if (name.length < 3) return "Username must be at least 3 characters long.";
+    if (name.length > 20) return "Username must not exceed 20 characters.";
+    if (/\s/.test(name)) return "Username should not contain spaces.";
+    if (/[^a-zA-Z0-9-_]/.test(name))
+      return "Only alphanumeric characters, dashes, and underscores are allowed.";
+    if (/--|__|_-|-_/.test(name))
+      return "Username cannot contain consecutive dashes or underscores.";
+    if (/^-|_$|^_|-$/.test(name))
+      return "Username cannot start or end with a dash or underscore.";
+    if (userSubnames.includes(name)) return "This username is already taken.";
+    return false;
+  };
+
   const handleRandomize = () => {
-    // Replace this with your random name generation logic
     const randomNames = ["cool-fox", "blue-tiger", "bold-eagle", "mighty-lion"];
-    setSubname(randomNames[Math.floor(Math.random() * randomNames.length)]);
+    const randomName =
+      randomNames[Math.floor(Math.random() * randomNames.length)];
+    setSubname(randomName);
+    setError(validateUsername(randomName));
   };
 
   const isNameTaken = userSubnames.includes(debouncedName);
@@ -195,7 +215,7 @@ const NameSelector = ({ user }: { user: any }) => {
           <div className="d-flex justify-center mt-20">
             <button
               className="confirm-button"
-              disabled={isNameTaken || loading || success}
+              disabled={isNameTaken || loading || success || Boolean(error)}
               onClick={handleSignMessage}
             >
               Confirm name
@@ -218,7 +238,7 @@ const Stepper = ({ userType }: { userType: string }) => {
   });
   const [formDataTalent, setFormDataTalent] = useState({
     name: "",
-    role: ""
+    bio: ""
   });
   const router = useRouter();
   const account = useActiveAccount();
@@ -295,18 +315,17 @@ const Stepper = ({ userType }: { userType: string }) => {
             )
           },
           {
-            label: "Select your primary role",
-            description:
-              "Help your teammates to recognise and connect with you more easily.",
+            label: "Profile headline",
+            description: "Summarize your role or expertise in a single line",
             content: (
               <input
                 type="text"
-                name="role"
+                name="bio"
                 className="input-field"
-                value={formDataTalent.role}
+                value={formDataTalent.bio}
                 onChange={handleChange}
                 // onKeyDown={handleKeyDown}
-                placeholder="Enter your name"
+                placeholder="Product Designer at Google"
               />
             )
           }
