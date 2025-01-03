@@ -19,14 +19,11 @@ const SelectEmploymentType = dynamic(() => import("./select-employment-type"), {
 type SelectInput = {
   value: string;
   label: string;
-  company_details?: any;
-  address?: any;
-  company_name?: any;
 };
 
 export type FormData = {
   role: SelectInput;
-  company: SelectInput;
+  company: any;
   startMonth: SelectInput;
   startYear: SelectInput;
   endMonth: SelectInput;
@@ -35,6 +32,8 @@ export type FormData = {
   description: string;
   currentlyWorking: boolean;
   newEmployer: string;
+  newEmployerEmail: string;
+  notListed: boolean;
 };
 // props type
 type IProps = {
@@ -52,7 +51,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
     employmentType: { value: "", label: "" },
     description: "",
     currentlyWorking: false,
-    newEmployer: ""
+    newEmployer: "",
+    newEmployerEmail: "",
+    notListed: false
   });
 
   const [loading, setLoading] = useState(false);
@@ -80,28 +81,8 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
         .map((employer: any) => ({
           label: employer.company_name,
           value: employer.ens_name,
-          company_details: employer.company_details,
-          address: employer.address,
-          company_name: employer.company_name
+          ...employer
         }));
-
-  const generateEnsName = (companyName: string) => {
-    // Remove spaces and replace them with hyphens, then convert to lowercase
-    const sanitizedCompanyName = companyName
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, "-");
-
-    // Generate a random number between 100 and 999
-    const randomNum = Math.floor(Math.random() * 900) + 100;
-
-    // Create the ENS name
-    const ensName = `${sanitizedCompanyName}-${randomNum}`;
-
-    return ensName;
-  };
-
-  console.log(formData, "form data");
 
   const handleAddExperience = async () => {
     const {
@@ -113,8 +94,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       endYear,
       currentlyWorking,
       newEmployer,
-      employmentType,
-      description
+      newEmployerEmail,
+      notListed,
+      employmentType
     } = formData;
 
     // Clear previous transaction hash
@@ -128,8 +110,13 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       return;
     }
 
-    if (!newEmployer && (!company.value || !company.label)) {
+    if (!notListed && (!company.value || !company.label)) {
       setError("Company is required unless a new employer is added.");
+      return;
+    }
+
+    if (notListed && (!newEmployer || !newEmployerEmail)) {
+      setError("New employer and email is required.");
       return;
     }
 
@@ -153,67 +140,38 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       return;
     }
 
-    setError(null); // Clear previous errors if validation passes
+    setError(null);
 
-    if (newEmployer) {
-      setLoading(true);
-      const newEmployerEnsName = generateEnsName(newEmployer);
-      try {
-        const response = await createEmployer(
-          "employer",
-          newEmployer,
-          newEmployerEnsName
-        );
-        if (response && response.length) {
-          const response = await addUserExperienceToResume(
-            formData,
-            newEmployerEnsName
-          );
-          if (response.transactionHash) {
-            setTxHash(response);
-            setTimeout(() => {
-              setTxHash(null);
-            }, 10000);
-          } else {
-            setError(response?.message);
-            setTimeout(() => {
-              setError(null);
-            }, 5000);
-          }
-          setLoading(false);
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
+    setLoading(true);
+    try {
+      const response = await addUserExperienceToResume(formData);
+      if (response.transactionHash) {
+        setTxHash(response);
+        setTimeout(() => {
+          setTxHash(null);
+        }, 10000);
+      } else {
+        setError(response?.message);
+        setTimeout(() => {
+          setError(null);
+        }, 5000);
       }
-    } else {
-      setLoading(true);
-      try {
-        const response = await addUserExperienceToResume(formData);
-        if (response.transactionHash) {
-          setTxHash(response);
-          setTimeout(() => {
-            setTxHash(null);
-          }, 10000);
-        } else {
-          setError(response?.message);
-          setTimeout(() => {
-            setError(null);
-          }, 5000);
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleNewCompany = (e: any) => {
     setFormData({
       ...formData,
-      newEmployer: e.target.value
+      [e.target.name]: e.target.value
     });
   };
 
@@ -269,15 +227,49 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                       </div>
                       <div className="col-lg-5">
                         <div className="dash-input-wrapper mb-30">
-                          <input
-                            type="text"
-                            placeholder="Not listed? Enter the company name"
-                            value={formData.newEmployer}
-                            onChange={handleNewCompany}
-                          />
+                          <div className="form-check-label">
+                            <input
+                              type="checkbox"
+                              className="form-check-input"
+                              onChange={(e) => {
+                                setFormData({
+                                  ...formData,
+                                  notListed: !formData.notListed
+                                });
+                              }}
+                            />
+                            <label>Not Listed?</label>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    {formData.notListed && (
+                      <div className="row align-items-center">
+                        <div className="col-lg-2"></div>
+                        <div className="col-lg-5">
+                          <div className="dash-input-wrapper mb-30">
+                            <input
+                              type="text"
+                              name="newEmployer"
+                              placeholder="Enter the company name"
+                              value={formData.newEmployer}
+                              onChange={handleNewCompany}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-5">
+                          <div className="dash-input-wrapper mb-30">
+                            <input
+                              type="text"
+                              name="newEmployerEmail"
+                              placeholder="Enter the email address"
+                              value={formData.newEmployerEmail}
+                              onChange={handleNewCompany}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     <div className="row align-items-center">
                       <div className="col-lg-2">
                         <div className="dash-input-wrapper mb-30 md-mb-10">

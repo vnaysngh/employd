@@ -65,7 +65,7 @@ const AttestationDashboard = ({ setIsOpenSidebar }: IProps) => {
   const { data: experiences, isPending } = useReadContract({
     contract,
     method:
-      "function getUserExperiences(address user) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus)[])",
+      "function getUserExperiences(address user) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus, uint8 employerStatus, string employerEmail)[])",
     params: [account?.address!]
   });
 
@@ -174,7 +174,7 @@ const ExperienceCard = ({
   const [error, setError] = useState<any>(null);
   const [experienceId, setExperienceId] = useState(null);
 
-  const [employers, setEmployers] = useState<Record<string, any>>({}); // Cache employer details
+  // const [employers, setEmployers] = useState<Record<string, any>>({}); // Cache employer details
 
   const handleRequestAttestation = async (id: any, ens_name: string) => {
     if (txHash) {
@@ -206,7 +206,7 @@ const ExperienceCard = ({
     }
   };
 
-  const fetchEmployerDetails = async (ensName: string) => {
+  /* const fetchEmployerDetails = async (ensName: string) => {
     if (employers[ensName]) return; // Skip if already fetched
     setLoading(true);
     try {
@@ -229,13 +229,11 @@ const ExperienceCard = ({
         fetchEmployerDetails(experience.employerEnsName);
       }
     });
-  }, [experiences]);
+  }, [experiences]); */
 
   return experiences?.map((experience: any, index: number) => {
-    const nameParts = experience?.employerEnsName.trim().split(" ");
+    const nameParts = experience?.employerName.trim().split(" ");
     const firstName = nameParts[0];
-    const employer = employers[experience.employerEnsName];
-
     return (
       <div
         key={experience.id}
@@ -249,16 +247,16 @@ const ExperienceCard = ({
             <div>
               <h3 className="mb-1">{experience?.role}</h3>
               <div className="company-name d-flex align-items-center gap-2 text-capitalize">
-                {employer?.company_name ? (
+                {experience?.employerName && experience?.employerEnsName ? (
                   <Link
-                    href={`/${employer?.ens_name}.employd.eth`}
+                    href={`/${experience?.employerEnsName}.employd.eth`}
                     target="_blank"
                     className="on-hover-underline"
                   >
-                    {employer?.company_name}
+                    {experience?.employerName}
                   </Link>
                 ) : (
-                  experience.employerEnsName
+                  experience?.employerName
                 )}
                 <span>&#x2022;</span>
                 <span className="employment-type">
@@ -278,9 +276,9 @@ const ExperienceCard = ({
               </div>
             </div>
           </div>
-          {!employer?.address ? (
+          {!experience?.employerEnsName ? (
             <button
-              onClick={() => setInviteEmployer(employer)}
+              onClick={() => setInviteEmployer(experience)}
               disabled={loading}
               className={`status-badge not-initiated bg-black`}
             >

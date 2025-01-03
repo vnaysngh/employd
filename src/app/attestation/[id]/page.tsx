@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Wrapper from "@/layouts/wrapper";
-import Header from "@/layouts/headers/header";
 import Attestations from "@/app/components/attestations";
 import { useParams } from "next/navigation";
 import { useReadContract } from "thirdweb/react";
 import { contract, useStateContext } from "@/context";
+import HeaderThree from "@/layouts/headers/header";
 const CandidateDashboardResumePage = () => {
   const params: { id: string } = useParams();
   const { attestExperience } = useStateContext();
@@ -45,7 +45,7 @@ const CandidateDashboardResumePage = () => {
   return (
     <Wrapper>
       <div className="main-page-wrapper">
-        <Header />
+        <HeaderThree />
         <Attestations
           experience={data}
           loading={loading}

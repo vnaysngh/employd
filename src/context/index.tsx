@@ -7,7 +7,7 @@ import supabase from "@/supabase/index";
 import { Signer } from "ethers";
 import { PushAPI } from "@pushprotocol/restapi";
 import { ENV } from "@pushprotocol/restapi/src/lib/constants";
-import { useActiveAccount } from "thirdweb/react";
+import { useActiveAccount, useActiveWallet } from "thirdweb/react";
 import { UserType } from "@/app/components/homepage/name-selector";
 import { getContract, prepareContractCall } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
@@ -28,7 +28,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0x8f9134a6d3cda515adbfeF7AeEb53D16bd7cDc09",
+  address: "0xd50fe7976EDaAe3A61D4Cbcf54a215BC1A732BDa",
   chain: baseSepolia,
   abi: abi as any
 });
@@ -44,6 +44,8 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const [employers, setEmployers] = useState<any>([]);
   const [talents, setTalents] = useState<any>([]);
   const [userOnboarded, setUserOnboarded] = useState(false);
+  const wallet = useActiveWallet();
+  console.log(wallet, "wallet");
 
   // useEffect(() => {
   const initializePushAPI = async () => {
@@ -356,10 +358,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     else return data;
   };
 
-  const addUserExperienceToResume = async (
-    formData: FormData,
-    newEmployerEnsName?: string
-  ) => {
+  const addUserExperienceToResume = async (formData: FormData) => {
     if (!isUserRegistered || !isUserRegistered.address) return;
     const {
       role,
@@ -370,41 +369,36 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       endYear,
       currentlyWorking,
       newEmployer,
+      newEmployerEmail,
       employmentType,
       description
     } = formData;
-    const params: [
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string
-    ] = [
-      role.label,
-      isUserRegistered.name,
-      isUserRegistered.ens_name,
-      newEmployer ? newEmployer : company.label,
-      newEmployerEnsName ? newEmployerEnsName : company.value,
-      startMonth.value,
-      startYear.value,
-      currentlyWorking ? "N/A" : endMonth.value,
-      currentlyWorking ? "N/A" : endYear.value,
-      employmentType.label,
-      description,
-      newEmployer ? "" : company.address ? company.address : ""
-    ];
+
+    const input = {
+      role: role.label,
+      seekerName: isUserRegistered.name,
+      seekerEnsName: isUserRegistered.ens_name,
+      employerName: newEmployer ? newEmployer : company.label,
+      employerEnsName: newEmployer ? "" : company.value,
+      startMonth: startMonth.value,
+      startYear: startYear.value,
+      endMonth: currentlyWorking ? "N/A" : endMonth.value,
+      endYear: currentlyWorking ? "N/A" : endYear.value,
+      employmentType: employmentType.label,
+      description: description,
+      employerAddress: newEmployer
+        ? ""
+        : company.address
+        ? company.address
+        : "",
+      employerEmail: newEmployer ? newEmployerEmail : company.email
+    };
+
     const transaction = prepareContractCall({
       contract,
       method:
-        "function addExperience(string _role, string _seekerName, string _seekerEnsName, string _employerName, string _employerEnsName, string _startMonth, string _startYear, string _endMonth, string _endYear, string _employmentType, string _description, address _employerAddress) returns (uint256)",
-      params
+        "function addExperience((string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, string employerEmail) input) returns (uint32)",
+      params: [input]
     });
     return sendTransaction(transaction)
       .then((res) => res)

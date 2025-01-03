@@ -24,13 +24,10 @@ const WorkExperience = ({ user }: { user: any }) => {
     client: client
   });
 
-  console.log(profiles);
-  // const role: string = user?.role;
-
   const { data: experiences, isPending } = useReadContract({
     contract,
     method:
-      "function getUserExperiences(address user) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus)[])",
+      "function getUserExperiences(address user) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus, uint8 employerStatus, string employerEmail)[])",
     params: [user?.address!]
   });
 

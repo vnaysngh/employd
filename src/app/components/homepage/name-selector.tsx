@@ -9,13 +9,7 @@ import NameStone, {
   CoinTypes
 } from "namestone-sdk";
 import { useActiveAccount, useLinkProfile, useProfiles } from "thirdweb/react";
-import { redirect, useRouter } from "next/navigation";
-import Loader from "@/app/loading";
-import { client } from "@/config/thirdwebClient";
-
-// Initialize the NameStone instance
-const ns = new NameStone(process.env.NEXT_PUBLIC_NAMESTONE_APIKEY);
-
+import { useRouter } from "next/navigation";
 interface WorkerRequest {
   signature: {
     message: {
@@ -79,6 +73,8 @@ const NameSelector = ({ user }: { user: any }) => {
       const response = await account.signMessage({
         message: JSON.stringify(nameData)
       });
+
+      console.log(response, "response");
 
       if (response) setEnsName();
     } catch (e) {
