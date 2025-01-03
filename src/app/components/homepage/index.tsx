@@ -10,10 +10,10 @@ import {
 } from "thirdweb/react";
 import Wrapper from "@/layouts/wrapper";
 import { useStateContext } from "@/context";
-import { useRouter } from "next/navigation";
 import Loader from "@/app/loading";
 import { client } from "@/config/thirdwebClient";
 import supabase from "@/supabase";
+import { useRouter } from "next/navigation";
 
 const Homepage = () => {
   const account = useActiveAccount();
@@ -29,8 +29,6 @@ const Homepage = () => {
   const { data: profiles } = useProfiles({
     client
   });
-
-  console.log(profiles, "dkfdkfndk");
 
   useEffect(() => {
     const onConnect = async () => {

@@ -37,15 +37,39 @@ const HeaderThree = () => {
                 </Link>
               </div>
 
-              {/* <div className="right-widget ms-auto ms-xl-5 order-lg-3">
-                <ul className="d-flex align-items-center style-none">
-                  <li className="d-none d-lg-block ms-4">
-                    <Link href="/auth" className="btn-five">
-                      Launch App
-                    </Link>
-                  </li>
-                </ul>
-              </div> */}
+              {account?.address ? (
+                <div className="right-widget ms-auto ms-xl-5 order-lg-3">
+                  <ul className="d-flex align-items-center style-none">
+                    <li className="d-none d-lg-block ms-4">
+                      <ConnectButton
+                        client={client}
+                        detailsButton={{
+                          className: "tw-connected-details",
+                          style: { fontSize: "16px" }
+                        }}
+                        accountAbstraction={{
+                          chain: baseSepolia, // the chain where your smart accounts will be or is deployed
+                          sponsorGas: true // enable or disable sponsored transactions
+                        }}
+                        theme="light"
+                        onDisconnect={() => {
+                          router.push("/auth");
+                        }}
+                      />
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                <div className="right-widget ms-auto ms-xl-5 order-lg-3">
+                  <ul className="d-flex align-items-center style-none">
+                    <li className="d-none d-lg-block ms-4">
+                      <Link href="/auth" className="btn-five">
+                        Launch App
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              )}
               <nav className="navbar navbar-expand-lg p0  ms-3 ms-lg-auto order-lg-2">
                 <button
                   className="navbar-toggler d-block d-lg-none"
@@ -67,11 +91,11 @@ const HeaderThree = () => {
                         </Link>
                       </div>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <Link href="/jobs" className="nav-link">
                         Jobs
                       </Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                       <Link href="/companies" className="nav-link">
                         Companies
@@ -82,25 +106,6 @@ const HeaderThree = () => {
                         Candidates
                       </Link>
                     </li>
-                    {account?.address ? (
-                      <li className="me-0">
-                        <ConnectButton
-                          client={client}
-                          detailsButton={{
-                            className: "tw-connected-details",
-                            style: { fontSize: "16px" }
-                          }}
-                          accountAbstraction={{
-                            chain: baseSepolia, // the chain where your smart accounts will be or is deployed
-                            sponsorGas: true // enable or disable sponsored transactions
-                          }}
-                          theme="light"
-                          onDisconnect={() => {
-                            router.push("/auth");
-                          }}
-                        />
-                      </li>
-                    ) : null}
                   </ul>
                 </div>
               </nav>

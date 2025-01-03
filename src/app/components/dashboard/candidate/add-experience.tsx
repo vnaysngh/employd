@@ -173,9 +173,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
             setTxHash(response);
             setTimeout(() => {
               setTxHash(null);
-            }, 5000);
+            }, 10000);
           } else {
-            setError(response.message);
+            setError(response?.message);
             setTimeout(() => {
               setError(null);
             }, 5000);
@@ -192,10 +192,12 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       try {
         const response = await addUserExperienceToResume(formData);
         if (response.transactionHash) {
+          setTxHash(response);
           setTimeout(() => {
             setTxHash(null);
-          }, 5000);
+          }, 10000);
         } else {
+          setError(response?.message);
           setTimeout(() => {
             setError(null);
           }, 5000);

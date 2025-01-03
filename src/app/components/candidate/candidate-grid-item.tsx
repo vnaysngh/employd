@@ -5,6 +5,7 @@ import avatar from "@/assets/dashboard/images/icon/company.png";
 import logo from "@/assets/images/assets/letter-stamp.png";
 import { useReadContract } from "thirdweb/react";
 import { contract } from "@/context";
+import { useRouter } from "next/navigation";
 
 const CandidateGridItem = ({ item }: { item: any }) => {
   const { data: attestations, isPending } = useReadContract({
@@ -13,6 +14,8 @@ const CandidateGridItem = ({ item }: { item: any }) => {
       "function getUserExperienceIds(address user) view returns (uint32[])",
     params: [item.address!]
   });
+
+  const router = useRouter();
 
   return (
     <div className={`company-grid-layout mb-30`}>
@@ -24,24 +27,35 @@ const CandidateGridItem = ({ item }: { item: any }) => {
           <span>{attestations?.length || 0}</span>
         </div> */}
       </div>
-      <div className="position-relative">
-        <div className="company-logo rounded-circle">
-          <Image
-            src={
-              item?.image ||
-              item?.user_login_details?.details?.picture ||
-              avatar
-            }
-            alt="image"
-            className="lazy-img rounded-circle"
-            height={80}
-            width={80}
-          />
+      <Link
+        href={`/${item.ens_name}.employd.eth`}
+        className="on-hover-underline"
+      >
+        <div className="position-relative">
+          <div className="company-logo rounded-circle">
+            <Image
+              src={
+                item?.image ||
+                item?.user_login_details?.details?.picture ||
+                avatar
+              }
+              alt="image"
+              className="lazy-img rounded-circle"
+              height={80}
+              width={80}
+            />
+          </div>
         </div>
-      </div>
+      </Link>
 
-      <div className="d-flex gap-2">
-        <Link href={`/${item.ens_name}.employd.eth`}>
+      <div
+        className="d-flex gap-2"
+        onClick={() => router.push(`/${item?.ens_name}.employd.eth`)}
+      >
+        <Link
+          href={`/${item.ens_name}.employd.eth`}
+          className="on-hover-underline"
+        >
           <h5 className="mb-0">
             {item.name}
             <div className="ens-name mt-5">@{item.ens_name}</div>
@@ -49,12 +63,7 @@ const CandidateGridItem = ({ item }: { item: any }) => {
         </Link>
       </div>
 
-      {/* ENS name */}
-      {/*  <div>
-        <span>{item.ens_name || "company.employd.eth"}</span>
-      </div> */}
-
-      <div className="company-description">{item.company_description}</div>
+      <div className="company-description">{item.bio}</div>
 
       {/*  <ul className="cadidate-skills style-none d-flex flex-wrap">
         {item?.skills?.slice(0, 3).map((s: any, i: number) => (
@@ -71,9 +80,9 @@ const CandidateGridItem = ({ item }: { item: any }) => {
             <i className="bi bi-twitter"></i>
           </Link>
         ) : null}
-        {item?.socials?.linkedin ? (
+        {item?.socials?.linkedIn ? (
           <Link
-            href={item?.socials?.linkedin}
+            href={item?.socials?.linkedIn}
             target="_blank"
             className="social-icon"
           >

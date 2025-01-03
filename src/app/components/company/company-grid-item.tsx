@@ -17,30 +17,38 @@ const CompanyGridItem = ({ item }: { item: any }) => {
           <span>{item.attestations_count || 0}</span>
         </div> */}
       </div>
-      <div className="position-relative">
-        <div className="company-logo rounded-circle">
-          <Image
-            src={
-              item?.image ||
-              item?.user_login_details?.details?.picture ||
-              avatar
-            }
-            alt="image"
-            className="lazy-img rounded-circle"
-            height={80}
-            width={80}
-          />
+      <Link
+        href={`/${item.ens_name}.employd.eth`}
+        className="on-hover-underline"
+      >
+        <div className="position-relative">
+          <div className="company-logo rounded-circle">
+            <Image
+              src={
+                item?.image ||
+                item?.user_login_details?.details?.picture ||
+                avatar
+              }
+              alt="image"
+              className="lazy-img rounded-circle"
+              height={80}
+              width={80}
+            />
+          </div>
         </div>
-      </div>
+      </Link>
 
-      <div className="d-flex gap-2">
-        <Link href={`/${item.ens_name}.employd.eth`}>
+      <Link
+        href={`/${item.ens_name}.employd.eth`}
+        className="on-hover-underline"
+      >
+        <div className="d-flex gap-2">
           <h5 className="mb-0">
             {item.company_name}
             <div className="ens-name mt-5">@{item.ens_name}</div>
           </h5>
-        </Link>
-      </div>
+        </div>
+      </Link>
 
       {/* ENS name */}
       {/*  <div>
