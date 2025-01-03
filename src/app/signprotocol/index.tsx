@@ -18,7 +18,6 @@ async function attestExperience(
       },
       indexingValue: signer.toLowerCase()
     });
-    console.log(res, "create attestation");
   } catch (err) {
     console.log(err);
   }

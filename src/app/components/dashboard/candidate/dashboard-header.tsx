@@ -87,7 +87,7 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
             }}
             theme="light"
             onDisconnect={() => {
-              router.push("/");
+              router.push("/auth");
             }}
           />
         </div>

@@ -19,7 +19,7 @@ const HeaderThree = () => {
           <div className="top-header">
             <div className="d-flex align-items-center justify-content-between">
               <div className="logo order-lg-0">
-                <Link href="/" className="d-flex align-items-center">
+                <Link href="/auth" className="d-flex align-items-center">
                   <Image
                     src={logo}
                     alt="logo"

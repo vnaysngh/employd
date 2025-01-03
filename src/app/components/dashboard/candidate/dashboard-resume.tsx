@@ -211,7 +211,6 @@ const ExperienceCard = ({
     setLoading(true);
     try {
       const response = await getUserDetailsByEns(ensName);
-      console.log(response, "employers");
       if (response) {
         setEmployers((prev) => ({ ...prev, [ensName]: response }));
       } else {
@@ -231,8 +230,6 @@ const ExperienceCard = ({
       }
     });
   }, [experiences]);
-
-  console.log(experiences, "experiuences");
 
   return experiences?.map((experience: any, index: number) => {
     const nameParts = experience?.employerEnsName.trim().split(" ");

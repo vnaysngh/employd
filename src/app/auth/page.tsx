@@ -1,13 +1,13 @@
 "use client";
-import Header from "@/layouts/headers/header";
-import React, { useEffect } from "react";
+import React from "react";
 import Homepage from "../components/homepage";
+import HeaderTwo from "@/layouts/headers/header-2";
 // import "../../node_modules/bootstrap/dist/js/bootstrap";
 
 const Home: React.FC = () => {
   return (
     <>
-      <Header />
+      <HeaderTwo />
       <Homepage />
     </>
   );

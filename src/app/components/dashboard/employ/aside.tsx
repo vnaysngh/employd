@@ -109,7 +109,7 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
           <div className="sidebar-inner">
             {/* Logo Section */}
             <div className="sidebar-logo d-md-block d-flex align-items-center justify-content-between">
-              <Link href="/" className="d-flex align-items-center">
+              <Link href="/auth" className="d-flex align-items-center">
                 <Image src={logo} alt="logo" priority height={40} width={40} />
                 <div className={`logo-name ${titan.className}`}>EMPLOYD</div>
               </Link>
@@ -125,7 +125,11 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             <div className="user-profile">
               <div className="user-avatar-wrapper">
                 <Image
-                  src={isUserRegistered?.image || avatar}
+                  src={
+                    isUserRegistered?.user_login_details?.details?.picture ||
+                    isUserRegistered?.image ||
+                    avatar
+                  }
                   alt="avatar"
                   className="user-avatar"
                   width={64}

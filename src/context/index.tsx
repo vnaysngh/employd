@@ -191,7 +191,8 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const createUser = async (
     user_type: string,
     email: string,
-    address: string
+    address: string,
+    user_login_details: any
   ) => {
     const { data, error } = await supabase
       .from("users")
@@ -199,7 +200,8 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         {
           user_type,
           email,
-          address
+          address,
+          user_login_details
         }
       ])
       .select();

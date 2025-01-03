@@ -1,11 +1,12 @@
 import { contract } from "@/context";
 import roles from "@/data/roles";
 import React from "react";
-import { useReadContract } from "thirdweb/react";
+import { useProfiles, useReadContract } from "thirdweb/react";
 import Image from "next/image";
 import Link from "next/link";
 import avatar from "@/assets/dashboard/images/icon/user.png";
 import company from "@/assets/dashboard/images/icon/company.png";
+import { client } from "@/config/thirdwebClient";
 
 enum AttestationStatus {
   PENDING = 1,
@@ -19,6 +20,11 @@ interface StatusDisplay {
 }
 
 const WorkExperience = ({ user }: { user: any }) => {
+  const { data: profiles } = useProfiles({
+    client: client
+  });
+
+  console.log(profiles);
   // const role: string = user?.role;
 
   const { data: experiences, isPending } = useReadContract({

@@ -81,8 +81,6 @@ const NameSelector = ({ user }: { user: any }) => {
       });
 
       if (response) setEnsName();
-
-      console.log(response, "response");
     } catch (e) {
       console.log(e);
     } finally {

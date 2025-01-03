@@ -84,31 +84,48 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
     const formData = new FormData();
     formData.append("image", selectedFile);
     const fileName = `${isUserRegistered.ens_name}`;
+    const storagePath = `public/${fileName}`;
+    const baseUrl =
+      "https://umryooifjtwokxeybbxc.supabase.co/storage/v1/object/public/employd-images/";
 
     try {
-      const { data, error } = await supabase.storage
-        .from("employd-images")
-        .upload(`public/${fileName}`, selectedFile);
+      let response;
 
-      if (data) {
-        const fileUrl = `https://umryooifjtwokxeybbxc.supabase.co/storage/v1/object/public/employd-images/public/${fileName}`;
-        const { data, error } = await supabase
-          .from("users")
-          .update({
-            image: fileUrl
-          })
-          .eq("address", account?.address)
-          .select();
-
-        if (data) {
-          alert("Image uploaded successfully!");
-        }
+      // Check if the user already has an image and decide whether to update or upload
+      if (isUserRegistered.image) {
+        response = await supabase.storage
+          .from("employd-images")
+          .update(storagePath, selectedFile);
       } else {
+        response = await supabase.storage
+          .from("employd-images")
+          .upload(storagePath, selectedFile);
+      }
+
+      if (response.error) {
+        console.error("Error uploading to storage:", response.error);
         alert("Failed to upload image.");
+        return;
+      }
+
+      const fileUrl = `${baseUrl}${storagePath}`;
+
+      // Update the user's image URL in the database
+      const { data, error } = await supabase
+        .from("users")
+        .update({ image: fileUrl })
+        .eq("address", account?.address)
+        .select();
+
+      if (error) {
+        console.error("Error updating user record:", error);
+        alert("Failed to update user record.");
+      } else if (data) {
+        alert("Image uploaded and updated successfully!");
       }
     } catch (error) {
-      console.error("Error uploading file:", error);
-      alert("An error occurred while uploading the image.");
+      console.error("Unexpected error during upload:", error);
+      alert("An unexpected error occurred while uploading the image.");
     }
   };
 

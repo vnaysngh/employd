@@ -5,13 +5,17 @@ import Link from "next/link";
 import logo from "@/assets/images/assets/letter-stamp.png";
 import useSticky from "@/hooks/use-sticky";
 import { Titan_One } from "next/font/google";
-import { useActiveAccount } from "thirdweb/react";
+import { ConnectButton, useActiveAccount } from "thirdweb/react";
+import { client } from "@/config/thirdwebClient";
+import { baseSepolia } from "thirdweb/chains";
+import { useRouter } from "next/navigation";
 
 const titan = Titan_One({ weight: "400", subsets: ["latin"] });
 
 const HeaderThree = () => {
   const { sticky } = useSticky();
   const account = useActiveAccount();
+  const router = useRouter();
   return (
     <>
       <header
@@ -78,6 +82,25 @@ const HeaderThree = () => {
                         Candidates
                       </Link>
                     </li>
+                    {account?.address ? (
+                      <li className="me-0">
+                        <ConnectButton
+                          client={client}
+                          detailsButton={{
+                            className: "tw-connected-details",
+                            style: { fontSize: "16px" }
+                          }}
+                          accountAbstraction={{
+                            chain: baseSepolia, // the chain where your smart accounts will be or is deployed
+                            sponsorGas: true // enable or disable sponsored transactions
+                          }}
+                          theme="light"
+                          onDisconnect={() => {
+                            router.push("/auth");
+                          }}
+                        />
+                      </li>
+                    ) : null}
                   </ul>
                 </div>
               </nav>

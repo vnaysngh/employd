@@ -20,7 +20,6 @@ const CandidateDashboardResumePage = () => {
       setLoading(true);
       try {
         const response = await attestExperience(id, seeker);
-        console.log(response, "response");
         if (response.transactionHash) {
           setTxHash(response);
         } else {

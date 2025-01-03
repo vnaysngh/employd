@@ -30,6 +30,8 @@ const Homepage = () => {
     client
   });
 
+  console.log(profiles, "dkfdkfndk");
+
   useEffect(() => {
     const onConnect = async () => {
       if (loginType !== "login") {
@@ -38,7 +40,8 @@ const Homepage = () => {
           const response = await createUser(
             loginType,
             profiles?.[0]?.details?.email || "",
-            account?.address!
+            account?.address!,
+            profiles?.[0] ?? null
           );
           if (response && response.length) {
             setLoginType(null);
@@ -52,7 +55,7 @@ const Homepage = () => {
       }
     };
 
-    if (loginType && account?.address) onConnect();
+    if (loginType && account?.address && profiles?.[0]) onConnect();
   }, [loginType, account?.address, profiles]);
 
   useEffect(() => {
