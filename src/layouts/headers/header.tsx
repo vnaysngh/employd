@@ -13,14 +13,10 @@ import { useRouter } from "next/navigation";
 const titan = Titan_One({ weight: "400", subsets: ["latin"] });
 
 const HeaderThree = () => {
-  const { sticky } = useSticky();
-  const account = useActiveAccount();
   const router = useRouter();
   return (
     <>
-      <header
-        className={`theme-main-menu sticky-menu ${sticky ? "fixed" : ""}`}
-      >
+      <header className={`theme-main-menu sticky-menu`}>
         <div className="inner-content position-relative">
           <div className="top-header">
             <div className="d-flex align-items-center justify-content-between">
@@ -37,29 +33,29 @@ const HeaderThree = () => {
                 </Link>
               </div>
 
-              {account?.address ? (
-                <div className="right-widget ms-auto ms-xl-5 order-lg-3">
-                  <ul className="d-flex align-items-center style-none">
-                    <li className="d-none d-lg-block ms-4">
-                      <ConnectButton
-                        client={client}
-                        detailsButton={{
-                          className: "tw-connected-details",
-                          style: { fontSize: "16px" }
-                        }}
-                        accountAbstraction={{
-                          chain: baseSepolia, // the chain where your smart accounts will be or is deployed
-                          sponsorGas: true // enable or disable sponsored transactions
-                        }}
-                        theme="light"
-                        onDisconnect={() => {
-                          router.push("/auth");
-                        }}
-                      />
-                    </li>
-                  </ul>
-                </div>
-              ) : (
+              {/* {account?.address ? ( */}
+              <div className="right-widget ms-auto ms-xl-5 order-lg-3">
+                <ul className="d-flex align-items-center style-none">
+                  <li className="d-none d-lg-block ms-4">
+                    <ConnectButton
+                      client={client}
+                      detailsButton={{
+                        className: "tw-connected-details",
+                        style: { fontSize: "16px" }
+                      }}
+                      accountAbstraction={{
+                        chain: baseSepolia, // the chain where your smart accounts will be or is deployed
+                        sponsorGas: true // enable or disable sponsored transactions
+                      }}
+                      theme="light"
+                      onDisconnect={() => {
+                        router.push("/auth");
+                      }}
+                    />
+                  </li>
+                </ul>
+              </div>
+              {/* ) : (
                 <div className="right-widget ms-auto ms-xl-5 order-lg-3">
                   <ul className="d-flex align-items-center style-none">
                     <li className="d-none d-lg-block ms-4">
@@ -69,7 +65,7 @@ const HeaderThree = () => {
                     </li>
                   </ul>
                 </div>
-              )}
+              )} */}
               <nav className="navbar navbar-expand-lg p0  ms-3 ms-lg-auto order-lg-2">
                 <button
                   className="navbar-toggler d-block d-lg-none"

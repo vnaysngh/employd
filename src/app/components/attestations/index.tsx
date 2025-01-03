@@ -41,8 +41,13 @@ const Attestations = ({
     }, 2000);
   };
 
+  console.log(experience, "experience");
+
   return (
-    <div className={`attestation-container dashboard-body`}>
+    <div
+      className={`attestation-container dashboard-body`}
+      style={{ background: "#fff", padding: "50px 55px" }}
+    >
       <div className="position-relative">
         <div className="glass-card">
           <div className="header">
@@ -64,11 +69,7 @@ const Attestations = ({
 
             <h1>Experience Attestation</h1>
             <div className="users">
-              <Link
-                href={`/${experience.seeker}.employd.eth`}
-                target="_blank"
-                className="user"
-              >
+              <Link href={`/${experience.seeker}.employd.eth`} className="user">
                 <div className="avatar">
                   {experience?.seekerName[0].toUpperCase()}
                 </div>
@@ -76,14 +77,21 @@ const Attestations = ({
               </Link>
               <div className="connection-line" />
               <Link
-                href={`/${experience.employerEnsName}.employd.eth`}
-                target="_blank"
+                href={
+                  experience?.employerEnsName
+                    ? `/${experience.employerEnsName}.employd.eth`
+                    : "#"
+                }
                 className="user"
               >
                 <div className="avatar employer">
                   {experience?.employerEnsName[0]?.toUpperCase()}
                 </div>
-                <span>{experience?.employerEnsName}.employd.eth</span>
+                <span>
+                  {experience.employerEnsName
+                    ? `${experience?.employerEnsName}.employd.eth}`
+                    : "Employer not registed"}
+                </span>
               </Link>
             </div>
           </div>

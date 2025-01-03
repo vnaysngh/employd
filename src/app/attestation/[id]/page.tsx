@@ -33,26 +33,33 @@ const CandidateDashboardResumePage = () => {
     }
   };
 
-  const { data, isPending } = useReadContract({
+  const { data, isPending, isError } = useReadContract({
     contract,
     method:
       "function getExperienceById(uint32 experienceId) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus))",
     params: [Number(params?.id!)]
   });
 
-  if (isPending) return <h3>Loading</h3>;
-  if (!data) return <h3>Something Went Wrong</h3>;
   return (
     <Wrapper>
       <div className="main-page-wrapper">
         <HeaderThree />
-        <Attestations
-          experience={data}
-          loading={loading}
-          txHash={txHash}
-          error={error}
-          signExperience={handleSignExperience}
-        />
+
+        {isPending ? (
+          <h3>Loading</h3>
+        ) : isError ? (
+          <h3>Something went wrong</h3>
+        ) : !isPending && !data ? (
+          <h3>Attestation data not found</h3>
+        ) : (
+          <Attestations
+            experience={data}
+            loading={loading}
+            txHash={txHash}
+            error={error}
+            signExperience={handleSignExperience}
+          />
+        )}
       </div>
     </Wrapper>
   );
