@@ -126,8 +126,8 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
               <div className="user-avatar-wrapper">
                 <Image
                   src={
-                    isUserRegistered?.user_login_details?.details?.picture ||
                     isUserRegistered?.image ||
+                    isUserRegistered?.user_login_details?.details?.picture ||
                     avatar
                   }
                   alt="avatar"

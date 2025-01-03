@@ -21,7 +21,7 @@ type SelectInput = {
 
 const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
   const { createJob } = useStateContext();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | boolean>(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -62,22 +62,23 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
     ) {
       setError(true);
       console.error("All fields except address must be filled.");
-      alert("All fields except address must be filled.");
+      setError("All fields except address must be filled.");
       return;
     }
 
     if (maxSalary.value < minSalary.value) {
       console.error("Max salary cannot be less than min salary.");
-      alert("Max salary cannot be less than min salary.");
+      setError("Max salary cannot be less than min salary.");
       return;
     }
 
     if (!isValidLink(applyLink)) {
-      setError(true);
       console.error("Apply link is not a valid URL.");
-      alert("Apply link is not a valid URL.");
+      setError("Apply link is not a valid URL.");
       return;
     }
+
+    setError(false);
 
     // If all validations pass, proceed with form submission
     const formData = {
@@ -244,11 +245,13 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
         </div>
 
         {error && (
-          <div className="subname-error mb-10">Something went wrong</div>
+          <div className="subname-error mt-20">
+            {error || "Something went wrong"}
+          </div>
         )}
 
         {success && (
-          <div className="success-text mb-10">
+          <div className="success-text mt-20">
             Thank you! Your job has been submitted.
           </div>
         )}

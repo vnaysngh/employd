@@ -20,7 +20,11 @@ const CompanyGridItem = ({ item }: { item: any }) => {
       <div className="position-relative">
         <div className="company-logo rounded-circle">
           <Image
-            src={item?.image || avatar}
+            src={
+              item?.image ||
+              item?.user_login_details?.details?.picture ||
+              avatar
+            }
             alt="image"
             className="lazy-img rounded-circle"
             height={80}
