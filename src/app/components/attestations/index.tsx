@@ -4,8 +4,9 @@ import roles from "@/data/roles";
 import Link from "next/link";
 import Image from "next/image";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { useActiveAccount } from "thirdweb/react";
-import { statusConfig } from "@/context";
+import { useActiveAccount, useProfiles } from "thirdweb/react";
+import { statusConfig, useStateContext } from "@/context";
+import { client } from "@/config/thirdwebClient";
 
 const Attestations = ({
   experience,
@@ -18,10 +19,17 @@ const Attestations = ({
   loading: boolean;
   txHash: any;
   error: any;
-  signExperience: (id: bigint, seeker: string) => void;
+  signExperience: (
+    id: number,
+    seeker: string,
+    isEmployerNotRegistered: boolean
+  ) => void;
 }) => {
   const [copied, setCopied] = useState(false);
   const account = useActiveAccount();
+  const { data: profiles } = useProfiles({
+    client
+  });
   const getStatusBadge = () => {
     if (!experience.attestationStatus) return null;
     const status =
@@ -41,7 +49,9 @@ const Attestations = ({
     }, 2000);
   };
 
-  console.log(experience, "experience");
+  const isEmployerNotRegistered =
+    profiles?.[0]?.details.email === experience.employerEmail &&
+    !experience?.employerEnsName;
 
   return (
     <div
@@ -69,11 +79,15 @@ const Attestations = ({
 
             <h1>Experience Attestation</h1>
             <div className="users">
-              <Link href={`/${experience.seeker}.employd.eth`} className="user">
+              <Link
+                href={`/${experience.seekerEnsName}.employd.eth`}
+                className="user"
+                target="_blank"
+              >
                 <div className="avatar">
                   {experience?.seekerName[0].toUpperCase()}
                 </div>
-                <span>{experience?.seekerEnsName}.employd.eth</span>
+                <span>{experience?.seekerName}</span>
               </Link>
               <div className="connection-line" />
               <Link
@@ -87,11 +101,7 @@ const Attestations = ({
                 <div className="avatar employer">
                   {experience?.employerEnsName[0]?.toUpperCase()}
                 </div>
-                <span>
-                  {experience.employerEnsName
-                    ? `${experience?.employerEnsName}.employd.eth}`
-                    : "Employer not registed"}
-                </span>
+                <span>{experience.employerName}</span>
               </Link>
             </div>
           </div>
@@ -135,15 +145,20 @@ const Attestations = ({
             </div>
           </div>
 
-          {experience?.employerAddress.toLowerCase() ===
-            account?.address.toLowerCase() &&
+          {(isEmployerNotRegistered ||
+            experience?.employerAddress.toLowerCase() ===
+              account?.address.toLowerCase()) &&
           experience.attestationStatus !== 2 ? (
             <div className="actions">
               {!txHash && (
                 <button
                   className={`sign-button ${loading ? "loading" : ""}`}
                   onClick={() =>
-                    signExperience(experience.id, experience.seekerAddress)
+                    signExperience(
+                      experience.id,
+                      experience.seekerAddress,
+                      isEmployerNotRegistered
+                    )
                   }
                   disabled={loading}
                 >
@@ -152,8 +167,10 @@ const Attestations = ({
                       <div className="spinner" />
                       Signing...
                     </>
+                  ) : isEmployerNotRegistered ? (
+                    "Claim and Sign Experience"
                   ) : (
-                    "Sign Attestation"
+                    "Sign Experience"
                   )}
                 </button>
               )}

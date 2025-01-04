@@ -13,7 +13,7 @@ import { useStateContext } from "@/context";
 import Loader from "@/app/loading";
 import { client } from "@/config/thirdwebClient";
 import supabase from "@/supabase";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Homepage = () => {
   const account = useActiveAccount();

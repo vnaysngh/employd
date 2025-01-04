@@ -47,11 +47,11 @@ const InviteEmployer = ({
         <div className="invite-section">
           <div className="invite-link-container">
             <div className="invite-link mb-15">
-              {`https://employd.xyz/invite?employer=${employer?.employerEmail}&attestationId=${employer.id}&referrer=${employer.seekerAddress}`}
+              {`https://employd.xyz/invite?attestationId=${employer.id}&referrer=${employer.seekerAddress}`}
             </div>
           </div>
           <CopyToClipboard
-            text={`https://employd.xyz/invite?employer=${employer?.employerEmail}&attestationId=${employer.id}&referrer=${employer.seekerAddress}`}
+            text={`https://employd.xyz/invite?attestationId=${employer.id}&referrer=${employer.seekerAddress}`}
             onCopy={handleCopyLink}
           >
             <button

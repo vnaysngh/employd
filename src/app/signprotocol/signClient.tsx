@@ -1,5 +1,3 @@
-import { SignProtocolClient, SpMode, EvmChains } from "@ethsign/sp-sdk";
-
-export const signClient = new SignProtocolClient(SpMode.OnChain, {
-  chain: EvmChains.baseSepolia
-});
+import { IndexService } from "@ethsign/sp-sdk";
+const SPIndexService = new IndexService("testnet");
+export default SPIndexService;

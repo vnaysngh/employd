@@ -1,9 +1,11 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import DashboardHeader from "../candidate/dashboard-header";
 import CandidateItem from "./candidate-item";
-import { useActiveAccount, useReadContract } from "thirdweb/react";
+import { useActiveAccount, useProfiles, useReadContract } from "thirdweb/react";
 import { contract } from "@/context";
+import { client } from "@/config/thirdwebClient";
+import SPIndexService from "@/app/signprotocol/signClient";
 
 // props type
 type IProps = {
@@ -12,7 +14,9 @@ type IProps = {
 
 const CandidateAttestation = ({ setIsOpenSidebar }: IProps) => {
   const account = useActiveAccount();
-
+  const { data: profiles } = useProfiles({
+    client
+  });
   const { data: attestations, isPending } = useReadContract({
     contract,
     method:
@@ -20,7 +24,30 @@ const CandidateAttestation = ({ setIsOpenSidebar }: IProps) => {
     params: [account?.address!]
   });
 
-  // if (isPending) return <h3>Loading...</h3>;
+  const { data: attestationClaims, isPending: isLoading } = useReadContract({
+    contract,
+    method:
+      "function getExperiencesByEmail(string email) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus, uint8 employerStatus, string employerEmail)[])",
+    params: [profiles?.[0]?.details.email!]
+  });
+
+  // Combine the two arrays into a mutable array
+  const totalAttestations = [
+    ...Array.from(attestations || []),
+    ...Array.from(attestationClaims || [])
+  ];
+
+  const getSchema = async () => {
+    const schemaList = await SPIndexService.queryAttestationList({
+      page: 1,
+      schemaId: "onchain_evm_84532_0x4ff"
+    });
+    console.log(schemaList);
+  };
+
+  useEffect(() => {
+    getSchema();
+  }, []);
 
   return (
     <div className="dashboard-body">
@@ -34,11 +61,13 @@ const CandidateAttestation = ({ setIsOpenSidebar }: IProps) => {
         <div className="wrapper">
           {isPending ? (
             <h3>Loading...</h3>
-          ) : !isPending && (!attestations || !attestations?.length) ? (
+          ) : !isPending &&
+            !isLoading &&
+            (!totalAttestations || !totalAttestations?.length) ? (
             <h3>No attestations</h3>
           ) : (
             <>
-              {attestations.map((item: any) => (
+              {totalAttestations.map((item: any) => (
                 <CandidateItem key={item.id} item={item} />
               ))}
             </>

@@ -7,7 +7,7 @@ import supabase from "@/supabase/index";
 import { Signer } from "ethers";
 import { PushAPI } from "@pushprotocol/restapi";
 import { ENV } from "@pushprotocol/restapi/src/lib/constants";
-import { useActiveAccount, useActiveWallet } from "thirdweb/react";
+import { useActiveAccount, useActiveWallet, useEnsName } from "thirdweb/react";
 import { UserType } from "@/app/components/homepage/name-selector";
 import { getContract, prepareContractCall } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
@@ -19,6 +19,7 @@ import AttestedPending from "@/assets/dashboard/images/icon/pending.png";
 import Rejected from "@/assets/dashboard/images/icon/rejected-new.png";
 
 export const statusConfig = {
+  0: { icon: AttestedPending, text: "Not Initiated", class: "not-initiated" },
   1: { icon: AttestedPending, text: "Pending", class: "pending" },
   2: { icon: Attested, text: "Attested", class: "success" },
   3: { icon: Rejected, text: "Rejected", class: "rejected" }
@@ -44,8 +45,6 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const [employers, setEmployers] = useState<any>([]);
   const [talents, setTalents] = useState<any>([]);
   const [userOnboarded, setUserOnboarded] = useState(false);
-  const wallet = useActiveWallet();
-  console.log(wallet, "wallet");
 
   // useEffect(() => {
   const initializePushAPI = async () => {
@@ -426,6 +425,21 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       });
   };
 
+  const registerEmployerToExperience = async (experienceId: any) => {
+    const transaction = prepareContractCall({
+      contract,
+      method:
+        "function registerEmployertoExperience(uint32 experienceId, address employerAddress, string employerEnsName)",
+      params: [experienceId, account?.address!, isUserRegistered.ens_name]
+    });
+    return sendTransaction(transaction)
+      .then((res) => res)
+      .catch((e) => {
+        console.error(e);
+        return e;
+      });
+  };
+
   const attestExperience = async (experienceId: any, seeker: string) => {
     const transaction = prepareContractCall({
       contract,
@@ -450,6 +464,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         talents,
         getUserDetails,
         getUserDetailsByEns,
+        registerEmployerToExperience,
         isUserRegistered,
         signer,
         pushUser,

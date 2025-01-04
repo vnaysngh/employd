@@ -9,7 +9,7 @@ import NameStone, {
   CoinTypes
 } from "namestone-sdk";
 import { useActiveAccount, useLinkProfile, useProfiles } from "thirdweb/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 interface WorkerRequest {
   signature: {
     message: {
@@ -42,6 +42,7 @@ const NameSelector = ({ user }: { user: any }) => {
   const [success, setSuccess] = useState(false);
   const { names, createUserEns } = useStateContext();
   const account = useActiveAccount();
+
   useEffect(() => {
     if (names) {
       const userSubnames = names.map((user: UserType) => user.name);
@@ -73,8 +74,6 @@ const NameSelector = ({ user }: { user: any }) => {
       const response = await account.signMessage({
         message: JSON.stringify(nameData)
       });
-
-      console.log(response, "response");
 
       if (response) setEnsName();
     } catch (e) {
@@ -236,6 +235,7 @@ const Stepper = ({ userType }: { userType: string }) => {
   });
   const router = useRouter();
   const account = useActiveAccount();
+  const searchParams = useSearchParams();
   const { updateUserDetails } = useStateContext();
 
   const handleNext = () => {
@@ -271,9 +271,17 @@ const Stepper = ({ userType }: { userType: string }) => {
         address: account?.address
       });
       if (response && response.length) {
-        userType === "talent"
-          ? router.push("/dashboard/candidate-dashboard/experience")
-          : router.push("/dashboard/employ-dashboard/profile");
+        const attestationId = searchParams.get("attestationId");
+        const isValidAttestationId =
+          attestationId && Number.isInteger(parseInt(attestationId, 10));
+
+        if (isValidAttestationId) {
+          router.push(`/attestation/${attestationId}`);
+        } else {
+          userType === "talent"
+            ? router.push("/dashboard/candidate-dashboard/experience")
+            : router.push("/dashboard/employ-dashboard/profile");
+        }
       }
     } catch (error) {
       console.error("Failed to call API:", error);
