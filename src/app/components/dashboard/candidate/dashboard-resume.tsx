@@ -206,32 +206,29 @@ const ExperienceCard = ({
     }
   };
 
-  /* const fetchEmployerDetails = async (ensName: string) => {
-    if (employers[ensName]) return; // Skip if already fetched
-    setLoading(true);
-    try {
-      const response = await getUserDetailsByEns(ensName);
-      if (response) {
-        setEmployers((prev) => ({ ...prev, [ensName]: response }));
-      } else {
-        console.error("Failed to fetch employer details.");
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const sortedExperiences = experiences.sort((a: any, b: any) => {
+    // If one of the jobs is ongoing, treat it as the latest
+    if (a.endYear === "N/A" && b.endYear === "N/A") return 0; // Both ongoing
+    if (a.endYear === "N/A") return -1; // a is ongoing
+    if (b.endYear === "N/A") return 1; // b is ongoing
 
-  useEffect(() => {
-    experiences.forEach((experience: any) => {
-      if (experience.employerEnsName) {
-        fetchEmployerDetails(experience.employerEnsName);
-      }
-    });
-  }, [experiences]); */
+    // Compare endYear first
+    const yearDiff = parseInt(b.endYear) - parseInt(a.endYear);
+    if (yearDiff !== 0) return yearDiff;
 
-  return experiences?.map((experience: any, index: number) => {
+    // If endYears are the same, compare endMonth
+    const monthDiff = parseInt(b.endMonth) - parseInt(a.endMonth);
+    if (monthDiff !== 0) return monthDiff;
+
+    // If end date is the same, compare startYear
+    const startYearDiff = parseInt(b.startYear) - parseInt(a.startYear);
+    if (startYearDiff !== 0) return startYearDiff;
+
+    // Finally, compare startMonth
+    return parseInt(b.startMonth) - parseInt(a.startMonth);
+  });
+
+  return sortedExperiences?.map((experience: any, index: number) => {
     const nameParts = experience?.employerName.trim().split(" ");
     const firstName = nameParts[0];
     return (
@@ -284,7 +281,7 @@ const ExperienceCard = ({
             >
               Invite Employer to Attest
             </button>
-          ) : !experience.attestationStatus && !txHash ? (
+          ) : !experience.attestationStatus && !txHash && !loading ? (
             <button
               onClick={() =>
                 handleRequestAttestation(

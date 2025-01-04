@@ -5,6 +5,7 @@ import DashboardHeader from "./dashboard-header";
 import dynamic from "next/dynamic";
 import { useStateContext } from "@/context";
 import SelectEmployer from "./select-employer";
+import Link from "next/link";
 
 // Dynamically import client-side only components
 const SelectRole = dynamic(() => import("./select-role"), { ssr: true });
@@ -398,7 +399,14 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
 
                     {txHash && (
                       <div className="success-text mb-10">
-                        Experience submitted.
+                        Experience submitted.{" "}
+                        <Link
+                          href="/dashboard/candidate-dashboard/resume"
+                          className="text-decoration-underline"
+                          style={{ color: "dodgerblue" }}
+                        >
+                          View here
+                        </Link>
                       </div>
                     )}
 

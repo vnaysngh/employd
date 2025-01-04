@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import DashboardHeader from "../candidate/dashboard-header";
 import { useStateContext } from "@/context";
 import { useActiveAccount } from "thirdweb/react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import supabase from "@/supabase";
 
@@ -339,6 +338,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   className="form-select"
+                  style={{ borderRadius: "8px" }}
                 >
                   <option value="">Select Industry</option>
                   {categories.map((cat) => (

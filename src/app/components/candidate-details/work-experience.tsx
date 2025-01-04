@@ -33,38 +33,6 @@ const WorkExperience = ({ user }: { user: any }) => {
 
   if (isPending && user.user_type === "talent") return <h5>Loading...</h5>;
 
-  const STATUS_DISPLAY_MAP: Record<AttestationStatus, StatusDisplay> = {
-    [AttestationStatus.PENDING]: {
-      label: "Pending",
-      className: "attestation-pending"
-    },
-    [AttestationStatus.SUBMITTED]: {
-      label: "Attested",
-      className: "attestation-submitted"
-    },
-    [AttestationStatus.REJECTED]: {
-      label: "Rejected",
-      className: "attestation-rejected"
-    }
-  };
-
-  const DEFAULT_STATUS: StatusDisplay = {
-    label: "Not Initiated",
-    className: "attestation-not-initiated"
-  };
-
-  const getAttestationBadge = (
-    status: AttestationStatus | null
-  ): JSX.Element => {
-    const statusDisplay = status ? STATUS_DISPLAY_MAP[status] : DEFAULT_STATUS;
-
-    return (
-      <span className={`attestation-badge ${statusDisplay.className}`}>
-        {statusDisplay.label}
-      </span>
-    );
-  };
-
   const getFoundedDate = (unixTimestamp: number) => {
     const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
 
@@ -126,42 +94,12 @@ const WorkExperience = ({ user }: { user: any }) => {
           </section>
 
           {/* Experience Section */}
-          {user.user_type === "talent" && (
+          {user.user_type === "talent" && experiences && experiences.length ? (
             <section className="card">
               <h2>Experience</h2>
-              {experiences?.map((experience: any, index: number) => {
-                return (
-                  <div key={index} className="experience-item">
-                    <h3>{experience?.role}</h3>
-                    <div className="d-flex align-items-center gap-3">
-                      <Link
-                        href={`/${experience.employerEnsName}.employd.eth`}
-                        target="_blank"
-                        className="on-hover-underline"
-                      >
-                        <p className="company text-capitalize">
-                          {experience.employerEnsName}
-                        </p>
-                      </Link>
-                      <p className="period">
-                        {experience.startMonth}/{experience.startYear} -{" "}
-                        {experience.endMonth === "N/A" ? (
-                          "Present"
-                        ) : (
-                          <>
-                            {experience.endMonth}/{experience.endYear}
-                          </>
-                        )}
-                      </p>
-                    </div>
-
-                    <p>{experience.description}</p>
-                    {getAttestationBadge(experience.attestationStatus)}
-                  </div>
-                );
-              })}
+              <CandidateResume experiences={experiences} />
             </section>
-          )}
+          ) : null}
 
           {/* Portfolio Section */}
           {/* <section className="card">
@@ -308,6 +246,92 @@ const WorkExperience = ({ user }: { user: any }) => {
       </div>
     </div>
   );
+};
+
+const CandidateResume = ({ experiences }: { experiences: any }) => {
+  const STATUS_DISPLAY_MAP: Record<AttestationStatus, StatusDisplay> = {
+    [AttestationStatus.PENDING]: {
+      label: "Pending",
+      className: "attestation-pending"
+    },
+    [AttestationStatus.SUBMITTED]: {
+      label: "Attested",
+      className: "attestation-submitted"
+    },
+    [AttestationStatus.REJECTED]: {
+      label: "Rejected",
+      className: "attestation-rejected"
+    }
+  };
+
+  const DEFAULT_STATUS: StatusDisplay = {
+    label: "Not Initiated",
+    className: "attestation-not-initiated"
+  };
+
+  const getAttestationBadge = (
+    status: AttestationStatus | null
+  ): JSX.Element => {
+    const statusDisplay = status ? STATUS_DISPLAY_MAP[status] : DEFAULT_STATUS;
+
+    return (
+      <span className={`attestation-badge ${statusDisplay.className}`}>
+        {statusDisplay.label}
+      </span>
+    );
+  };
+
+  const sortedExperiences = experiences.sort((a: any, b: any) => {
+    // If one of the jobs is ongoing, treat it as the latest
+    if (a.endYear === "N/A" && b.endYear === "N/A") return 0; // Both ongoing
+    if (a.endYear === "N/A") return -1; // a is ongoing
+    if (b.endYear === "N/A") return 1; // b is ongoing
+
+    // Compare endYear first
+    const yearDiff = parseInt(b.endYear) - parseInt(a.endYear);
+    if (yearDiff !== 0) return yearDiff;
+
+    // If endYears are the same, compare endMonth
+    const monthDiff = parseInt(b.endMonth) - parseInt(a.endMonth);
+    if (monthDiff !== 0) return monthDiff;
+
+    // If end date is the same, compare startYear
+    const startYearDiff = parseInt(b.startYear) - parseInt(a.startYear);
+    if (startYearDiff !== 0) return startYearDiff;
+
+    // Finally, compare startMonth
+    return parseInt(b.startMonth) - parseInt(a.startMonth);
+  });
+
+  return sortedExperiences?.map((experience: any, index: number) => {
+    return (
+      <div key={index} className="experience-item">
+        <h3>{experience?.role}</h3>
+        <div className="d-flex align-items-center gap-3">
+          <Link
+            href={`/${experience.employerEnsName}.employd.eth`}
+            target="_blank"
+            className="on-hover-underline"
+          >
+            <p className="company text-capitalize">{experience.employerName}</p>
+          </Link>
+          <p className="period">
+            {experience.startMonth}/{experience.startYear} -{" "}
+            {experience.endMonth === "N/A" ? (
+              "Present"
+            ) : (
+              <>
+                {experience.endMonth}/{experience.endYear}
+              </>
+            )}
+          </p>
+        </div>
+
+        <p>{experience.description}</p>
+        {getAttestationBadge(experience.attestationStatus)}
+      </div>
+    );
+  });
 };
 
 export default WorkExperience;

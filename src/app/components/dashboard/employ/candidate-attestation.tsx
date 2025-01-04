@@ -5,7 +5,7 @@ import CandidateItem from "./candidate-item";
 import { useActiveAccount, useProfiles, useReadContract } from "thirdweb/react";
 import { contract } from "@/context";
 import { client } from "@/config/thirdwebClient";
-import SPIndexService from "@/app/signprotocol/signClient";
+// import SPIndexService from "@/app/signprotocol/signClient";
 
 // props type
 type IProps = {
@@ -37,7 +37,7 @@ const CandidateAttestation = ({ setIsOpenSidebar }: IProps) => {
     ...Array.from(attestationClaims || [])
   ];
 
-  const getSchema = async () => {
+  /* const getSchema = async () => {
     const schemaList = await SPIndexService.queryAttestationList({
       page: 1,
       schemaId: "onchain_evm_84532_0x4ff"
@@ -47,7 +47,7 @@ const CandidateAttestation = ({ setIsOpenSidebar }: IProps) => {
 
   useEffect(() => {
     getSchema();
-  }, []);
+  }, []); */
 
   return (
     <div className="dashboard-body">
