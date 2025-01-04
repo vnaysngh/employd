@@ -25,6 +25,7 @@ const Homepage = () => {
   const [userNotRegistered, setUserNotRegistered] = useState(false);
   const { disconnect } = useDisconnect();
   const wallet = useActiveWallet();
+  const searchParams = useSearchParams();
 
   const { data: profiles } = useProfiles({
     client
@@ -35,11 +36,14 @@ const Homepage = () => {
       if (loginType !== "login") {
         setLoading(true);
         try {
+          const referrer = searchParams.get("referrer");
+
           const response = await createUser(
             loginType,
             profiles?.[0]?.details?.email || "",
             account?.address!,
-            profiles?.[0] ?? null
+            profiles?.[0] ?? null,
+            referrer ?? ""
           );
           if (response && response.length) {
             setLoginType(null);

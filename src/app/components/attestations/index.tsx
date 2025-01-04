@@ -7,6 +7,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useActiveAccount, useProfiles } from "thirdweb/react";
 import { statusConfig, useStateContext } from "@/context";
 import { client } from "@/config/thirdwebClient";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const Attestations = ({
   experience,
@@ -99,7 +100,7 @@ const Attestations = ({
                 className="user"
               >
                 <div className="avatar employer">
-                  {experience?.employerEnsName[0]?.toUpperCase()}
+                  {experience?.employerName[0]?.toUpperCase()}
                 </div>
                 <span>{experience.employerName}</span>
               </Link>

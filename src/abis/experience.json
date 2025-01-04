@@ -234,6 +234,29 @@
         "internalType": "address",
         "name": "employerAddress",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "employerEnsName",
+        "type": "string"
+      }
+    ],
+    "name": "assignEmployerToExperience",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint32",
+        "name": "experienceId",
+        "type": "uint32"
+      },
+      {
+        "internalType": "address",
+        "name": "employerAddress",
+        "type": "address"
       }
     ],
     "name": "chooseEmployerForAttestation",
@@ -742,29 +765,6 @@
         "internalType": "uint32",
         "name": "experienceId",
         "type": "uint32"
-      },
-      {
-        "internalType": "address",
-        "name": "employerAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "employerEnsName",
-        "type": "string"
-      }
-    ],
-    "name": "registerEmployertoExperience",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "experienceId",
-        "type": "uint32"
       }
     ],
     "name": "rejectAttestation",
@@ -819,7 +819,13 @@
       }
     ],
     "name": "signAttestation",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },

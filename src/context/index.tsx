@@ -29,7 +29,7 @@ const StateContext = createContext<any>({});
 
 export const contract = getContract({
   client,
-  address: "0xd50fe7976EDaAe3A61D4Cbcf54a215BC1A732BDa",
+  address: "0x24fF9a42e7D20fD55852b273CAD46B95459B39Cc",
   chain: baseSepolia,
   abi: abi as any
 });
@@ -193,7 +193,8 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     user_type: string,
     email: string,
     address: string,
-    user_login_details: any
+    user_login_details: any,
+    referrer: string
   ) => {
     const { data, error } = await supabase
       .from("users")
@@ -202,7 +203,8 @@ export const StateContextProvider = ({ children }: { children: any }) => {
           user_type,
           email,
           address,
-          user_login_details
+          user_login_details,
+          referrer
         }
       ])
       .select();
@@ -429,7 +431,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     const transaction = prepareContractCall({
       contract,
       method:
-        "function registerEmployertoExperience(uint32 experienceId, address employerAddress, string employerEnsName)",
+        "function assignEmployerToExperience(uint32 experienceId, address employerAddress, string employerEnsName)",
       params: [experienceId, account?.address!, isUserRegistered.ens_name]
     });
     return sendTransaction(transaction)
