@@ -17,10 +17,11 @@ const CandidateAttestation = ({ setIsOpenSidebar }: IProps) => {
   const { data: profiles } = useProfiles({
     client
   });
+
   const { data: attestations, isPending } = useReadContract({
     contract,
     method:
-      "function getEmployerExperiences(address employer) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus)[])",
+      "function getEmployerExperiences(address employer) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus, uint8 employerStatus, string employerEmail)[])",
     params: [account?.address!]
   });
 
@@ -59,18 +60,24 @@ const CandidateAttestation = ({ setIsOpenSidebar }: IProps) => {
         </div>
 
         <div className="wrapper">
-          {isPending ? (
-            <h3>Loading...</h3>
-          ) : !isPending &&
-            !isLoading &&
-            (!totalAttestations || !totalAttestations?.length) ? (
-            <h3>No attestations</h3>
-          ) : (
-            <>
+          {isPending && (
+            <div className="candidate-profile-card list-layout mb-25 cursor-pointer">
+              <h3>Loading...</h3>
+            </div>
+          )}
+
+          {!isPending && !isLoading && !totalAttestations?.length && (
+            <div className="candidate-profile-card list-layout mb-25 cursor-pointer">
+              <h3>You haven’t received any attestations yet.</h3>
+            </div>
+          )}
+
+          {totalAttestations?.length > 0 && (
+            <div>
               {totalAttestations.map((item: any) => (
                 <CandidateItem key={item.id} item={item} />
               ))}
-            </>
+            </div>
           )}
         </div>
       </div>

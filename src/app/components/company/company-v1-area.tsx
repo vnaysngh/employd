@@ -1,13 +1,27 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import CompanyGridItem from "./company-grid-item";
 import { useStateContext } from "@/context";
 import CompanyV1Filter from "./filter/company-v1-filter";
 
 const CompanyV3Area = () => {
   const { employers } = useStateContext();
-  if (!employers || (employers && !employers.length))
-    return <h3>No Candidates Founds</h3>;
+  const [searchValue, setSearchValue] = useState("");
+
+  // Filtered employers based on search input
+  const filteredEmployers = employers?.filter((employer: any) => {
+    const searchLower = searchValue.toLowerCase();
+    return (
+      employer.name?.toLowerCase().includes(searchLower) ||
+      employer.company_name?.toLowerCase().includes(searchLower) ||
+      employer.ens_name?.toLowerCase().includes(searchLower)
+    );
+  });
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
   return (
     <>
       <section className="company-profiles pt-50 lg-pt-50 pb-160 xl-pb-150 lg-pb-80">
@@ -26,7 +40,10 @@ const CompanyV3Area = () => {
                 <div className="wrapper mt-30">
                   <div className="upper-filter mb-25">
                     <div className="align-items-center">
-                      <CompanyV1Filter />
+                      <CompanyV1Filter
+                        searchValue={searchValue}
+                        handleSearch={handleSearch}
+                      />
                     </div>
                   </div>
                 </div>
@@ -34,18 +51,15 @@ const CompanyV3Area = () => {
 
               <div className={`accordion-box grid-style show`}>
                 <div className="row">
-                  {employers.map((item: any) => {
-                    if (item.name) {
-                      return (
-                        <div
-                          key={item.id}
-                          className="col-xl-4 col-lg-6 col-md-4 col-sm-6 d-flex"
-                        >
-                          <CompanyGridItem item={item} />
-                        </div>
-                      );
-                    }
-                  })}
+                  {!filteredEmployers || filteredEmployers.length === 0 ? (
+                    <h3>No Employers Found</h3>
+                  ) : (
+                    filteredEmployers.map((item: any) => (
+                      <div key={item.id} className="col-xxl-4 col-sm-6 d-flex">
+                        <CompanyGridItem item={item} />
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>

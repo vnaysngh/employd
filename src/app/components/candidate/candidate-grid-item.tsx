@@ -8,12 +8,12 @@ import { contract } from "@/context";
 import { useRouter } from "next/navigation";
 
 const CandidateGridItem = ({ item }: { item: any }) => {
-  const { data: attestations, isPending } = useReadContract({
+  /*   const { data: attestations, isPending } = useReadContract({
     contract: contract,
     method:
       "function getUserExperienceIds(address user) view returns (uint32[])",
     params: [item.address!]
-  });
+  }); */
 
   const router = useRouter();
 

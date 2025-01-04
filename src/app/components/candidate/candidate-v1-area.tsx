@@ -8,8 +8,21 @@ import CandidateV1FilterArea from "./filter/candidate-v1-filter-area";
 
 const CandidateV1Area = () => {
   const { talents } = useStateContext();
-  if (!talents || (talents && !talents.length))
-    return <h3>No Candidates Founds</h3>;
+  const [searchValue, setSearchValue] = useState("");
+
+  // Filtered employers based on search input
+  const filteredTalents = talents?.filter((employer: any) => {
+    const searchLower = searchValue.toLowerCase();
+    return (
+      employer.name?.toLowerCase().includes(searchLower) ||
+      employer.ens_name?.toLowerCase().includes(searchLower)
+    );
+  });
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
   return (
     <>
       <section className="candidates-profile pt-50 lg-pt-50 pb-160 xl-pb-150 lg-pb-80">
@@ -26,7 +39,10 @@ const CandidateV1Area = () => {
                   <div className="wrapper mt-30">
                     <div className="upper-filter mb-25">
                       <div className="align-items-center">
-                        <CandidateV1FilterArea />
+                        <CandidateV1FilterArea
+                          searchValue={searchValue}
+                          handleSearch={handleSearch}
+                        />
                       </div>
                     </div>
                   </div>
@@ -34,18 +50,22 @@ const CandidateV1Area = () => {
 
                 <div className={`accordion-box grid-style show`}>
                   <div className="row">
-                    {talents.map((item: any) => {
-                      if (item.name) {
-                        return (
-                          <div
-                            key={item.id}
-                            className="col-xxl-4 col-sm-6 d-flex"
-                          >
-                            <CandidateGridItem item={item} />
-                          </div>
-                        );
-                      }
-                    })}
+                    {!filteredTalents || filteredTalents.length === 0 ? (
+                      <h3>No Candidates Founds</h3>
+                    ) : (
+                      filteredTalents.map((item: any) => {
+                        if (item.name) {
+                          return (
+                            <div
+                              key={item.id}
+                              className="col-xxl-4 col-sm-6 d-flex"
+                            >
+                              <CandidateGridItem item={item} />
+                            </div>
+                          );
+                        }
+                      })
+                    )}
                   </div>
                 </div>
               </div>

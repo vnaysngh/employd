@@ -9,6 +9,7 @@ import SelectSalaryType from "../candidate/select-salary-type";
 import { useStateContext } from "@/context";
 import SelectCompensation from "../candidate/select-compensation";
 import JobDescription from "./job-description";
+import WIP from "@/assets/images/assets/work-in-progress.png";
 
 type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
@@ -114,15 +115,27 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
   };
 
   return (
-    <div className="dashboard-body">
+    <div className={`dashboard-body position-relative`}>
+      <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
+      <h2 className="main-title mb-20">Submit Job</h2>
+
+      <div className="border-20 mt-40 d-flex justify-content-center m-auto">
+        <Image src={WIP} alt="work-in-progress" style={{ height: "auto" }} />
+      </div>
+    </div>
+  );
+};
+
+export default SubmitJobArea;
+
+{
+  /* <div className="dashboard-body">
       <div className="position-relative">
-        {/* Header */}
         <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
 
         <h2 className="main-title mb-20">Post a New Job</h2>
 
         <div className="bg-white card-box border-20">
-          {/* Job Title */}
           <div className="dash-input-wrapper mb-30">
             <label htmlFor="job-title">Job Title*</label>
             <input
@@ -134,25 +147,15 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
             />
           </div>
 
-          {/* Job Description */}
           <div className="dash-input-wrapper mb-30">
             <label htmlFor="job-description">Job Description*</label>
-            {/* <textarea
-              id="job-description"
-              className="size-lg"
-              placeholder="Write about the job in details..."
-              value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
-            ></textarea> */}
             <JobDescription
               jobDescription={jobDescription}
               setJobDescription={setJobDescription}
             />
           </div>
 
-          {/* Skills, Job Type, Salary */}
           <div className="row align-items-end">
-            {/* Skills */}
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="skills">Skills</label>
@@ -160,7 +163,6 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
               </div>
             </div>
 
-            {/* Job Type */}
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="job-type">Job Type</label>
@@ -168,7 +170,6 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
               </div>
             </div>
 
-            {/* Salary */}
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="salary-type">Salary Type*</label>
@@ -197,21 +198,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
             </div>
           </div>
 
-          {/* Email */}
           <div className="row">
-            {/* <div className="col-6">
-              <div className="dash-input-wrapper mb-25">
-                <label htmlFor="email">Work Email (For Invoice)*</label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="companyinc@gmail.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-            </div> */}
-            {/* <div className="col-6"> */}
             <div className="dash-input-wrapper mb-25">
               <label htmlFor="email">Link to apply</label>
               <input
@@ -222,10 +209,8 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
                 onChange={(e) => setApplyLink(e.target.value)}
               />
             </div>
-            {/* </div> */}
           </div>
 
-          {/* Address */}
           <div className="row">
             <div className="col-12">
               <div className="dash-input-wrapper mb-25">
@@ -256,7 +241,6 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
           </div>
         )}
 
-        {/* Action Buttons */}
         <div className="button-group d-inline-flex align-items-center mt-30">
           <button
             className="dash-btn-two tran3s me-3 d-flex align-items-center gap-2"
@@ -271,16 +255,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
               "Submit"
             )}
           </button>
-          {/*           <button
-            className="dash-cancel-btn tran3s"
-            onClick={() => console.log("Form canceled")}
-          >
-            Cancel
-          </button> */}
         </div>
       </div>
-    </div>
-  );
-};
-
-export default SubmitJobArea;
+    </div> */
+}

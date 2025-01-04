@@ -65,7 +65,6 @@ const CandidateDashboardResumePage = () => {
       }
 
       const attestationResponse = await attestExperience(id, seeker);
-      console.log(attestationResponse, "response");
 
       if (attestationResponse.transactionHash) {
         return attestationResponse;
@@ -120,7 +119,6 @@ const CandidateDashboardResumePage = () => {
       } else {
         response = await signExperienceDirectly(id, seeker);
       }
-      console.log(response, "response");
 
       if (response?.transactionHash) {
         setTxHash(response);

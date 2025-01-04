@@ -13,7 +13,8 @@ import nav_7 from "@/assets/dashboard/images/icon/icon_49.svg";
 import { Titan_One } from "next/font/google";
 import avatar from "@/assets/dashboard/images/icon/user.png";
 import logo from "@/assets/images/assets/letter-stamp.png";
-import { useStateContext } from "@/context";
+import { contract, useStateContext } from "@/context";
+import { useActiveAccount, useReadContract } from "thirdweb/react";
 
 const titan = Titan_One({ weight: "400", subsets: ["latin"] });
 
@@ -101,6 +102,22 @@ type IProps = {
 const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
   const pathname = usePathname();
   const { isUserRegistered } = useStateContext();
+  const account = useActiveAccount();
+
+  const { data: attestations, isPending } = useReadContract({
+    contract,
+    method:
+      "function getEmployerExperiences(address employer) view returns ((uint32 id, address owner, string role, string seekerName, string seekerEnsName, string employerName, string employerEnsName, string startMonth, string startYear, string endMonth, string endYear, string employmentType, string description, address employerAddress, address seekerAddress, uint8 attestationStatus, uint8 employerStatus, string employerEmail)[])",
+    params: [account?.address!]
+  });
+
+  console.log(attestations, "attestations");
+  const isPendingAttestation =
+    attestations && attestations.length
+      ? attestations.some((attestation) => attestation.attestationStatus === 1)
+      : [];
+
+  console.log(isPendingAttestation, "isPendingAttestation");
 
   return (
     <>
@@ -169,7 +186,14 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                             width={20}
                             className="lazy-img"
                           /> */}
-                          <span>{m.title}</span>
+
+                          <span>
+                            {m.title}{" "}
+                            {isPendingAttestation &&
+                              m.title === "Attestation" && (
+                                <span style={{ color: "red" }}>&#x2022;</span>
+                              )}
+                          </span>
                         </Link>
                       </li>
                     );
