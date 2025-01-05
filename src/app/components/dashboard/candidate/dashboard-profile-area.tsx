@@ -6,6 +6,7 @@ import supabase from "@/supabase";
 import { useActiveAccount } from "thirdweb/react";
 import { useStateContext } from "@/context";
 import { useRouter } from "next/navigation";
+import { table } from "console";
 
 // props type
 type IProps = {
@@ -112,7 +113,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
 
       // Update the user's image URL in the database
       const { data, error } = await supabase
-        .from("users")
+        .from(table)
         .update({ image: fileUrl })
         .eq("address", account?.address)
         .select();

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import DashboardHeader from "../candidate/dashboard-header";
-import { useStateContext } from "@/context";
+import { table, useStateContext } from "@/context";
 import { useActiveAccount } from "thirdweb/react";
 import Image from "next/image";
 import supabase from "@/supabase";
@@ -203,7 +203,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
       if (data) {
         const fileUrl = `https://umryooifjtwokxeybbxc.supabase.co/storage/v1/object/public/employd-images/public/${fileName}`;
         const { data, error } = await supabase
-          .from("users")
+          .from(table)
           .update({
             image: fileUrl
           })

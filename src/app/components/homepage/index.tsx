@@ -9,7 +9,7 @@ import {
   useProfiles
 } from "thirdweb/react";
 import Wrapper from "@/layouts/wrapper";
-import { useStateContext } from "@/context";
+import { table, useStateContext } from "@/context";
 import Loader from "@/app/loading";
 import { client } from "@/config/thirdwebClient";
 import supabase from "@/supabase";
@@ -65,7 +65,7 @@ const Homepage = () => {
       setLoading(true);
       try {
         let { data, error } = await supabase
-          .from("users")
+          .from(table)
           .select("*")
           .eq("address", account?.address);
 

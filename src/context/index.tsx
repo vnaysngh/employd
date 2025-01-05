@@ -4,9 +4,6 @@ import { useContext, createContext, useEffect, useState } from "react";
 // import { Config, useConnectorClient, useWriteContract } from "wagmi";
 import abi from "@/abis/experience.json";
 import supabase from "@/supabase/index";
-import { Signer } from "ethers";
-import { PushAPI } from "@pushprotocol/restapi";
-import { ENV } from "@pushprotocol/restapi/src/lib/constants";
 import { useActiveAccount, useAutoConnect } from "thirdweb/react";
 import { UserType } from "@/app/components/homepage/name-selector";
 import { getContract, prepareContractCall } from "thirdweb";
@@ -33,6 +30,11 @@ export const contract = getContract({
   chain: baseSepolia,
   abi: abi as any
 });
+
+export const table =
+  window.location.origin === "http://localhost:3000"
+    ? "users"
+    : "users_testnet";
 
 export const StateContextProvider = ({ children }: { children: any }) => {
   const { mutateAsync: sendTransaction } = useSendTransaction();
@@ -67,7 +69,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     const getEmployers = async () => {
       try {
         let { data: employers, error } = await supabase
-          .from("users")
+          .from(table)
           .select("*")
           .eq("user_type", "employer");
 
@@ -89,7 +91,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const createJob = async (jobs: any[]) => {
     try {
       let { data, error } = await supabase
-        .from("users")
+        .from(table)
         .update({
           jobs
         })
@@ -109,7 +111,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     const getTalents = async () => {
       try {
         let { data: talents, error } = await supabase
-          .from("users")
+          .from(table)
           .select("*")
           .eq("user_type", "talent");
 
@@ -132,7 +134,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     const checkIfRegisteredUser = async () => {
       try {
         let { data, error } = await supabase
-          .from("users")
+          .from(table)
           .select("*")
           .eq("address", account?.address);
         if (error) console.error(error);
@@ -150,7 +152,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        let { data, error } = await supabase.from("users").select("*");
+        let { data, error } = await supabase.from(table).select("*");
 
         if (data) setUsers(data);
         else console.log(error);
@@ -198,7 +200,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     referrer: string
   ) => {
     const { data, error } = await supabase
-      .from("users")
+      .from(table)
       .insert([
         {
           user_type,
@@ -220,7 +222,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     ens_name: string
   ) => {
     const { data, error } = await supabase
-      .from("users")
+      .from(table)
       .insert([
         {
           user_type,
@@ -238,7 +240,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     if (!address) return null;
     try {
       const { data, error } = await supabase
-        .from("users")
+        .from(table)
         .select("*")
         .eq("address", address);
 
@@ -258,7 +260,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     if (!ens) return null;
     try {
       const { data, error } = await supabase
-        .from("users")
+        .from(table)
         .select("*")
         .eq("ens_name", ens);
 
@@ -278,7 +280,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     if (!ens_name) return null;
     try {
       const { data, error } = await supabase
-        .from("users")
+        .from(table)
         .select("*")
         .eq("ens_name", ens_name);
 
@@ -302,7 +304,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     address: string;
   }) => {
     const { data, error } = await supabase
-      .from("users")
+      .from(table)
       .update({
         ...body,
         isOnboarded: true
@@ -325,7 +327,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
     address: string;
   }) => {
     const { data, error } = await supabase
-      .from("users")
+      .from(table)
       .update({
         ...body
       })
@@ -338,7 +340,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
 
   const updateEmployerDetails = async (body: any) => {
     const { data, error } = await supabase
-      .from("users")
+      .from(table)
       .update({
         ...body
       })
@@ -351,7 +353,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
 
   const createUserEns = async (ens_name: string, address: string) => {
     const { data, error } = await supabase
-      .from("users")
+      .from(table)
       .update({ ens_name })
       .eq("address", address)
       .select();
