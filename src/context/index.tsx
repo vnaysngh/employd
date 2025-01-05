@@ -32,6 +32,7 @@ export const contract = getContract({
 });
 
 export const table =
+  typeof window !== "undefined" &&
   window.location.origin === "http://localhost:3000"
     ? "users"
     : "users_testnet";
