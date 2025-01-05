@@ -31,11 +31,7 @@ export const contract = getContract({
   abi: abi as any
 });
 
-export const table =
-  typeof window !== "undefined" &&
-  window.location.origin === "http://localhost:3000"
-    ? "users"
-    : "users_testnet";
+export const table = "users";
 
 export const StateContextProvider = ({ children }: { children: any }) => {
   const { mutateAsync: sendTransaction } = useSendTransaction();
