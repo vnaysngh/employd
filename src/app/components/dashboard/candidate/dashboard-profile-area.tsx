@@ -4,9 +4,8 @@ import Image from "next/image";
 import DashboardHeader from "./dashboard-header";
 import supabase from "@/supabase";
 import { useActiveAccount } from "thirdweb/react";
-import { useStateContext } from "@/context";
+import { table, useStateContext } from "@/context";
 import { useRouter } from "next/navigation";
-import { table } from "console";
 
 // props type
 type IProps = {
