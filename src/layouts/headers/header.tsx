@@ -37,7 +37,7 @@ const Header = () => {
               {account?.address ? (
                 <div className="right-widget ms-auto ms-xl-5 order-lg-3">
                   <ul className="d-flex align-items-center style-none">
-                    <li className="d-none d-lg-block ms-4">
+                    <li className="d-lg-block ms-4">
                       <ConnectButton
                         client={client}
                         detailsButton={{
@@ -59,7 +59,7 @@ const Header = () => {
               ) : (
                 <div className="right-widget ms-auto ms-xl-5 order-lg-3">
                   <ul className="d-flex align-items-center style-none">
-                    <li className="d-none d-lg-block ms-4">
+                    <li className="d-lg-block ms-4">
                       <Link href="/auth" className="btn-five">
                         Launch App
                       </Link>
@@ -68,17 +68,6 @@ const Header = () => {
                 </div>
               )}
               <nav className="navbar navbar-expand-lg p0  ms-3 ms-lg-auto order-lg-2">
-                <button
-                  className="navbar-toggler d-block d-lg-none"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbarNav"
-                  aria-controls="navbarNav"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span></span>
-                </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                   <ul className="navbar-nav">
                     <li className="d-block d-lg-none">

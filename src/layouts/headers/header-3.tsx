@@ -33,7 +33,7 @@ const HeaderThree = () => {
 
               <div className="right-widget ms-auto ms-xl-5 order-lg-3">
                 <ul className="d-flex align-items-center style-none">
-                  <li className="d-none d-lg-block ms-4">
+                  <li className="d-lg-block ms-4">
                     <Link href="/auth" className="btn-five">
                       Launch App
                     </Link>

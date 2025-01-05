@@ -7,7 +7,7 @@ import supabase from "@/supabase/index";
 import { Signer } from "ethers";
 import { PushAPI } from "@pushprotocol/restapi";
 import { ENV } from "@pushprotocol/restapi/src/lib/constants";
-import { useActiveAccount, useActiveWallet, useEnsName } from "thirdweb/react";
+import { useActiveAccount, useAutoConnect } from "thirdweb/react";
 import { UserType } from "@/app/components/homepage/name-selector";
 import { getContract, prepareContractCall } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
@@ -39,12 +39,13 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const account = useActiveAccount();
   const [names, setNames] = useState<UserType[]>([]);
   const [users, setUsers] = useState<UserType[]>([]);
-  const [signer, setSigner] = useState<Signer>();
-  const [pushUser, setPushUser] = useState<PushAPI>();
   const [isUserRegistered, setIsUserRegistered] = useState<any>(null);
   const [employers, setEmployers] = useState<any>([]);
   const [talents, setTalents] = useState<any>([]);
   const [userOnboarded, setUserOnboarded] = useState(false);
+  const { data } = useAutoConnect({
+    client
+  });
 
   // useEffect(() => {
   const initializePushAPI = async () => {
@@ -100,7 +101,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         console.error(error);
       } else return data;
     } catch (error) {
-      console.error("Failed to fetch employers:", error);
+      console.error("Failed to create job", error);
     }
   };
 
@@ -163,7 +164,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
 
   useEffect(() => {
     const getNames = async () => {
-      const domain = "vinaysingh.eth";
+      const domain = "employd.eth";
       const address = "0x0B95ec21579aee6Ef7b712976bD86689D68b5A08";
 
       try {
@@ -459,6 +460,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   return (
     <StateContext.Provider
       value={{
+        account,
         users,
         names,
         attestExperience,
@@ -468,9 +470,6 @@ export const StateContextProvider = ({ children }: { children: any }) => {
         getUserDetailsByEns,
         registerEmployerToExperience,
         isUserRegistered,
-        signer,
-        pushUser,
-        initializePushAPI,
         createUser,
         createJob,
         createEmployer,

@@ -34,7 +34,7 @@ export type UserType = {
 };
 
 const NameSelector = ({ user }: { user: any }) => {
-  const [subname, setSubname] = useState("poookie-popeye");
+  const [subname, setSubname] = useState("");
   const [userSubnames, setUserSubnames] = useState<string[]>([]);
   const [isUserEnsRegistered, setIsUserEnsRegistered] = useState(false);
   const [error, setError] = useState<string | false>(false);
@@ -99,7 +99,7 @@ const NameSelector = ({ user }: { user: any }) => {
 
     const payload = {
       name: debouncedName,
-      domain: "vinaysingh.eth",
+      domain: "employd.eth",
       address: account?.address,
       coin_types: coinTypes
     };
@@ -146,13 +146,13 @@ const NameSelector = ({ user }: { user: any }) => {
     return false;
   };
 
-  const handleRandomize = () => {
+  /*   const handleRandomize = () => {
     const randomNames = ["cool-fox", "blue-tiger", "bold-eagle", "mighty-lion"];
     const randomName =
       randomNames[Math.floor(Math.random() * randomNames.length)];
     setSubname(randomName);
     setError(validateUsername(randomName));
-  };
+  }; */
 
   const isNameTaken = userSubnames.includes(debouncedName);
 
@@ -182,9 +182,9 @@ const NameSelector = ({ user }: { user: any }) => {
               placeholder="Enter subname"
             />
             <span className="suffix">.employd.eth</span>
-            <span className="refresh-icon" onClick={handleRandomize}>
+            {/*  <span className="refresh-icon" onClick={handleRandomize}>
               ↻
-            </span>
+            </span> */}
           </div>
 
           {(isNameTaken || error) && (

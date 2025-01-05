@@ -37,51 +37,29 @@ const HeaderTwo = () => {
                 </Link>
               </div>
 
-              {/* <div className="right-widget ms-auto ms-xl-5 order-lg-3">
+              <div className="right-widget ms-auto ms-xl-5 order-lg-3">
                 <ul className="d-flex align-items-center style-none">
-                  <li className="d-none d-lg-block ms-4">
-                    <Link href="/auth" className="btn-five">
-                      Launch App
-                    </Link>
-                  </li>
+                  {account?.address ? (
+                    <li className="me-0">
+                      <ConnectButton
+                        client={client}
+                        detailsButton={{
+                          className: "tw-connected-details",
+                          style: { fontSize: "16px" }
+                        }}
+                        accountAbstraction={{
+                          chain: baseSepolia, // the chain where your smart accounts will be or is deployed
+                          sponsorGas: true // enable or disable sponsored transactions
+                        }}
+                        theme="light"
+                        onDisconnect={() => {
+                          router.push("/auth");
+                        }}
+                      />
+                    </li>
+                  ) : null}
                 </ul>
-              </div> */}
-              <nav className="navbar navbar-expand-lg p0  ms-3 ms-lg-auto order-lg-2">
-                <button
-                  className="navbar-toggler d-block d-lg-none"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navbarNav"
-                  aria-controls="navbarNav"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                  <ul className="navbar-nav">
-                    {account?.address ? (
-                      <li className="me-0">
-                        <ConnectButton
-                          client={client}
-                          detailsButton={{
-                            className: "tw-connected-details",
-                            style: { fontSize: "16px" }
-                          }}
-                          accountAbstraction={{
-                            chain: baseSepolia, // the chain where your smart accounts will be or is deployed
-                            sponsorGas: true // enable or disable sponsored transactions
-                          }}
-                          theme="light"
-                          onDisconnect={() => {
-                            router.push("/auth");
-                          }}
-                        />
-                      </li>
-                    ) : null}
-                  </ul>
-                </div>
-              </nav>
+              </div>
             </div>
           </div>
         </div>
