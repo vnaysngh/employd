@@ -4,11 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/images/assets/letter-stamp.png";
 import useSticky from "@/hooks/use-sticky";
-import { Titan_One } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import LoginModal from "@/app/components/common/popup/login-modal";
 
-const titan = Titan_One({ weight: "400", subsets: ["latin"] });
-
+const inter = Inter({ weight: "700", subsets: ["latin"] });
 const HeaderThree = () => {
   const { sticky } = useSticky();
   return (
@@ -25,30 +24,30 @@ const HeaderThree = () => {
                     src={logo}
                     alt="logo"
                     priority
-                    height={40}
-                    width={40}
+                    height={36}
+                    width={36}
                   />
-                  <div className={`logo-name ${titan.className}`}>EMPLOYD</div>
+                  <div className={`logo-name ${inter.className}`}>Employd</div>
                 </Link>
               </div>
 
               <div className="right-widget ms-auto ms-xl-5 order-lg-3">
                 <ul className="d-flex align-items-center style-none">
-                  {/* <li className="d-lg-block ms-4">
+                  <li className="d-lg-block ms-4">
                     <Link href="/auth" className="btn-five">
                       Launch App
                     </Link>
-                  </li> */}
-                  <li>
+                  </li>
+                  {/* <li>
                     <a
                       href="#"
                       className="btn-five"
                       data-bs-toggle="modal"
                       data-bs-target="#loginModal"
                     >
-                      Login
+                      Launch App
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
               <nav className="navbar navbar-expand-lg p0  ms-3 ms-lg-auto order-lg-2">

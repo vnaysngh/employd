@@ -5,7 +5,6 @@ import icon_6 from "@/assets/dashboard/images/icon/icon_27.svg";
 import icon_8 from "@/assets/dashboard/images/icon/icon_29.svg";
 import icon_9 from "@/assets/dashboard/images/icon/icon_30.svg";
 import EmailReadPanel from "./email-read-panel";
-import { Dela_Gothic_One, Lexend } from "next/font/google";
 import { useStateContext } from "@/context";
 import formatTimestamp from "@/utils/formatTimeStamp";
 

@@ -282,10 +282,11 @@ hr {
 }
 .btn-five {
   font-weight: 500;
-  padding: 13px 26px;
-  min-width: 150px;
+  padding: 0.5rem 1rem;
+  // min-width: 100px;
   text-align: center;
-  border-radius: 50px;
+  border-radius: 8px;
+  font-size: 14px;
   color: $text-white;
   background: $color-three;
   @include transition(0.3s);
@@ -294,6 +295,24 @@ hr {
     color: $text-white;
   }
 }
+
+.btn-outline {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  // min-width: 100px;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1f2937;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  @include transition(0.3s);
+  &:hover {
+    background: #1f2937;
+    color: $text-white;
+  }
+}
+
 .btn-five.border6 {
   border-radius: 6px;
 }
@@ -408,6 +427,7 @@ hr {
 // Title Style
 .title-one h2 {
   color: $heading;
+  font-size: 3.75rem;
   margin: 0;
   &.main-font {
     font-size: 60px;

@@ -106,11 +106,23 @@
   .slogan {
     color: #5ea17e;
   }
+
+  .banner-header {
+    max-width: 56rem;
+    margin: auto;
+  }
+
   h1 {
     font-weight: 700;
     letter-spacing: -1px;
     color: $text-primary;
+    font-size: 3.75rem;
   }
+
+  .header-description {
+    font-size: 1rem;
+  }
+
   .partner-title {
     font-family: var(--eb_garamond-font);
     color: #93ad9f;

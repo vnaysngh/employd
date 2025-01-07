@@ -1,10 +1,10 @@
 import "./globals.scss";
 import type { Metadata } from "next";
 import { ThirdwebProvider } from "thirdweb/react";
-import { Lexend } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { StateContextProvider } from "@/context";
 
-const lexend = Lexend({ weight: "400", subsets: ["latin"] });
+const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "employd",
@@ -22,7 +22,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body suppressHydrationWarning={true} className={`${lexend.className}`}>
+      <body suppressHydrationWarning={true} className={`${poppins.className}`}>
         <ThirdwebProvider>
           <StateContextProvider>{children}</StateContextProvider>
         </ThirdwebProvider>

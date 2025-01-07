@@ -3,6 +3,8 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Image from "next/image";
 import attested from "@/assets/dashboard/images/icon/attested-landing.png";
+import { Inter, Poppins } from "next/font/google";
+const poppins = Poppins({ weight: "700", subsets: ["latin"] });
 
 const FeatureThree = () => {
   return (
@@ -12,11 +14,11 @@ const FeatureThree = () => {
           <div className="col-lg-6 order-lg-last">
             <div className="ps-lg-4 wow fadeInRight">
               <div className="title-one">
-                <h2 className="fw-600">
+                <h2 className={`${poppins.className}`}>
                   Empower Your Career with Attestations
                 </h2>
               </div>
-              <p className="mt-40 md-mt-20 mb-40 md-mb-20 text-md">
+              <p className="mt-40 md-mt-20 mb-40 md-mb-20">
                 Leverage blockchain-based attestation to verify your skills,
                 roles, and achievements. Build a tamper-proof professional
                 identity that employers trust.
@@ -37,12 +39,6 @@ const FeatureThree = () => {
                 <Image src={attested} alt="shape" className="lazy-img" />
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="border-bottom pb-50 lg-pb-20 mt-90 lg-mt-30">
-          <div className="row justify-content-center">
-            {/* <CounterOne /> */}
           </div>
         </div>
       </div>

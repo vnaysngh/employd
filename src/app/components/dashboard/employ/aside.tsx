@@ -10,13 +10,13 @@ import nav_5 from "@/assets/dashboard/images/icon/icon_41.svg";
 import nav_3 from "@/assets/dashboard/images/icon/icon_45.svg";
 // import nav_6 from "@/assets/dashboard/images/icon/icon_46.svg";
 import nav_7 from "@/assets/dashboard/images/icon/icon_49.svg";
-import { Titan_One } from "next/font/google";
+import { Inter, Titan_One } from "next/font/google";
 import avatar from "@/assets/dashboard/images/icon/user.png";
 import logo from "@/assets/images/assets/letter-stamp.png";
 import { contract, useStateContext } from "@/context";
 import { useActiveAccount, useReadContract } from "thirdweb/react";
 
-const titan = Titan_One({ weight: "400", subsets: ["latin"] });
+const inter = Inter({ weight: "700", subsets: ["latin"] });
 
 // nav data
 const nav_data: {
@@ -117,8 +117,6 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
       ? attestations.some((attestation) => attestation.attestationStatus === 1)
       : [];
 
-  console.log(isPendingAttestation, "isPendingAttestation");
-
   return (
     <>
       <aside className={`dash-aside-navbar ${isOpenSidebar ? "show" : ""}`}>
@@ -127,8 +125,8 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             {/* Logo Section */}
             <div className="sidebar-logo d-md-block d-flex align-items-center justify-content-between">
               <Link href="/auth" className="d-flex align-items-center">
-                <Image src={logo} alt="logo" priority height={40} width={40} />
-                <div className={`logo-name ${titan.className}`}>EMPLOYD</div>
+                <Image src={logo} alt="logo" priority height={36} width={36} />
+                <div className={`logo-name ${inter.className}`}>Employd</div>
               </Link>
               <button
                 onClick={() => setIsOpenSidebar(false)}

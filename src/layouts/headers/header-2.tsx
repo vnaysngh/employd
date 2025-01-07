@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/images/assets/letter-stamp.png";
 import useSticky from "@/hooks/use-sticky";
-import { Titan_One } from "next/font/google";
+import { Inter, Titan_One } from "next/font/google";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { client } from "@/config/thirdwebClient";
 import { baseSepolia } from "thirdweb/chains";
 import { useRouter } from "next/navigation";
 
-const titan = Titan_One({ weight: "400", subsets: ["latin"] });
+const inter = Inter({ weight: "700", subsets: ["latin"] });
 
 const HeaderTwo = () => {
   const { sticky } = useSticky();
@@ -30,10 +30,10 @@ const HeaderTwo = () => {
                     src={logo}
                     alt="logo"
                     priority
-                    height={40}
-                    width={40}
+                    height={36}
+                    width={36}
                   />
-                  <div className={`logo-name ${titan.className}`}>EMPLOYD</div>
+                  <div className={`logo-name ${inter.className}`}>Employd</div>
                 </Link>
               </div>
 

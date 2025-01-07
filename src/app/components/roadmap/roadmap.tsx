@@ -87,7 +87,7 @@ const Roadmap = () => {
                         <div key={index} className="roadmap-phase">
                           <h4
                             className="roadmap-phase-number"
-                            style={{ color: "#19aa6e" }}
+                            style={{ color: "#8364E2" }}
                           >
                             {phase.phase}
                           </h4>

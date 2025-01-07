@@ -3,7 +3,7 @@
 }
 .candidate-profile-card {
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 8px;
   position: relative;
   border: 0;
   background-color: #fff;
@@ -23,7 +23,7 @@
     position: relative;
     overflow: hidden;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 8px;
     border: solid 2px #888;
     cursor: pointer;
     box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
@@ -91,7 +91,7 @@
       border-radius: 30px;
       font-size: 12px;
       font-weight: 500;
-      color: #333;
+      color: #1f2937;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid $color-border;
       &.more {
@@ -129,7 +129,7 @@
   .candidate-info div {
     font-size: 15px;
     font-weight: 500;
-    color: #333;
+    color: #1f2937;
     margin: 2px 0 0;
   }
   .profile-btn {
@@ -206,7 +206,7 @@
     &.border-style {
       border: 1px solid $color-border;
       position: relative;
-      border-radius: 15px;
+      border-radius: 8px;
       padding: 20px 35px 20px;
       .title {
         position: absolute;
@@ -228,7 +228,7 @@
     // background: url(../images/candidates/img_10.jpg) no-repeat center;
     background-size: cover;
     height: 430px;
-    border-radius: 15px;
+    border-radius: 8px;
     .video-icon {
       width: 65px;
       height: 65px;
@@ -283,7 +283,7 @@
     margin: 0 -8px;
     li {
       font-size: 16px;
-      color: #333;
+      color: #1f2937;
       margin: 18px 8px 0;
       line-height: 45px;
       padding: 0 20px;
@@ -311,7 +311,7 @@
 .cadidate-profile-sidebar {
   .bg-wrapper {
     background: $text-white;
-    border-radius: 15px;
+    border-radius: 8px;
     padding: 0 20px 25px;
     &.bg-color {
       background: $text-white;

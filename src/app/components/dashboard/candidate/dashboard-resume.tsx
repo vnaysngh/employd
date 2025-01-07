@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Chango, Lexend } from "next/font/google";
 // import { useReadContract } from "wagmi";
 import { contract, useStateContext } from "@/context";
 import {
@@ -18,8 +17,6 @@ import SelectSkills from "./select-skills";
 import Loader from "@/app/loading";
 import { useRouter } from "next/navigation";
 import InviteEmployer from "../../popup/inviteEmployer";
-const chango = Chango({ weight: "400", subsets: ["latin"] });
-const lexend400 = Lexend({ weight: "400", subsets: ["latin"] });
 
 // props type
 type IProps = {

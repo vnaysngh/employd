@@ -10,11 +10,11 @@ import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
 import nav_5 from "@/assets/dashboard/images/icon/icon_44.svg";
 import nav_7 from "@/assets/dashboard/images/icon/icon_49.svg";
 import avatar from "@/assets/dashboard/images/icon/user.png";
-import { Titan_One } from "next/font/google";
+import { Inter, Titan_One } from "next/font/google";
 import logo from "@/assets/images/assets/letter-stamp.png";
 import { useStateContext } from "@/context";
 
-const titan = Titan_One({ weight: "400", subsets: ["latin"] });
+const inter = Inter({ weight: "700", subsets: ["latin"] });
 
 // nav data
 export const nav_data: {
@@ -88,8 +88,8 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             {/* Logo Section */}
             <div className="sidebar-logo d-md-block d-flex align-items-center justify-content-between">
               <Link href="/auth" className="d-flex align-items-center">
-                <Image src={logo} alt="logo" priority height={40} width={40} />
-                <div className={`logo-name ${titan.className}`}>EMPLOYD</div>
+                <Image src={logo} alt="logo" priority height={36} width={36} />
+                <div className={`logo-name ${inter.className}`}>Employd</div>
               </Link>
               <button
                 onClick={() => setIsOpenSidebar(false)}

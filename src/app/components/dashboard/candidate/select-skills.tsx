@@ -9,7 +9,7 @@ const colourStyles = {
     padding: "6px 0",
     borderRadius: "8px"
   }),
-  input: (styles: any) => ({ ...styles, color: "#333" })
+  input: (styles: any) => ({ ...styles, color: "#1f2937" })
 };
 
 const customComponents = {

@@ -69,14 +69,14 @@
 
 .theme-main-menu {
   // padding: 15px 20px !important;
-  // border-bottom: 2px solid #333;
+  // border-bottom: 2px solid #1f2937;
 }
 
 .logo-name {
-  font-size: 2rem;
+  font-size: 1.5rem;
   // color: $text-white;
   padding: 0 10px;
-  color: #19aa6e;
+  color: #1f2937;
 }
 
 /* Modal styling */
@@ -177,9 +177,9 @@
 
 .cb-wallet-connect {
   background-color: $text-white;
-  border: 1px solid #333;
+  border: 1px solid #1f2937;
   //   font-size: 24px;
-  box-shadow: 4px 4px 0px 0px #333;
+  box-shadow: 4px 4px 0px 0px #1f2937;
   border-radius: 0;
 
   :hover {
@@ -276,7 +276,7 @@
     border: 2px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-    color: #333;
+    color: #1f2937;
     font-size: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -448,13 +448,13 @@
   .user-type-button h3 {
     margin: 0 0 0.25rem 0;
     font-size: 1.1rem;
-    color: #19aa6e;
+    color: #1f2937;
   }
 
   .user-type-button p {
     margin: 0;
     font-size: 0.85rem;
-    color: #19aa6e;
+    color: #1f2937;
   }
 }
 

@@ -14,7 +14,7 @@ const Home: React.FC = () => {
       <HeaderThree />
       <HeroBannerThree />
       <FeatureThree />
-      <HowItWorks />
+      {/* <HowItWorks /> */}
       <Roadmap />
       <div className="footer-with-bg">
         <FooterOne />

@@ -15,7 +15,7 @@
 }
 
 .company-title a {
-  color: #333;
+  color: #1f2937;
   transition: color 0.3s ease;
 }
 
@@ -47,7 +47,7 @@
   position: relative;
   overflow: hidden;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 8px;
   border: solid 2px #888;
   cursor: pointer;
   // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
@@ -56,7 +56,7 @@
     background: #e9ecef;
     // color: white;
     padding: 4px 8px;
-    border-radius: 20px;
+    border-radius: 8px;
     font-size: 12px;
     display: flex;
     align-items: center;
@@ -71,7 +71,7 @@
   .category {
     background: #e9ecef;
     padding: 4px 8px;
-    border-radius: 20px;
+    border-radius: 8px;
     font-size: 12px;
     margin-top: 0;
     display: flex;
@@ -82,7 +82,7 @@
     background: #f8f9fa;
     display: inline-block;
     padding: 4px 12px;
-    border-radius: 20px;
+    border-radius: 8px;
     font-size: 14px;
     color: #6c757d;
   }
@@ -147,7 +147,7 @@
       border-radius: 30px;
       font-size: 12px;
       font-weight: 500;
-      color: #333;
+      color: #1f2937;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid $color-border;
       &.more {
@@ -215,7 +215,7 @@
 // Company List Layout
 .company-list-layout {
   background: $text-white;
-  border-radius: 15px;
+  border-radius: 8px;
   overflow: hidden;
   padding: 35px 20px;
   position: relative;

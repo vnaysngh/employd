@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import DashboardHeader from "../candidate/dashboard-header";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
-import { Lexend } from "next/font/google";
 import { useStateContext } from "@/context";
 
 // props type
