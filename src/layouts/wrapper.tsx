@@ -6,9 +6,9 @@ import { animationCreate } from "@/utils/utils";
 import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 
-// if (typeof window !== "undefined") {
-//   require("bootstrap/dist/js/bootstrap");
-// }
+if (typeof window !== "undefined") {
+  require("bootstrap/dist/js/bootstrap");
+}
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
   return (

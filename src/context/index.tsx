@@ -190,7 +190,6 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   }, [account]);
 
   const createUser = async (
-    user_type: string,
     email: string,
     address: string,
     user_login_details: any,
@@ -200,7 +199,6 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       .from(table)
       .insert([
         {
-          user_type,
           email,
           address,
           user_login_details,

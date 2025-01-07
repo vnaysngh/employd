@@ -31,34 +31,23 @@ const Homepage = () => {
     client
   });
 
-  useEffect(() => {
-    const onConnect = async () => {
-      if (loginType !== "login") {
-        setLoading(true);
-        try {
-          const referrer = searchParams.get("referrer");
+  const onConnect = async () => {
+    try {
+      const referrer = searchParams.get("referrer");
 
-          const response = await createUser(
-            loginType,
-            profiles?.[0]?.details?.email || "",
-            account?.address!,
-            profiles?.[0] ?? null,
-            referrer ?? ""
-          );
-          if (response && response.length) {
-            setLoginType(null);
-            setUser(response[0]);
-          }
-        } catch (err) {
-          console.log(err);
-        } finally {
-          setLoading(false);
-        }
+      const response = await createUser(
+        profiles?.[0]?.details?.email || "",
+        account?.address!,
+        profiles?.[0] ?? null,
+        referrer ?? ""
+      );
+      if (response && response.length) {
+        setUser(response[0]);
       }
-    };
-
-    if (loginType && account?.address && profiles?.[0]) onConnect();
-  }, [loginType, account?.address, profiles]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     const checkIfRegisteredUser = async () => {
@@ -72,7 +61,6 @@ const Homepage = () => {
         if (error) console.error(error);
         else {
           if (data && data.length) {
-            setLoading(true);
             if (data[0].isOnboarded) {
               data[0].user_type === "talent"
                 ? router.push("/dashboard/candidate-dashboard/experience")
@@ -80,15 +68,8 @@ const Homepage = () => {
             } else {
               setUser(data[0]);
             }
-            setLoading(false);
           } else {
-            if (loginType === "login") {
-              setUserNotRegistered(true);
-              setTimeout(() => {
-                setUserNotRegistered(false);
-              }, 5000);
-              if (wallet) disconnect(wallet);
-            }
+            onConnect();
           }
         }
       } catch (error) {

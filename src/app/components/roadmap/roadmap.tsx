@@ -83,7 +83,7 @@ const Roadmap = () => {
                 <div className="roadmap-grid" style={{ maxWidth: "none" }}>
                   <div className="row align-items-center">
                     {roadmapPhases.map((phase, index) => (
-                      <div className="col-lg-4 col-md-4">
+                      <div className="col-lg-4 col-md-4" key={index}>
                         <div key={index} className="roadmap-phase">
                           <h4
                             className="roadmap-phase-number"

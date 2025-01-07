@@ -5,6 +5,7 @@ import Link from "next/link";
 import logo from "@/assets/images/assets/letter-stamp.png";
 import useSticky from "@/hooks/use-sticky";
 import { Titan_One } from "next/font/google";
+import LoginModal from "@/app/components/common/popup/login-modal";
 
 const titan = Titan_One({ weight: "400", subsets: ["latin"] });
 
@@ -33,10 +34,20 @@ const HeaderThree = () => {
 
               <div className="right-widget ms-auto ms-xl-5 order-lg-3">
                 <ul className="d-flex align-items-center style-none">
-                  <li className="d-lg-block ms-4">
+                  {/* <li className="d-lg-block ms-4">
                     <Link href="/auth" className="btn-five">
                       Launch App
                     </Link>
+                  </li> */}
+                  <li>
+                    <a
+                      href="#"
+                      className="btn-five"
+                      data-bs-toggle="modal"
+                      data-bs-target="#loginModal"
+                    >
+                      Login
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -84,9 +95,7 @@ const HeaderThree = () => {
         </div>
       </header>
 
-      {/* login modal start */}
-      {/* <LoginModal/> */}
-      {/* login modal end */}
+      <LoginModal />
     </>
   );
 };
