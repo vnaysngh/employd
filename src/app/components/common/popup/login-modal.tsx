@@ -45,7 +45,7 @@ const LoginModal = () => {
                     href="#"
                     className="social-use-btn d-flex align-items-center justify-content-center tran3s w-100 mt-10"
                   >
-                    <div className="sign-up-buttons">
+                    <div className="sign-up-buttons text-center">
                       <h3>Sign up as Talent</h3>
                       <div>Get verified & explore opportunities</div>
                     </div>
@@ -56,7 +56,7 @@ const LoginModal = () => {
                     href="#"
                     className="social-use-btn d-flex align-items-center justify-content-center tran3s w-100 mt-10"
                   >
-                    <div className="sign-up-buttons">
+                    <div className="sign-up-buttons text-center">
                       <h3>Sign up as Employer</h3>
                       <div>Verify profiles & hire with trust</div>
                     </div>
