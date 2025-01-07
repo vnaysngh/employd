@@ -5,12 +5,11 @@ import Image from "next/image";
 import attested from "@/assets/dashboard/images/icon/attested-landing.png";
 
 const FeatureThree = () => {
-  const [isVideoOpen, setIsVideoOpen] = useState<boolean>(false);
   return (
     <section className="text-feature-one position-relative pt-180 xl-pt-150 lg-pt-100 md-pt-80">
       <div className="container">
         <div className="row align-items-center">
-          <div className="col-lg-5 order-lg-last">
+          <div className="col-lg-6 order-lg-last">
             <div className="ps-lg-4 wow fadeInRight">
               <div className="title-one">
                 <h2 className="fw-600">
@@ -32,7 +31,7 @@ const FeatureThree = () => {
               </Link>
             </div>
           </div>
-          <div className="col-lg-7 col-md-8 m-auto order-lg-first">
+          <div className="col-lg-5 col-md-8 m-auto order-lg-first">
             <div className="img-data position-relative me-xl-5 md-mt-20">
               <div className="row align-items-center gx-xl-5 w-75">
                 <Image src={attested} alt="shape" className="lazy-img" />

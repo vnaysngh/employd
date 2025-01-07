@@ -6,6 +6,7 @@ import HowItWorks from "./components/how-it-works/how-it-works";
 import HeaderThree from "@/layouts/headers/header-3";
 import FeatureThree from "./components/features/feature-three";
 import FooterOne from "@/layouts/footers/footer-one";
+import Roadmap from "./components/roadmap/roadmap";
 
 const Home: React.FC = () => {
   return (
@@ -14,9 +15,10 @@ const Home: React.FC = () => {
       <HeroBannerThree />
       <FeatureThree />
       <HowItWorks />
-      {/* <div className="footer-with-bg">
+      <Roadmap />
+      <div className="footer-with-bg">
         <FooterOne />
-      </div> */}
+      </div>
     </Wrapper>
   );
 };

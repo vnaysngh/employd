@@ -9,7 +9,7 @@ const lexend = Lexend({ weight: "400", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "employd",
   description:
-    "A decentralized network for showcasing verified professional credentials through on-chain attestations."
+    "Building the future of work with blockchain-verified professional networks."
 };
 
 export default function RootLayout({

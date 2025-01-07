@@ -1,22 +1,18 @@
+import Link from "next/link";
 import React from "react";
 
 const SocialLinks = () => {
   return (
     <>
       <li>
-        <a href="#">
+        <Link href="https://t.me/+7dACcvcchmE0ZjI1" target="_blank">
           <i className="bi bi-telegram"></i>
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="#">
+        <Link href="https://x.com/employd_xyz" target="_blank">
           <i className="bi bi-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i className="bi bi-instagram"></i>
-        </a>
+        </Link>
       </li>
     </>
   );
