@@ -5,7 +5,11 @@ import Link from "next/link";
 import logo from "@/assets/images/assets/letter-stamp.png";
 import useSticky from "@/hooks/use-sticky";
 import { Inter, Titan_One } from "next/font/google";
-import { ConnectButton, useActiveAccount } from "thirdweb/react";
+import {
+  ConnectButton,
+  useActiveAccount,
+  useAutoConnect
+} from "thirdweb/react";
 import { client } from "@/config/thirdwebClient";
 import { baseSepolia } from "thirdweb/chains";
 import { useRouter } from "next/navigation";
@@ -15,6 +19,7 @@ const inter = Inter({ weight: "700", subsets: ["latin"] });
 const Header = () => {
   const router = useRouter();
   const account = useActiveAccount();
+
   return (
     <>
       <header className={`theme-main-menu sticky-menu`}>

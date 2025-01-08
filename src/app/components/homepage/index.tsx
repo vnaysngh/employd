@@ -5,6 +5,7 @@ import NameSelector from "./name-selector";
 import {
   useActiveAccount,
   useActiveWallet,
+  useAutoConnect,
   useDisconnect,
   useProfiles
 } from "thirdweb/react";
@@ -14,6 +15,7 @@ import Loader from "@/app/loading";
 import { client } from "@/config/thirdwebClient";
 import supabase from "@/supabase";
 import { useRouter, useSearchParams } from "next/navigation";
+import { baseSepolia } from "thirdweb/chains";
 
 const Homepage = () => {
   const account = useActiveAccount();
@@ -21,7 +23,7 @@ const Homepage = () => {
   const [loading, setLoading] = useState(false);
   const [loginType, setLoginType] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
-  const { createUser } = useStateContext();
+  const { createUser, isUserRegistered, userType } = useStateContext();
   const [userNotRegistered, setUserNotRegistered] = useState(false);
   const { disconnect } = useDisconnect();
   const wallet = useActiveWallet();
@@ -31,23 +33,37 @@ const Homepage = () => {
     client
   });
 
-  const onConnect = async () => {
-    try {
-      const referrer = searchParams.get("referrer");
+  useEffect(() => {
+    if (userType) setLoginType(userType);
+  }, [userType]);
 
-      const response = await createUser(
-        profiles?.[0]?.details?.email || "",
-        account?.address!,
-        profiles?.[0] ?? null,
-        referrer ?? ""
-      );
-      if (response && response.length) {
-        setUser(response[0]);
+  useEffect(() => {
+    const onConnect = async () => {
+      setLoading(true);
+      try {
+        const referrer = searchParams.get("referrer");
+
+        const response = await createUser(
+          loginType,
+          profiles?.[0]?.details?.email || "",
+          account?.address!,
+          profiles?.[0] ?? null,
+          referrer ?? ""
+        );
+        if (response && response.length) {
+          setLoginType(null);
+          setUser(response[0]);
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    };
+
+    if (loginType && loginType !== "login" && account?.address && profiles?.[0])
+      onConnect();
+  }, [loginType, account?.address, profiles]);
 
   useEffect(() => {
     const checkIfRegisteredUser = async () => {
@@ -68,8 +84,15 @@ const Homepage = () => {
             } else {
               setUser(data[0]);
             }
+            setLoading(false);
           } else {
-            onConnect();
+            if (loginType === "login") {
+              setUserNotRegistered(true);
+              setTimeout(() => {
+                setUserNotRegistered(false);
+              }, 5000);
+              if (wallet) disconnect(wallet);
+            }
           }
         }
       } catch (error) {
@@ -79,8 +102,26 @@ const Homepage = () => {
       }
     };
 
-    if (account?.address) checkIfRegisteredUser();
+    if (account?.address && loginType) checkIfRegisteredUser();
   }, [account?.address]);
+
+  const handleRedirect = (registeredUser: any) => {
+    console.log(registeredUser);
+    if (registeredUser.isOnboarded) {
+      registeredUser.user_type === "talent"
+        ? router.push("/dashboard/candidate-dashboard/experience")
+        : router.push("/dashboard/employ-dashboard/profile");
+    } else {
+      setUser(registeredUser);
+    }
+  };
+
+  useEffect(() => {
+    if (account?.address && loginType === "login" && isUserRegistered)
+      handleRedirect(isUserRegistered);
+  }, [account?.address, loginType, isUserRegistered]);
+
+  console.log(loginType, user, isUserRegistered, "login type");
 
   return (
     <Wrapper>

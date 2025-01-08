@@ -32,11 +32,11 @@ export function WalletComponents({
       connectButton={{
         label: text,
         style: {
-          background: isBgGreen ? "#8364E2" : "transparent",
-          color: isBgGreen ? "#fff" : "#8364E2",
+          background: isBgGreen ? "#1f2937" : "transparent",
+          color: isBgGreen ? "#fff" : "#1f2937",
           height: "auto",
           minWidth: "165px",
-          border: isBgGreen ? 0 : "1px solid #8364E2",
+          border: isBgGreen ? 0 : "1px solid #1f2937",
           borderRadius: "8px"
         }
       }}

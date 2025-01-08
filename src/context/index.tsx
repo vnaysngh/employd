@@ -4,7 +4,7 @@ import { useContext, createContext, useEffect, useState } from "react";
 // import { Config, useConnectorClient, useWriteContract } from "wagmi";
 import abi from "@/abis/experience.json";
 import supabase from "@/supabase/index";
-import { useActiveAccount, useAutoConnect } from "thirdweb/react";
+import { useActiveAccount, useAutoConnect, useProfiles } from "thirdweb/react";
 import { UserType } from "@/app/components/homepage/name-selector";
 import { getContract, prepareContractCall } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
@@ -42,25 +42,18 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   const [employers, setEmployers] = useState<any>([]);
   const [talents, setTalents] = useState<any>([]);
   const [userOnboarded, setUserOnboarded] = useState(false);
+  const [userType, setUserType] = useState<string | null>(null);
+
   const { data } = useAutoConnect({
-    client
+    client,
+    accountAbstraction: {
+      chain: baseSepolia,
+      sponsorGas: true
+    },
+    onConnect: () => {
+      setUserType("login");
+    }
   });
-
-  // useEffect(() => {
-  const initializePushAPI = async () => {
-    /* if (!pushUser || !address) {
-      const user = await PushAPI.initialize(signer, {
-        env: ENV.STAGING
-      });
-
-      // Check for errors in userAlice's initialization and handle them if any
-      if (user.errors.length > 0) {
-        // Handle Errors Here
-      } else {
-        setPushUser(user);
-      }
-    } */
-  };
 
   useEffect(() => {
     const getEmployers = async () => {
@@ -134,6 +127,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
           .from(table)
           .select("*")
           .eq("address", account?.address);
+
         if (error) console.error(error);
         else {
           if (data && data.length) setIsUserRegistered(data[0]);
@@ -190,6 +184,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   }, [account]);
 
   const createUser = async (
+    user_type: string,
     email: string,
     address: string,
     user_login_details: any,
@@ -199,6 +194,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
       .from(table)
       .insert([
         {
+          user_type,
           email,
           address,
           user_login_details,
@@ -457,6 +453,7 @@ export const StateContextProvider = ({ children }: { children: any }) => {
   return (
     <StateContext.Provider
       value={{
+        userType,
         account,
         users,
         names,
