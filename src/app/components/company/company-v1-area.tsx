@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import CompanyGridItem from "./company-grid-item";
 import { useStateContext } from "@/context";
 import CompanyV1Filter from "./filter/company-v1-filter";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({ weight: "700", subsets: ["latin"] });
 
 const CompanyV3Area = () => {
   const { employers } = useStateContext();
@@ -29,7 +32,7 @@ const CompanyV3Area = () => {
           <div className="row">
             <div className="col-xl-8 m-auto text-center">
               <div className="title-two">
-                <h2>
+                <h2 className={poppins.className}>
                   Connect with Companies Committed to Building Verified Work
                   Histories
                 </h2>

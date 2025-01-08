@@ -5,6 +5,8 @@ import CandidateGridItem from "./candidate-grid-item";
 import CandidateListItem from "./candidate-list-item";
 import { useStateContext } from "@/context";
 import CandidateV1FilterArea from "./filter/candidate-v1-filter-area";
+import { Poppins } from "next/font/google";
+const poppins = Poppins({ weight: "700", subsets: ["latin"] });
 
 const CandidateV1Area = () => {
   const { talents } = useStateContext();
@@ -30,7 +32,9 @@ const CandidateV1Area = () => {
           <div className="row">
             <div className="col-xl-8 m-auto text-center">
               <div className="title-two">
-                <h2>Explore Verified Talent Backed by Attested Experience</h2>
+                <h2 className={poppins.className}>
+                  Explore Verified Talent Backed by Attested Experience
+                </h2>
               </div>
             </div>
             <div className="col-12">
