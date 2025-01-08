@@ -54,7 +54,7 @@
         line-height: 45px;
         padding: 0 5px 0 20px;
         color: $heading;
-        font-size: 16px;
+        font-size: 14px;
 
         letter-spacing: -0.16px;
         background: transparent;
@@ -87,7 +87,7 @@
   }
 
   .dashboard-main-nav li a {
-    // font-size: 14px;
+    font-size: 14px;
     letter-spacing: -0.16px;
     color: $text-primary;
     padding: 15px 5px 15px 20px;
@@ -136,7 +136,7 @@
     }
   }
   .logout-btn {
-    font-size: 16px;
+    font-size: 14px;
 
     letter-spacing: -0.16px;
     color: $color-one;
@@ -164,7 +164,6 @@
   // margin: auto;
   border-radius: 50px 0 0 50px;
   padding: 120px 55px 50px;
-  // font-family: "Varela Round";
 
   .cb-tx-button {
     width: auto;
@@ -197,6 +196,7 @@
   .card-box {
     padding: 45px 60px 50px;
     background-color: #fff;
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
   }
 
   .card-box-employer {
@@ -204,7 +204,6 @@
     border-radius: 8px;
     border: 0;
     background-color: #fff;
-    // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 
     .form-select {
       font-size: 14px;
@@ -236,7 +235,7 @@
     margin: 0 0 30px;
   }
   .dash-btn-one {
-    font-size: 15px;
+    font-size: 14px;
 
     letter-spacing: -0.15px;
     // color: $color-five;
@@ -272,7 +271,7 @@
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     margin: auto;
@@ -366,7 +365,7 @@
             background: #ff2730;
           }
           h6 {
-            font-size: 15px;
+            font-size: 14px;
             margin-bottom: 3px;
             letter-spacing: -0.2px;
             color: rgba($color: #000, $alpha: 0.6);
@@ -487,7 +486,7 @@
       line-height: 46px;
       border: 2px solid #1f2937;
       border-radius: 0px;
-      font-size: 15px;
+      font-size: 14px;
       &:after {
         right: 15px;
       }
@@ -520,7 +519,7 @@
         width: calc(100% - 40px);
         padding-left: 22px;
         h6 a {
-          font-size: 16px;
+          font-size: 14px;
           color: $color-one;
           display: block;
           text-overflow: ellipsis;
@@ -609,7 +608,7 @@
       border-radius: 50%;
     }
     .upload-btn {
-      font-size: 15px;
+      font-size: 14px;
       letter-spacing: -0.15px;
 
       width: 175px;
@@ -635,7 +634,7 @@
       }
     }
     .delete-btn {
-      font-size: 15px;
+      font-size: 14px;
       letter-spacing: -0.15px;
 
       color: $color-one;
@@ -649,7 +648,7 @@
   .dash-input-wrapper {
     label {
       display: block;
-      // font-size: 14px;
+      font-size: 14px;
       color: $text-secondary;
       margin-bottom: 10px;
     }
@@ -783,7 +782,7 @@
         li {
           padding: 0 5px 15px;
           &.is_tag button {
-            font-size: 15px;
+            font-size: 14px;
             color: $color-five;
             line-height: 42px;
             padding: 0 40px 0 22px;
@@ -901,7 +900,7 @@
       border-radius: 8px;
 
       .accordion-button {
-        font-size: 15px;
+        font-size: 14px;
 
         color: #000;
         border-radius: 0;
@@ -949,7 +948,7 @@
     }
   }
   .short-filter {
-    font-size: 15px;
+    font-size: 14px;
     .nice-select {
       min-width: 154px;
       height: 32px;
@@ -976,7 +975,7 @@
     th {
       border: 0;
       padding: 12px 15px;
-      font-size: 15px;
+      font-size: 14px;
 
       color: #244034;
       background: #faf6f1;
@@ -989,7 +988,7 @@
       }
     }
     td {
-      font-size: 15px;
+      font-size: 14px;
       vertical-align: middle;
       box-shadow: none;
       padding: 25px 15px;
@@ -1104,7 +1103,7 @@
   }
 
   .dash-pagination li {
-    font-size: 16px;
+    font-size: 14px;
     color: #000;
     height: 38px;
     a {
@@ -1202,7 +1201,7 @@
         }
       }
       .message_filter button {
-        font-size: 15px;
+        font-size: 14px;
 
         color: $heading;
         line-height: 28px;
@@ -1260,7 +1259,7 @@
             background: #3bda84;
           }
           .sender-name {
-            font-size: 15px;
+            font-size: 14px;
 
             color: rgba($color: #1f2937, $alpha: 0.8);
           }
@@ -1270,7 +1269,7 @@
             color: rgba($color: #000, $alpha: 0.5);
           }
           .mail-sub {
-            font-size: 16px;
+            font-size: 14px;
             color: #000;
             margin: 7px 0 10px;
             text-overflow: ellipsis;
@@ -1278,7 +1277,7 @@
             white-space: nowrap;
           }
           .mail-text {
-            font-size: 15px;
+            font-size: 14px;
             line-height: 25px;
             color: rgba($color: #000, $alpha: 0.5);
             overflow: hidden;
@@ -1329,7 +1328,7 @@
       .email-body {
         padding-top: 35px;
         padding-bottom: 15px;
-        font-size: 15px;
+        font-size: 14px;
         h2 {
           font-size: 24px;
           margin-bottom: 25px;
@@ -1342,7 +1341,7 @@
         padding-top: 20px;
         .attachments {
           h6 {
-            font-size: 15px;
+            font-size: 14px;
           }
           .all-download {
             font-size: 14px;
@@ -1363,7 +1362,7 @@
               background: #faf6f1;
             }
             .file-name {
-              font-size: 15px;
+              font-size: 14px;
               letter-spacing: -0.3px;
               color: $heading;
             }
@@ -1415,7 +1414,7 @@
       }
     }
     .cancel-plan {
-      font-size: 15px;
+      font-size: 14px;
 
       color: $color-five;
       text-decoration: underline;
@@ -1439,7 +1438,7 @@
       right: 10px;
       z-index: 1;
       a {
-        font-size: 15px;
+        font-size: 14px;
         padding: 2px;
         color: $heading;
         margin-left: 8px;
@@ -1464,7 +1463,7 @@
     height: 125px;
     max-height: 125px;
     border: none;
-    font-size: 15px;
+    font-size: 14px;
     padding: 15px 22px;
   }
   .compose-email-footer {
@@ -1537,7 +1536,7 @@
     line-height: 40px;
     border-radius: 6px;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     color: $text-white;
     background: $color-five;
     &:hover {
@@ -1550,7 +1549,7 @@
     width: auto;
     height: auto;
     padding: 0;
-    font-size: 16px;
+    font-size: 14px;
     color: #000;
     opacity: 1;
     box-shadow: none;
@@ -1669,7 +1668,7 @@
 .skills-section h4 {
   margin: 0 0 0.75rem 0;
   color: #374151;
-  font-size: 1rem;
+  font-size: 14px;
 }
 
 .skills-list {
@@ -1687,7 +1686,7 @@
 }
 
 .description-section {
-  font-size: 1rem;
+  font-size: 14px;
   color: $text-primary;
   // max-width: 90%;
 }
@@ -1707,7 +1706,7 @@
 .status-badge {
   padding: 0.5rem 1rem;
   border-radius: 0px;
-  font-size: 0.875rem;
+  font-size: 1rem;
   height: fit-content;
 }
 
@@ -1733,7 +1732,7 @@
 
 .subname-error {
   color: rgb(255 126 126);
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .attestation-section {
@@ -1758,7 +1757,7 @@
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 14px;
   color: #1f2937;
   background: white;
   transition: border-color 0.2s ease;
@@ -1776,7 +1775,7 @@
   border-radius: 6px;
   background: #2563eb;
   color: white;
-  font-size: 1rem;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -1874,7 +1873,7 @@
   background: transparent;
   border: none;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   margin-left: 10px;
 }
@@ -1916,7 +1915,7 @@
     justify-content: space-between;
     border-radius: 4px;
     padding: 10px 0;
-    font-size: 16px;
+    font-size: 14px;
     overflow: hidden;
     color: $text-secondary;
 
@@ -1940,7 +1939,9 @@
 }
 
 .attestation-container.dashboard-body {
-  max-width: 80%;
+  // max-width: 80%;
+  background-color: #faf6f1;
+  border-radius: 0;
   margin: 0 auto;
 }
 
@@ -1972,14 +1973,14 @@
   width: 100%;
   min-width: 800px;
   max-width: 900px;
-  background: rgba(255, 255, 255, 0.05);
+  background: #fff;
   backdrop-filter: blur(10px);
-  border: 1px solid $color-border;
+  // border: 1px solid $color-border;
   border-radius: 0px;
   padding: 2rem;
   color: white;
-  border: solid 2px #888;
-  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+  border: solid 2px #1f2937;
+  // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 }
 
 .header {
@@ -1991,7 +1992,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin: 1rem 0;
-  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  background: $text-primary;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -2148,7 +2149,7 @@
 
 .info-item h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -2220,7 +2221,7 @@
 }
 
 .status-badge.pending {
-  background: rgba(234, 179, 8, 0.2);
+  // background: rgba(234, 179, 8, 0.2);
   color: #fbbf24;
 }
 
@@ -2496,7 +2497,7 @@
 .card {
   padding: 1.5rem;
   margin-bottom: 2rem;
-  border: solid 2px #888;
+  border: solid 2px #1f2937;
   border-radius: 8px;
   // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 }
@@ -2799,7 +2800,7 @@ a:hover {
 /* Message */
 .popup-message {
   color: #b3b3b3;
-  font-size: 1rem;
+  font-size: 14px;
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -2818,7 +2819,7 @@ a:hover {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 14px;
   transition: background-color 0.3s;
 }
 

@@ -24,7 +24,7 @@
     overflow: hidden;
     padding: 20px;
     border-radius: 8px;
-    border: solid 2px #888;
+    border: solid 2px #1f2937;
     cursor: pointer;
     box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
     .save-btn {
@@ -79,7 +79,7 @@
     }
   }
   .candidate-post {
-    font-size: 15px;
+    font-size: 14px;
     color: #94a3b8;
   }
   .cadidate-skills {
@@ -101,7 +101,7 @@
     }
   }
   .candidate-info span {
-    font-size: 15px;
+    font-size: 14px;
     color: #94a3b8;
   }
 
@@ -127,7 +127,7 @@
   }
 
   .candidate-info div {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     color: #1f2937;
     margin: 2px 0 0;
@@ -282,7 +282,7 @@
   .skill-tags {
     margin: 0 -8px;
     li {
-      font-size: 16px;
+      font-size: 14px;
       color: #1f2937;
       margin: 18px 8px 0;
       line-height: 45px;
@@ -327,7 +327,7 @@
       margin: 18px 0 20px;
     }
     .invite-btn {
-      font-size: 15px;
+      font-size: 14px;
       letter-spacing: -0.5px;
       color: #008fdf;
       text-decoration: underline;
@@ -336,11 +336,11 @@
       border-top: 1px solid $color-border;
       padding: 14px 0;
       span {
-        font-size: 15px;
+        font-size: 14px;
         color: $text-secondary;
       }
       div {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 500;
         color: $text-primary;
         margin: 4px 0 0;
@@ -362,7 +362,7 @@
   }
   .email-form {
     p {
-      font-size: 15px;
+      font-size: 14px;
       line-height: 22px;
       padding: 20px 0 0;
     }

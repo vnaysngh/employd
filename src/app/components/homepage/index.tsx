@@ -184,7 +184,7 @@ const Homepage = () => {
           ) : account.address && user ? (
             <NameSelector user={user} />
           ) : (
-            "Loading"
+            <Loader />
           )}
         </div>
       </div>

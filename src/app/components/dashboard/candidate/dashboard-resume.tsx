@@ -297,7 +297,7 @@ const ExperienceCard = ({
               target="_blank"
               className="on-hover-underline status-badge pending"
             >
-              Pending Attestation
+              Pending Attestation from Employer
             </Link>
           ) : experience.attestationStatus === 2 ? (
             <Link

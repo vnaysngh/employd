@@ -5,6 +5,7 @@ import CandidateItem from "./candidate-item";
 import { useActiveAccount, useProfiles, useReadContract } from "thirdweb/react";
 import { contract } from "@/context";
 import { client } from "@/config/thirdwebClient";
+import Loader from "@/app/loading";
 // import SPIndexService from "@/app/signprotocol/signClient";
 
 // props type
@@ -60,11 +61,7 @@ const CandidateAttestation = ({ setIsOpenSidebar }: IProps) => {
         </div>
 
         <div className="wrapper">
-          {isPending && (
-            <div className="candidate-profile-card list-layout mb-25 cursor-pointer">
-              <h3>Loading...</h3>
-            </div>
-          )}
+          {isPending && <Loader />}
 
           {!isPending && !isLoading && !totalAttestations?.length && (
             <div className="candidate-profile-card list-layout mb-25 cursor-pointer">

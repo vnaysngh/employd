@@ -7,7 +7,8 @@ const colourStyles = {
     ...styles,
     minHeight: 50,
     padding: "6px 0",
-    borderRadius: "8px"
+    borderRadius: "8px",
+    fontSize: "14px"
   }),
   input: (styles: any) => ({ ...styles, color: "#1f2937" })
 };

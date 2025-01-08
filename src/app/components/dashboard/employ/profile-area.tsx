@@ -338,7 +338,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   className="form-select"
-                  style={{ borderRadius: "8px" }}
+                  style={{ borderRadius: "8px", fontSize: "14px" }}
                 >
                   <option value="">Select Industry</option>
                   {categories.map((cat) => (

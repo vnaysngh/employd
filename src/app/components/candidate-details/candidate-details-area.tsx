@@ -8,6 +8,7 @@ import WorkExperience from "./work-experience";
 import CandidateBio from "./bio";
 import { useParams } from "next/navigation";
 import { useStateContext } from "@/context";
+import Loader from "@/app/loading";
 
 /* const candidate = {
   name: "Vinay Singh",
@@ -86,11 +87,7 @@ const CandidateDetailsArea = () => {
   return (
     <section className="candidates-profile pt-50 pb-150 lg-pb-80">
       {loading ? (
-        <div className="profile-container">
-          <header className="profile-header">
-            <h3>Loading</h3>
-          </header>
-        </div>
+        <Loader />
       ) : !user && !loading ? (
         <div className="profile-container">
           <header className="profile-header">

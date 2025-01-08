@@ -57,7 +57,7 @@ const Attestations = ({
   return (
     <div
       className={`attestation-container dashboard-body`}
-      style={{ background: "#fff", padding: "50px 55px" }}
+      style={{ padding: "50px 55px" }}
     >
       <div className="position-relative">
         <div className="glass-card">

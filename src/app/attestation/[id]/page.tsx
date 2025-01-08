@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { useActiveAccount, useReadContract } from "thirdweb/react";
 import { contract, useStateContext } from "@/context";
 import HeaderThree from "@/layouts/headers/header";
+import Loader from "@/app/loading";
 
 interface WorkerRequest {
   signature: {
@@ -150,7 +151,7 @@ const CandidateDashboardResumePage = () => {
         <HeaderThree />
 
         {isPending ? (
-          <h3>Loading</h3>
+          <Loader />
         ) : !isPending && !data ? (
           <h3>Attestation data not found</h3>
         ) : (

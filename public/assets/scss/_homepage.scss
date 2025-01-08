@@ -14,7 +14,7 @@
       button {
         padding: 0.875rem;
         border-radius: 0px;
-        font-size: 1rem;
+        font-size: 14px;
         font-weight: 500;
         display: flex;
         align-items: center;
@@ -83,7 +83,7 @@
 .name-selector-wrapper {
   padding: 20px 30px;
   text-align: center;
-  border: solid 2px #888;
+  border: solid 2px #1f2937;
   box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
   border-radius: 0px;
   background-color: #fff;
@@ -107,7 +107,7 @@
     // background: #191825;
     border-radius: 4px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
     color: $text-secondary;
     flex-wrap: wrap;
     // border: 1px solid #000;
@@ -115,7 +115,7 @@
 
   .subname-error {
     color: rgb(255 126 126);
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .input-field {
@@ -164,7 +164,7 @@
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     margin: auto;
@@ -242,12 +242,12 @@
 
 .success-text {
   color: green;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .loading-text {
   color: darkcyan;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .tw-connected-details {
@@ -343,7 +343,7 @@
     background: #efeeef;
     border: 0;
     color: $text-white;
-    font-size: 16px;
+    font-size: 14px;
     height: 50px;
     width: 100%;
     border-radius: 0px;
@@ -377,7 +377,7 @@
     border-radius: 4px;
     box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
     width: 100%;
-    // border: solid 2px #888;
+    // border: solid 2px #1f2937;
     max-width: 500px;
   }
 
@@ -409,7 +409,7 @@
     width: 100%;
     padding: 0.875rem;
     border-radius: 0px;
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 500;
     display: flex;
     align-items: center;

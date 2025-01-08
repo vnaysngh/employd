@@ -37,7 +37,8 @@ export function WalletComponents({
           height: "auto",
           minWidth: "165px",
           border: isBgGreen ? 0 : "1px solid #1f2937",
-          borderRadius: "8px"
+          borderRadius: "8px",
+          fontSize: "14px"
         }
       }}
       connectModal={{

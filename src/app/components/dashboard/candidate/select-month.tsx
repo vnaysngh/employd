@@ -6,9 +6,10 @@ const styles = {
     ...styles,
     minHeight: 50,
     backgroundColor: state.isDisabled ? "#f5f5f5" : "$bg-input", // Light grey for disabled
-    border: "1px solid $color-border",
+
     padding: "6px 0",
-    borderRadius: "8px"
+    borderRadius: "8px",
+    fontSize: "14px"
   }),
   input: (styles: any) => ({ ...styles, color: "#1f2937" }),
   singleValue: (styles: any) => ({ ...styles, color: "#1f2937" })
