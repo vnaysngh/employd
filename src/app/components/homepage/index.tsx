@@ -102,11 +102,10 @@ const Homepage = () => {
       }
     };
 
-    if (account?.address && loginType) checkIfRegisteredUser();
+    if (account?.address && loginType === "login") checkIfRegisteredUser();
   }, [account?.address]);
 
   const handleRedirect = (registeredUser: any) => {
-    console.log(registeredUser);
     if (registeredUser.isOnboarded) {
       registeredUser.user_type === "talent"
         ? router.push("/dashboard/candidate-dashboard/experience")
@@ -120,8 +119,6 @@ const Homepage = () => {
     if (account?.address && loginType === "login" && isUserRegistered)
       handleRedirect(isUserRegistered);
   }, [account?.address, loginType, isUserRegistered]);
-
-  console.log(loginType, user, isUserRegistered, "login type");
 
   return (
     <Wrapper>
