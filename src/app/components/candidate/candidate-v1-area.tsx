@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import candidate_data from "@/data/candidate-data";
 import CandidateGridItem from "./candidate-grid-item";
-import CandidateListItem from "./candidate-list-item";
 import { useStateContext } from "@/context";
 import CandidateV1FilterArea from "./filter/candidate-v1-filter-area";
 import { Poppins } from "next/font/google";
@@ -13,11 +11,11 @@ const CandidateV1Area = () => {
   const [searchValue, setSearchValue] = useState("");
 
   // Filtered employers based on search input
-  const filteredTalents = talents?.filter((employer: any) => {
+  const filteredTalents = talents?.filter((talent: any) => {
     const searchLower = searchValue.toLowerCase();
     return (
-      employer.name?.toLowerCase().includes(searchLower) ||
-      employer.ens_name?.toLowerCase().includes(searchLower)
+      talent.name?.toLowerCase().includes(searchLower) ||
+      talent.ens_name?.toLowerCase().includes(searchLower)
     );
   });
 

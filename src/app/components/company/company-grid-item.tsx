@@ -3,8 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import avatar from "@/assets/dashboard/images/icon/company.png";
 import logo from "@/assets/images/assets/letter-stamp.png";
+import { useReadContract } from "thirdweb/react";
+import { contract } from "@/context";
 
 const CompanyGridItem = ({ item }: { item: any }) => {
+  const { data: attestations, isPending } = useReadContract({
+    contract: contract,
+    method:
+      "function getEmployerExperienceIds(address employer) view returns (uint32[])",
+    params: [item.address!]
+  });
   return (
     <div className={`company-grid-layout mb-30`}>
       <div className="d-flex justify-content-between mb-10  ">
@@ -12,10 +20,10 @@ const CompanyGridItem = ({ item }: { item: any }) => {
           {item?.company_details?.category || "Others"}
         </div>
         {/* Attestation badge */}
-        {/*  <div className="attestation-count">
+        <div className="attestation-count">
           <Image src={logo} height={12} width={12} alt="logo" />
-          <span>{item.attestations_count || 0}</span>
-        </div> */}
+          <span>{attestations?.length || 0}</span>
+        </div>
       </div>
       <Link
         href={`/${item.ens_name}.employd.eth`}

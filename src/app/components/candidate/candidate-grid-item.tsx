@@ -8,12 +8,12 @@ import { contract } from "@/context";
 import { useRouter } from "next/navigation";
 
 const CandidateGridItem = ({ item }: { item: any }) => {
-  /*   const { data: attestations, isPending } = useReadContract({
+  const { data: attestations, isPending } = useReadContract({
     contract: contract,
     method:
       "function getUserExperienceIds(address user) view returns (uint32[])",
     params: [item.address!]
-  }); */
+  });
 
   const router = useRouter();
 
@@ -22,10 +22,14 @@ const CandidateGridItem = ({ item }: { item: any }) => {
       <div className="d-flex justify-content-between mb-10  ">
         <div className="category">{item?.role || "Others"}</div>
         {/* Attestation badge */}
-        {/* <div className="attestation-count">
+        <div
+          className="attestation-count"
+          data-bs-toggle="tooltip"
+          title="The total number of attestations, including verified and pending ones, associated with this user."
+        >
           <Image src={logo} height={12} width={12} alt="logo" />
           <span>{attestations?.length || 0}</span>
-        </div> */}
+        </div>
       </div>
       <Link
         href={`/${item.ens_name}.employd.eth`}

@@ -60,7 +60,7 @@
     font-size: 12px;
     display: flex;
     align-items: center;
-    // gap: 4px;
+    gap: 4px;
     z-index: 1;
   }
 
@@ -84,7 +84,7 @@
     padding: 4px 12px;
     border-radius: 8px;
     font-size: 14px;
-    color: #6c757d;
+    color: #999999;
   }
 
   .attestation-stats {
@@ -99,7 +99,7 @@
   .stat-item i {
     display: block;
     font-size: 20px;
-    color: #6c757d;
+    color: #999999;
     margin-bottom: 5px;
   }
 
@@ -111,12 +111,12 @@
 
   .stat-item small {
     display: block;
-    color: #6c757d;
+    color: #999999;
     font-size: 12px;
   }
 
   .company-description {
-    color: #6c757d;
+    color: #999999;
     font-size: 14px;
   }
   /* &.favourite::before {
