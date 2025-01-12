@@ -115,6 +115,8 @@ const Homepage = () => {
     }
   };
 
+  console.log(isUserRegistered, loginType);
+
   useEffect(() => {
     if (account?.address && loginType === "login" && isUserRegistered)
       handleRedirect(isUserRegistered);
