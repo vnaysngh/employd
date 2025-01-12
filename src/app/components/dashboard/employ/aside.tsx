@@ -177,13 +177,13 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                             isActive ? "active" : ""
                           }`}
                         >
-                          {/* <Image
+                          <Image
                             src={isActive ? m.icon_active : m.icon}
                             alt="icon"
                             height={20}
                             width={20}
                             className="lazy-img"
-                          /> */}
+                          />
 
                           <span>
                             {m.title}{" "}
@@ -213,13 +213,13 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                         }`}
                         target="_blank"
                       >
-                        {/* <Image
+                        <Image
                           src={isActive ? m.icon_active : m.icon}
                           alt="icon"
                           height={20}
                           width={20}
                           className="lazy-img"
-                        /> */}
+                        />
                         <span>{m.title}</span>
                       </Link>
                     </li>

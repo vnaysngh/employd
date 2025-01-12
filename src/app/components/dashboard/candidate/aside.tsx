@@ -143,13 +143,13 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                             isActive ? "active" : ""
                           }`}
                         >
-                          {/*  <Image
+                          <Image
                             src={isActive ? m.icon_active : m.icon}
                             alt="icon"
-                            height={20}
-                            width={20}
+                            height={16}
+                            width={16}
                             className="lazy-img"
-                          /> */}
+                          />
                           <span>{m.title}</span>
                         </Link>
                       </li>
@@ -173,13 +173,13 @@ const CandidateAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                           }`}
                           target="_blank"
                         >
-                          {/* <Image
-                          src={isActive ? m.icon_active : m.icon}
-                          alt="icon"
-                          height={20}
-                          width={20}
-                          className="lazy-img"
-                        /> */}
+                          <Image
+                            src={isActive ? m.icon_active : m.icon}
+                            alt="icon"
+                            height={16}
+                            width={16}
+                            className="lazy-img"
+                          />
                           <span>{m.title}</span>
                         </Link>
                       </li>
