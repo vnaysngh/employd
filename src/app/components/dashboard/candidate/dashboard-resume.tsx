@@ -203,6 +203,23 @@ const ExperienceCard = ({
     }
   };
 
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopy = async (experience: any) => {
+    try {
+      await navigator.clipboard.writeText(
+        `${window.location.origin}/attestation/${experience.id}`
+      );
+      setCopiedId(experience.id);
+      // Reset the copied state after 2 seconds
+      setTimeout(() => {
+        setCopiedId(null);
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
   const sortedExperiences = experiences.sort((a: any, b: any) => {
     // If one of the jobs is ongoing, treat it as the latest
     if (a.endYear === "N/A" && b.endYear === "N/A") return 0; // Both ongoing
@@ -231,7 +248,9 @@ const ExperienceCard = ({
     return (
       <div
         key={experience.id}
-        className={index === experiences.length - 1 ? "" : "mb-30"}
+        className={`experience-resume-card ${
+          index === experiences.length - 1 ? "" : "mb-30"
+        }`}
       >
         <div className="experience-title">
           <div className="d-flex gap-3">
@@ -270,12 +289,42 @@ const ExperienceCard = ({
               </div>
             </div>
           </div>
+          {experience.attestationStatus === 2 && (
+            <div className="status-indicator status-attested">
+              <i className="bi bi-check-circle-fill"></i>
+              Attested
+            </div>
+          )}
+          {experience.attestationStatus === 1 && (
+            <div className="status-indicator status-pending">
+              <i className="bi bi-clock-fill"></i>
+              Pending
+            </div>
+          )}
+          {experience.attestationStatus === 3 && (
+            <div className="status-indicator status-rejected">
+              <i className="bi bi-x-circle-fill"></i>
+              Rejected
+            </div>
+          )}
+        </div>
+        {experience?.description && (
+          <>
+            <div className="company-name mt-20">Description</div>
+            <div className="description-section mt-5">
+              {experience?.description}
+            </div>
+          </>
+        )}
+
+        <div className="action-buttons mt-20">
           {!experience?.employerEnsName ? (
             <button
               onClick={() => setInviteEmployer(experience)}
               disabled={loading}
-              className={`status-badge not-initiated bg-black`}
+              className="btn btn-primary"
             >
+              <i className="bi bi-person-plus"></i>
               Invite Employer to Attest
             </button>
           ) : !experience.attestationStatus && !txHash && !loading ? (
@@ -287,44 +336,33 @@ const ExperienceCard = ({
                 )
               }
               disabled={loading}
-              className="status-badge not-initiated"
+              className="btn btn-primary btn-request d-flex align-items-center"
             >
-              Request Attestation
+              <i className="bi bi-send me-2"></i>
+              <span>Request Attestation</span>
             </button>
-          ) : experience.attestationStatus === 1 ? (
-            <Link
-              href={`/attestation/${experience.id}`}
-              target="_blank"
-              className="on-hover-underline status-badge pending"
-            >
-              Pending Attestation from Employer
-            </Link>
-          ) : experience.attestationStatus === 2 ? (
-            <Link
-              href={`/attestation/${experience.id}`}
-              target="_blank"
-              className="on-hover-underline status-badge attested"
-            >
-              Attested ✓
-            </Link>
-          ) : experience.attestationStatus === 3 ? (
-            <Link
-              href={`/attestation/${experience.id}`}
-              target="_blank"
-              className="on-hover-underline status-badge subname-error"
-            >
-              Rejected
-            </Link>
+          ) : !loading && experience.attestationStatus ? (
+            <>
+              <Link
+                href={`/attestation/${experience.id}`}
+                target="_blank"
+                className="btn btn-info d-flex align-items-center"
+              >
+                <i className="bi bi-box-arrow-up-right me-2"></i>
+                <span>View</span>
+              </Link>
+              <button
+                onClick={() => handleCopy(experience)}
+                className="btn btn-info d-flex align-items-center"
+              >
+                <i className="bi bi-clipboard me-2"></i>
+                <span>
+                  {copiedId === experience.id ? "Copied!" : "Copy URL"}
+                </span>
+              </button>
+            </>
           ) : null}
         </div>
-        {experience?.description && (
-          <>
-            <div className="company-name mt-20">Description</div>
-            <div className="description-section mt-5">
-              {experience?.description}
-            </div>
-          </>
-        )}
 
         {experience && experience.id === experienceId && (
           <>

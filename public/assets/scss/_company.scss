@@ -33,8 +33,26 @@
   margin-bottom: 0.5rem;
 }
 
-.action-buttons .btn {
-  padding: 0.5rem 1rem;
+.action-buttons {
+  display: flex;
+  gap: 20px;
+
+  .btn-info {
+    padding: 0;
+    border: 0;
+    color: lightblue;
+    background-color: transparent;
+    font-size: 12px;
+
+    &:focus {
+      color: lightblue;
+      background-color: transparent;
+    }
+  }
+
+  .btn-request {
+    font-size: 12px;
+  }
 }
 
 // Company Grid Layout

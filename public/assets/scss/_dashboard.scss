@@ -1590,6 +1590,11 @@
   grid-template-columns: 1fr;
 }
 
+.experience-resume-card {
+  border: solid 2px rgb(44, 45, 48);
+  padding: 30px;
+}
+
 .experience-card {
   border: 0;
   padding: 1.5rem;
@@ -1597,6 +1602,32 @@
   border-radius: 8px;
   border: 0;
   background-color: #fff;
+
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    height: fit-content;
+  }
+
+  .status-pending {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+  }
+
+  .status-attested {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+  }
+
+  .status-rejected {
+    background: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+  }
   // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 }
 
