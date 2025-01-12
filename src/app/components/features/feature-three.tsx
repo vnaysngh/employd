@@ -18,7 +18,7 @@ const FeatureThree = () => {
                   Empower Your Career with Attestations
                 </h2>
               </div>
-              <p className="mt-40 md-mt-20 mb-40 md-mb-20">
+              <p className="mt-40 md-mt-20 mb-40 md-mb-20 color-secondary">
                 Leverage blockchain-based attestation to verify your skills,
                 roles, and achievements. Build a tamper-proof professional
                 identity that employers trust.
@@ -41,7 +41,7 @@ const FeatureThree = () => {
             </div>
           </div>
         </div>
-        <div className="border-bottom pb-50 lg-pb-20 mt-90 lg-mt-30">
+        <div className="pb-50 lg-pb-20 mt-90 lg-mt-30">
           <div className="row justify-content-center">
             {/* <CounterOne /> */}
           </div>

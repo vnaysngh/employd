@@ -1,5 +1,5 @@
 .theme-main-menu {
-  // background: #1f2937;
+  // background: rgb(44, 45, 48);
   position: relative;
   z-index: 999;
   padding: 20px 40px;
@@ -18,7 +18,7 @@
     right: 0;
     padding-top: 5px;
     padding-bottom: 5px;
-    background: $text-white;
+    // background: ;
     box-shadow: 0 13px 35px -12px rgb(35 35 35 / 10%);
   }
   .category-dropdown {
@@ -148,7 +148,7 @@
   @include transition(0.2s);
 }
 .navbar .nav-item:hover .nav-link {
-  color: $color-three;
+  color: #ed406c;
 }
 .navbar .dropdown-menu .dropdown-item {
   text-transform: capitalize;

@@ -7,9 +7,9 @@
   min-height: 100vh;
   overflow-y: auto;
   width: 260px;
-  background-color: #fff;
+  background-color: rgb(26, 27, 30);
   padding: 30px 20px 30px;
-  // border-right: 4px solid #1f2937;
+  // border-right: 4px solid rgb(44, 45, 48);
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -97,10 +97,10 @@
       padding-left: 10px;
     }
     &:hover {
-      color: #3c8968;
+      color: #fff;
     }
     &.active {
-      background: #1f2937;
+      background: rgb(44, 45, 48);
       color: $text-white;
     }
     img {
@@ -117,7 +117,7 @@
     .progress-line {
       height: 5px;
       border-radius: 10px;
-      background: #1f2937;
+      background: rgb(44, 45, 48);
       overflow: hidden;
       margin: 9px 0 3px;
       .inner-line {
@@ -158,7 +158,7 @@
 // Dashboard Body
 .dashboard-body {
   min-height: 100vh;
-  background: #faf6f1;
+  // background: transparent;
   margin-left: 260px;
   // max-width: 80%;
   // margin: auto;
@@ -195,7 +195,7 @@
   }
   .card-box {
     padding: 45px 60px 50px;
-    background-color: #fff;
+    background-color: rgb(26, 27, 30);
     // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
   }
 
@@ -212,7 +212,7 @@
       border: 1px solid $color-border;
       border-radius: 0px;
       padding: 0 20px;
-      color: #1f2937;
+      color: rgb(44, 45, 48);
       background-color: $bg-input;
     }
   }
@@ -244,7 +244,7 @@
     padding: 0 15px;
     min-width: 135px;
     text-align: center;
-    background: rgba($color: #1f2937, $alpha: 0.2);
+    background: rgba($color: rgb(44, 45, 48), $alpha: 0.2);
     @include transition(0.2s);
     i {
       font-size: 1.5em;
@@ -293,7 +293,7 @@
     top: 0;
     right: 55px;
     left: 315px;
-    background: #faf6f1;
+    // background: transparent;
     padding: 30px 0;
     z-index: 999;
     .search-form {
@@ -307,7 +307,7 @@
         border: 1px solid $color-border;
         border-radius: 0px;
         padding: 0 20px;
-        color: #1f2937;
+        color: rgb(44, 45, 48);
         background-color: $bg-input;
       }
       button {
@@ -484,7 +484,7 @@
     .nice-select {
       height: 50px;
       line-height: 46px;
-      border: 2px solid #1f2937;
+      border: 2px solid rgb(44, 45, 48);
       border-radius: 0px;
       font-size: 14px;
       &:after {
@@ -610,20 +610,17 @@
     .upload-btn {
       font-size: 14px;
       letter-spacing: -0.15px;
-
+      background: $color-five;
+      color: $text-white;
+      border: 0;
       width: 175px;
       line-height: 40px;
       height: 40px;
       text-align: center;
       border-radius: 0px;
-      color: #1f2937;
       cursor: pointer;
-      border: 1px solid #1f2937;
-      &:hover {
-        background: $color-five;
-        color: $text-white;
-        border: 0;
-      }
+      border: 1px solid rgb(44, 45, 48);
+
       input {
         position: absolute;
         opacity: 0;
@@ -661,9 +658,10 @@
         width: 20px !important;
         padding: 0 !important;
         margin-right: 0.5rem;
+        border: 0;
 
         &:checked {
-          background-color: #1f2937;
+          background-color: rgb(44, 45, 48);
         }
       }
 
@@ -686,21 +684,22 @@
       font-size: 14px;
       height: 50px;
       letter-spacing: -0.16px;
-      border: 1px solid $color-border;
       border-radius: 8px;
       padding: 0 20px;
       color: $text-primary;
-      background-color: $bg-secondary;
+      background-color: rgb(44, 45, 48);
+      border: 0;
+      outline: none;
     }
     textarea {
-      border: 1px solid $color-border;
-      border-radius: 4px;
+      border-radius: 8px;
       padding: 15px 20px;
       max-width: 100%;
       width: 100%;
       resize: none;
-      color: #1f2937;
-      background-color: $bg-input;
+      color: rgb(44, 45, 48);
+      background-color: rgb(44, 45, 48);
+      border: 0;
       &.size-lg {
         height: 230px;
         max-height: 200px;
@@ -836,7 +835,7 @@
         margin: 10px 3px 0;
         padding: 0 14px;
         height: 25px;
-        background: rgba($color: #1f2937, $alpha: 0.1);
+        background: rgba($color: rgb(44, 45, 48), $alpha: 0.1);
         border-radius: 30px;
         @include transition(0.2s);
         &:hover {
@@ -893,9 +892,12 @@
       opacity: 0;
     }
   }
+
   .dash-accordion-one {
     .accordion-item {
       border: 0;
+      background-color: transparent;
+
       // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
       border-radius: 8px;
 
@@ -978,7 +980,7 @@
       font-size: 14px;
 
       color: #244034;
-      background: #faf6f1;
+      background: transparent;
       &:first-child {
         border-radius: 7px 0 0 7px;
       }
@@ -1141,7 +1143,7 @@
     line-height: 45px;
     text-align: center;
     font-size: 28px;
-    color: #1f2937;
+    color: rgb(44, 45, 48);
     background: #d3fa38;
   }
   .message-pagination a {
@@ -1188,7 +1190,7 @@
           border: 1px solid $color-border;
           border-radius: 0px;
           padding: 0 20px;
-          color: #1f2937;
+          color: rgb(44, 45, 48);
           background-color: $bg-input;
         }
         button {
@@ -1233,7 +1235,7 @@
         cursor: pointer;
         position: relative;
         &.selected {
-          background: #faf6f1;
+          background: transparent;
           border-left: 4px solid #779e86;
           border-right: 4px solid #779e86;
           .email-short-preview .file {
@@ -1261,7 +1263,7 @@
           .sender-name {
             font-size: 14px;
 
-            color: rgba($color: #1f2937, $alpha: 0.8);
+            color: rgba($color: rgb(44, 45, 48), $alpha: 0.8);
           }
           .date {
             font-size: 12px;
@@ -1291,7 +1293,7 @@
             font-size: 12px;
             letter-spacing: -0.3px;
             color: rgba($color: #000, $alpha: 0.5);
-            background: #faf6f1;
+            background: transparent;
           }
         }
       }
@@ -1359,7 +1361,7 @@
             .icon {
               width: 37px;
               height: 37px;
-              background: #faf6f1;
+              background: transparent;
             }
             .file-name {
               font-size: 14px;
@@ -1578,7 +1580,7 @@
 
 .dashboard-subtitle {
   font-size: 1.1rem;
-  color: #666;
+  color: $text-secondary;
   margin: 0;
 }
 
@@ -1748,7 +1750,7 @@
 .select-wrapper label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #666;
+  color: $text-secondary;
   font-size: 0.875rem;
 }
 
@@ -1758,7 +1760,7 @@
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 14px;
-  color: #1f2937;
+  color: rgb(44, 45, 48);
   background: white;
   transition: border-color 0.2s ease;
 }
@@ -1905,7 +1907,7 @@
     border: 1px solid $color-border;
     border-radius: 0px;
     padding: 0 20px;
-    color: #1f2937;
+    color: rgb(44, 45, 48);
     background-color: $bg-input;
     width: 100%;
   }
@@ -1940,7 +1942,7 @@
 
 .attestation-container.dashboard-body {
   // max-width: 80%;
-  background-color: #faf6f1;
+  // background-color: transparent;
   border-radius: 0;
   margin: 0 auto;
 }
@@ -1965,7 +1967,7 @@
 
 .attestation-container {
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
 }
 
@@ -1973,13 +1975,13 @@
   width: 100%;
   min-width: 800px;
   max-width: 900px;
-  background: #fff;
+  background: rgb(26, 27, 30);
   backdrop-filter: blur(10px);
   // border: 1px solid $color-border;
   border-radius: 0px;
   padding: 2rem;
   color: white;
-  border: solid 2px #1f2937;
+  // border: solid 2px rgb(44, 45, 48);
   // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 }
 
@@ -2015,7 +2017,7 @@
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
-  border: 1px solid $color-border;
+  // border: 1px solid $color-border;
 }
 
 .user:hover {
@@ -2137,7 +2139,7 @@
   background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
   border-radius: 8px;
-  border: 1px solid $color-border;
+  // border: 1px solid $color-border;
 }
 
 .info-item label {
@@ -2157,7 +2159,7 @@
   background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
   border-radius: 8px;
-  border: 1px solid $color-border;
+  // border: 1px solid $color-border;
 }
 
 .bg-black {
@@ -2314,7 +2316,7 @@
 
 .logo-text {
   color: $text-white;
-  background-color: #1f2937;
+  background-color: rgb(44, 45, 48);
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-size: 1.5rem;
@@ -2340,7 +2342,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  // border: 2px solid #1f2937;
+  // border: 2px solid rgb(44, 45, 48);
   object-fit: cover;
 }
 
@@ -2358,7 +2360,7 @@
 .user-name {
   background: none;
   border: none;
-  // color: $text-white;
+  color: #ed406c;
   font-size: 0.975rem;
   padding: 0;
 }
@@ -2459,7 +2461,7 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #666;
+  border: 2px solid $text-secondary;
   padding: 3px;
 }
 
@@ -2496,8 +2498,9 @@
 .card {
   padding: 1.5rem;
   margin-bottom: 2rem;
-  border: solid 2px #1f2937;
+  border: solid 2px rgb(44, 45, 48);
   border-radius: 8px;
+  background-color: transparent;
   // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 }
 
@@ -2531,7 +2534,7 @@
 }
 
 .experience-item .company {
-  color: #1f2937;
+  color: #ed406c;
   margin: 0.25rem 0;
 }
 
@@ -2591,7 +2594,7 @@ a {
 }
 
 a:hover {
-  color: #1f2937;
+  color: rgb(44, 45, 48);
 }
 
 /* New styles for attestation status */
@@ -2676,7 +2679,11 @@ a:hover {
   // align-items: center;
   // justify-content: center;
   transition: all 0.2s ease;
-  // color: $text-primary;
+  color: $text-primary;
+}
+
+.social-icon {
+  color: $text-primary;
 }
 
 /* Previous CSS remains, adding new styles for employer details */
@@ -2710,7 +2717,7 @@ a:hover {
 }
 
 .meta-data-content a {
-  color: #1f2937;
+  color: rgb(44, 45, 48);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -2724,7 +2731,7 @@ a:hover {
   width: 100%;
   padding: 1rem;
   margin-top: 1.5rem;
-  background-color: #1f2937;
+  background-color: rgb(44, 45, 48);
   color: white;
   text-align: center;
   border-radius: 0px;

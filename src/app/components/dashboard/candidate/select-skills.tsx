@@ -6,11 +6,12 @@ const colourStyles = {
   control: (styles: any) => ({
     ...styles,
     minHeight: 50,
-    padding: "6px 0",
+    borderColor: "inherit",
     borderRadius: "8px",
-    fontSize: "14px"
+    fontSize: "14px",
+    backgroundColor: "rgb(44, 45, 48)"
   }),
-  input: (styles: any) => ({ ...styles, color: "#1f2937" })
+  input: (styles: any) => ({ ...styles, color: "#fff" })
 };
 
 const customComponents = {

@@ -167,7 +167,7 @@
   position: relative;
   font-weight: 500;
   font-size: 14px;
-  color: $color-one;
+  color: $text-primary;
   padding-left: 35px;
   margin-top: 24px;
   &:before {
@@ -534,7 +534,7 @@
     z-index: 1;
   }
   .nav {
-    background: #faf6f1;
+    background: transparent;
     border-radius: 40px;
     .nav-item {
       width: 50%;

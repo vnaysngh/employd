@@ -15,7 +15,7 @@
 }
 
 .company-title a {
-  color: #1f2937;
+  color: rgb(44, 45, 48);
   transition: color 0.3s ease;
 }
 
@@ -25,7 +25,7 @@
 
 .company-stats {
   font-size: 0.9rem;
-  color: #666;
+  color: $text-secondary;
 }
 
 .skills-section .badge {
@@ -48,7 +48,7 @@
   overflow: hidden;
   padding: 20px;
   border-radius: 8px;
-  border: solid 2px #1f2937;
+  border: solid 2px rgb(44, 45, 48);
   cursor: pointer;
   // box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 
@@ -66,6 +66,7 @@
 
   .ens-name {
     font-size: 12px;
+    color: #ed406c;
   }
 
   .category {
@@ -147,7 +148,7 @@
       border-radius: 30px;
       font-size: 12px;
       font-weight: 500;
-      color: #1f2937;
+      color: rgb(44, 45, 48);
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid $color-border;
       &.more {

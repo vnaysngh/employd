@@ -5,14 +5,13 @@ const styles = {
   control: (styles: any, state: any) => ({
     ...styles,
     minHeight: 50,
-    backgroundColor: state.isDisabled ? "#f5f5f5" : "$bg-input", // Light grey for disabled
-
-    padding: "6px 0",
+    backgroundColor: state.isDisabled ? "#202529" : "rgb(44, 45, 48)", // Light grey for disabled
+    borderColor: "inherit",
     borderRadius: "8px",
     fontSize: "14px"
   }),
-  input: (styles: any) => ({ ...styles, color: "#1f2937" }),
-  singleValue: (styles: any) => ({ ...styles, color: "#1f2937" })
+  input: (styles: any) => ({ ...styles, color: "#fff" }),
+  singleValue: (styles: any) => ({ ...styles, color: "#fff" })
 };
 
 const customComponents = {

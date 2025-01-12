@@ -11,7 +11,7 @@ const CandidateV1FilterArea = ({
     <form action="#" className="input-box position-relative">
       <input
         type="text"
-        placeholder="Search Company here"
+        placeholder="Start Typing"
         className="company-search-input"
         value={searchValue}
         onChange={handleSearch}

@@ -11,14 +11,15 @@ const styles = {
   control: (styles: any) => ({
     ...styles,
     minHeight: 50,
-    padding: "6px 0",
+    borderColor: "inherit",
     borderRadius: "8px",
     fontSize: "14px",
     boxShadow: "6px 6px 0px 0px rgba(0, 0, 0, 0.09)",
-    width: "300px"
+    width: "300px",
+    backgroundColor: "rgb(44, 45, 48)"
   }),
-  input: (styles: any) => ({ ...styles, color: "#1f2937" }),
-  singleValue: (styles: any) => ({ ...styles, color: "#1f2937" })
+  input: (styles: any) => ({ ...styles, color: "#fff" }),
+  singleValue: (styles: any) => ({ ...styles, color: "#fff" })
 };
 
 const customComponents = {
