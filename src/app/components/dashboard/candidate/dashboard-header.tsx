@@ -41,10 +41,10 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
     }
   };
 
-  const { users } = useStateContext();
+  // const { users } = useStateContext();
   const router = useRouter();
 
-  const userOptions =
+  /*   const userOptions =
     users && users.length
       ? users
           .map((user: any) => ({
@@ -52,7 +52,7 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
             value: user.ens_name
           }))
           .filter((user: any) => user.label !== null)
-      : [];
+      : []; */
 
   return (
     <header className="dashboard-header">
@@ -63,14 +63,14 @@ const DashboardHeader = ({ setIsOpenSidebar }: IProps) => {
         >
           <span></span>
         </button>
-        <div className="search-form ms-2 ms-md-5 me-4">
+        {/*  <div className="search-form ms-2 ms-md-5 me-4">
           <SelectUser
             onChange={(value) => {
               router.push(`/${value.value}.employd.eth`);
             }}
             options={userOptions}
           />
-        </div>
+        </div> */}
         <div className="ms-2">
           <ConnectButton
             client={client}

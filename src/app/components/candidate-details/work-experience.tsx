@@ -20,10 +20,6 @@ interface StatusDisplay {
 }
 
 const WorkExperience = ({ user }: { user: any }) => {
-  const { data: profiles } = useProfiles({
-    client: client
-  });
-
   const { data: experiences, isPending } = useReadContract({
     contract,
     method:
@@ -47,7 +43,7 @@ const WorkExperience = ({ user }: { user: any }) => {
   };
 
   const avatarPlaceholder =
-    user.user_type === "talent" ? (user.image ? user.image : avatar) : company;
+    user?.image || user?.user_login_details?.details?.picture || avatar;
 
   return (
     <div className="profile-container">

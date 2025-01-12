@@ -697,7 +697,7 @@
       max-width: 100%;
       width: 100%;
       resize: none;
-      color: rgb(44, 45, 48);
+      color: $text-primary;
       background-color: rgb(44, 45, 48);
       border: 0;
       &.size-lg {
@@ -1633,6 +1633,10 @@
 .company-name {
   font-size: 14px;
   color: $text-secondary;
+
+  a:hover {
+    color: $text-secondary;
+  }
 }
 
 .on-hover-underline {
@@ -1937,6 +1941,7 @@
   width: fit-content;
   margin: unset !important;
   padding: 5px 15px !important;
+  background: linear-gradient(to right, #ed406c 0%, #8364e2 100%);
   // margin-bottom: 30px !important;
 }
 

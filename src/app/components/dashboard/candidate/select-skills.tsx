@@ -6,7 +6,7 @@ const colourStyles = {
   control: (styles: any) => ({
     ...styles,
     minHeight: 50,
-    borderColor: "inherit",
+    borderColor: "transparent",
     borderRadius: "8px",
     fontSize: "14px",
     backgroundColor: "rgb(44, 45, 48)"
