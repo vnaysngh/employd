@@ -294,10 +294,10 @@ hr {
   border-radius: 8px;
   font-size: 14px;
   color: $text-white;
-  background: $color-three;
+  background: linear-gradient(to right, #ed406c 0%, #8364e2 100%);
   @include transition(0.3s);
   &:hover {
-    background: $color-one;
+    // background: $color-one;
     color: $text-white;
   }
 }
